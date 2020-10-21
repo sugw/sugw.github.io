@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>一只小笨鸟</title>
+  
+  
+  <link href="https://sugw.github.io/sugw.github.io/atom.xml" rel="self"/>
+  
+  <link href="https://sugw.github.io/sugw.github.io/"/>
+  <updated>2020-10-20T09:06:44.719Z</updated>
+  <id>https://sugw.github.io/sugw.github.io/</id>
+  
+  <author>
+    <name>guowei su</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Hello World</title>
+    <link href="https://sugw.github.io/sugw.github.io/2020/10/20/hello-world/"/>
+    <id>https://sugw.github.io/sugw.github.io/2020/10/20/hello-world/</id>
+    <published>2020-10-20T09:06:44.719Z</published>
+    <updated>2020-10-20T09:06:44.719Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.io/docs/&quot;&gt;documentation&lt;/a&gt; for more info. If you get any problems when using Hexo, you can find the answer in &lt;a href=&quot;https://hexo.io/docs/troubleshooting.html&quot;&gt;troubleshooting&lt;/a&gt; or you can ask me on &lt;a href=&quot;https://github.com/hexojs/hexo/issues&quot;&gt;GitHub&lt;/a&gt;.&lt;/p&gt;
+&lt;h2 id=&quot;Quick-Start&quot;&gt;&lt;a href=&quot;#Quick-Start&quot; class=&quot;headerlink&quot; title=&quot;Quick Start&quot;&gt;&lt;/a&gt;Quick Start&lt;/h2&gt;&lt;p&gt;&lt;a href=&quot;http://localhost:4000/sugw.github.io/tags/&quot;&gt;http://localhost:4000/sugw.github.io/tags/&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&quot;Create-a-new-post&quot;&gt;&lt;a href=&quot;#Create-a-new-post&quot; class=&quot;headerlink&quot; title=&quot;Create a new post&quot;&gt;&lt;/a&gt;Create a new post&lt;/h3&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$ hexo new &lt;span class=&quot;string&quot;&gt;&amp;quot;My New Post&amp;quot;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;</summary>
+    
+    
+    
+    <category term="测试" scheme="https://sugw.github.io/sugw.github.io/categories/%E6%B5%8B%E8%AF%95/"/>
+    
+    
+    <category term="标签1" scheme="https://sugw.github.io/sugw.github.io/tags/%E6%A0%87%E7%AD%BE1/"/>
+    
+    <category term="标签2" scheme="https://sugw.github.io/sugw.github.io/tags/%E6%A0%87%E7%AD%BE2/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>测试typora</title>
+    <link href="https://sugw.github.io/sugw.github.io/2020/10/20/%E4%B8%80%E7%BA%A7%E6%A0%87%E9%A2%98/"/>
+    <id>https://sugw.github.io/sugw.github.io/2020/10/20/%E4%B8%80%E7%BA%A7%E6%A0%87%E9%A2%98/</id>
+    <published>2020-10-20T02:43:25.861Z</published>
+    <updated>2020-10-20T08:58:54.862Z</updated>
+    
+    
+    <summary type="html">&lt;h1 id=&quot;一级标题&quot;&gt;&lt;a href=&quot;#一级标题&quot; class=&quot;headerlink&quot; title=&quot;一级标题&quot;&gt;&lt;/a&gt;一级标题&lt;/h1&gt;&lt;h2 id=&quot;二级标题&quot;&gt;&lt;a href=&quot;#二级标题&quot; class=&quot;headerlink&quot; title=&quot;二级标题&quot;&gt;&lt;/a&gt;二级标题&lt;/h2&gt;&lt;h3 id=&quot;三级标题&quot;&gt;&lt;a href=&quot;#三级标题&quot; class=&quot;headerlink&quot; title=&quot;三级标题&quot;&gt;&lt;/a&gt;三级标题&lt;/h3&gt;&lt;h6 id=&quot;主题&quot;&gt;&lt;a href=&quot;#主题&quot; class=&quot;headerlink&quot; title=&quot;主题&quot;&gt;&lt;/a&gt;主题&lt;/h6&gt;&lt;hr&gt;</summary>
+    
+    
+    
+    <category term="测试" scheme="https://sugw.github.io/sugw.github.io/categories/%E6%B5%8B%E8%AF%95/"/>
+    
+    
+  </entry>
+  
+</feed>
