@@ -6,7 +6,7 @@
   <link href="https://sugw.github.io/sugw.github.io/atom.xml" rel="self"/>
   
   <link href="https://sugw.github.io/sugw.github.io/"/>
-  <updated>2020-10-20T09:06:44.719Z</updated>
+  <updated>2020-10-21T07:37:37.269Z</updated>
   <id>https://sugw.github.io/sugw.github.io/</id>
   
   <author>
@@ -15,6 +15,27 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>linux 磁盘</title>
+    <link href="https://sugw.github.io/sugw.github.io/2020/10/21/linux%20%E7%A3%81%E7%9B%98%E6%BB%A1/"/>
+    <id>https://sugw.github.io/sugw.github.io/2020/10/21/linux%20%E7%A3%81%E7%9B%98%E6%BB%A1/</id>
+    <published>2020-10-21T07:29:37.710Z</published>
+    <updated>2020-10-21T07:37:37.269Z</updated>
+    
+    
+    <summary type="html">&lt;h3 id=&quot;问题：&quot;&gt;&lt;a href=&quot;#问题：&quot; class=&quot;headerlink&quot; title=&quot;问题：&quot;&gt;&lt;/a&gt;问题：&lt;/h3&gt;&lt;hr&gt;
+&lt;p&gt;​        磁盘显示已满，实际占用空间很小&lt;/p&gt;
+&lt;h3 id=&quot;原因：&quot;&gt;&lt;a href=&quot;#原因：&quot; class=&quot;headerlink&quot; title=&quot;原因：&quot;&gt;&lt;/a&gt;原因：&lt;/h3&gt;&lt;hr&gt;</summary>
+    
+    
+    
+    <category term="Linux" scheme="https://sugw.github.io/sugw.github.io/categories/Linux/"/>
+    
+    
+    <category term="磁盘" scheme="https://sugw.github.io/sugw.github.io/tags/%E7%A3%81%E7%9B%98/"/>
+    
+  </entry>
   
   <entry>
     <title>Hello World</title>

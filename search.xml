@@ -27,6 +27,32 @@
       </tags>
   </entry>
   <entry>
+    <title>linux 磁盘</title>
+    <url>/sugw.github.io/2020/10/21/linux%20%E7%A3%81%E7%9B%98%E6%BB%A1/</url>
+    <content><![CDATA[<h3 id="问题："><a href="#问题：" class="headerlink" title="问题："></a>问题：</h3><hr>
+<p>​        磁盘显示已满，实际占用空间很小</p>
+<h3 id="原因："><a href="#原因：" class="headerlink" title="原因："></a>原因：</h3><hr>
+<p>​        程序没有释放已删除的文件</p>
+<h3 id="解决："><a href="#解决：" class="headerlink" title="解决："></a>解决：</h3><hr>
+<blockquote>
+<p>​        重启占用文件的程序</p>
+<p>​        1.检查磁盘占用</p>
+<p>​                 df -Th</p>
+<p>​        2.检查目录占用大小</p>
+<p>​                cd /</p>
+<p>​                du -sh *|grep G</p>
+<p>​        3.查看为释放文件的程序</p>
+<p>​                lsof -i|grep delete</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>Linux</category>
+      </categories>
+      <tags>
+        <tag>磁盘</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>测试typora</title>
     <url>/sugw.github.io/2020/10/20/%E4%B8%80%E7%BA%A7%E6%A0%87%E9%A2%98/</url>
     <content><![CDATA[<h1 id="一级标题"><a href="#一级标题" class="headerlink" title="一级标题"></a>一级标题</h1><h2 id="二级标题"><a href="#二级标题" class="headerlink" title="二级标题"></a>二级标题</h2><h3 id="三级标题"><a href="#三级标题" class="headerlink" title="三级标题"></a>三级标题</h3><h6 id="主题"><a href="#主题" class="headerlink" title="主题"></a>主题</h6><hr>
