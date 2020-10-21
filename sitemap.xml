@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  
+  <url>
+    <loc>https://sugw.github.io/sugw.github.io/2020/10/20/hello-world/</loc>
+    
+    <lastmod>2020-10-20</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://sugw.github.io/sugw.github.io/about/index.html</loc>
+    
+    <lastmod>2020-10-20</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://sugw.github.io/sugw.github.io/tags/index.html</loc>
+    
+    <lastmod>2020-10-20</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://sugw.github.io/sugw.github.io/2020/10/16/sersync%E5%AE%89%E8%A3%85/</loc>
+    
+    <lastmod>2020-10-20</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://sugw.github.io/sugw.github.io/2020/10/20/%E4%B8%80%E7%BA%A7%E6%A0%87%E9%A2%98/</loc>
+    
+    <lastmod>2020-10-20</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://sugw.github.io/sugw.github.io/categories/index.html</loc>
+    
+    <lastmod>2020-10-20</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://sugw.github.io/sugw.github.io/%E6%96%87%E4%BB%B6%E6%9C%8D%E5%8A%A1/index.html</loc>
+    
+    <lastmod>2020-10-20</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://sugw.github.io/sugw.github.io/2020/10/16/%E6%96%87%E4%BB%B6%E6%9C%8D%E5%8A%A1/sersync+rsync%E5%AE%9E%E6%97%B6%E5%90%8C%E6%AD%A5/</loc>
+    
+    <lastmod>2020-10-16</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://sugw.github.io/sugw.github.io/2020/10/16/%E6%96%87%E4%BB%B6%E6%9C%8D%E5%8A%A1/nfs%E6%90%AD%E5%BB%BA/</loc>
+    
+    <lastmod>2020-10-16</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://sugw.github.io/sugw.github.io/2020/10/16/%E6%96%87%E4%BB%B6%E6%9C%8D%E5%8A%A1/rsync%E6%9C%8D%E5%8A%A1%E6%90%AD%E5%BB%BA%E5%8F%8A%E4%BD%BF%E7%94%A8%E5%AE%9E%E4%BE%8B/</loc>
+    
+    <lastmod>2020-10-16</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://sugw.github.io/sugw.github.io/2020/10/16/%E6%96%87%E4%BB%B6%E6%9C%8D%E5%8A%A1/rsync%E9%85%8D%E7%BD%AE/</loc>
+    
+    <lastmod>2020-10-16</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://sugw.github.io/sugw.github.io/2020/10/16/%E6%96%87%E4%BB%B6%E6%9C%8D%E5%8A%A1/nfs/</loc>
+    
+    <lastmod>2020-10-16</lastmod>
+    
+  </url>
+  
+
+  <url>
+    <loc>https://sugw.github.io/sugw.github.io</loc>
+    <lastmod>2020-10-21</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  
+  <url>
+    <loc>https://sugw.github.io/sugw.github.io/tags/%E6%A0%87%E7%AD%BE1/</loc>
+    <lastmod>2020-10-21</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://sugw.github.io/sugw.github.io/tags/%E6%A0%87%E7%AD%BE2/</loc>
+    <lastmod>2020-10-21</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+
+  
+  <url>
+    <loc>https://sugw.github.io/sugw.github.io/categories/%E6%B5%8B%E8%AF%95/</loc>
+    <lastmod>2020-10-21</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://sugw.github.io/sugw.github.io/categories/%E6%96%87%E4%BB%B6%E6%9C%8D%E5%8A%A1/</loc>
+    <lastmod>2020-10-21</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+</urlset>
