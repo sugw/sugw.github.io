@@ -126,6 +126,40 @@
 
 
 
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/sugw.github.io/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/sugw.github.io/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/sugw.github.io/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/sugw.github.io/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/sugw.github.io/%E5%BD%92%E6%A1%A3/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
 
 
   <div class="search-pop-overlay">
@@ -188,14 +222,14 @@
 <div class="site-state-wrap animated">
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
-          <a href="/sugw.github.io/%E5%BD%92%E6%A1%A3">
+          <a href="/sugw.github.io/%E5%BD%92%E6%A1%A3/">
         
           <span class="site-state-item-count">8</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
-            <a href="/sugw.github.io/%E5%88%86%E7%B1%BB">
+            <a href="/sugw.github.io/categories/">
           
         <span class="site-state-item-count">2</span>
         <span class="site-state-item-name">categories</span></a>
@@ -314,7 +348,6 @@
 <p>NFS权限设置<br>NFS配置权限设置，即/etc/exports文件配置格式中小括号（）里的参数集；<br>参数命令 参数用途<br>rw 表示可读写<br>ro Read-only表示只能读权限<br>Sync 请求或者写入数据时，数据同步写入到NFS server的硬盘中后才会返回<br>no_root_squas 访问nfs server共享目录的用户如果是root的话，它对该目录具有root权限。这个配置原本为无盘用户准备的。用户应避免使用！<br>root_squash 对于访问NFS server共享目录的用户，如果是root的话会被压缩成为nobody用户身份。<br>all_squash 不管访问nfs server共享目录的用户身份如何包括root，它的权限都将被压缩成为匿名用户，同时他们的udi和gid都会变成nobody或nfsnobody账户的uid，gid。在多个nfs客户端同时读写nfs server数据时，这个参数很有用可以确保大家写入的数据的权限是一样的。但不同系统有可能匿名用户的uid，gid不同。因为此处我们需要服务端和客户端之间的用户是一样的。比如说：服务端指定匿名用户的UID为2000，那么客户端也一定要存在2000这个账号才可以<br>anonuid anonuid就是匿名的uid和gid。说明客户端以什么权限来访问服务端，在默认情况下是nfsnobody。Uid65534.<br>anongid 同anongid，就是把uid换成gid而已<br>配置实例：<br>/home/test  1192.168.1.0/24(rw,sync,all_squash,anonuid=2000,anongid=2000)<br>###注意红色部分不能有空格！！生产环境中常用的一种配置，适合多客户端共享一个NFS目录。All_squash 也就是说不管客户端是以什么样的身份来进行访问的，都会被压缩成为all_squash后面所接的用户和群组身份。这边用anonuid、anongid编号来标示。=<br>小结：<br>服务器共享配置格式：<br>1）基本格式：共享目录 ip/24（共享属性）  -&gt;注意无空格<br>2）共享权限设置：<br>rw读写属性<br>sync文件实际写入磁盘后才返回<br>all_squash:所有访问用户均被压缩成后续接的用户。<br>anonuid:默认压缩的用户</p>
 
     </div>
-
     
     
     
