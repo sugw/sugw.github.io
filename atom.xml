@@ -6,7 +6,7 @@
   <link href="https://sugw.github.io/sugw.github.io/atom.xml" rel="self"/>
   
   <link href="https://sugw.github.io/sugw.github.io/"/>
-  <updated>2020-10-21T07:37:37.269Z</updated>
+  <updated>2020-10-26T03:32:45.912Z</updated>
   <id>https://sugw.github.io/sugw.github.io/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Mac start hexo for supervisor</title>
+    <link href="https://sugw.github.io/sugw.github.io/2020/10/26/mac%20for%20supervisor/"/>
+    <id>https://sugw.github.io/sugw.github.io/2020/10/26/mac%20for%20supervisor/</id>
+    <published>2020-10-26T03:15:45.979Z</published>
+    <updated>2020-10-26T03:32:45.912Z</updated>
+    
+    
+    <summary type="html">&lt;h1 id=&quot;环境：&quot;&gt;&lt;a href=&quot;#环境：&quot; class=&quot;headerlink&quot; title=&quot;环境：&quot;&gt;&lt;/a&gt;环境：&lt;/h1&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;系统：mac&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;应用：hexo&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;守护程序：supervisord&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+
+&lt;h1 id=&quot;1-安装supervisord&quot;&gt;&lt;a href=&quot;#1-安装supervisord&quot; class=&quot;headerlink&quot; title=&quot;1.安装supervisord&quot;&gt;&lt;/a&gt;1.安装supervisord&lt;/h1&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;sudo pip install supervisor&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+
+&lt;h1 id=&quot;2-配置&quot;&gt;&lt;a href=&quot;#2-配置&quot; class=&quot;headerlink&quot; title=&quot;2.配置&quot;&gt;&lt;/a&gt;2.配置&lt;/h1&gt;</summary>
+    
+    
+    
+    <category term="Mac" scheme="https://sugw.github.io/sugw.github.io/categories/Mac/"/>
+    
+    
+    <category term="supervisor" scheme="https://sugw.github.io/sugw.github.io/tags/supervisor/"/>
+    
+  </entry>
   
   <entry>
     <title>linux 磁盘</title>

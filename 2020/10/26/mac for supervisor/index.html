@@ -26,18 +26,21 @@ color="220,220,220" opacity='0.7' zIndex="-2" count="200" src="//cdn.bootcss.com
     var CONFIG = {"hostname":"sugw.github.io","root":"/sugw.github.io/","scheme":"Gemini","version":"8.0.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
   </script>
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="分类">
-<meta property="og:url" content="https://sugw.github.io/sugw.github.io/%E6%96%87%E4%BB%B6%E6%9C%8D%E5%8A%A1/index.html">
+  <meta name="description" content="环境：12345系统：mac应用：hexo守护程序：supervisord  1.安装supervisord1sudo pip install supervisor  2.配置">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Mac start hexo for supervisor">
+<meta property="og:url" content="https://sugw.github.io/sugw.github.io/2020/10/26/mac%20for%20supervisor/index.html">
 <meta property="og:site_name" content="一只小笨鸟">
+<meta property="og:description" content="环境：12345系统：mac应用：hexo守护程序：supervisord  1.安装supervisord1sudo pip install supervisor  2.配置">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2020-10-20T08:04:44.000Z">
-<meta property="article:modified_time" content="2020-10-20T08:09:10.746Z">
+<meta property="article:published_time" content="2020-10-26T03:15:45.979Z">
+<meta property="article:modified_time" content="2020-10-26T03:32:45.912Z">
 <meta property="article:author" content="guowei su">
+<meta property="article:tag" content="supervisor">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="https://sugw.github.io/sugw.github.io/%E6%96%87%E4%BB%B6%E6%9C%8D%E5%8A%A1/">
+<link rel="canonical" href="https://sugw.github.io/sugw.github.io/2020/10/26/mac%20for%20supervisor/">
 
 
 <script class="page-configurations">
@@ -45,13 +48,12 @@ color="220,220,220" opacity='0.7' zIndex="-2" count="200" src="//cdn.bootcss.com
   CONFIG.page = {
     sidebar: "",
     isHome : false,
-    isPost : false,
+    isPost : true,
     lang   : 'zh-CN'
   };
 </script>
 
-  <title>分类 | 一只小笨鸟
-</title>
+  <title>Mac start hexo for supervisor | 一只小笨鸟</title>
   
 
 
@@ -205,7 +207,7 @@ color="220,220,220" opacity='0.7' zIndex="-2" count="200" src="//cdn.bootcss.com
 
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-overview-active">
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           文章目录
@@ -217,6 +219,7 @@ color="220,220,220" opacity='0.7' zIndex="-2" count="200" src="//cdn.bootcss.com
 
       <!--noindex-->
       <section class="post-toc-wrap sidebar-panel">
+          <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%8E%AF%E5%A2%83%EF%BC%9A"><span class="nav-number">1.</span> <span class="nav-text">环境：</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#1-%E5%AE%89%E8%A3%85supervisord"><span class="nav-number">2.</span> <span class="nav-text">1.安装supervisord</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-%E9%85%8D%E7%BD%AE"><span class="nav-number">3.</span> <span class="nav-text">2.配置</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-%E5%90%AF%E5%8A%A8"><span class="nav-number">4.</span> <span class="nav-text">3.启动</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-%E9%97%AE%E9%A2%98"><span class="nav-number">5.</span> <span class="nav-text">4.问题</span></a></li></ol></div>
       </section>
       <!--/noindex-->
 
@@ -268,44 +271,159 @@ color="220,220,220" opacity='0.7' zIndex="-2" count="200" src="//cdn.bootcss.com
 </noscript>
 
 
-    <div class="main-inner page posts-expand">
+    <div class="main-inner post posts-expand">
+      
+
       
   
   
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://sugw.github.io/sugw.github.io/2020/10/26/mac%20for%20supervisor/">
 
-      
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/sugw.github.io/images/291603183698.jpg">
+      <meta itemprop="name" content="guowei su">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="一只小笨鸟">
+    </span>
 
     
     
-    
-    <div class="post-block" lang="zh-CN">
       <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Mac start hexo for supervisor
+        </h1>
 
-<h1 class="post-title" itemprop="name headline">分类
-</h1>
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
 
-<div class="post-meta-container">
+      <time title="创建时间：2020-10-26 11:15:45 / 修改时间：11:32:45" itemprop="dateCreated datePublished" datetime="2020-10-26T11:15:45+08:00">2020-10-26</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/sugw.github.io/categories/Mac/" itemprop="url" rel="index"><span itemprop="name">Mac</span></a>
+        </span>
+    </span>
+
   
-
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/sugw.github.io/2020/10/26/mac%20for%20supervisor/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/sugw.github.io/2020/10/26/mac%20for%20supervisor/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>941</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>1 分钟</span>
+    </span>
 </div>
 
-</header>
+        </div>
+      </header>
 
-      
-      
-      
-      <div class="post-body">
-          
-      </div>
-      
-      
-      
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="环境："><a href="#环境：" class="headerlink" title="环境："></a>环境：</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">系统：mac</span><br><span class="line"></span><br><span class="line">应用：hexo</span><br><span class="line"></span><br><span class="line">守护程序：supervisord</span><br></pre></td></tr></table></figure>
+
+<h1 id="1-安装supervisord"><a href="#1-安装supervisord" class="headerlink" title="1.安装supervisord"></a>1.安装supervisord</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo pip install supervisor</span><br></pre></td></tr></table></figure>
+
+<h1 id="2-配置"><a href="#2-配置" class="headerlink" title="2.配置"></a>2.配置</h1><hr>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"># &#x2F;usr&#x2F;local&#x2F;etc&#x2F;supervisord.conf</span><br><span class="line"></span><br><span class="line">; 包含其他的配置文件</span><br><span class="line">[include]</span><br><span class="line">files &#x3D; &#x2F;usr&#x2F;local&#x2F;etc&#x2F;supervisor.d&#x2F;*.conf    ; 可以随意指定，目录不存在请先建立。配置文件可以是 *.conf 或 *.ini</span><br><span class="line"></span><br><span class="line"># &#x2F;usr&#x2F;local&#x2F;etc&#x2F;supervisor.d&#x2F;hexo.conf</span><br><span class="line">[program:hexo]                          ; 是应用程序的唯一标识，不能重复</span><br><span class="line">directory &#x3D; &#x2F;Users&#x2F;suguowei&#x2F;Desktop&#x2F;sugw&#x2F;sugwBlog          ; 程序的启动目录</span><br><span class="line">command &#x3D; hexo s ; 启动命令</span><br><span class="line">autostart &#x3D; true                        ; 在 supervisord 启动的时候也自动启动</span><br><span class="line">startsecs &#x3D; 5                           ; 启动 5 秒后没有异常退出，就当作已经正常启动了</span><br><span class="line">autorestart &#x3D; true                      ; 程序异常退出后自动重启</span><br><span class="line">startretries &#x3D; 3                        ; 启动失败自动重试次数，默认是 3</span><br><span class="line">redirect_stderr &#x3D; true                  ; 把 stderr 重定向到 stdout，默认 false</span><br><span class="line">stdout_logfile_maxbytes &#x3D; 20MB</span><br><span class="line">stdout_logfile_backups &#x3D; 20</span><br><span class="line">stdout_logfile &#x3D; &#x2F;var&#x2F;log&#x2F;supervusor&#x2F;hexo.log   ; stdout 日志文件，注意：要确保目录已经建立并且可以访问（写权限）</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="3-启动"><a href="#3-启动" class="headerlink" title="3.启动"></a>3.启动</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">/usr/<span class="built_in">local</span>/bin/supervisord -c /usr/<span class="built_in">local</span>/etc/supervisord.conf</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h1 id="4-问题"><a href="#4-问题" class="headerlink" title="4.问题"></a>4.问题</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">-	程序启动目录权限</span><br><span class="line"></span><br><span class="line">-	日志文件权限</span><br></pre></td></tr></table></figure>
+
+
     </div>
     
+    
+    
 
-    
-    
-    
+    <footer class="post-footer">
+          
+
+  <div class="followme">
+    <span>欢迎关注我的其它发布渠道</span>
+
+    <div class="social-list">
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="/atom.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
+
+            <span class="label">RSS</span>
+          </a>
+        </div>
+    </div>
+  </div>
+
+          <div class="post-tags">
+              <a href="/sugw.github.io/tags/supervisor/" rel="tag"># supervisor</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/sugw.github.io/2020/10/21/linux%20%E7%A3%81%E7%9B%98%E6%BB%A1/" rel="prev" title="linux 磁盘">
+                  <i class="fa fa-chevron-left"></i> linux 磁盘
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+  
+  
+  
+
 
 
       
@@ -442,7 +560,7 @@ NexT.utils.loadComments('#valine-comments', () => {
   NexT.utils.getScript('//cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', () => {
     new Valine(Object.assign({
       el  : '#valine-comments',
-      path: "/sugw.github.io/%E6%96%87%E4%BB%B6%E6%9C%8D%E5%8A%A1/",
+      path: "/sugw.github.io/2020/10/26/mac%20for%20supervisor/",
     }, {"enable":true,"appId":"Rvi5XTbIGoBGqGhM3SdPXNnc-gzGzoHsz","appKey":"tsLwTwnG13sIxCOXRrDVxPqW","placeholder":"Just go go","avatar":"mm","meta":["nick","mail","link"],"pageSize":10,"lang":null,"visitor":false,"comment_count":true,"recordIP":false,"serverURLs":null,"enableQQ":false,"requiredFields":[]}
     ));
   }, window.Valine);

@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://sugw.github.io/sugw.github.io/2020/10/26/mac%20for%20supervisor/</loc>
+    
+    <lastmod>2020-10-26</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://sugw.github.io/sugw.github.io/2020/10/21/linux%20%E7%A3%81%E7%9B%98%E6%BB%A1/</loc>
     
     <lastmod>2020-10-21</lastmod>
@@ -53,7 +60,7 @@
 
   <url>
     <loc>https://sugw.github.io/sugw.github.io</loc>
-    <lastmod>2020-10-21</lastmod>
+    <lastmod>2020-10-26</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -61,21 +68,28 @@
   
   <url>
     <loc>https://sugw.github.io/sugw.github.io/tags/%E6%A0%87%E7%AD%BE1/</loc>
-    <lastmod>2020-10-21</lastmod>
+    <lastmod>2020-10-26</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://sugw.github.io/sugw.github.io/tags/%E6%A0%87%E7%AD%BE2/</loc>
-    <lastmod>2020-10-21</lastmod>
+    <lastmod>2020-10-26</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://sugw.github.io/sugw.github.io/tags/%E7%A3%81%E7%9B%98/</loc>
-    <lastmod>2020-10-21</lastmod>
+    <lastmod>2020-10-26</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://sugw.github.io/sugw.github.io/tags/supervisor/</loc>
+    <lastmod>2020-10-26</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
@@ -84,14 +98,21 @@
   
   <url>
     <loc>https://sugw.github.io/sugw.github.io/categories/%E6%B5%8B%E8%AF%95/</loc>
-    <lastmod>2020-10-21</lastmod>
+    <lastmod>2020-10-26</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://sugw.github.io/sugw.github.io/categories/Linux/</loc>
-    <lastmod>2020-10-21</lastmod>
+    <lastmod>2020-10-26</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://sugw.github.io/sugw.github.io/categories/Mac/</loc>
+    <lastmod>2020-10-26</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
