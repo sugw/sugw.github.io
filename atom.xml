@@ -6,7 +6,7 @@
   <link href="https://sugw.github.io/sugw.github.io/atom.xml" rel="self"/>
   
   <link href="https://sugw.github.io/sugw.github.io/"/>
-  <updated>2020-10-26T03:32:45.912Z</updated>
+  <updated>2020-10-27T07:54:00.552Z</updated>
   <id>https://sugw.github.io/sugw.github.io/</id>
   
   <author>
@@ -17,11 +17,84 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>Mysql 批量删除表</title>
+    <link href="https://sugw.github.io/sugw.github.io/2020/10/27/Mysql%20%E6%89%B9%E9%87%8F%E5%88%A0%E9%99%A4%E8%A1%A8/"/>
+    <id>https://sugw.github.io/sugw.github.io/2020/10/27/Mysql%20%E6%89%B9%E9%87%8F%E5%88%A0%E9%99%A4%E8%A1%A8/</id>
+    <published>2020-10-27T07:49:07.417Z</published>
+    <updated>2020-10-27T07:54:00.552Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;生成删除表语句&quot;&gt;&lt;a href=&quot;#生成删除表语句&quot; class=&quot;headerlink&quot; title=&quot;生成删除表语句&quot;&gt;&lt;/a&gt;生成删除表语句&lt;/h2&gt;&lt;figure class=&quot;highlight shell&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td</summary>
+        
+      
+    
+    
+    
+    <category term="数据库" scheme="https://sugw.github.io/sugw.github.io/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
+    
+    
+    <category term="Mysql" scheme="https://sugw.github.io/sugw.github.io/tags/Mysql/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Mysql数据库查询大小</title>
+    <link href="https://sugw.github.io/sugw.github.io/2020/10/27/Mysql%20%E5%BA%93%E6%9F%A5%E8%AF%A2%E5%A4%A7%E5%B0%8F/"/>
+    <id>https://sugw.github.io/sugw.github.io/2020/10/27/Mysql%20%E5%BA%93%E6%9F%A5%E8%AF%A2%E5%A4%A7%E5%B0%8F/</id>
+    <published>2020-10-27T01:25:24.102Z</published>
+    <updated>2020-10-27T07:48:32.935Z</updated>
+    
+    
+    <summary type="html">&lt;h2 id=&quot;查询库大小&quot;&gt;&lt;a href=&quot;#查询库大小&quot; class=&quot;headerlink&quot; title=&quot;查询库大小&quot;&gt;&lt;/a&gt;查询库大小&lt;/h2&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;SELECT table_schema,SUM(AVG_ROW_LENGTH*TABLE_ROWS+INDEX_LENGTH)&amp;#x2F;1024&amp;#x2F;1024&amp;#x2F;1024 AS total_gb FROM information_schema.TABLES group by table_schema;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;#查询指定库大小&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;select concat(round(sum(data_length&amp;#x2F;1024&amp;#x2F;1024),2),&amp;#39;MB&amp;#39;) as data from tables where table_schema&amp;#x3D;&amp;#39;null_ifensi&amp;#39;;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+
+
+
+&lt;h2 id=&quot;查询表大小&quot;&gt;&lt;a href=&quot;#查询表大小&quot; class=&quot;headerlink&quot; title=&quot;查询表大小&quot;&gt;&lt;/a&gt;查询表大小&lt;/h2&gt;&lt;h3 id=&quot;1、首先，切换到-information-schema数据库&quot;&gt;&lt;a href=&quot;#1、首先，切换到-information-schema数据库&quot; class=&quot;headerlink&quot; title=&quot;1、首先，切换到 information_schema数据库&quot;&gt;&lt;/a&gt;1、首先，切换到 information_schema数据库&lt;/h3&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;use information_schema;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;### &lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;</summary>
+    
+    
+    
+    <category term="数据库" scheme="https://sugw.github.io/sugw.github.io/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
+    
+    
+    <category term="Mysql" scheme="https://sugw.github.io/sugw.github.io/tags/Mysql/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Prometheus监控node_exporter的告警规则</title>
+    <link href="https://sugw.github.io/sugw.github.io/2020/10/26/Prometheus%E7%9B%91%E6%8E%A7node_exporter%E7%9A%84%E5%91%8A%E8%AD%A6%E8%A7%84%E5%88%99/"/>
+    <id>https://sugw.github.io/sugw.github.io/2020/10/26/Prometheus%E7%9B%91%E6%8E%A7node_exporter%E7%9A%84%E5%91%8A%E8%AD%A6%E8%A7%84%E5%88%99/</id>
+    <published>2020-10-26T05:52:30.964Z</published>
+    <updated>2020-10-26T06:18:00.570Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h3 id=&quot;针对磁盘CPU-IO-磁盘使用、内存使用、TCP、网络流量配置监控告警&quot;&gt;&lt;a href=&quot;#针对磁盘CPU-IO-磁盘使用、内存使用、TCP、网络流量配置监控告警&quot; class=&quot;headerlink&quot; title=&quot;针对磁盘CPU,IO</summary>
+        
+      
+    
+    
+    
+    <category term="Linux" scheme="https://sugw.github.io/sugw.github.io/categories/Linux/"/>
+    
+    
+    <category term="prometheus" scheme="https://sugw.github.io/sugw.github.io/tags/prometheus/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Mac start hexo for supervisor</title>
     <link href="https://sugw.github.io/sugw.github.io/2020/10/26/mac%20for%20supervisor/"/>
     <id>https://sugw.github.io/sugw.github.io/2020/10/26/mac%20for%20supervisor/</id>
     <published>2020-10-26T03:15:45.979Z</published>
-    <updated>2020-10-26T03:32:45.912Z</updated>
+    <updated>2020-10-26T06:09:05.699Z</updated>
     
     
     <summary type="html">&lt;h1 id=&quot;环境：&quot;&gt;&lt;a href=&quot;#环境：&quot; class=&quot;headerlink&quot; title=&quot;环境：&quot;&gt;&lt;/a&gt;环境：&lt;/h1&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;系统：mac&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;应用：hexo&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;守护程序：supervisord&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
