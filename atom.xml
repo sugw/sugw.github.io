@@ -46,7 +46,7 @@
     <link href="https://sugw.github.io/sugw.github.io/2020/10/27/Mysql%20%E5%BA%93%E6%9F%A5%E8%AF%A2%E5%A4%A7%E5%B0%8F/"/>
     <id>https://sugw.github.io/sugw.github.io/2020/10/27/Mysql%20%E5%BA%93%E6%9F%A5%E8%AF%A2%E5%A4%A7%E5%B0%8F/</id>
     <published>2020-10-27T01:25:24.102Z</published>
-    <updated>2020-10-27T07:48:32.935Z</updated>
+    <updated>2020-10-27T08:15:50.487Z</updated>
     
     
     <summary type="html">&lt;h2 id=&quot;查询库大小&quot;&gt;&lt;a href=&quot;#查询库大小&quot; class=&quot;headerlink&quot; title=&quot;查询库大小&quot;&gt;&lt;/a&gt;查询库大小&lt;/h2&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;SELECT table_schema,SUM(AVG_ROW_LENGTH*TABLE_ROWS+INDEX_LENGTH)&amp;#x2F;1024&amp;#x2F;1024&amp;#x2F;1024 AS total_gb FROM information_schema.TABLES group by table_schema;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;#查询指定库大小&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;select concat(round(sum(data_length&amp;#x2F;1024&amp;#x2F;1024),2),&amp;#39;MB&amp;#39;) as data from tables where table_schema&amp;#x3D;&amp;#39;null_ifensi&amp;#39;;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
