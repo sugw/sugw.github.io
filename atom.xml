@@ -6,7 +6,7 @@
   <link href="https://sugw.github.io/sugw.github.io/atom.xml" rel="self"/>
   
   <link href="https://sugw.github.io/sugw.github.io/"/>
-  <updated>2020-10-27T07:54:00.552Z</updated>
+  <updated>2020-10-28T06:47:02.777Z</updated>
   <id>https://sugw.github.io/sugw.github.io/</id>
   
   <author>
@@ -17,6 +17,35 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>suguowei</title>
+    <link href="https://sugw.github.io/sugw.github.io/2020/10/27/suguowei/"/>
+    <id>https://sugw.github.io/sugw.github.io/2020/10/27/suguowei/</id>
+    <published>2020-10-27T11:10:49.000Z</published>
+    <updated>2020-10-28T06:47:02.777Z</updated>
+    
+    
+    <summary type="html">&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;​&amp;lt;pre class&amp;#x3D;&amp;quot;mermaid&amp;quot;&amp;gt;classDiagram&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Class01 &amp;lt;|-- AveryLongClass : Cool&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Class03 *-- Class04&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Class05 o-- Class06&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Class07 .. Class08&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Class09 --&amp;gt; C2 : Where am i?&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Class09 --* C3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Class09 --|&amp;gt; Class07&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Class07 : equals()&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Class07 : Object[] elementData&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Class01 : size()&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Class01 : int chimp&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Class01 : int gorilla&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Class08 &amp;lt;--&amp;gt; C2: Cool label&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;​&amp;lt;&amp;#x2F;pre&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+
+&lt;pre class=&quot;mermaid&quot;&gt;graph TD;
+    A--&gt;B;
+    A--&gt;C;
+    B--&gt;D;
+    C--&gt;D;&lt;/pre&gt;
+
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&amp;lt;div id&amp;#x3D;&amp;quot;flowchart-0&amp;quot; class&amp;#x3D;&amp;quot;flow-chart&amp;quot;&amp;gt;&amp;lt;&amp;#x2F;div&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;sequenceDiagram&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    participant Alice&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    participant Bob&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    Alice-&amp;gt;&amp;gt;John: Hello John, how are you?&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    loop Healthcheck&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        John-&amp;gt;&amp;gt;John: Fight against hypochondria&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    end&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    Note right of John: Rational thoughts &amp;lt;br&amp;#x2F;&amp;gt;prevail...&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    John--&amp;gt;&amp;gt;Alice: Great!&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    John-&amp;gt;&amp;gt;Bob: How about you?&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    Bob--&amp;gt;&amp;gt;John: Jolly good!&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+
+&lt;p&gt;```&lt;br&gt;gantt&lt;br&gt;dateFormat  YYYY-MM-DD&lt;br&gt;title Adding GANTT diagram to mermaid&lt;/p&gt;</summary>
+    
+    
+    
+    
+    <category term="测试" scheme="https://sugw.github.io/sugw.github.io/tags/%E6%B5%8B%E8%AF%95/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Mysql 批量删除表</title>
     <link href="https://sugw.github.io/sugw.github.io/2020/10/27/Mysql%20%E6%89%B9%E9%87%8F%E5%88%A0%E9%99%A4%E8%A1%A8/"/>
     <id>https://sugw.github.io/sugw.github.io/2020/10/27/Mysql%20%E6%89%B9%E9%87%8F%E5%88%A0%E9%99%A4%E8%A1%A8/</id>
@@ -24,20 +53,27 @@
     <updated>2020-10-27T07:54:00.552Z</updated>
     
     
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;生成删除表语句&quot;&gt;&lt;a href=&quot;#生成删除表语句&quot; class=&quot;headerlink&quot; title=&quot;生成删除表语句&quot;&gt;&lt;/a&gt;生成删除表语句&lt;/h2&gt;&lt;figure class=&quot;highlight shell&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td</summary>
-        
-      
+    <summary type="html">生成删除表语句
+1
+2
+
+
+mysql -h主机 -D库 -u用户 -p密码 -e &quot;Select CONCAT( &#39;drop tables &#39;, table_name, &#39;;&#39; ) FROM information_schema.tables Where table_name LIKE &#39;sample_%&#39;;&quot; &gt;delete_tables.sql
+
+
+
+批量删除表
+1
+
+
+mysql -h主机 -D库 -u用户 -p密码 -e &quot;source /opt/delete_tables.sql&quot;</summary>
     
     
     
     <category term="数据库" scheme="https://sugw.github.io/sugw.github.io/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
     
     
-    <category term="Mysql" scheme="https://sugw.github.io/sugw.github.io/tags/Mysql/"/>
+    <category term="mysql" scheme="https://sugw.github.io/sugw.github.io/tags/mysql/"/>
     
   </entry>
   
@@ -46,21 +82,21 @@
     <link href="https://sugw.github.io/sugw.github.io/2020/10/27/Mysql%20%E5%BA%93%E6%9F%A5%E8%AF%A2%E5%A4%A7%E5%B0%8F/"/>
     <id>https://sugw.github.io/sugw.github.io/2020/10/27/Mysql%20%E5%BA%93%E6%9F%A5%E8%AF%A2%E5%A4%A7%E5%B0%8F/</id>
     <published>2020-10-27T01:25:24.102Z</published>
-    <updated>2020-10-27T08:15:50.487Z</updated>
+    <updated>2020-10-28T06:41:46.454Z</updated>
     
     
     <summary type="html">&lt;h2 id=&quot;查询库大小&quot;&gt;&lt;a href=&quot;#查询库大小&quot; class=&quot;headerlink&quot; title=&quot;查询库大小&quot;&gt;&lt;/a&gt;查询库大小&lt;/h2&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;SELECT table_schema,SUM(AVG_ROW_LENGTH*TABLE_ROWS+INDEX_LENGTH)&amp;#x2F;1024&amp;#x2F;1024&amp;#x2F;1024 AS total_gb FROM information_schema.TABLES group by table_schema;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;#查询指定库大小&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;select concat(round(sum(data_length&amp;#x2F;1024&amp;#x2F;1024),2),&amp;#39;MB&amp;#39;) as data from tables where table_schema&amp;#x3D;&amp;#39;null_ifensi&amp;#39;;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
 
 
 
-&lt;h2 id=&quot;查询表大小&quot;&gt;&lt;a href=&quot;#查询表大小&quot; class=&quot;headerlink&quot; title=&quot;查询表大小&quot;&gt;&lt;/a&gt;查询表大小&lt;/h2&gt;&lt;h3 id=&quot;1、首先，切换到-information-schema数据库&quot;&gt;&lt;a href=&quot;#1、首先，切换到-information-schema数据库&quot; class=&quot;headerlink&quot; title=&quot;1、首先，切换到 information_schema数据库&quot;&gt;&lt;/a&gt;1、首先，切换到 information_schema数据库&lt;/h3&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;use information_schema;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;### &lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;</summary>
+&lt;h2 id=&quot;查询表大小&quot;&gt;&lt;a href=&quot;#查询表大小&quot; class=&quot;headerlink&quot; title=&quot;查询表大小&quot;&gt;&lt;/a&gt;查询表大小&lt;/h2&gt;&lt;h3 id=&quot;1、首先，切换到-information-schema数据库&quot;&gt;&lt;a href=&quot;#1、首先，切换到-information-schema数据库&quot; class=&quot;headerlink&quot; title=&quot;1、首先，切换到 information_schema数据库&quot;&gt;&lt;/a&gt;1、首先，切换到 information_schema数据库&lt;/h3&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;use information_schema;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;</summary>
     
     
     
     <category term="数据库" scheme="https://sugw.github.io/sugw.github.io/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
     
     
-    <category term="Mysql" scheme="https://sugw.github.io/sugw.github.io/tags/Mysql/"/>
+    <category term="mysql" scheme="https://sugw.github.io/sugw.github.io/tags/mysql/"/>
     
   </entry>
   
@@ -72,13 +108,86 @@
     <updated>2020-10-26T06:18:00.570Z</updated>
     
     
-      
-      
-        
-        
-    <summary type="html">&lt;h3 id=&quot;针对磁盘CPU-IO-磁盘使用、内存使用、TCP、网络流量配置监控告警&quot;&gt;&lt;a href=&quot;#针对磁盘CPU-IO-磁盘使用、内存使用、TCP、网络流量配置监控告警&quot; class=&quot;headerlink&quot; title=&quot;针对磁盘CPU,IO</summary>
-        
-      
+    <summary type="html">针对磁盘CPU,IO ,磁盘使用、内存使用、TCP、网络流量配置监控告警
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+
+
+groups:
+    - name: 主机状态-监控告警
+      rules:
+      - </summary>
     
     
     
