@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://sugw.github.io/sugw.github.io/2020/10/28/Untitled/</loc>
+    
+    <lastmod>2020-10-28</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://sugw.github.io/sugw.github.io/2020/10/27/suguowei/</loc>
     
     <lastmod>2020-10-28</lastmod>
@@ -109,20 +116,6 @@
   </url>
   
   <url>
-    <loc>https://sugw.github.io/sugw.github.io/tags/%E7%A3%81%E7%9B%98/</loc>
-    <lastmod>2020-10-28</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://sugw.github.io/sugw.github.io/tags/supervisor/</loc>
-    <lastmod>2020-10-28</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://sugw.github.io/sugw.github.io/tags/%E6%A0%87%E7%AD%BE1/</loc>
     <lastmod>2020-10-28</lastmod>
     <changefreq>daily</changefreq>
@@ -131,6 +124,20 @@
   
   <url>
     <loc>https://sugw.github.io/sugw.github.io/tags/%E6%A0%87%E7%AD%BE2/</loc>
+    <lastmod>2020-10-28</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://sugw.github.io/sugw.github.io/tags/%E7%A3%81%E7%9B%98/</loc>
+    <lastmod>2020-10-28</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://sugw.github.io/sugw.github.io/tags/supervisor/</loc>
     <lastmod>2020-10-28</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -160,14 +167,14 @@
   </url>
   
   <url>
-    <loc>https://sugw.github.io/sugw.github.io/categories/Mac/</loc>
+    <loc>https://sugw.github.io/sugw.github.io/categories/%E6%B5%8B%E8%AF%95/</loc>
     <lastmod>2020-10-28</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://sugw.github.io/sugw.github.io/categories/%E6%B5%8B%E8%AF%95/</loc>
+    <loc>https://sugw.github.io/sugw.github.io/categories/Mac/</loc>
     <lastmod>2020-10-28</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
