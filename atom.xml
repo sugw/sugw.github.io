@@ -6,7 +6,7 @@
   <link href="https://sugw.github.io/sugw.github.io/atom.xml" rel="self"/>
   
   <link href="https://sugw.github.io/sugw.github.io/"/>
-  <updated>2020-10-28T07:06:55.686Z</updated>
+  <updated>2020-10-28T08:17:48.772Z</updated>
   <id>https://sugw.github.io/sugw.github.io/</id>
   
   <author>
@@ -20,19 +20,31 @@
     <title></title>
     <link href="https://sugw.github.io/sugw.github.io/2020/10/28/Untitled/"/>
     <id>https://sugw.github.io/sugw.github.io/2020/10/28/Untitled/</id>
-    <published>2020-10-28T07:03:58.239Z</published>
-    <updated>2020-10-28T07:06:55.686Z</updated>
+    <published>2020-10-28T08:17:48.772Z</published>
+    <updated>2020-10-28T08:17:48.772Z</updated>
     
     
-      
-      
-        
-        
-    <summary type="html">
+    <summary type="html">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
 
-</summary>
-        
-      
+
+gantt
+dateFormat  YYYY-MM-DD
+title Adding GANTT diagram to mermaid
+excludes weekdays 2014-01-10
+
+section A section
+Completed task            :done,    des1, 2014-01-06,2014-01-08
+Active task               :active,  des2, 2014-01-09, 3d
+Future task               :         des3,</summary>
     
     
     
@@ -40,31 +52,25 @@
   </entry>
   
   <entry>
-    <title>suguowei</title>
-    <link href="https://sugw.github.io/sugw.github.io/2020/10/27/suguowei/"/>
-    <id>https://sugw.github.io/sugw.github.io/2020/10/27/suguowei/</id>
-    <published>2020-10-27T11:10:49.000Z</published>
-    <updated>2020-10-28T07:03:53.750Z</updated>
+    <title>Firewalld</title>
+    <link href="https://sugw.github.io/sugw.github.io/2020/10/28/Firewalld/"/>
+    <id>https://sugw.github.io/sugw.github.io/2020/10/28/Firewalld/</id>
+    <published>2020-10-28T07:51:18.000Z</published>
+    <updated>2020-10-28T08:16:41.062Z</updated>
     
     
-    <summary type="html">&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;​&amp;lt;pre class&amp;#x3D;&amp;quot;mermaid&amp;quot;&amp;gt;classDiagram&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Class01 &amp;lt;|-- AveryLongClass : Cool&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Class03 *-- Class04&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Class05 o-- Class06&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Class07 .. Class08&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Class09 --&amp;gt; C2 : Where am i?&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Class09 --* C3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Class09 --|&amp;gt; Class07&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Class07 : equals()&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Class07 : Object[] elementData&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Class01 : size()&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Class01 : int chimp&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Class01 : int gorilla&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Class08 &amp;lt;--&amp;gt; C2: Cool label&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;​&amp;lt;&amp;#x2F;pre&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-
-&lt;pre class=&quot;mermaid&quot;&gt;graph TD;
-    A--&gt;B;
-    A--&gt;C;
-    B--&gt;D;
-    C--&gt;D;&lt;/pre&gt;
-
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&amp;lt;div id&amp;#x3D;&amp;quot;flowchart-0&amp;quot; class&amp;#x3D;&amp;quot;flow-chart&amp;quot;&amp;gt;&amp;lt;&amp;#x2F;div&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;sequenceDiagram&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    participant Alice&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    participant Bob&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    Alice-&amp;gt;&amp;gt;John: Hello John, how are you?&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    loop Healthcheck&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        John-&amp;gt;&amp;gt;John: Fight against hypochondria&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    end&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    Note right of John: Rational thoughts &amp;lt;br&amp;#x2F;&amp;gt;prevail...&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    John--&amp;gt;&amp;gt;Alice: Great!&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    John-&amp;gt;&amp;gt;Bob: How about you?&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    Bob--&amp;gt;&amp;gt;John: Jolly good!&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-
-&lt;p&gt;```&lt;br&gt;gantt&lt;br&gt;dateFormat  YYYY-MM-DD&lt;br&gt;title Adding GANTT diagram to mermaid&lt;/p&gt;</summary>
+    <summary type="html">&lt;p&gt;启动一个服务：systemctl start firewalld.service&lt;/p&gt;
+&lt;p&gt;关闭一个服务：systemctl stop firewalld.service&lt;/p&gt;
+&lt;p&gt;重启一个服务：systemctl restart firewalld.service&lt;/p&gt;
+&lt;p&gt;显示一个服务的状态：systemctl status firewalld.service&lt;/p&gt;
+&lt;p&gt;在开机时启用一个服务：systemctl enable firewalld.service&lt;/p&gt;</summary>
     
     
     
+    <category term="Linux" scheme="https://sugw.github.io/sugw.github.io/categories/Linux/"/>
     
-    <category term="测试" scheme="https://sugw.github.io/sugw.github.io/tags/%E6%B5%8B%E8%AF%95/"/>
+    
+    <category term="防火墙" scheme="https://sugw.github.io/sugw.github.io/tags/%E9%98%B2%E7%81%AB%E5%A2%99/"/>
     
   </entry>
   
@@ -270,7 +276,7 @@ groups:
     <link href="https://sugw.github.io/sugw.github.io/2020/10/20/hello-world/"/>
     <id>https://sugw.github.io/sugw.github.io/2020/10/20/hello-world/</id>
     <published>2020-10-20T09:06:44.719Z</published>
-    <updated>2020-10-20T09:06:44.719Z</updated>
+    <updated>2020-10-28T09:14:26.198Z</updated>
     
     
     <summary type="html">&lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.io/docs/&quot;&gt;documentation&lt;/a&gt; for more info. If you get any problems when using Hexo, you can find the answer in &lt;a href=&quot;https://hexo.io/docs/troubleshooting.html&quot;&gt;troubleshooting&lt;/a&gt; or you can ask me on &lt;a href=&quot;https://github.com/hexojs/hexo/issues&quot;&gt;GitHub&lt;/a&gt;.&lt;/p&gt;
@@ -285,23 +291,6 @@ groups:
     <category term="标签1" scheme="https://sugw.github.io/sugw.github.io/tags/%E6%A0%87%E7%AD%BE1/"/>
     
     <category term="标签2" scheme="https://sugw.github.io/sugw.github.io/tags/%E6%A0%87%E7%AD%BE2/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>测试typora</title>
-    <link href="https://sugw.github.io/sugw.github.io/2020/10/20/%E4%B8%80%E7%BA%A7%E6%A0%87%E9%A2%98/"/>
-    <id>https://sugw.github.io/sugw.github.io/2020/10/20/%E4%B8%80%E7%BA%A7%E6%A0%87%E9%A2%98/</id>
-    <published>2020-10-20T02:43:25.861Z</published>
-    <updated>2020-10-20T08:58:54.862Z</updated>
-    
-    
-    <summary type="html">&lt;h1 id=&quot;一级标题&quot;&gt;&lt;a href=&quot;#一级标题&quot; class=&quot;headerlink&quot; title=&quot;一级标题&quot;&gt;&lt;/a&gt;一级标题&lt;/h1&gt;&lt;h2 id=&quot;二级标题&quot;&gt;&lt;a href=&quot;#二级标题&quot; class=&quot;headerlink&quot; title=&quot;二级标题&quot;&gt;&lt;/a&gt;二级标题&lt;/h2&gt;&lt;h3 id=&quot;三级标题&quot;&gt;&lt;a href=&quot;#三级标题&quot; class=&quot;headerlink&quot; title=&quot;三级标题&quot;&gt;&lt;/a&gt;三级标题&lt;/h3&gt;&lt;h6 id=&quot;主题&quot;&gt;&lt;a href=&quot;#主题&quot; class=&quot;headerlink&quot; title=&quot;主题&quot;&gt;&lt;/a&gt;主题&lt;/h6&gt;&lt;hr&gt;</summary>
-    
-    
-    
-    <category term="测试" scheme="https://sugw.github.io/sugw.github.io/categories/%E6%B5%8B%E8%AF%95/"/>
-    
     
   </entry>
   
