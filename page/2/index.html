@@ -228,17 +228,17 @@ color="220,220,220" opacity='0.7' zIndex="-2" count="200" src="//cdn.bootcss.com
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/sugw.github.io/archives">
-          <span class="site-state-item-count">10</span>
+          <span class="site-state-item-count">13</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/sugw.github.io/categories/">
-        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-count">5</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-count">11</span>
         <span class="site-state-item-name">标签</span>
       </div>
   </nav>
@@ -269,6 +269,353 @@ color="220,220,220" opacity='0.7' zIndex="-2" count="200" src="//cdn.bootcss.com
       
 
       
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://sugw.github.io/sugw.github.io/2020/10/28/nginx%E9%98%BB%E6%AD%A2IP%E8%AE%BF%E9%97%AE%E5%AE%9E%E4%BE%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/sugw.github.io/images/291603183698.jpg">
+      <meta itemprop="name" content="guowei su">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="一只小笨鸟">
+    </span>
+
+    
+    
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/sugw.github.io/2020/10/28/nginx%E9%98%BB%E6%AD%A2IP%E8%AE%BF%E9%97%AE%E5%AE%9E%E4%BE%8B/" class="post-title-link" itemprop="url">nginx 阻止IP访问实例</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2020-10-28 16:17:48" itemprop="dateCreated datePublished" datetime="2020-10-28T16:17:48+08:00">2020-10-28</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2020-11-09 18:33:04" itemprop="dateModified" datetime="2020-11-09T18:33:04+08:00">2020-11-09</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/sugw.github.io/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/sugw.github.io/2020/10/28/nginx%E9%98%BB%E6%AD%A2IP%E8%AE%BF%E9%97%AE%E5%AE%9E%E4%BE%8B/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/sugw.github.io/2020/10/28/nginx%E9%98%BB%E6%AD%A2IP%E8%AE%BF%E9%97%AE%E5%AE%9E%E4%BE%8B/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>478</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>1 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h3 id="方式一："><a href="#方式一：" class="headerlink" title="方式一："></a>方式一：</h3><p>静态文件，较简单</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">location ^~ &#x2F;static&#x2F;css&#x2F; &#123;</span><br><span class="line">       deny 10.120.0.1;</span><br><span class="line">       deny 10.120.11.78;</span><br><span class="line">       #allow 10.120.11.3;</span><br><span class="line">       #allow 43.243.138.146;</span><br><span class="line">       #allow 114.118.12.231;</span><br><span class="line">       deny all;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="方式二："><a href="#方式二：" class="headerlink" title="方式二："></a>方式二：</h3><p>路由较复杂：</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/sugw.github.io/2020/10/28/nginx%E9%98%BB%E6%AD%A2IP%E8%AE%BF%E9%97%AE%E5%AE%9E%E4%BE%8B/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+  
+  
+  
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://sugw.github.io/sugw.github.io/2020/10/28/Firewalld/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/sugw.github.io/images/291603183698.jpg">
+      <meta itemprop="name" content="guowei su">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="一只小笨鸟">
+    </span>
+
+    
+    
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/sugw.github.io/2020/10/28/Firewalld/" class="post-title-link" itemprop="url">Firewalld</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2020-10-28 15:51:18 / 修改时间：16:16:41" itemprop="dateCreated datePublished" datetime="2020-10-28T15:51:18+08:00">2020-10-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/sugw.github.io/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/sugw.github.io/2020/10/28/Firewalld/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/sugw.github.io/2020/10/28/Firewalld/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>903</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>1 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>启动一个服务：systemctl start firewalld.service</p>
+<p>关闭一个服务：systemctl stop firewalld.service</p>
+<p>重启一个服务：systemctl restart firewalld.service</p>
+<p>显示一个服务的状态：systemctl status firewalld.service</p>
+<p>在开机时启用一个服务：systemctl enable firewalld.service</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/sugw.github.io/2020/10/28/Firewalld/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+  
+  
+  
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://sugw.github.io/sugw.github.io/2020/10/27/Mysql%20%E6%89%B9%E9%87%8F%E5%88%A0%E9%99%A4%E8%A1%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/sugw.github.io/images/291603183698.jpg">
+      <meta itemprop="name" content="guowei su">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="一只小笨鸟">
+    </span>
+
+    
+    
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/sugw.github.io/2020/10/27/Mysql%20%E6%89%B9%E9%87%8F%E5%88%A0%E9%99%A4%E8%A1%A8/" class="post-title-link" itemprop="url">Mysql 批量删除表</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2020-10-27 15:49:07 / 修改时间：15:54:00" itemprop="dateCreated datePublished" datetime="2020-10-27T15:49:07+08:00">2020-10-27</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/sugw.github.io/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" rel="index"><span itemprop="name">数据库</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/sugw.github.io/2020/10/27/Mysql%20%E6%89%B9%E9%87%8F%E5%88%A0%E9%99%A4%E8%A1%A8/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/sugw.github.io/2020/10/27/Mysql%20%E6%89%B9%E9%87%8F%E5%88%A0%E9%99%A4%E8%A1%A8/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>262</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>1 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          生成删除表语句
+1
+2
+
+
+mysql -h主机 -D库 -u用户 -p密码 -e "Select CONCAT( 'drop tables ', table_name, ';' ) FROM information_schema.tables Where table_name LIKE 'sample_%';" >delete_tables.sql
+
+
+
+批量删除表
+1
+
+
+mysql -h主机 -D库 -u用户 -p密码 -e "source /opt/delete_tables.sql"
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/sugw.github.io/2020/10/27/Mysql%20%E6%89%B9%E9%87%8F%E5%88%A0%E9%99%A4%E8%A1%A8/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+  
+  
+  
+
     
   
   
@@ -572,345 +919,10 @@ groups:
   
   
 
-    
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://sugw.github.io/sugw.github.io/2020/10/26/mac%20for%20supervisor/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/sugw.github.io/images/291603183698.jpg">
-      <meta itemprop="name" content="guowei su">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="一只小笨鸟">
-    </span>
-
-    
-    
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/sugw.github.io/2020/10/26/mac%20for%20supervisor/" class="post-title-link" itemprop="url">Mac start hexo for supervisor</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-      
-
-      <time title="创建时间：2020-10-26 11:15:45 / 修改时间：14:09:05" itemprop="dateCreated datePublished" datetime="2020-10-26T11:15:45+08:00">2020-10-26</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/sugw.github.io/categories/Mac/" itemprop="url" rel="index"><span itemprop="name">Mac</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/sugw.github.io/2020/10/26/mac%20for%20supervisor/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/sugw.github.io/2020/10/26/mac%20for%20supervisor/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>941</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>1 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="环境："><a href="#环境：" class="headerlink" title="环境："></a>环境：</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">系统：mac</span><br><span class="line"></span><br><span class="line">应用：hexo</span><br><span class="line"></span><br><span class="line">守护程序：supervisord</span><br></pre></td></tr></table></figure>
-
-<h1 id="1-安装supervisord"><a href="#1-安装supervisord" class="headerlink" title="1.安装supervisord"></a>1.安装supervisord</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo pip install supervisor</span><br></pre></td></tr></table></figure>
-
-<h1 id="2-配置"><a href="#2-配置" class="headerlink" title="2.配置"></a>2.配置</h1>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/sugw.github.io/2020/10/26/mac%20for%20supervisor/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-  
-  
-  
-
-    
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://sugw.github.io/sugw.github.io/2020/10/21/linux%20%E7%A3%81%E7%9B%98%E6%BB%A1/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/sugw.github.io/images/291603183698.jpg">
-      <meta itemprop="name" content="guowei su">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="一只小笨鸟">
-    </span>
-
-    
-    
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/sugw.github.io/2020/10/21/linux%20%E7%A3%81%E7%9B%98%E6%BB%A1/" class="post-title-link" itemprop="url">linux 磁盘</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-      
-
-      <time title="创建时间：2020-10-21 15:29:37 / 修改时间：15:37:37" itemprop="dateCreated datePublished" datetime="2020-10-21T15:29:37+08:00">2020-10-21</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/sugw.github.io/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/sugw.github.io/2020/10/21/linux%20%E7%A3%81%E7%9B%98%E6%BB%A1/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/sugw.github.io/2020/10/21/linux%20%E7%A3%81%E7%9B%98%E6%BB%A1/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>122</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>1 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h3 id="问题："><a href="#问题：" class="headerlink" title="问题："></a>问题：</h3><hr>
-<p>​        磁盘显示已满，实际占用空间很小</p>
-<h3 id="原因："><a href="#原因：" class="headerlink" title="原因："></a>原因：</h3><hr>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/sugw.github.io/2020/10/21/linux%20%E7%A3%81%E7%9B%98%E6%BB%A1/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-  
-  
-  
-
-    
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://sugw.github.io/sugw.github.io/2020/10/20/hello-world/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/sugw.github.io/images/291603183698.jpg">
-      <meta itemprop="name" content="guowei su">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="一只小笨鸟">
-    </span>
-
-    
-    
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/sugw.github.io/2020/10/20/hello-world/" class="post-title-link" itemprop="url">Hello World</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2020-10-20 17:06:44" itemprop="dateCreated datePublished" datetime="2020-10-20T17:06:44+08:00">2020-10-20</time>
-    </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2020-10-28 17:14:26" itemprop="dateModified" datetime="2020-10-28T17:14:26+08:00">2020-10-28</time>
-      </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/sugw.github.io/categories/%E6%B5%8B%E8%AF%95/" itemprop="url" rel="index"><span itemprop="name">测试</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/sugw.github.io/2020/10/20/hello-world/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/sugw.github.io/2020/10/20/hello-world/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>409</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>1 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><p><a href="http://localhost:4000/sugw.github.io/tags/">http://localhost:4000/sugw.github.io/tags/</a></p>
-<h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/sugw.github.io/2020/10/20/hello-world/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/sugw.github.io/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/sugw.github.io/">1</a><span class="page-number current">2</span>
+    <a class="extend prev" rel="prev" href="/sugw.github.io/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/sugw.github.io/">1</a><span class="page-number current">2</span><a class="page-number" href="/sugw.github.io/page/3/">3</a><a class="extend next" rel="next" href="/sugw.github.io/page/3/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -973,13 +985,13 @@ groups:
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">43k</span>
+    <span title="站点总字数">50k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">39 分钟</span>
+    <span title="站点阅读时长">46 分钟</span>
   </span>
 </div>
 <div class="busuanzi-count">
@@ -1095,7 +1107,7 @@ NexT.utils.loadComments('#valine-comments', () => {
 
     </div>
 <!-- hexo injector body_end start --><script src="https://cdn.jsdelivr.net/npm/hexo-widget-tree@0.0.5/js/index.js"></script><div id="widget-tree">
-      <ul><li class="tree-list-item"><i class="toggle-post-icon gg-folder-add"></i><a class="tree-list-link" href="/sugw.github.io/categories/Linux/">Linux</a><ul class="tree-list-children"><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2020/10/28/Firewalld/" title="Firewalld"><i class="post-icon gg-file-document"></i>Firewalld</a></li><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2020/10/26/Prometheus%E7%9B%91%E6%8E%A7node_exporter%E7%9A%84%E5%91%8A%E8%AD%A6%E8%A7%84%E5%88%99/" title="Prometheus监控node_exporter的告警规则"><i class="post-icon gg-file-document"></i>Prometheus监控node_exporter的告警规则</a></li><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2020/10/28/centos6.8%20%E5%AE%89%E8%A3%85supervisor/" title="centos6.8 安装supervisor"><i class="post-icon gg-file-document"></i>centos6.8 安装supervisor</a></li><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2020/10/21/linux%20%E7%A3%81%E7%9B%98%E6%BB%A1/" title="linux 磁盘"><i class="post-icon gg-file-document"></i>linux 磁盘</a></li><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2020/10/28/nginx%E9%98%BB%E6%AD%A2IP%E8%AE%BF%E9%97%AE%E5%AE%9E%E4%BE%8B/" title="nginx 阻止IP访问实例"><i class="post-icon gg-file-document"></i>nginx 阻止IP访问实例</a></li><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2020/11/03/Centos67%20%E5%AE%89%E8%A3%85PHP7.3%E6%95%99%E7%A8%8B/" title="Centos6/7 安装PHP7.3教程"><i class="post-icon gg-file-document"></i>Centos6/7 安装PHP7.3教程</a></li></ul></li><li class="tree-list-item"><i class="toggle-post-icon gg-folder-add"></i><a class="tree-list-link" href="/sugw.github.io/categories/Mac/">Mac</a><ul class="tree-list-children"><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2020/10/26/mac%20for%20supervisor/" title="Mac start hexo for supervisor"><i class="post-icon gg-file-document"></i>Mac start hexo for supervisor</a></li></ul></li><li class="tree-list-item"><i class="toggle-post-icon gg-folder-add"></i><a class="tree-list-link" href="/sugw.github.io/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a><ul class="tree-list-children"><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2020/10/27/Mysql%20%E5%BA%93%E6%9F%A5%E8%AF%A2%E5%A4%A7%E5%B0%8F/" title="Mysql数据库查询大小"><i class="post-icon gg-file-document"></i>Mysql数据库查询大小</a></li><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2020/10/27/Mysql%20%E6%89%B9%E9%87%8F%E5%88%A0%E9%99%A4%E8%A1%A8/" title="Mysql 批量删除表"><i class="post-icon gg-file-document"></i>Mysql 批量删除表</a></li></ul></li><li class="tree-list-item"><i class="toggle-post-icon gg-folder-add"></i><a class="tree-list-link" href="/sugw.github.io/categories/%E6%B5%8B%E8%AF%95/">测试</a><ul class="tree-list-children"><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2020/10/20/hello-world/" title="Hello World"><i class="post-icon gg-file-document"></i>Hello World</a></li></ul></li></ul>
+      <ul><li class="tree-list-item"><i class="toggle-post-icon gg-folder-add"></i><a class="tree-list-link" href="/sugw.github.io/categories/Linux/">Linux</a><ul class="tree-list-children"><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2020/10/28/Firewalld/" title="Firewalld"><i class="post-icon gg-file-document"></i>Firewalld</a></li><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2020/10/26/Prometheus%E7%9B%91%E6%8E%A7node_exporter%E7%9A%84%E5%91%8A%E8%AD%A6%E8%A7%84%E5%88%99/" title="Prometheus监控node_exporter的告警规则"><i class="post-icon gg-file-document"></i>Prometheus监控node_exporter的告警规则</a></li><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2020/10/28/centos6.8%20%E5%AE%89%E8%A3%85supervisor/" title="centos6.8 安装supervisor"><i class="post-icon gg-file-document"></i>centos6.8 安装supervisor</a></li><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2020/10/21/linux%20%E7%A3%81%E7%9B%98%E6%BB%A1/" title="linux 磁盘"><i class="post-icon gg-file-document"></i>linux 磁盘</a></li><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2020/10/28/nginx%E9%98%BB%E6%AD%A2IP%E8%AE%BF%E9%97%AE%E5%AE%9E%E4%BE%8B/" title="nginx 阻止IP访问实例"><i class="post-icon gg-file-document"></i>nginx 阻止IP访问实例</a></li><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2020/11/03/Centos67%20%E5%AE%89%E8%A3%85PHP7.3%E6%95%99%E7%A8%8B/" title="Centos6/7 安装PHP7.3教程"><i class="post-icon gg-file-document"></i>Centos6/7 安装PHP7.3教程</a></li></ul></li><li class="tree-list-item"><i class="toggle-post-icon gg-folder-add"></i><a class="tree-list-link" href="/sugw.github.io/categories/Mac/">Mac</a><ul class="tree-list-children"><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2020/10/26/mac%20for%20supervisor/" title="Mac start hexo for supervisor"><i class="post-icon gg-file-document"></i>Mac start hexo for supervisor</a></li></ul></li><li class="tree-list-item"><i class="toggle-post-icon gg-folder-add"></i><a class="tree-list-link" href="/sugw.github.io/categories/wiki/">wiki</a><ul class="tree-list-children"><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2020/11/13/mediawiki%20lockdown%E6%9D%83%E9%99%90%E9%85%8D%E7%BD%AE/" title="mediawiki lockdown权限配置"><i class="post-icon gg-file-document"></i>mediawiki lockdown权限配置</a></li><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2020/11/13/mediawiki%E5%AE%89%E8%A3%85/" title="mediawiki安装"><i class="post-icon gg-file-document"></i>mediawiki安装</a></li><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2020/11/13/mediawiki%E6%82%AC%E6%B5%AE%E7%9B%AE%E5%BD%95/" title="mediawiki悬浮目录"><i class="post-icon gg-file-document"></i>mediawiki悬浮目录</a></li></ul></li><li class="tree-list-item"><i class="toggle-post-icon gg-folder-add"></i><a class="tree-list-link" href="/sugw.github.io/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a><ul class="tree-list-children"><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2020/10/27/Mysql%20%E5%BA%93%E6%9F%A5%E8%AF%A2%E5%A4%A7%E5%B0%8F/" title="Mysql数据库查询大小"><i class="post-icon gg-file-document"></i>Mysql数据库查询大小</a></li><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2020/10/27/Mysql%20%E6%89%B9%E9%87%8F%E5%88%A0%E9%99%A4%E8%A1%A8/" title="Mysql 批量删除表"><i class="post-icon gg-file-document"></i>Mysql 批量删除表</a></li></ul></li><li class="tree-list-item"><i class="toggle-post-icon gg-folder-add"></i><a class="tree-list-link" href="/sugw.github.io/categories/%E6%B5%8B%E8%AF%95/">测试</a><ul class="tree-list-children"><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2020/10/20/hello-world/" title="Hello World"><i class="post-icon gg-file-document"></i>Hello World</a></li></ul></li></ul>
         <div id="widget-tree-button">
           <i class="gg-chevron-right"></i>
         </div>

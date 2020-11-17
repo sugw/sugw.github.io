@@ -6,7 +6,7 @@
   <link href="https://sugw.github.io/sugw.github.io/atom.xml" rel="self"/>
   
   <link href="https://sugw.github.io/sugw.github.io/"/>
-  <updated>2020-11-03T09:23:57.380Z</updated>
+  <updated>2020-11-13T08:52:16.492Z</updated>
   <id>https://sugw.github.io/sugw.github.io/</id>
   
   <author>
@@ -17,11 +17,143 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>mediawiki悬浮目录</title>
+    <link href="https://sugw.github.io/sugw.github.io/2020/11/13/mediawiki%E6%82%AC%E6%B5%AE%E7%9B%AE%E5%BD%95/"/>
+    <id>https://sugw.github.io/sugw.github.io/2020/11/13/mediawiki%E6%82%AC%E6%B5%AE%E7%9B%AE%E5%BD%95/</id>
+    <published>2020-11-13T03:32:43.099Z</published>
+    <updated>2020-11-13T08:52:16.492Z</updated>
+    
+    
+    <summary type="html">MediaWiki:Common.css
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+
+
+#toc{
+ display: block;
+ position: fixed;
+ top: 100px;
+ right: 0px;
+ min-width: 100px;
+ max-width: 350px;
+ max-height: 20px;
+ overflow-y: scroll;
+ border: 1px solid #a</summary>
+    
+    
+    
+    <category term="wiki" scheme="https://sugw.github.io/sugw.github.io/categories/wiki/"/>
+    
+    
+    <category term="wiki" scheme="https://sugw.github.io/sugw.github.io/tags/wiki/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>mediawiki lockdown权限配置</title>
+    <link href="https://sugw.github.io/sugw.github.io/2020/11/13/mediawiki%20lockdown%E6%9D%83%E9%99%90%E9%85%8D%E7%BD%AE/"/>
+    <id>https://sugw.github.io/sugw.github.io/2020/11/13/mediawiki%20lockdown%E6%9D%83%E9%99%90%E9%85%8D%E7%BD%AE/</id>
+    <published>2020-11-13T02:26:32.719Z</published>
+    <updated>2020-11-13T08:19:01.711Z</updated>
+    
+    
+    <summary type="html">禁止游客访问站点内容，需注册
+1
+2
+3
+4
+5
+6
+
+
+## 拒绝没注册用户浏览和编辑
+$wgGroupPermissions[&#39;*&#39;][&#39;edit&#39;] = false;
+$wgGroupPermissions[&#39;*&#39;][&#39;read&#39;] = false;
+
+## 设置游客可以看到的页面
+$wgWhitelistRead = array (&quot;Main Page&quot;, &quot;MediaWiki:Common.css&quot;,&quot;MediaWiki:Common.js&quot;,&quot;Special:Userlogin&quot;,&quot;特殊:创建账户&quot;, &quot;Wikipedia:Help&quot;);
+
+
+安装lockdown插件
+1
+2
+3
+</summary>
+    
+    
+    
+    <category term="wiki" scheme="https://sugw.github.io/sugw.github.io/categories/wiki/"/>
+    
+    
+    <category term="wiki" scheme="https://sugw.github.io/sugw.github.io/tags/wiki/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>mediawiki安装</title>
+    <link href="https://sugw.github.io/sugw.github.io/2020/11/13/mediawiki%E5%AE%89%E8%A3%85/"/>
+    <id>https://sugw.github.io/sugw.github.io/2020/11/13/mediawiki%E5%AE%89%E8%A3%85/</id>
+    <published>2020-11-13T01:19:58.732Z</published>
+    <updated>2020-11-13T08:17:05.662Z</updated>
+    
+    
+    <summary type="html">&lt;h2 id=&quot;环境：php73-mysql5-7-mediawiki1-35-nginx1-18&quot;&gt;&lt;a href=&quot;#环境：php73-mysql5-7-mediawiki1-35-nginx1-18&quot; class=&quot;headerlink&quot; title=&quot;环境：php73+mysql5.7+mediawiki1.35+nginx1.18&quot;&gt;&lt;/a&gt;环境：php73+mysql5.7+mediawiki1.35+nginx1.18&lt;/h2&gt;&lt;h3 id=&quot;安装PHP73&quot;&gt;&lt;a href=&quot;#安装PHP73&quot; class=&quot;headerlink&quot; title=&quot;安装PHP73&quot;&gt;&lt;/a&gt;安装PHP73&lt;/h3&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;22&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;23&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;24&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;25&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;26&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;27&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;28&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;29&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;30&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;31&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;32&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;33&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;34&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;35&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;36&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;37&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;38&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;39&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;40&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;41&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;42&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;43&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;44&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;45&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;46&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;47&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;48&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;49&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;50&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;51&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;52&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;53&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;54&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;55&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;56&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;57&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;58&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;59&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;60&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;61&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;62&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;63&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;64&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;65&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;66&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;67&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;68&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;69&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;70&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;71&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;72&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;73&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;74&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;75&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;76&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;77&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;78&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;79&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;80&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;81&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;82&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;83&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;84&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;85&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;#首先安装 EPEL 源：&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;yum install epel-release&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;#安装 REMI 源：&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;yum install http://rpms.remirepo.net/enterprise/remi-release-7.rpm&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;#安装&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;yum install -y php73 php73-php-pecl-apcu php73-php-intl php73-php-mbstring php73-php-xml php73-php-pecl-mysql&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;#启动&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;systemctl restart php73-php-fpm&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;#开机启动&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;systemctl &lt;span class=&quot;built_in&quot;&gt;enable&lt;/span&gt; php73-php-fpm&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;#查看安装包&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;[root@l-wiki01 ~]&lt;span class=&quot;comment&quot;&gt;#  rpm -qa | grep &amp;#x27;php&amp;#x27;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;php73-php-cli-7.3.24-1.el7.remi.x86_64&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;php73-2.0-1.el7.remi.x86_64&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;php73-php-mbstring-7.3.24-1.el7.remi.x86_64&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;php73-php-gd-7.3.24-1.el7.remi.x86_64&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;php73-php-pecl-crypto-0.3.1-5.el7.remi.x86_64&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;oniguruma5php-6.9.5+rev1-4.el7.remi.x86_64&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;php73-runtime-2.0-1.el7.remi.x86_64&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;php73-php-common-7.3.24-1.el7.remi.x86_64&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;php73-php-pdo-7.3.24-1.el7.remi.x86_64&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;php73-php-pecl-mysql-1.0.0-0.20.20180226.647c933.el7.remi.x86_64&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;php73-php-intl-7.3.24-1.el7.remi.x86_64&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;php73-php-pecl-apcu-5.1.19-1.el7.remi.x86_64&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;php73-php-pecl-mcrypt-1.0.3-1.el7.remi.x86_64&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;php73-php-snmp-7.3.24-1.el7.remi.x86_64&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;php73-php-bcmath-7.3.24-1.el7.remi.x86_64&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;php73-php-pecl-geoip-1.1.1-6.el7.remi.x86_64&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;php73-php-soap-7.3.24-1.el7.remi.x86_64&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;php73-php-json-7.3.24-1.el7.remi.x86_64&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;php73-php-mysqlnd-7.3.24-1.el7.remi.x86_64&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;php73-php-xml-7.3.24-1.el7.remi.x86_64&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;php73-php-recode-7.3.24-1.el7.remi.x86_64&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;php73-php-opcache-7.3.24-1.el7.remi.x86_64&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;php73-php-fpm-7.3.24-1.el7.remi.x86_64&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;找到：php73-php-fpm-7.3.24-1.el7.remi.x86_64安装位置&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;[root@l-wiki01 ~]&lt;span class=&quot;comment&quot;&gt;# rpm -ql php73-php-fpm-7.3.24-1.el7.remi.x86_64&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;/etc/logrotate.d/php73-php-fpm&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;/etc/opt/remi/php73/php-fpm.conf&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;/etc/opt/remi/php73/php-fpm.d&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;/etc/opt/remi/php73/php-fpm.d/www.conf&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;/etc/opt/remi/php73/sysconfig/php-fpm&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;/etc/systemd/system/php73-php-fpm.service.d&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;/opt/remi/php73/root/usr/sbin/php-fpm&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;/opt/remi/php73/root/usr/share/doc/php73-php-fpm-7.3.24&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;/opt/remi/php73/root/usr/share/doc/php73-php-fpm-7.3.24/php-fpm.conf.default&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;/opt/remi/php73/root/usr/share/doc/php73-php-fpm-7.3.24/www.conf.default&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;/opt/remi/php73/root/usr/share/fpm&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;/opt/remi/php73/root/usr/share/fpm/status.html&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;/opt/remi/php73/root/usr/share/licenses/php73-php-fpm-7.3.24&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;/opt/remi/php73/root/usr/share/licenses/php73-php-fpm-7.3.24/fpm_LICENSE&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;/opt/remi/php73/root/usr/share/man/man8/php-fpm.8.gz&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;/usr/lib/systemd/system/php73-php-fpm.service&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;/var/opt/remi/php73/lib/php/opcache&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;/var/opt/remi/php73/lib/php/session&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;/var/opt/remi/php73/lib/php/wsdlcache&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;/var/opt/remi/php73/&lt;span class=&quot;built_in&quot;&gt;log&lt;/span&gt;/php-fpm&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;/var/opt/remi/php73/run/php-fpm&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;查找php.ini位置：&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;[root@l-wiki01 ~]&lt;span class=&quot;comment&quot;&gt;# find /etc/opt/remi/php73 -name php.ini&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;/etc/opt/remi/php73/php.ini&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;编辑/etc/opt/remi/php73/php.ini替换换 ;cgi.fix_pathinfo=1 为 cgi.fix_pathinfo=0 快捷命令：&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;sed -i &lt;span class=&quot;string&quot;&gt;&amp;#x27;s/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/&amp;#x27;&lt;/span&gt; /etc/opt/remi/php73/php.ini&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;重启php73-php-fpm&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;systemctl restart php73-php-fpm&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;更多操作：&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;systemctl restart php73-php-fpm &lt;span class=&quot;comment&quot;&gt;#重启&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;systemctl start php73-php-fpm &lt;span class=&quot;comment&quot;&gt;#启动&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;systemctl stop php73-php-fpm &lt;span class=&quot;comment&quot;&gt;#关闭&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;systemctl status php73-php-fpm &lt;span class=&quot;comment&quot;&gt;#检查状态&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;查看 PHP&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;验证一下是否安装成功：&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;[root@l-wiki01 ~]&lt;span class=&quot;comment&quot;&gt;# php73 -v&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;PHP 7.3.24 (cli) (built: Oct 27 2020 11:01:59) ( NTS )&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Copyright (c) 1997-2018 The PHP Group&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Zend Engine v3.3.24, Copyright (c) 1998-2018 Zend Technologies&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    with Zend OPcache v7.3.24, Copyright (c) 1999-2018, by Zend Technologies&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+
+&lt;h3 id=&quot;安装mysql&quot;&gt;&lt;a href=&quot;#安装mysql&quot; class=&quot;headerlink&quot; title=&quot;安装mysql&quot;&gt;&lt;/a&gt;安装mysql&lt;/h3&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;22&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;23&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;#下载源&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;wget https://dev.mysql.com/get/mysql57-community-release-el7-9.noarch.rpm&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;#更新源&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;rpm -ivh mysql57-community-release-el7-9.noarch.rpm&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;#安装mysql&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;yum -y install mysql-server&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;#启动&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;systemctl start mysqld&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;#开机启动&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;systemctl &lt;span class=&quot;built_in&quot;&gt;enable&lt;/span&gt; mysqld&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;#查看状态&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;systemctl status mysqld&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;#查看临时密码&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;grep &lt;span class=&quot;string&quot;&gt;&amp;#x27;temporary password&amp;#x27;&lt;/span&gt; /var/&lt;span class=&quot;built_in&quot;&gt;log&lt;/span&gt;/mysqld.log&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;#修改root临时密码&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;ALTER USER &lt;span class=&quot;string&quot;&gt;&amp;#x27;root&amp;#x27;&lt;/span&gt;@&lt;span class=&quot;string&quot;&gt;&amp;#x27;localhost&amp;#x27;&lt;/span&gt; IDENTIFIED BY &lt;span class=&quot;string&quot;&gt;&amp;#x27;123@CSDN.com&amp;#x27;&lt;/span&gt;;  &lt;span class=&quot;comment&quot;&gt;#密码要符合安全策略否则不生效&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;#创建wiki库&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;CREATE DATABASE IF NOT EXISTS wiki DEFAULT CHARACTER SET = utf8mb4;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;#创建wiki库管理账号密码&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;#授权的同时设置密码&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;grant all privileges on wiki.* to wiki@&lt;span class=&quot;string&quot;&gt;&amp;#x27;localhost&amp;#x27;&lt;/span&gt; identified by &lt;span class=&quot;string&quot;&gt;&amp;#x27;123456&amp;#x27;&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;</summary>
+    
+    
+    
+    <category term="wiki" scheme="https://sugw.github.io/sugw.github.io/categories/wiki/"/>
+    
+    
+    <category term="wiki" scheme="https://sugw.github.io/sugw.github.io/tags/wiki/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Centos6/7 安装PHP7.3教程</title>
     <link href="https://sugw.github.io/sugw.github.io/2020/11/03/Centos67%20%E5%AE%89%E8%A3%85PHP7.3%E6%95%99%E7%A8%8B/"/>
     <id>https://sugw.github.io/sugw.github.io/2020/11/03/Centos67%20%E5%AE%89%E8%A3%85PHP7.3%E6%95%99%E7%A8%8B/</id>
     <published>2020-11-03T09:14:19.731Z</published>
-    <updated>2020-11-03T09:23:57.380Z</updated>
+    <updated>2020-11-13T08:50:45.494Z</updated>
     
     
     <summary type="html">&lt;h1 id=&quot;介绍&quot;&gt;&lt;a href=&quot;#介绍&quot; class=&quot;headerlink&quot; title=&quot;介绍&quot;&gt;&lt;/a&gt;介绍&lt;/h1&gt;&lt;p&gt;最近的 PHP 7.3.0 已经在 2018 年12月6日 发布 GA，大家已经可以开始第一时间体验新版本了，这里先放出 PHP7.3 安装的教程以便大家升级。&lt;/p&gt;
@@ -287,7 +419,7 @@ groups:
     <link href="https://sugw.github.io/sugw.github.io/2020/10/21/linux%20%E7%A3%81%E7%9B%98%E6%BB%A1/"/>
     <id>https://sugw.github.io/sugw.github.io/2020/10/21/linux%20%E7%A3%81%E7%9B%98%E6%BB%A1/</id>
     <published>2020-10-21T07:29:37.710Z</published>
-    <updated>2020-10-21T07:37:37.269Z</updated>
+    <updated>2020-11-13T08:41:43.675Z</updated>
     
     
     <summary type="html">&lt;h3 id=&quot;问题：&quot;&gt;&lt;a href=&quot;#问题：&quot; class=&quot;headerlink&quot; title=&quot;问题：&quot;&gt;&lt;/a&gt;问题：&lt;/h3&gt;&lt;hr&gt;
