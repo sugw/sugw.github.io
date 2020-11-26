@@ -2,6 +2,90 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://sugw.github.io/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/</loc>
+    
+    <lastmod>2020-11-26</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://sugw.github.io/sugw.github.io/2020/11/23/prometheus-pushgateway/</loc>
+    
+    <lastmod>2020-11-24</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://sugw.github.io/sugw.github.io/2020/10/26/Prometheus%E7%9B%91%E6%8E%A7node_exporter%E7%9A%84%E5%91%8A%E8%AD%A6%E8%A7%84%E5%88%99/</loc>
+    
+    <lastmod>2020-11-24</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://sugw.github.io/sugw.github.io/2020/11/20/ansible%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1%E5%92%8C%E7%94%A8%E6%88%B7%E7%BB%84%E6%A8%A1%E5%9D%97%E4%BD%BF%E7%94%A8/</loc>
+    
+    <lastmod>2020-11-20</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://sugw.github.io/sugw.github.io/2020/11/20/linux%E5%86%85%E6%A0%B8%E4%BC%98%E5%8C%96/</loc>
+    
+    <lastmod>2020-11-20</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://sugw.github.io/sugw.github.io/2020/11/19/PHP-php-fpm%E9%85%8D%E7%BD%AE%E4%BC%98%E5%8C%96/</loc>
+    
+    <lastmod>2020-11-20</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://sugw.github.io/sugw.github.io/2020/11/19/PHP-FPM%20%E8%AE%BE%E7%BD%AE%E5%A4%9Apool%E3%80%81%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E9%87%8D%E5%86%99/</loc>
+    
+    <lastmod>2020-11-19</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://sugw.github.io/sugw.github.io/2020/11/19/Nginx%E4%BC%98%E5%8C%96%E8%AF%A6%E8%A7%A3/</loc>
+    
+    <lastmod>2020-11-19</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://sugw.github.io/sugw.github.io/2020/11/19/ab%E5%8E%8B%E6%B5%8B%E5%B7%A5%E5%85%B7/</loc>
+    
+    <lastmod>2020-11-19</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://sugw.github.io/sugw.github.io/2020/10/27/Mysql%20%E6%89%B9%E9%87%8F%E5%88%A0%E9%99%A4%E8%A1%A8/</loc>
+    
+    <lastmod>2020-11-19</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://sugw.github.io/sugw.github.io/2020/11/18/DOClever-for-centos7%E5%AE%89%E8%A3%85/</loc>
+    
+    <lastmod>2020-11-18</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://sugw.github.io/sugw.github.io/2020/11/17/Mysqldump%E5%A4%87%E4%BB%BD%E6%95%B0%E6%8D%AE%E5%BA%93%E6%97%B6%E6%8E%92%E9%99%A4%E6%9F%90%E4%BA%9B%E5%BA%93/</loc>
+    
+    <lastmod>2020-11-17</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://sugw.github.io/sugw.github.io/2020/11/13/mediawiki%E6%82%AC%E6%B5%AE%E7%9B%AE%E5%BD%95/</loc>
     
     <lastmod>2020-11-13</lastmod>
@@ -51,13 +135,6 @@
   </url>
   
   <url>
-    <loc>https://sugw.github.io/sugw.github.io/2020/10/20/hello-world/</loc>
-    
-    <lastmod>2020-10-28</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://sugw.github.io/sugw.github.io/2020/10/28/Firewalld/</loc>
     
     <lastmod>2020-10-28</lastmod>
@@ -68,20 +145,6 @@
     <loc>https://sugw.github.io/sugw.github.io/2020/10/27/Mysql%20%E5%BA%93%E6%9F%A5%E8%AF%A2%E5%A4%A7%E5%B0%8F/</loc>
     
     <lastmod>2020-10-28</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://sugw.github.io/sugw.github.io/2020/10/27/Mysql%20%E6%89%B9%E9%87%8F%E5%88%A0%E9%99%A4%E8%A1%A8/</loc>
-    
-    <lastmod>2020-10-27</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://sugw.github.io/sugw.github.io/2020/10/26/Prometheus%E7%9B%91%E6%8E%A7node_exporter%E7%9A%84%E5%91%8A%E8%AD%A6%E8%A7%84%E5%88%99/</loc>
-    
-    <lastmod>2020-10-26</lastmod>
     
   </url>
   
@@ -123,85 +186,106 @@
 
   <url>
     <loc>https://sugw.github.io/sugw.github.io</loc>
-    <lastmod>2020-11-17</lastmod>
+    <lastmod>2020-11-26</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
 
   
   <url>
+    <loc>https://sugw.github.io/sugw.github.io/tags/%E6%8E%A5%E5%8F%A3%E7%AE%A1%E7%90%86/</loc>
+    <lastmod>2020-11-26</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://sugw.github.io/sugw.github.io/tags/%E9%98%B2%E7%81%AB%E5%A2%99/</loc>
-    <lastmod>2020-11-17</lastmod>
+    <lastmod>2020-11-26</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://sugw.github.io/sugw.github.io/tags/mysql/</loc>
-    <lastmod>2020-11-17</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://sugw.github.io/sugw.github.io/tags/prometheus/</loc>
-    <lastmod>2020-11-17</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://sugw.github.io/sugw.github.io/tags/supervisors/</loc>
-    <lastmod>2020-11-17</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://sugw.github.io/sugw.github.io/tags/%E6%A0%87%E7%AD%BE1/</loc>
-    <lastmod>2020-11-17</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://sugw.github.io/sugw.github.io/tags/%E6%A0%87%E7%AD%BE2/</loc>
-    <lastmod>2020-11-17</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://sugw.github.io/sugw.github.io/tags/%E7%A3%81%E7%9B%98/</loc>
-    <lastmod>2020-11-17</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://sugw.github.io/sugw.github.io/tags/supervisor/</loc>
-    <lastmod>2020-11-17</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://sugw.github.io/sugw.github.io/tags/wiki/</loc>
-    <lastmod>2020-11-17</lastmod>
+    <lastmod>2020-11-26</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://sugw.github.io/sugw.github.io/tags/nginx/</loc>
-    <lastmod>2020-11-17</lastmod>
+    <lastmod>2020-11-26</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://sugw.github.io/sugw.github.io/tags/%E4%BC%98%E5%8C%96/</loc>
+    <lastmod>2020-11-26</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://sugw.github.io/sugw.github.io/tags/prometheus/</loc>
+    <lastmod>2020-11-26</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://sugw.github.io/sugw.github.io/tags/%E6%B5%8B%E8%AF%95/</loc>
+    <lastmod>2020-11-26</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://sugw.github.io/sugw.github.io/tags/ansible/</loc>
+    <lastmod>2020-11-26</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://sugw.github.io/sugw.github.io/tags/supervisors/</loc>
+    <lastmod>2020-11-26</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://sugw.github.io/sugw.github.io/tags/%E7%A3%81%E7%9B%98/</loc>
+    <lastmod>2020-11-26</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://sugw.github.io/sugw.github.io/tags/supervisor/</loc>
+    <lastmod>2020-11-26</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://sugw.github.io/sugw.github.io/tags/wiki/</loc>
+    <lastmod>2020-11-26</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://sugw.github.io/sugw.github.io/tags/php/</loc>
-    <lastmod>2020-11-17</lastmod>
+    <lastmod>2020-11-26</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://sugw.github.io/sugw.github.io/tags/%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2/</loc>
+    <lastmod>2020-11-26</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
@@ -209,36 +293,78 @@
 
   
   <url>
+    <loc>https://sugw.github.io/sugw.github.io/categories/%E6%8E%A5%E5%8F%A3%E7%AE%A1%E7%90%86/</loc>
+    <lastmod>2020-11-26</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://sugw.github.io/sugw.github.io/categories/Linux/</loc>
-    <lastmod>2020-11-17</lastmod>
+    <lastmod>2020-11-26</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://sugw.github.io/sugw.github.io/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/</loc>
-    <lastmod>2020-11-17</lastmod>
+    <lastmod>2020-11-26</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://sugw.github.io/sugw.github.io/categories/%E4%BC%98%E5%8C%96/</loc>
+    <lastmod>2020-11-26</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://sugw.github.io/sugw.github.io/categories/PHP/</loc>
+    <lastmod>2020-11-26</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://sugw.github.io/sugw.github.io/categories/%E7%9B%91%E6%8E%A7/</loc>
+    <lastmod>2020-11-26</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://sugw.github.io/sugw.github.io/categories/%E6%B5%8B%E8%AF%95/</loc>
-    <lastmod>2020-11-17</lastmod>
+    <lastmod>2020-11-26</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://sugw.github.io/sugw.github.io/categories/ansible/</loc>
+    <lastmod>2020-11-26</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://sugw.github.io/sugw.github.io/categories/Mac/</loc>
-    <lastmod>2020-11-17</lastmod>
+    <lastmod>2020-11-26</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://sugw.github.io/sugw.github.io/categories/wiki/</loc>
-    <lastmod>2020-11-17</lastmod>
+    <lastmod>2020-11-26</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://sugw.github.io/sugw.github.io/categories/Jenkins-Gitlab-Ansible/</loc>
+    <lastmod>2020-11-26</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>

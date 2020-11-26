@@ -1,6 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>DOClever for centos7安装</title>
+    <url>/sugw.github.io/2020/11/18/DOClever-for-centos7%E5%AE%89%E8%A3%85/</url>
+    <content><![CDATA[<p>#安装参考</p>
+<p><a href="https://github.com/sx1989827/DOClever/blob/master/README.md">https://github.com/sx1989827/DOClever/blob/master/README.md</a> </p>
+<h2 id="安装node"><a href="#安装node" class="headerlink" title="安装node"></a>安装node</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">wget https:&#x2F;&#x2F;nodejs.org&#x2F;dist&#x2F;v8.11.1&#x2F;node-v8.11.1-linux-x64.tar.xz</span><br><span class="line">tar xvf node-v8.11.1-linux-x64.tar.xz</span><br><span class="line">mv node-v8.11.1-linux-x64 nodev8</span><br><span class="line">ln -s &#x2F;data&#x2F;nodev8&#x2F;bin&#x2F;node &#x2F;usr&#x2F;local&#x2F;bin&#x2F;node</span><br><span class="line">ln -s &#x2F;data&#x2F;nodev8&#x2F;bin&#x2F;npm &#x2F;usr&#x2F;local&#x2F;bin&#x2F;npm</span><br></pre></td></tr></table></figure>
+
+<h2 id="安装mongodb"><a href="#安装mongodb" class="headerlink" title="安装mongodb"></a>安装mongodb</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cat &#x2F;etc&#x2F;yum.repos.d&#x2F;mongodb-org-4.4.repo</span><br><span class="line">[mongodb-org-4.4]</span><br><span class="line">name&#x3D;MongoDB Repository</span><br><span class="line">baseurl&#x3D;https:&#x2F;&#x2F;repo.mongodb.org&#x2F;yum&#x2F;redhat&#x2F;$releasever&#x2F;mongodb-org&#x2F;4.4&#x2F;x86_64&#x2F;</span><br><span class="line">gpgcheck&#x3D;1</span><br><span class="line">enabled&#x3D;1</span><br><span class="line">gpgkey&#x3D;https:&#x2F;&#x2F;www.mongodb.org&#x2F;static&#x2F;pgp&#x2F;server-4.4.asc</span><br><span class="line"></span><br><span class="line">sudo yum install -y mongodb-org</span><br><span class="line">sudo systemctl start mongod</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="安装studio"><a href="#安装studio" class="headerlink" title="安装studio"></a>安装studio</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">wget https:&#x2F;&#x2F;download.studio3t.com&#x2F;robomongo&#x2F;linux&#x2F;studio-3t-robo-3t-linux-double-pack.tar.gz</span><br><span class="line">tar xvf studio-3t-robo-3t-linux-double-pack.tar.gz</span><br><span class="line"> &#x2F;bin&#x2F;sh studio-3t-linux-x64.sh</span><br></pre></td></tr></table></figure>
+
+<h2 id="安装DOClever"><a href="#安装DOClever" class="headerlink" title="安装DOClever"></a>安装DOClever</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">wget https:&#x2F;&#x2F;github.com&#x2F;sx1989827&#x2F;DOClever&#x2F;archive&#x2F;master.zip</span><br><span class="line">unzip master.zip</span><br></pre></td></tr></table></figure>
+
+<h2 id="安装supervisor"><a href="#安装supervisor" class="headerlink" title="安装supervisor"></a>安装supervisor</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"> yum install supervisor</span><br><span class="line"> systemctl start supervisord</span><br><span class="line"> systemctl enable supervisord</span><br><span class="line"> </span><br><span class="line"> cat &#x2F;etc&#x2F;supervisord.d&#x2F;DOClever.ini</span><br><span class="line">[program:DOClever]</span><br><span class="line">command&#x3D;&#x2F;usr&#x2F;local&#x2F;bin&#x2F;node &#x2F;data&#x2F;DOClever-master&#x2F;Server&#x2F;bin&#x2F;www</span><br><span class="line">autostart&#x3D;true</span><br><span class="line">startretries&#x3D;10</span><br><span class="line">autorestart&#x3D;true</span><br><span class="line">stdout_logfile&#x3D;&#x2F;data&#x2F;logs&#x2F;DOClever&#x2F;DOClever.log</span><br><span class="line">stderr_logfile&#x3D;&#x2F;data&#x2F;logs&#x2F;DOClever&#x2F;error.log</span><br><span class="line">directory&#x3D;&#x2F;data&#x2F;DOClever-master</span><br><span class="line"></span><br><span class="line"> systemctl restart supervisord</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>接口管理</category>
+      </categories>
+      <tags>
+        <tag>接口管理</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Firewalld</title>
     <url>/sugw.github.io/2020/10/28/Firewalld/</url>
     <content><![CDATA[<p>启动一个服务：systemctl start firewalld.service</p>
@@ -75,16 +98,593 @@
       </tags>
   </entry>
   <entry>
+    <title>Mysqldump备份数据库时排除某些库</title>
+    <url>/sugw.github.io/2020/11/17/Mysqldump%E5%A4%87%E4%BB%BD%E6%95%B0%E6%8D%AE%E5%BA%93%E6%97%B6%E6%8E%92%E9%99%A4%E6%9F%90%E4%BA%9B%E5%BA%93/</url>
+    <content><![CDATA[<p><strong>说明：</strong><br>使用mysqldump –all-databases会导出所有库。但如果做主从，从主库dump出数据时，我们是不需要也不想要information_schema 和 mysql 库的。数据库少的情况下还可以通过<code>/usr/local/mysql/bin/mysqldump -uroot -p --databases db1 db2 &gt; db1db2.sql</code> 这样再导出，但如果数据多，这样指定就很麻烦了。<br>mysql是支持 ignore-table 的，但是没有ignore-database，所以要导出除 information_schema和mysql库的其它所有库，难道就只能一个个指定database吗？</p>
+<p><strong>解决：</strong></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># mysql -e &quot;show databases;&quot; -uroot -p| grep -Ev &quot;Database|information_schema|mysql|test&quot; | xargs mysqldump -uroot -p --databases &gt; mysql_dump.sql</span></span><br></pre></td></tr></table></figure>
+
+
+<p><strong>附录：</strong><br>附录1：mysqldump: Got error: 1142: SELECT,LOCK TABL command denied to user ‘root’@’localhost’ for table ‘cond_instances’ when using LOCK TABLES<br>在mysql5.5中增加了performance_schema，当我们进行mysqldump的时候，会报如下错误信息：<br>mysqldump: Got error: 1142: SELECT,LOCK TABL command denied to user ‘root’@’localhost’ for table ‘cond_instances’ when using LOCK TABLES</p>
+<p>我们可以在mysqldump中加上参数 –skip-lock-tables，如</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># mysqldump  -uroot  -p   --skip-lock-tables  performance_schema &gt; performance_schema.sql </span></span><br></pre></td></tr></table></figure>
+
+<p>或者过滤掉performance_schema这个库</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># mysql -e &quot;show databases;&quot; -uroot -p| grep -Ev &quot;Database|information_schema|mysql|test|performance_schema&quot; | xargs mysqldump -uroot -p --databases &gt; mysql_dump.sql</span></span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>数据库</category>
+      </categories>
+      <tags>
+        <tag>mysql</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Nginx优化详解</title>
+    <url>/sugw.github.io/2020/11/19/Nginx%E4%BC%98%E5%8C%96%E8%AF%A6%E8%A7%A3/</url>
+    <content><![CDATA[<h2 id="一、一般来说nginx-配置文件中对优化比较有作用的为以下几项："><a href="#一、一般来说nginx-配置文件中对优化比较有作用的为以下几项：" class="headerlink" title="一、一般来说nginx 配置文件中对优化比较有作用的为以下几项："></a><strong>一、一般来说nginx 配置文件中对优化比较有作用的为以下几项：</strong></h2><h3 id="1-worker-processes-8"><a href="#1-worker-processes-8" class="headerlink" title="1. worker_processes 8;"></a><strong>1. worker_processes 8;</strong></h3><p>​     nginx 进程数，建议按照cpu 数目来指定，一般为它的倍数 (如,2个四核的cpu计为8)。</p>
+<p>   <strong>2. worker_cpu_affinity 00000001 00000010 00000100 00001000 00010000 00100000 01000000 10000000;</strong></p>
+<p>​     为每个进程分配cpu，上例中将8 个进程分配到8 个cpu，当然可以写多个，或者将一个进程分配到多个cpu。</p>
+<p>   <strong>3.</strong> <strong>worker_rlimit_nofile 65535;</strong></p>
+<p>​     这个指令是指当一个nginx 进程打开的最多文件描述符数目，理论值应该是最多打开文件数（ulimit -n）与nginx 进程数相除，但是nginx 分配请求并不是那么均匀，所以最好与ulimit -n 的值保持一致。</p>
+<p>​     现在在linux 2.6内核下开启文件打开数为65535，worker_rlimit_nofile就相应应该填写65535。</p>
+<p>​     这是因为nginx调度时分配请求到进程并不是那么的均衡，所以假如填写10240，总并发量达到3-4万时就有进程可能超过10240了，这时会返回502错误。</p>
+<p>​     查看linux系统文件描述符的方法：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@web001 ~]# sysctl -a | grep fs.file</span><br><span class="line"></span><br><span class="line">                 fs.file-max &#x3D; 789972</span><br><span class="line"></span><br><span class="line">                 fs.file-nr &#x3D; 510 0 789972</span><br></pre></td></tr></table></figure>
+
+<p>   <strong>4.</strong> <strong>use epoll;</strong></p>
+<p>​     使用epoll 的I/O 模型</p>
+<p>​     (</p>
+<p>​     补充说明:</p>
+<p>​       与apache相类，nginx针对不同的操作系统，有不同的事件模型</p>
+<p>​       A）标准事件模型<br>​         Select、poll属于标准事件模型，如果当前系统不存在更有效的方法，nginx会选择select或poll<br>​       B）高效事件模型<br>​         <strong>Kqueue：</strong>使用于 FreeBSD 4.1+, OpenBSD 2.9+, NetBSD 2.0 和 MacOS X. 使用双处理器的MacOS X系统使用kqueue可能会造成内核崩溃。<br>​         <strong>Epoll:</strong> 使用于Linux内核2.6版本及以后的系统。</p>
+<p>​         /dev/poll：使用于 Solaris 7 11/99+, HP/UX 11.22+ (eventport), IRIX 6.5.15+ 和 Tru64 UNIX 5.1A+。</p>
+<p>​         Eventport：使用于 Solaris 10. 为了防止出现内核崩溃的问题， 有必要安装安全补丁。</p>
+<p>​     )</p>
+<p>​    <strong>5.</strong> <strong>worker_connections 65535;</strong></p>
+<p>​      每个进程允许的最多连接数， 理论上每台nginx 服务器的最大连接数为worker_processes*worker_connections。</p>
+<p>​    <strong>6.</strong> <strong>keepalive_timeout 60;</strong></p>
+<p>​      keepalive 超时时间。</p>
+<p>​    <strong>7**</strong>.** <strong>client_header_buffer_size 4k;</strong></p>
+<p>​      客户端请求头部的缓冲区大小，这个可以根据你的系统分页大小来设置，一般一个请求头的大小不会超过1k，不过由于一般系统分页都要大于1k，所以这里设置为分页大小。</p>
+<p>​      分页大小可以用命令<strong>getconf PAGESIZE</strong> 取得。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@web001 ~]# getconf PAGESIZE</span><br><span class="line">                 4096</span><br></pre></td></tr></table></figure>
+
+<p>​     但也有client_header_buffer_size超过4k的情况，但是client_header_buffer_size该值必须设置为<strong>“系统分页大小”的整倍数。</strong></p>
+<p>​    <strong>8**</strong>.** <strong>open_file_cache max=65535 inactive=60s;</strong></p>
+<p>​      这个将为打开文件指定缓存，默认是没有启用的，max 指定缓存数量，建议和打开文件数一致，inactive 是指经过多长时间文件没被请求后删除缓存。</p>
+<p>​    <strong>9**</strong>.** <strong>open_file_cache_valid 80s;</strong></p>
+<p>​     这个是指多长时间检查一次缓存的有效信息。</p>
+<p>   <strong>10**</strong>.** <strong>open_file_cache_min_uses 1;</strong></p>
+<p>​     open_file_cache 指令中的inactive 参数时间内文件的最少使用次数，如果超过这个数字，文件描述符一直是在缓存中打开的，如上例，如果有一个文件在inactive 时间内一次没被使用，它将被移除。</p>
+<h1 id="二、关于内核参数的优化："><a href="#二、关于内核参数的优化：" class="headerlink" title="二、关于内核参数的优化："></a><strong>二、关于内核参数的优化：</strong></h1><p>​      <strong>net.ipv4.tcp_max_tw_buckets = 6000</strong></p>
+<p>​        timewait 的数量，默认是180000。</p>
+<p>​      <strong>net.ipv4.ip_local_port_range = 1024 65000</strong></p>
+<p>​        允许系统打开的端口范围。</p>
+<p>​      <strong>net.ipv4.tcp_tw_recycle = 1</strong></p>
+<p>​        启用timewait 快速回收。</p>
+<p>​      <strong>net.ipv4.tcp_tw_reuse = 1</strong></p>
+<p>​        开启重用。允许将TIME-WAIT sockets 重新用于新的TCP 连接。</p>
+<p>​      <strong>net.ipv4.tcp_syncookies = 1</strong></p>
+<p>​        开启SYN Cookies，当出现SYN 等待队列溢出时，启用cookies 来处理。</p>
+<p>​      <strong>net.core.somaxconn = 262144</strong></p>
+<p>​        web 应用中listen 函数的backlog 默认会给我们内核参数的net.core.somaxconn 限制到128，而nginx 定义的NGX_LISTEN_BACKLOG 默认为511，所以有必要调整这个值。</p>
+<p>​      <strong>net.core.netdev_max_backlog = 262144</strong></p>
+<p>​        每个网络接口接收数据包的速率比内核处理这些包的速率快时，允许送到队列的数据包的最大数目。</p>
+<p>​      <strong>net.ipv4.tcp_max_orphans = 262144</strong></p>
+<p>​        系统中最多有多少个TCP 套接字不被关联到任何一个用户文件句柄上。如果超过这个数字，孤儿连接将即刻被复位并打印出警告信息。这个限制仅仅是为了防止简单的DoS 攻击，不能过分依靠它或者人为地减小这个值，更应该增加这个值(如果增加了内存之后)。</p>
+<p>​      <strong>net.ipv4.tcp_max_syn_backlog = 262144</strong></p>
+<p>​        记录的那些尚未收到客户端确认信息的连接请求的最大值。对于有128M 内存的系统而言，缺省值是1024，小内存的系统则是128。</p>
+<p>​      <strong>net.ipv4.tcp_timestamps = 0</strong></p>
+<p>​        时间戳可以避免序列号的卷绕。一个1Gbps 的链路肯定会遇到以前用过的序列号。时间戳能够让内核接受这种“异常”的数据包。这里需要将其关掉。</p>
+<p>​      <strong>net.ipv4.tcp_synack_retries = 1</strong></p>
+<p>​        为了打开对端的连接，内核需要发送一个SYN 并附带一个回应前面一个SYN 的ACK。也就是所谓三次握手中的第二次握手。这个设置决定了内核放弃连接之前发送SYN+ACK 包的数量。</p>
+<p>​      <strong>net.ipv4.tcp_syn_retries = 1</strong></p>
+<p>​        在内核放弃建立连接之前发送SYN 包的数量。</p>
+<p>​      <strong>net.ipv4.tcp_fin_timeout = 1</strong></p>
+<p>​        如 果套接字由本端要求关闭，这个参数决定了它保持在FIN-WAIT-2 状态的时间。对端可以出错并永远不关闭连接，甚至意外当机。缺省值是60 秒。2.2 内核的通常值是180 秒，3你可以按这个设置，但要记住的是，即使你的机器是一个轻载的WEB 服务器，也有因为大量的死套接字而内存溢出的风险，FIN- WAIT-2 的危险性比FIN-WAIT-1 要小，因为它最多只能吃掉1.5K 内存，但是它们的生存期长些。</p>
+<p>​      <strong>net.ipv4.tcp_keepalive_time = 30</strong></p>
+<p>​        当keepalive 起用的时候，TCP 发送keepalive 消息的频度。缺省是2 小时。</p>
+<h1 id="三、下面贴一个完整的内核优化设置"><a href="#三、下面贴一个完整的内核优化设置" class="headerlink" title="三、下面贴一个完整的内核优化设置:"></a><strong>三、下面贴一个完整的内核优化设置:</strong></h1><p>[</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#CentOS5.5中可以将所有内容清空直接替换为如下内容:</span><br><span class="line">vi &#x2F;etc&#x2F;sysctl.conf </span><br><span class="line"></span><br><span class="line">   net.ipv4.ip_forward &#x3D; 0</span><br><span class="line">   net.ipv4.conf.default.rp_filter &#x3D; 1</span><br><span class="line">   net.ipv4.conf.default.accept_source_route &#x3D; 0</span><br><span class="line">   kernel.sysrq &#x3D; 0</span><br><span class="line">   kernel.core_uses_pid &#x3D; 1</span><br><span class="line">   net.ipv4.tcp_syncookies &#x3D; 1</span><br><span class="line">   kernel.msgmnb &#x3D; 65536</span><br><span class="line">   kernel.msgmax &#x3D; 65536</span><br><span class="line">   kernel.shmmax &#x3D; 68719476736</span><br><span class="line">   kernel.shmall &#x3D; 4294967296</span><br><span class="line">   net.ipv4.tcp_max_tw_buckets &#x3D; 6000</span><br><span class="line">   net.ipv4.tcp_sack &#x3D; 1</span><br><span class="line">   net.ipv4.tcp_window_scaling &#x3D; 1</span><br><span class="line">   net.ipv4.tcp_rmem &#x3D; 4096 87380 4194304</span><br><span class="line">   net.ipv4.tcp_wmem &#x3D; 4096 16384 4194304</span><br><span class="line">   net.core.wmem_default &#x3D; 8388608</span><br><span class="line">   net.core.rmem_default &#x3D; 8388608</span><br><span class="line">   net.core.rmem_max &#x3D; 16777216</span><br><span class="line">   net.core.wmem_max &#x3D; 16777216</span><br><span class="line">   net.core.netdev_max_backlog &#x3D; 262144</span><br><span class="line">   net.core.somaxconn &#x3D; 262144</span><br><span class="line">   net.ipv4.tcp_max_orphans &#x3D; 3276800</span><br><span class="line">   net.ipv4.tcp_max_syn_backlog &#x3D; 262144</span><br><span class="line">   net.ipv4.tcp_timestamps &#x3D; 0</span><br><span class="line">   net.ipv4.tcp_synack_retries &#x3D; 1</span><br><span class="line">   net.ipv4.tcp_syn_retries &#x3D; 1</span><br><span class="line">   net.ipv4.tcp_tw_recycle &#x3D; 1</span><br><span class="line">   net.ipv4.tcp_tw_reuse &#x3D; 1</span><br><span class="line">   net.ipv4.tcp_mem &#x3D; 94500000 915000000 927000000</span><br><span class="line">   net.ipv4.tcp_fin_timeout &#x3D; 1</span><br><span class="line">   net.ipv4.tcp_keepalive_time &#x3D; 30</span><br><span class="line">   net.ipv4.ip_local_port_range &#x3D; 1024 65000</span><br><span class="line"></span><br><span class="line">#使配置立即生效可使用如下命令：</span><br><span class="line"> &#x2F;sbin&#x2F;sysctl -p</span><br></pre></td></tr></table></figure>
+
+<p>[</p>
+<h1 id="四、下面是关于系统连接数的优化"><a href="#四、下面是关于系统连接数的优化" class="headerlink" title="四、下面是关于系统连接数的优化"></a><strong>四、下面是关于系统连接数的优化</strong></h1><p>​    <strong>linux 默认值 open files 和 max user processes 为 1024</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#ulimit -n</span><br><span class="line"> 1024</span><br><span class="line"></span><br><span class="line">#ulimit Cu</span><br><span class="line"> 1024</span><br></pre></td></tr></table></figure>
+
+<p>   <strong>问题描述：</strong> </p>
+<p>​      说明 server 只允许同时打开 1024 个文件，处理 1024 个用户进程</p>
+<p>​      使用ulimit -a 可以查看当前系统的所有限制值，使用ulimit -n 可以查看当前的最大打开文件数。</p>
+<p>​      新装的linux 默认只有1024 ，当作负载较大的服务器时，很容易遇到error: too many open files 。因此，需要将其改大。</p>
+<p>   <strong>解决方法：</strong></p>
+<p>​      使用 ulimit Cn 65535 可即时修改，但重启后就无效了。（注ulimit -SHn 65535 等效 ulimit -n 65535 ，-S 指soft ，-H 指hard)</p>
+<p>​      有如下三种修改方式：</p>
+<p>​         \1. 在/etc/rc.local 中增加一行 ulimit -SHn 65535<br>​         \2. 在/etc/profile 中增加一行 ulimit -SHn 65535<br>​         \3. 在**/etc/security/limits.conf** 最后增加：</p>
+<p>​          <strong>* soft nofile 65535<br>​          * hard nofile 65535<br>​          * soft nproc 65535<br>​          * hard nproc 65535</strong></p>
+<p>​       具体使用哪种，<strong>在 CentOS 中使用第1 种方式无效果，使用第3 种方式有效果</strong>，而在Debian 中使用第2 种有效果</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># ulimit -n</span><br><span class="line">  65535</span><br><span class="line"></span><br><span class="line"># ulimit -u</span><br><span class="line">  65535</span><br></pre></td></tr></table></figure>
+
+<p>​      备注：ulimit 命令本身就有分软硬设置，加-H 就是硬，加-S 就是软，默认显示的是软限制</p>
+<p>​      soft 限制指的是当前系统生效的设置值。 hard 限制值可以被普通用户降低。但是不能增加。 soft 限制不能设置的比 hard 限制更高。 只有 root 用户才能够增加 hard 限制值。</p>
+<h1 id="五、下面是一个简单的nginx-配置文件："><a href="#五、下面是一个简单的nginx-配置文件：" class="headerlink" title="五、下面是一个简单的nginx 配置文件："></a><strong>五、下面是一个简单的nginx 配置文件：</strong></h1><p>[</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">user www www;</span><br><span class="line"></span><br><span class="line">worker_processes 8;</span><br><span class="line"></span><br><span class="line">worker_cpu_affinity 00000001 00000010 00000100 00001000 00010000 00100000 01000000;</span><br><span class="line"></span><br><span class="line">error_log &#x2F;www&#x2F;log&#x2F;nginx_error.log crit;</span><br><span class="line"></span><br><span class="line">pid &#x2F;usr&#x2F;local&#x2F;nginx&#x2F;nginx.pid;</span><br><span class="line"></span><br><span class="line">worker_rlimit_nofile 204800;</span><br><span class="line"></span><br><span class="line">events</span><br><span class="line">&#123;</span><br><span class="line">  use epoll;</span><br><span class="line">  worker_connections 204800;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">http</span><br><span class="line">&#123;</span><br><span class="line">  include mime.types;</span><br><span class="line">  default_type application&#x2F;octet-stream;</span><br><span class="line">  charset utf-8;</span><br><span class="line">  server_names_hash_bucket_size 128;</span><br><span class="line">  client_header_buffer_size 2k;</span><br><span class="line">  large_client_header_buffers 4 4k;</span><br><span class="line">  client_max_body_size 8m;</span><br><span class="line">  sendfile on;</span><br><span class="line">  tcp_nopush on;</span><br><span class="line">  keepalive_timeout 60;</span><br><span class="line">  fastcgi_cache_path &#x2F;usr&#x2F;local&#x2F;nginx&#x2F;fastcgi_cache levels&#x3D;1:2</span><br><span class="line">  keys_zone&#x3D;TEST:10m</span><br><span class="line">  inactive&#x3D;5m;</span><br><span class="line">  fastcgi_connect_timeout 300;</span><br><span class="line">  fastcgi_send_timeout 300;</span><br><span class="line">  fastcgi_read_timeout 300;</span><br><span class="line">  fastcgi_buffer_size 4k;</span><br><span class="line">  fastcgi_buffers 8 4k;</span><br><span class="line">  fastcgi_busy_buffers_size 8k;</span><br><span class="line">  fastcgi_temp_file_write_size 8k;</span><br><span class="line">  fastcgi_cache TEST;</span><br><span class="line">  fastcgi_cache_valid 200 302 1h;</span><br><span class="line">  fastcgi_cache_valid 301 1d;</span><br><span class="line">  fastcgi_cache_valid any 1m;</span><br><span class="line">  fastcgi_cache_min_uses 1;</span><br><span class="line">  fastcgi_cache_use_stale error timeout invalid_header http_500;</span><br><span class="line">  open_file_cache max&#x3D;204800 inactive&#x3D;20s;</span><br><span class="line">  open_file_cache_min_uses 1;</span><br><span class="line">  open_file_cache_valid 30s;</span><br><span class="line">  tcp_nodelay on;</span><br><span class="line">  gzip on;</span><br><span class="line">  gzip_min_length 1k;</span><br><span class="line">  gzip_buffers 4 16k;</span><br><span class="line">  gzip_http_version 1.0;</span><br><span class="line">  gzip_comp_level 2;</span><br><span class="line">  gzip_types text&#x2F;plain application&#x2F;x-javascript text&#x2F;css application&#x2F;xml;</span><br><span class="line">  gzip_vary on;</span><br><span class="line"></span><br><span class="line">  server</span><br><span class="line">  &#123;</span><br><span class="line">    listen 8080;</span><br><span class="line">    server_name backup.aiju.com;</span><br><span class="line">    index index.php index.htm;</span><br><span class="line">    root &#x2F;www&#x2F;html&#x2F;;</span><br><span class="line"></span><br><span class="line">    location &#x2F;status</span><br><span class="line">    &#123;</span><br><span class="line">      stub_status on;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    location ~ .*&#x2F;.(php|php5)?$</span><br><span class="line">    &#123;</span><br><span class="line">     fastcgi_pass 127.0.0.1:9000;</span><br><span class="line">     fastcgi_index index.php;</span><br><span class="line">     include fcgi.conf;</span><br><span class="line">    &#125;</span><br><span class="line">  </span><br><span class="line">    location ~ .*&#x2F;.(gif|jpg|jpeg|png|bmp|swf|js|css)$</span><br><span class="line">    &#123;</span><br><span class="line">     expires 30d;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    log_format access &#39;$remote_addr — $remote_user [$time_local] &quot;$request&quot; &#39;</span><br><span class="line">    &#39;$status $body_bytes_sent &quot;$http_referer&quot; &#39;</span><br><span class="line">    &#39;&quot;$http_user_agent&quot; $http_x_forwarded_for&#39;;</span><br><span class="line">    access_log &#x2F;www&#x2F;log&#x2F;access.log access;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>[</p>
+<h1 id="六、关于FastCGI-的几个指令："><a href="#六、关于FastCGI-的几个指令：" class="headerlink" title="六、关于FastCGI 的几个指令："></a><strong>六、关于FastCGI 的几个指令：</strong></h1><p>​    fastcgi_cache_path /usr/local/nginx/fastcgi_cache levels=1:2 keys_zone=TEST:10minactive=5m;</p>
+<p>​      这个指令为FastCGI 缓存指定一个路径，目录结构等级，关键字区域存储时间和非活动删除时间。</p>
+<p>​    <strong>fastcgi_connect_timeout 300;</strong></p>
+<p>​      指定连接到后端FastCGI 的超时时间。</p>
+<p>​    <strong>fastcgi_send_timeout 300;</strong></p>
+<p>​      向FastCGI 传送请求的超时时间，这个值是指已经完成两次握手后向FastCGI 传送请求的超时时间。</p>
+<p>​    <strong>fastcgi_read_timeout 300;</strong></p>
+<p>​      接收FastCGI 应答的超时时间，这个值是指已经完成两次握手后接收FastCGI 应答的超时时间。</p>
+<p>​    <strong>fastcgi_buffer_size 4k;</strong></p>
+<p>​      指定读取FastCGI 应答第一部分需要用多大的缓冲区，一般第一部分应答不会超过1k，由于页面大小为4k，所以这里设置为4k。</p>
+<p>​    <strong>fastcgi_buffers 8 4k;</strong></p>
+<p>​      指定本地需要用多少和多大的缓冲区来缓冲FastCGI 的应答。</p>
+<p>​    <strong>fastcgi_busy_buffers_size 8k;</strong></p>
+<p>​      这个指令我也不知道是做什么用，只知道默认值是fastcgi_buffers 的两倍。</p>
+<p>​    <strong>fastcgi_temp_file_write_size 8k;</strong></p>
+<p>​      在写入fastcgi_temp_path 时将用多大的数据块，默认值是fastcgi_buffers 的两倍。</p>
+<p>​    <strong>fastcgi_cache TEST</strong></p>
+<p>​       开启FastCGI 缓存并且为其制定一个名称。个人感觉开启缓存非常有用，可以有效降低CPU 负载，并且防止502 错误。</p>
+<p>​    <strong>fastcgi_cache_valid 200 302 1h;<br>​    fastcgi_cache_valid 301 1d;<br>​    fastcgi_cache_valid any 1m;</strong></p>
+<p>​       为指定的应答代码指定缓存时间，如上例中将200，302 应答缓存一小时，301 应答缓存1 天，其他为1 分钟。</p>
+<p>​    <strong>fastcgi_cache_min_uses 1;</strong></p>
+<p>​       缓存在fastcgi_cache_path 指令inactive 参数值时间内的最少使用次数，如上例，如果在5 分钟内某文件1 次也没有被使用，那么这个文件将被移除。</p>
+<p>​    <strong>fastcgi_cache_use_stale error timeout invalid_header http_500;</strong></p>
+<p>​       不知道这个参数的作用，猜想应该是让nginx 知道哪些类型的缓存是没用的。以上为nginx 中FastCGI 相关参数，另外，FastCGI 自身也有一些配置需要进行优化，如果你使用php-fpm 来管理FastCGI，可以修改配置文件中的以下值：</p>
+<p>​       <strong><value name="”max_children”">60</value></strong></p>
+<p>​         同时处理的并发请求数，即它将开启最多60 个子线程来处理并发连接。</p>
+<p>​       <strong><value name="”rlimit_files”">102400</value></strong></p>
+<p>​         最多打开文件数。</p>
+<p>​       <strong><value name="”max_requests”">204800</value></strong></p>
+<p>​         每个进程在重置之前能够执行的最多请求数。</p>
+]]></content>
+      <categories>
+        <category>优化</category>
+      </categories>
+      <tags>
+        <tag>nginx</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>PHP-FPM 设置多pool、配置文件重写</title>
+    <url>/sugw.github.io/2020/11/19/PHP-FPM%20%E8%AE%BE%E7%BD%AE%E5%A4%9Apool%E3%80%81%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E9%87%8D%E5%86%99/</url>
+    <content><![CDATA[<p><strong>重写配置文件</strong></p>
+<p><strong>1</strong>、清空php配置文件</p>
+<p>命令：&gt; /usr/local/php/etc/php-fpm.conf</p>
+<p><strong>2</strong>、重新写入php-fpm配置</p>
+<p>命令：vim /usr/local/php/etc/php-fpm.conf</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># 全局配置</span><br><span class="line">[global]</span><br><span class="line"># PID、可以不填</span><br><span class="line">pid &#x3D; &#x2F;usr&#x2F;local&#x2F;php&#x2F;var&#x2F;run&#x2F;php-fpm.pid</span><br><span class="line"># 错误日志路径、可以不填</span><br><span class="line">error_log &#x3D; &#x2F;usr&#x2F;local&#x2F;php&#x2F;var&#x2F;log&#x2F;php-fpm.log</span><br><span class="line"># www虚拟主机配置、可写多个</span><br><span class="line"></span><br><span class="line"># pool命名：www</span><br><span class="line">[www]</span><br><span class="line"># 监听socket方式 </span><br><span class="line"># 可以写成listen &#x3D; 127.0.0.1:9000</span><br><span class="line">listen &#x3D; &#x2F;tmp&#x2F;php-fcgi.sock</span><br><span class="line"># 开启php-fpm的执行用户</span><br><span class="line">user &#x3D; php-fpm</span><br><span class="line"># 开启php-fpm的所属组</span><br><span class="line">group &#x3D; php-fpm</span><br><span class="line"># 监听listen的用户，和后面的nginx的一致</span><br><span class="line">listen.owner &#x3D; nobody</span><br><span class="line"># 监听listen的组，和后面的nginx的一致</span><br><span class="line">listen.group &#x3D; nobody</span><br><span class="line"># 怎样的形式启用进程</span><br><span class="line">pm &#x3D; dynamic</span><br><span class="line"># 最大开启子进程数</span><br><span class="line">pm.max_children &#x3D; 50</span><br><span class="line"># 一开始启动多少子进程</span><br><span class="line">pm.start_servers &#x3D; 20</span><br><span class="line"># 空闲时保留多少个子进程</span><br><span class="line">pm.min_spare_servers &#x3D; 5</span><br><span class="line"># 最多空闲子进程</span><br><span class="line">pm.max_spare_servers &#x3D; 35</span><br><span class="line"># 进程处理多少个请求之后销毁重建</span><br><span class="line">pm.max_requests &#x3D; 500</span><br><span class="line"># 限定打开最大的文件数</span><br><span class="line">rlimit_files &#x3D; 1024</span><br></pre></td></tr></table></figure>
+
+<p><strong>3</strong>、测试配置文件</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># 测试配置文件&#96;&#96;&#x2F;usr&#x2F;local&#x2F;php&#x2F;sbin&#x2F;php-fpm -t&#96; &#96;测试成功：&#96;&#96;[30-Jan-2018 23:43:32] NOTICE: configuration file &#x2F;usr&#x2F;local&#x2F;php&#x2F;etc&#x2F;php-fpm.conf test &#96;&#96;is&#96; &#96;successful</span><br></pre></td></tr></table></figure>
+
+<p><strong>4</strong>、重启动php-fpm</p>
+<p>命令：/etc/init.d/php-fpm start</p>
+<p><strong>5</strong>、查看启动状况</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ps -aux | grep php-fpm</span><br><span class="line"></span><br><span class="line">root      1530  0.0  0.5  32036  2928 ?        Ss   23:45   0:00 php-fpm: master process (&#x2F;usr&#x2F;local&#x2F;php&#x2F;etc&#x2F;php-fpm.conf)                                                                    </span><br><span class="line">php-fpm   1531  0.0  0.4  32036  2512 ?        S    23:45   0:00 php-fpm: pool www                                                                                                            </span><br><span class="line">php-fpm   1532  0.0  0.4  32036  2512 ?        S    23:45   0:00 php-fpm: pool www                                                                                                            </span><br><span class="line">php-fpm   1533  0.0  0.4  32036  2512 ?        S    23:45   0:00 php-fpm: pool www                                                                                                            </span><br><span class="line">php-fpm   1534  0.0  0.4  32036  2512 ?        S    23:45   0:00 php-fpm: pool www          </span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ls -l &#x2F;tmp&#x2F;php-fcgi.sock </span><br><span class="line"></span><br><span class="line">srw-rw-rw-. 1 nobody nobody 0 1月  30 23:45 &#x2F;tmp&#x2F;php-fcgi.sock</span><br><span class="line"></span><br><span class="line">注：权限都需要有读写，nginx才可以访问到socket。</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ps aux | grep nginx</span><br><span class="line">root      1606  0.0  0.1   5352   640 ?        Ss   02:46   0:00 nginx: master process &#x2F;usr&#x2F;local&#x2F;nginx&#x2F;sbin&#x2F;nginx</span><br><span class="line">nobody    1607  0.0  0.3   6164  1568 ?        S    02:46   0:00 nginx: worker process      </span><br><span class="line">root      1609  0.0  0.1   5980   744 pts&#x2F;0    S+   02:46   0:00 grep nginx</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p><strong>设置多个pool</strong></p>
+<p>需求：置两个pool，www1，www2</p>
+<p>注：pool对应一个nginx的站点，这样可以提高安全，如同站点切割。</p>
+<p><strong>1</strong>、主配置文件下配置两个pool。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># 全局配置</span><br><span class="line">[global]</span><br><span class="line"># PID、可以不填</span><br><span class="line">pid &#x3D; &#x2F;usr&#x2F;local&#x2F;php&#x2F;var&#x2F;run&#x2F;php-fpm.pid</span><br><span class="line"># 错误日志路径、可以不填</span><br><span class="line">error_log &#x3D; &#x2F;usr&#x2F;local&#x2F;php&#x2F;var&#x2F;log&#x2F;php-fpm.log</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># www虚拟主机配置、可写多个</span><br><span class="line">[www1]</span><br><span class="line"># 监听socket方式 可以写成127.0.0.1:9000 TCP的。</span><br><span class="line">listen &#x3D; &#x2F;tmp&#x2F;php-fcgi1.sock</span><br><span class="line"># 开启php-fpm的执行用户</span><br><span class="line">user &#x3D; php-fpm</span><br><span class="line"># 开启php-fpm的所属组</span><br><span class="line">group &#x3D; php-fpm</span><br><span class="line"># 监听listen的用户，和后面的nginx的一致</span><br><span class="line">listen.owner &#x3D; nobody</span><br><span class="line"># 监听listen的组，和后面的nginx的一致</span><br><span class="line">listen.group &#x3D; nobody</span><br><span class="line"># 怎样的形式启用进程、static static静态、pm dynamic动态</span><br><span class="line">pm &#x3D; dynamic</span><br><span class="line"># 最大开启子进程数</span><br><span class="line">pm.max_children &#x3D; 50</span><br><span class="line"># 一开始启动多少子进程</span><br><span class="line">pm.start_servers &#x3D; 20</span><br><span class="line"># 空闲时保留多少个子进程</span><br><span class="line">pm.min_spare_servers &#x3D; 5</span><br><span class="line"># 最多空闲子进程</span><br><span class="line">pm.max_spare_servers &#x3D; 35</span><br><span class="line"># 进程处理多少个请求之后销毁重建</span><br><span class="line">pm.max_requests &#x3D; 500</span><br><span class="line"># 限定打开最大的文件数</span><br><span class="line">rlimit_files &#x3D; 1024</span><br><span class="line"># 定义慢日志</span><br><span class="line">slowlog &#x3D; &#x2F;tmp&#x2F;xxx_slow.log</span><br><span class="line"># 处理延迟多少秒记录一次慢日志</span><br><span class="line">request_slowlog_timeout &#x3D; 1</span><br><span class="line"># 配置隔离网站</span><br><span class="line">php_admin_value[open_basedir]&#x3D;&#x2F;usr&#x2F;local&#x2F;url1:&#x2F;usr&#x2F;local&#x2F;url2</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># www虚拟主机配置、可写多个</span><br><span class="line">[www2]</span><br><span class="line"># 监听socket方式 可以写成127.0.0.1:9000 TCP的。</span><br><span class="line">listen &#x3D; &#x2F;tmp&#x2F;php-fcgi2.sock</span><br><span class="line"># 开启php-fpm的执行用户</span><br><span class="line">user &#x3D; test</span><br><span class="line"># 怎样的形式启用进程、static static静态、pm dynamic动态</span><br><span class="line">pm &#x3D; dynamic</span><br><span class="line"># 最大开启子进程数</span><br><span class="line">pm.max_children &#x3D; 50</span><br><span class="line"># 一开始启动多少子进程</span><br><span class="line">pm.start_servers &#x3D; 20</span><br><span class="line"># 空闲时保留多少个子进程</span><br><span class="line">pm.min_spare_servers &#x3D; 5</span><br><span class="line"># 最多空闲子进程</span><br><span class="line">pm.max_spare_servers &#x3D; 35</span><br><span class="line"># 进程处理多少个请求之后销毁重建</span><br><span class="line">pm.max_requests &#x3D; 500</span><br><span class="line"># 限定打开最大的文件数</span><br><span class="line">rlimit_files &#x3D; 1024</span><br><span class="line"># 定义慢日志</span><br><span class="line">slowlog &#x3D; &#x2F;tmp&#x2F;xxx2_slow.log</span><br><span class="line"># 处理延迟多少秒记录一次慢日志</span><br><span class="line">request_slowlog_timeout &#x3D; 1</span><br><span class="line"># 配置隔离网站</span><br><span class="line">php_admin_value[open_basedir]&#x3D;&#x2F;usr&#x2F;local&#x2F;url1:&#x2F;usr&#x2F;local&#x2F;url2</span><br></pre></td></tr></table></figure>
+
+<p><strong>2</strong>、查看两个pool的启动进程</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ps -aux | grep php-rpm</span><br><span class="line"></span><br><span class="line">root      2486  0.4  0.6  32240  3136 ?        Ss   09:31   0:00 php-fpm: master process (&#x2F;usr&#x2F;local&#x2F;php&#x2F;etc&#x2F;php-fpm.conf)                                                                    </span><br><span class="line">php-fpm   2487  0.0  0.4  32036  2532 ?        S    09:31   0:00 php-fpm: pool www1                                                                                                           </span><br><span class="line">php-fpm   2488  0.0  0.4  32036  2532 ?        S    09:31   0:00 php-fpm: pool www1                                                                                                           </span><br><span class="line">php-fpm   2489  0.0  0.4  32036  2532 ?        S    09:31   0:00 php-fpm: pool www1                                                                                                           </span><br><span class="line">php-fpm   2490  0.0  0.4  32036  2532 ?        S    09:31   0:00 php-fpm: pool www1                                                                                                           </span><br><span class="line">php-fpm   2491  0.0  0.4  32036  2532 ?        S    09:31   0:00 php-fpm: pool www1                                                                                                           </span><br><span class="line">php-fpm   2492  0.0  0.4  32036  2532 ?        S    09:31   0:00 php-fpm: pool www1                        </span><br><span class="line">test      2507  0.0  0.4  32036  2536 ?        S    09:31   0:00 php-fpm: pool www2                                                                                                           </span><br><span class="line">test      2508  0.0  0.4  32036  2536 ?        S    09:31   0:00 php-fpm: pool www2                                                                                                           </span><br><span class="line">test      2509  0.0  0.4  32036  2536 ?        S    09:31   0:00 php-fpm: pool www2                                                                                                           </span><br><span class="line">test      2510  0.0  0.4  32036  2536 ?        S    09:31   0:00 php-fpm: pool www2                                                                                                           </span><br><span class="line">test      2511  0.0  0.4  32036  2536 ?        S    09:31   0:00 php-fpm: pool www2                                                                                                           </span><br><span class="line">test      2512  0.0  0.4  32036  2536 ?        S    09:31   0:00 php-fpm: pool www2                                                 </span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>PHP</category>
+      </categories>
+      <tags>
+        <tag>优化</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Prometheus监控node_exporter的告警规则</title>
     <url>/sugw.github.io/2020/10/26/Prometheus%E7%9B%91%E6%8E%A7node_exporter%E7%9A%84%E5%91%8A%E8%AD%A6%E8%A7%84%E5%88%99/</url>
     <content><![CDATA[<h3 id="针对磁盘CPU-IO-磁盘使用、内存使用、TCP、网络流量配置监控告警"><a href="#针对磁盘CPU-IO-磁盘使用、内存使用、TCP、网络流量配置监控告警" class="headerlink" title="针对磁盘CPU,IO ,磁盘使用、内存使用、TCP、网络流量配置监控告警"></a>针对磁盘CPU,IO ,磁盘使用、内存使用、TCP、网络流量配置监控告警</h3><figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">groups:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">主机状态-监控告警</span></span><br><span class="line">      <span class="attr">rules:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">alert:</span> <span class="string">主机状态</span></span><br><span class="line">        <span class="attr">expr:</span> <span class="string">up</span> <span class="string">==</span> <span class="number">0</span></span><br><span class="line">        <span class="attr">for:</span> <span class="string">1m</span></span><br><span class="line">        <span class="attr">labels:</span></span><br><span class="line">          <span class="attr">status:</span> <span class="string">非常严重</span></span><br><span class="line">        <span class="attr">annotations:</span></span><br><span class="line">          <span class="attr">summary:</span> <span class="string">&quot;<span class="template-variable">&#123;&#123;$labels.instance&#125;&#125;</span>:服务器宕机&quot;</span></span><br><span class="line">          <span class="attr">description:</span> <span class="string">&quot;<span class="template-variable">&#123;&#123;$labels.instance&#125;&#125;</span>:服务器延时超过5分钟&quot;</span></span><br><span class="line">      </span><br><span class="line">      <span class="bullet">-</span> <span class="attr">alert:</span> <span class="string">CPU使用情况</span></span><br><span class="line">        <span class="attr">expr:</span> <span class="number">100</span><span class="string">-(avg(irate(node_cpu_seconds_total&#123;mode=&quot;idle&quot;&#125;[5m]))</span> <span class="string">by(instance)*</span> <span class="number">100</span><span class="string">)</span> <span class="string">&gt;</span> <span class="number">60</span></span><br><span class="line">        <span class="attr">for:</span> <span class="string">1m</span></span><br><span class="line">        <span class="attr">labels:</span></span><br><span class="line">          <span class="attr">status:</span> <span class="string">一般告警</span></span><br><span class="line">        <span class="attr">annotations:</span></span><br><span class="line">          <span class="attr">summary:</span> <span class="string">&quot;<span class="template-variable">&#123;&#123;$labels.mountpoint&#125;&#125;</span> CPU使用率过高！&quot;</span></span><br><span class="line">          <span class="attr">description:</span> <span class="string">&quot;<span class="template-variable">&#123;&#123;$labels.mountpoint &#125;&#125;</span> CPU使用大于60%(目前使用:<span class="template-variable">&#123;&#123;$value&#125;&#125;</span>%)&quot;</span></span><br><span class="line">  </span><br><span class="line">      <span class="bullet">-</span> <span class="attr">alert:</span> <span class="string">内存使用</span></span><br><span class="line">        <span class="attr">expr:</span> <span class="number">100</span> <span class="string">-(node_memory_MemTotal_bytes</span> <span class="string">-node_memory_MemFree_bytes+node_memory_Buffers_bytes+node_memory_Cached_bytes</span> <span class="string">)</span> <span class="string">/</span> <span class="string">node_memory_MemTotal_bytes</span> <span class="string">*</span> <span class="number">100</span><span class="string">&gt;</span> <span class="number">80</span></span><br><span class="line">        <span class="attr">for:</span> <span class="string">1m</span></span><br><span class="line">        <span class="attr">labels:</span></span><br><span class="line">          <span class="attr">status:</span> <span class="string">严重告警</span></span><br><span class="line">        <span class="attr">annotations:</span></span><br><span class="line">          <span class="attr">summary:</span> <span class="string">&quot;<span class="template-variable">&#123;&#123;$labels.mountpoint&#125;&#125;</span> 内存使用率过高！&quot;</span></span><br><span class="line">          <span class="attr">description:</span> <span class="string">&quot;<span class="template-variable">&#123;&#123;$labels.mountpoint &#125;&#125;</span> 内存使用大于80%(目前使用:<span class="template-variable">&#123;&#123;$value&#125;&#125;</span>%)&quot;</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">alert:</span> <span class="string">IO性能</span></span><br><span class="line">        <span class="attr">expr:</span> <span class="number">100</span><span class="string">-(avg(irate(node_disk_io_time_seconds_total[1m]))</span> <span class="string">by(instance)*</span> <span class="number">100</span><span class="string">)</span> <span class="string">&lt;</span> <span class="number">60</span></span><br><span class="line">        <span class="attr">for:</span> <span class="string">1m</span></span><br><span class="line">        <span class="attr">labels:</span></span><br><span class="line">          <span class="attr">status:</span> <span class="string">严重告警</span></span><br><span class="line">        <span class="attr">annotations:</span></span><br><span class="line">          <span class="attr">summary:</span> <span class="string">&quot;<span class="template-variable">&#123;&#123;$labels.mountpoint&#125;&#125;</span> 流入磁盘IO使用率过高！&quot;</span></span><br><span class="line">          <span class="attr">description:</span> <span class="string">&quot;<span class="template-variable">&#123;&#123;$labels.mountpoint &#125;&#125;</span> 流入磁盘IO大于60%(目前使用:<span class="template-variable">&#123;&#123;$value&#125;&#125;</span>)&quot;</span></span><br><span class="line"> </span><br><span class="line">      <span class="bullet">-</span> <span class="attr">alert:</span> <span class="string">网络</span></span><br><span class="line">        <span class="attr">expr:</span> <span class="string">((sum(rate</span> <span class="string">(node_network_receive_bytes_total&#123;device!~&#x27;tap.*|veth.*|br.*|docker.*|virbr*|lo*&#x27;&#125;[5m]))</span> <span class="string">by</span> <span class="string">(instance))</span> <span class="string">/</span> <span class="number">100</span><span class="string">)</span> <span class="string">&gt;</span> <span class="number">102400</span></span><br><span class="line">        <span class="attr">for:</span> <span class="string">1m</span></span><br><span class="line">        <span class="attr">labels:</span></span><br><span class="line">          <span class="attr">status:</span> <span class="string">严重告警</span></span><br><span class="line">        <span class="attr">annotations:</span></span><br><span class="line">          <span class="attr">summary:</span> <span class="string">&quot;<span class="template-variable">&#123;&#123;$labels.mountpoint&#125;&#125;</span> 流入网络带宽过高！&quot;</span></span><br><span class="line">          <span class="attr">description:</span> <span class="string">&quot;<span class="template-variable">&#123;&#123;$labels.mountpoint &#125;&#125;</span>流入网络带宽持续2分钟高于100M. RX带宽使用率<span class="template-variable">&#123;&#123;$value&#125;&#125;</span>&quot;</span></span><br><span class="line"> </span><br><span class="line">      <span class="bullet">-</span> <span class="attr">alert:</span> <span class="string">网络</span></span><br><span class="line">        <span class="attr">expr:</span> <span class="string">((sum(rate</span> <span class="string">(node_network_transmit_bytes_total&#123;device!~&#x27;tap.*|veth.*|br.*|docker.*|virbr*|lo*&#x27;&#125;[5m]))</span> <span class="string">by</span> <span class="string">(instance))</span> <span class="string">/</span> <span class="number">100</span><span class="string">)</span> <span class="string">&gt;</span> <span class="number">102400</span></span><br><span class="line">        <span class="attr">for:</span> <span class="string">1m</span></span><br><span class="line">        <span class="attr">labels:</span></span><br><span class="line">          <span class="attr">status:</span> <span class="string">严重告警</span></span><br><span class="line">        <span class="attr">annotations:</span></span><br><span class="line">          <span class="attr">summary:</span> <span class="string">&quot;<span class="template-variable">&#123;&#123;$labels.mountpoint&#125;&#125;</span> 流出网络带宽过高！&quot;</span></span><br><span class="line">          <span class="attr">description:</span> <span class="string">&quot;<span class="template-variable">&#123;&#123;$labels.mountpoint &#125;&#125;</span>流出网络带宽持续2分钟高于100M. RX带宽使用率<span class="template-variable">&#123;&#123;$value&#125;&#125;</span>&quot;</span></span><br><span class="line">      </span><br><span class="line">      <span class="bullet">-</span> <span class="attr">alert:</span> <span class="string">TCP会话</span></span><br><span class="line">        <span class="attr">expr:</span> <span class="string">node_netstat_Tcp_CurrEstab</span> <span class="string">&gt;</span> <span class="number">1000</span></span><br><span class="line">        <span class="attr">for:</span> <span class="string">1m</span></span><br><span class="line">        <span class="attr">labels:</span></span><br><span class="line">          <span class="attr">status:</span> <span class="string">严重告警</span></span><br><span class="line">        <span class="attr">annotations:</span></span><br><span class="line">          <span class="attr">summary:</span> <span class="string">&quot;<span class="template-variable">&#123;&#123;$labels.mountpoint&#125;&#125;</span> TCP_ESTABLISHED过高！&quot;</span></span><br><span class="line">          <span class="attr">description:</span> <span class="string">&quot;<span class="template-variable">&#123;&#123;$labels.mountpoint &#125;&#125;</span> TCP_ESTABLISHED大于1000%(目前使用:<span class="template-variable">&#123;&#123;$value&#125;&#125;</span>%)&quot;</span></span><br><span class="line"> </span><br><span class="line">      <span class="bullet">-</span> <span class="attr">alert:</span> <span class="string">磁盘容量</span></span><br><span class="line">        <span class="attr">expr:</span> <span class="number">100</span><span class="string">-(node_filesystem_free_bytes&#123;fstype=~&quot;ext4|xfs&quot;&#125;/node_filesystem_size_bytes</span> &#123;<span class="string">fstype=~&quot;ext4|xfs&quot;</span>&#125;<span class="string">*100)</span> <span class="string">&gt;</span> <span class="number">80</span></span><br><span class="line">        <span class="attr">for:</span> <span class="string">1m</span></span><br><span class="line">        <span class="attr">labels:</span></span><br><span class="line">          <span class="attr">status:</span> <span class="string">严重告警</span></span><br><span class="line">        <span class="attr">annotations:</span></span><br><span class="line">          <span class="attr">summary:</span> <span class="string">&quot;<span class="template-variable">&#123;&#123;$labels.mountpoint&#125;&#125;</span> 磁盘分区使用率过高！&quot;</span></span><br><span class="line">          <span class="attr">description:</span> <span class="string">&quot;<span class="template-variable">&#123;&#123;$labels.mountpoint &#125;&#125;</span> 磁盘分区使用大于80%(目前使用:<span class="template-variable">&#123;&#123;$value&#125;&#125;</span>%)&quot;</span></span><br></pre></td></tr></table></figure>
 
 <h3 id="Prometheus针对nodes告警规则配置"><a href="#Prometheus针对nodes告警规则配置" class="headerlink" title="Prometheus针对nodes告警规则配置"></a>Prometheus针对nodes告警规则配置</h3><figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">groups:</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">example</span></span><br><span class="line">  <span class="attr">rules:</span></span><br><span class="line"> </span><br><span class="line">  <span class="bullet">-</span> <span class="attr">alert:</span> <span class="string">实例丢失</span></span><br><span class="line">    <span class="attr">expr:</span> <span class="string">up&#123;job=&quot;node-exporter&quot;&#125;</span> <span class="string">==</span> <span class="number">0</span></span><br><span class="line">    <span class="attr">for:</span> <span class="string">1m</span></span><br><span class="line">    <span class="attr">labels:</span></span><br><span class="line">      <span class="attr">severity:</span> <span class="string">page</span></span><br><span class="line">    <span class="attr">annotations:</span></span><br><span class="line">      <span class="attr">summary:</span> <span class="string">&quot;服务器实例 <span class="template-variable">&#123;&#123; $labels.instance &#125;&#125;</span> 丢失&quot;</span></span><br><span class="line">      <span class="attr">description:</span> <span class="string">&quot;<span class="template-variable">&#123;&#123; $labels.instance &#125;&#125;</span> 上的任务 <span class="template-variable">&#123;&#123; $labels.job &#125;&#125;</span> 已经停止了 1 分钟已上了&quot;</span></span><br><span class="line"> </span><br><span class="line">  <span class="bullet">-</span> <span class="attr">alert:</span> <span class="string">磁盘容量小于</span> <span class="number">5</span><span class="string">%</span></span><br><span class="line">    <span class="attr">expr:</span> <span class="number">100</span> <span class="bullet">-</span> <span class="string">((node_filesystem_avail_bytes&#123;job=&quot;node-exporter&quot;,mountpoint=~&quot;.*&quot;,fstype=~&quot;ext4|xfs|ext2|ext3&quot;&#125;</span> <span class="string">*</span> <span class="number">100</span><span class="string">)</span> <span class="string">/</span> <span class="string">node_filesystem_size_bytes</span> &#123;<span class="string">job=&quot;node-exporter&quot;</span>,<span class="string">mountpoint=~&quot;.*&quot;</span>,<span class="string">fstype=~&quot;ext4|xfs|ext2|ext3&quot;</span>&#125;<span class="string">)</span> <span class="string">&gt;</span> <span class="number">95</span></span><br><span class="line">    <span class="attr">for:</span> <span class="string">30s</span></span><br><span class="line">    <span class="attr">annotations:</span></span><br><span class="line">      <span class="attr">summary:</span> <span class="string">&quot;服务器实例 <span class="template-variable">&#123;&#123; $labels.instance &#125;&#125;</span> 磁盘不足 告警通知&quot;</span></span><br><span class="line">      <span class="attr">description:</span> <span class="string">&quot;<span class="template-variable">&#123;&#123; $labels.instance &#125;&#125;</span>磁盘 <span class="template-variable">&#123;&#123; $labels.device &#125;&#125;</span> 资源 已不足 5%, 当前值: <span class="template-variable">&#123;&#123; $value &#125;&#125;</span>&quot;</span></span><br><span class="line"> </span><br><span class="line">  <span class="bullet">-</span> <span class="attr">alert:</span> <span class="string">&quot;内存容量小于 20%&quot;</span></span><br><span class="line">    <span class="attr">expr:</span> <span class="string">((node_memory_MemTotal_bytes</span> <span class="bullet">-</span> <span class="string">node_memory_MemFree_bytes</span> <span class="bullet">-</span> <span class="string">node_memory_Buffers_bytes</span> <span class="bullet">-</span> <span class="string">node_memory_Cached_bytes)</span> <span class="string">/</span> <span class="string">(node_memory_MemTotal_bytes</span> <span class="string">))</span> <span class="string">*</span> <span class="number">100</span> <span class="string">&gt;</span> <span class="number">80</span></span><br><span class="line">    <span class="attr">for:</span> <span class="string">30s</span></span><br><span class="line">    <span class="attr">labels:</span></span><br><span class="line">      <span class="attr">severity:</span> <span class="string">warning</span></span><br><span class="line">    <span class="attr">annotations:</span></span><br><span class="line">      <span class="attr">summary:</span> <span class="string">&quot;服务器实例 <span class="template-variable">&#123;&#123; $labels.instance &#125;&#125;</span> 内存不足 告警通知&quot;</span></span><br><span class="line">      <span class="attr">description:</span> <span class="string">&quot;<span class="template-variable">&#123;&#123; $labels.instance &#125;&#125;</span>内存资源已不足 20%,当前值: <span class="template-variable">&#123;&#123; $value &#125;&#125;</span>&quot;</span></span><br><span class="line"> </span><br><span class="line">  <span class="bullet">-</span> <span class="attr">alert:</span> <span class="string">&quot;CPU 平均负载大于 4 个&quot;</span></span><br><span class="line">    <span class="attr">expr:</span> <span class="string">node_load5</span> <span class="string">&gt;</span> <span class="number">4</span></span><br><span class="line">    <span class="attr">for:</span> <span class="string">30s</span></span><br><span class="line">    <span class="attr">annotations:</span></span><br><span class="line">      <span class="attr">sumary:</span> <span class="string">&quot;服务器实例 <span class="template-variable">&#123;&#123; $labels.instance &#125;&#125;</span> CPU 负载 告警通知&quot;</span></span><br><span class="line">      <span class="attr">description:</span> <span class="string">&quot;<span class="template-variable">&#123;&#123; $labels.instance &#125;&#125;</span>CPU 平均负载(5 分钟) 已超过 4 ,当前值: <span class="template-variable">&#123;&#123; $value &#125;&#125;</span>&quot;</span></span><br><span class="line"> </span><br><span class="line">  <span class="bullet">-</span> <span class="attr">alert:</span> <span class="string">&quot;磁盘读 I/O 超过 30MB/s&quot;</span></span><br><span class="line">    <span class="attr">expr:</span> <span class="string">irate(node_disk_read_bytes_total&#123;device=&quot;sda&quot;&#125;[1m])</span> <span class="string">&gt;</span> <span class="number">30000000</span></span><br><span class="line">    <span class="attr">for:</span> <span class="string">30s</span></span><br><span class="line">    <span class="attr">annotations:</span></span><br><span class="line">      <span class="attr">sumary:</span> <span class="string">&quot;服务器实例 <span class="template-variable">&#123;&#123; $labels.instance &#125;&#125;</span> I/O 读负载 告警通知&quot;</span></span><br><span class="line">      <span class="attr">description:</span> <span class="string">&quot;<span class="template-variable">&#123;&#123; $labels.instance &#125;&#125;</span>I/O 每分钟读已超过 30MB/s,当前值: <span class="template-variable">&#123;&#123; $value &#125;&#125;</span>&quot;</span></span><br><span class="line"> </span><br><span class="line">  <span class="bullet">-</span> <span class="attr">alert:</span> <span class="string">&quot;磁盘写 I/O 超过 30MB/s&quot;</span></span><br><span class="line">    <span class="attr">expr:</span> <span class="string">irate(node_disk_written_bytes_total&#123;device=&quot;sda&quot;&#125;[1m])</span> <span class="string">&gt;</span> <span class="number">30000000</span></span><br><span class="line">    <span class="attr">for:</span> <span class="string">30s</span></span><br><span class="line">    <span class="attr">annotations:</span></span><br><span class="line">      <span class="attr">sumary:</span> <span class="string">&quot;服务器实例 <span class="template-variable">&#123;&#123; $labels.instance &#125;&#125;</span> I/O 写负载 告警通知&quot;</span></span><br><span class="line">      <span class="attr">description:</span> <span class="string">&quot;<span class="template-variable">&#123;&#123; $labels.instance &#125;&#125;</span>I/O 每分钟写已超过 30MB/s,当前值: <span class="template-variable">&#123;&#123; $value &#125;&#125;</span>&quot;</span></span><br><span class="line"> </span><br><span class="line">  <span class="bullet">-</span> <span class="attr">alert:</span> <span class="string">&quot;网卡流出速率大于 10MB/s&quot;</span></span><br><span class="line">    <span class="attr">expr:</span> <span class="string">(irate(node_network_transmit_bytes_total&#123;device!~&quot;lo&quot;&#125;[1m])</span> <span class="string">/</span> <span class="number">1000</span><span class="string">)</span> <span class="string">&gt;</span> <span class="number">1000000</span></span><br><span class="line">    <span class="attr">for:</span> <span class="string">30s</span></span><br><span class="line">    <span class="attr">annotations:</span></span><br><span class="line">      <span class="attr">sumary:</span> <span class="string">&quot;服务器实例 <span class="template-variable">&#123;&#123; $labels.instance &#125;&#125;</span> 网卡流量负载 告警通知&quot;</span></span><br><span class="line">      <span class="attr">description:</span> <span class="string">&quot;<span class="template-variable">&#123;&#123; $labels.instance &#125;&#125;</span>网卡 <span class="template-variable">&#123;&#123; $labels.device &#125;&#125;</span> 流量已经超过 10MB/s, 当前值: <span class="template-variable">&#123;&#123; $value &#125;&#125;</span>&quot;</span></span><br><span class="line"> </span><br><span class="line">  <span class="bullet">-</span> <span class="attr">alert:</span> <span class="string">&quot;CPU 使用率大于 90%&quot;</span></span><br><span class="line">    <span class="attr">expr:</span> <span class="number">100</span> <span class="bullet">-</span> <span class="string">((avg</span> <span class="string">by</span> <span class="string">(instance,job,env)(irate(node_cpu_seconds_total&#123;mode=&quot;idle&quot;&#125;[30s])))</span> <span class="string">*100)</span> <span class="string">&gt;</span> <span class="number">90</span></span><br><span class="line">    <span class="attr">for:</span> <span class="string">30s</span></span><br><span class="line">    <span class="attr">annotations:</span></span><br><span class="line">      <span class="attr">sumary:</span> <span class="string">&quot;服务器实例 <span class="template-variable">&#123;&#123; $labels.instance &#125;&#125;</span> CPU 使用率 告警通知&quot;</span></span><br><span class="line">      <span class="attr">description:</span> <span class="string">&quot;<span class="template-variable">&#123;&#123; $labels.instance &#125;&#125;</span>CPU 使用率已超过 90%, 当前值: <span class="template-variable">&#123;&#123; $value &#125;&#125;</span>&quot;</span></span><br></pre></td></tr></table></figure>]]></content>
       <categories>
-        <category>Linux</category>
+        <category>监控</category>
       </categories>
       <tags>
         <tag>prometheus</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>ab压测工具</title>
+    <url>/sugw.github.io/2020/11/19/ab%E5%8E%8B%E6%B5%8B%E5%B7%A5%E5%85%B7/</url>
+    <content><![CDATA[<p>ab压测参数：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">-n 测试会话中所执行的请求个数,默认仅执行一个请求 </span><br><span class="line">-c 一次产生的请求个数,即同一时间发出多少个请求,默认为一次一个 </span><br><span class="line">-t 测试所进行的最大秒数,默认为无时间限制....其内部隐含值是[-n 50000],它可以使对服务器的测试限制在一个固定的总时间以内 </span><br><span class="line">-p 包含了需要POST的数据的文件 </span><br><span class="line">-T POST数据所使用的Content-type头信息 </span><br><span class="line">-v 设置显示信息的详细程度 </span><br><span class="line">-w 以HTML表格的形式输出结果,默认是白色背景的两列宽度的一张表</span><br><span class="line">-i 以HTML表格的形式输出结果,默认是白色背景的两列宽度的一张表 </span><br><span class="line">-x 设置&lt;table&gt;属性的字符串,此属性被填入&lt;table 这里&gt; </span><br><span class="line">-y 设置&lt;tr&gt;属性的字符串 </span><br><span class="line">-z 设置&lt;td&gt;属性的字符串 </span><br><span class="line">-C 对请求附加一个Cookie行，其典型形式是name&#x3D;value的参数对,此参数可以重复 </span><br><span class="line">-H 对请求附加额外的头信息,此参数的典型形式是一个有效的头信息行,其中包含了以冒号分隔的字段和值的对(如&quot;Accept-Encoding: zip&#x2F;zop;8bit&quot;) </span><br><span class="line">-A HTTP验证,用冒号:分隔传递用户名及密码 </span><br><span class="line">-P 无论服务器是否需要(即是否发送了401认证需求代码),此字符串都会被发送 </span><br><span class="line">-X 对请求使用代理服务器 </span><br><span class="line">-V 显示版本号并退出 </span><br><span class="line">-k 启用HTTP KeepAlive功能,即在一个HTTP会话中执行多个请求,默认为不启用KeepAlive功能 </span><br><span class="line">-d 不显示&quot;percentage served within XX [ms] table&quot;的消息(为以前的版本提供支持) </span><br><span class="line">-S 不显示中值和标准背离值,且均值和中值为标准背离值的1到2倍时,也不显示警告或出错信息,默认会显示最小值&#x2F;均值&#x2F;最大值等(为以前的版本提供支持) </span><br><span class="line">-g 把所有测试结果写入一个&#39;gnuplot&#39;或者TSV(以Tab分隔的)文件 </span><br><span class="line">-e 产生一个以逗号分隔的(CSV)文件,其中包含了处理每个相应百分比的请求所需要(从1%到100%)的相应百分比的(以微妙为单位)时间 </span><br><span class="line">-h 显示使用方法 </span><br><span class="line">-k 发送keep-alive指令到服务器端</span><br></pre></td></tr></table></figure>
+
+<p>ab压测命令：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ab -n 10 -s 50000 -k &quot;http:&#x2F;&#x2F;127.0.0.1:9501&#x2F;?uid&#x3D;123&quot;</span><br></pre></td></tr></table></figure>
+
+<p>ab压测结果:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">This is apacheBench, Version 2.3 &lt;$Revision: 1843412 $&gt;</span><br><span class="line">Copyright 1996 Adam Twiss, Zeus Technology Ltd, http:&#x2F;&#x2F;www.zeustech.net&#x2F;</span><br><span class="line">Licensed to The Apache Software Foundation, http:&#x2F;&#x2F;www.apache.org&#x2F;</span><br><span class="line"></span><br><span class="line">Benchmarking 127.0.0.1 (be patient).....done</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Server Software:        swoole-http-server#服务器软件</span><br><span class="line">Server Hostname:        127.0.0.1#域名</span><br><span class="line">Server Port:            9501#请求端口号</span><br><span class="line"></span><br><span class="line">Document Path:          &#x2F;?uid&#x3D;123#文件路径</span><br><span class="line">Document Length:        818 bytes#页面字节数</span><br><span class="line"></span><br><span class="line">Concurrency Level:      1#请求的并发数</span><br><span class="line">Time taken for tests:   225.551 seconds#总访问时间</span><br><span class="line">Complete requests:      10#请求成功数量</span><br><span class="line">Failed requests:        1#请求失败数量</span><br><span class="line">   (Connect: 0, Receive: 0, Length: 1, Exceptions: 0)</span><br><span class="line">Keep-Alive requests:    10</span><br><span class="line">Total transferred:      9791 bytes#请求总数据大小（包括header头信息）</span><br><span class="line">HTML transferred:       8181 bytes#html页面实际总字节数</span><br><span class="line">Requests per second:    0.04 [#&#x2F;sec] (mean)#每秒多少请求，服务器的吞吐量</span><br><span class="line">Time per request:       22555.056 [ms] (mean)#用户平均请求等待时间 </span><br><span class="line">Time per request:       22555.056 [ms] (mean, across all concurrent requests)# 服务器平均处理时间，也就是服务器吞吐量的倒数</span><br><span class="line">Transfer rate:          0.04 [Kbytes&#x2F;sec] received#每秒获取的数据长度</span><br><span class="line"></span><br><span class="line">Connection Times (ms)</span><br><span class="line">              min  mean[+&#x2F;-sd] median   max</span><br><span class="line">Connect:        0    0   0.0      0       0</span><br><span class="line">Processing:  6434 22555 19246.5  21379   61285</span><br><span class="line">Waiting:     6434 22555 19246.4  21379   61285</span><br><span class="line">Total:       6434 22555 19246.5  21379   61285</span><br><span class="line"></span><br><span class="line">Percentage of the requests served within a certain time (ms)</span><br><span class="line">  50%  21379#50%用户请求在21379ms内返回</span><br><span class="line">  66%  30850#66%用户请求在30850ms内返回</span><br><span class="line">  75%  31684#75%用户请求在31684ms内返回</span><br><span class="line">  80%  44672#80%用户请求在44672ms内返回</span><br><span class="line">  90%  61285#90%用户请求在61285ms内返回</span><br><span class="line">  95%  61285#95%用户请求在61285ms内返回</span><br><span class="line">  98%  61285#98%用户请求在61285ms内返回</span><br><span class="line">  99%  61285#99%用户请求在61285ms内返回</span><br><span class="line"> 100%  61285 (longest request)</span><br></pre></td></tr></table></figure>
+
+
+
+<p>以上就是ab压测参数详解的全部内容。</p>
+]]></content>
+      <categories>
+        <category>测试</category>
+      </categories>
+      <tags>
+        <tag>测试</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>ansible定时任务和用户组模块使用</title>
+    <url>/sugw.github.io/2020/11/20/ansible%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1%E5%92%8C%E7%94%A8%E6%88%B7%E7%BB%84%E6%A8%A1%E5%9D%97%E4%BD%BF%E7%94%A8/</url>
+    <content><![CDATA[<h2 id="用户模块的使用"><a href="#用户模块的使用" class="headerlink" title="用户模块的使用"></a>用户模块的使用</h2><p>用户模块主要用来管理用户账号和用户的属性（对远程主机用户进行批量管理）。</p>
+<p>用户模块依赖的指令为useradd，userdel，usermod</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>必填</th>
+<th>默认值</th>
+<th>选项</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Append</td>
+<td>否</td>
+<td>No</td>
+<td>Yes/no</td>
+<td>如果没有指定group，append设定为yes，那么会添加到用户同名组；append设定为no，那么会添加到user组。如果指定了group，那么都会添加在指定的group组</td>
+</tr>
+<tr>
+<td>Comment</td>
+<td>否</td>
+<td></td>
+<td></td>
+<td>用户的备注信息</td>
+</tr>
+<tr>
+<td>Force</td>
+<td>否</td>
+<td>No</td>
+<td>Yes/no</td>
+<td>当状态为absent的时候，相当于userdel -force</td>
+</tr>
+<tr>
+<td>generate_ssh_key</td>
+<td>否</td>
+<td>No</td>
+<td>Yes/no</td>
+<td>是否生成秘钥</td>
+</tr>
+<tr>
+<td>Group</td>
+<td>否</td>
+<td></td>
+<td></td>
+<td>可选的，设定用户的主组</td>
+</tr>
+<tr>
+<td>Groups</td>
+<td>否</td>
+<td></td>
+<td></td>
+<td>用逗号分隔的组，当groups设定为空的时候，那么会移除除了主组的其他所有组</td>
+</tr>
+<tr>
+<td>Home</td>
+<td>否</td>
+<td></td>
+<td></td>
+<td>可选的，设定为用户的home目录</td>
+</tr>
+<tr>
+<td>Login_class</td>
+<td>否</td>
+<td></td>
+<td></td>
+<td>可选的，设定用户的登录类 FreeBSD, OpenBSD and NetBSD systems.</td>
+</tr>
+<tr>
+<td>Name</td>
+<td>是</td>
+<td></td>
+<td></td>
+<td>用户创建，移除，修改</td>
+</tr>
+<tr>
+<td>Move_home</td>
+<td>否</td>
+<td>No</td>
+<td>Yes/no</td>
+<td>如果使用了选项home=设置为yes，那么会将用户家目录移到不存在的home目录中</td>
+</tr>
+<tr>
+<td>Non_unique</td>
+<td>否</td>
+<td>No</td>
+<td>Yes/no</td>
+<td>可选的，当使用-u选项的时候，将用户的uid设置为non_unique</td>
+</tr>
+<tr>
+<td>Password</td>
+<td>否</td>
+<td></td>
+<td></td>
+<td>设定用户的密码</td>
+</tr>
+<tr>
+<td>Remove</td>
+<td>否</td>
+<td>No</td>
+<td>Yes/no</td>
+<td>当使用状态为state=absent的时候，差不多和userdel –remove（删除所有信息）</td>
+</tr>
+<tr>
+<td>Shell</td>
+<td>否</td>
+<td></td>
+<td></td>
+<td>设定用户的shell</td>
+</tr>
+<tr>
+<td>Ssh_key_bits</td>
+<td>否</td>
+<td>2048</td>
+<td></td>
+<td>设定秘钥的位数</td>
+</tr>
+<tr>
+<td>Ssh_key_comments</td>
+<td>否</td>
+<td>￥HOSTHOME</td>
+<td></td>
+<td>Ssh key备注信息</td>
+</tr>
+<tr>
+<td>Ssh_key_file</td>
+<td>否</td>
+<td>.sha/id_rsa</td>
+<td></td>
+<td>秘钥的文件名</td>
+</tr>
+<tr>
+<td>ssh_key_passphrase</td>
+<td>否</td>
+<td></td>
+<td></td>
+<td>Ssh秘钥的密码</td>
+</tr>
+<tr>
+<td>Ssh_key_type</td>
+<td>否</td>
+<td>Rsa</td>
+<td></td>
+<td>Ssh秘钥的类型</td>
+</tr>
+<tr>
+<td>State</td>
+<td>否</td>
+<td>Present</td>
+<td>PresentAbsent</td>
+<td>新增删除</td>
+</tr>
+<tr>
+<td>System</td>
+<td>否</td>
+<td>No</td>
+<td>Yes/no</td>
+<td>创建为系统账号，不会改变已经存在的用户</td>
+</tr>
+<tr>
+<td>Uid</td>
+<td>否</td>
+<td></td>
+<td></td>
+<td>设定为用户的uid</td>
+</tr>
+<tr>
+<td>Update_password</td>
+<td>否</td>
+<td>Always</td>
+<td>AlwaysOn_create</td>
+<td>Always当用户密码不同，会修改，是否需要修改密码</td>
+</tr>
+</tbody></table>
+<h3 id="添加用户"><a href="#添加用户" class="headerlink" title="添加用户"></a>添加用户</h3><p>[root@ansibleserver ~]# ansible pythonserver -m user -a “name=kelly group=kelly uid=555 comment=’kelly’ state=present”</p>
+<p>添加用户，指定用户名name，指定用户主组kelly，设定用户uid为555 ，设定备注信息</p>
+<h3 id="添加用户使用append"><a href="#添加用户使用append" class="headerlink" title="添加用户使用append"></a>添加用户使用append</h3><p>[root@ansibleserver ~]# ansible pythonserver -m user -a “name=kelly shell=/bin/bash groups=kelly,kel append=yes</p>
+<p>添加用户，将用户添加在组kelly和kel中，指定shell为/bin/bash，然后将用户添加组user中</p>
+<h3 id="删除用户"><a href="#删除用户" class="headerlink" title="删除用户"></a>删除用户</h3><p>[root@ansibleserver ~]# ansible pythonserver -m user -a “name=kelly state=absent remove=yes</p>
+<p>将用户强制删除</p>
+<h3 id="新建用户创建sshkey"><a href="#新建用户创建sshkey" class="headerlink" title="新建用户创建sshkey"></a>新建用户创建sshkey</h3><p>[root@ansibleserver ~]# ansible pythonserver -m user -a “name=kelly generate_ssh_key=yes ssh_key_bits=2048 ssh_key_file=.ssh/id_rsa”</p>
+<p>创建用户，设定sshkey等属性</p>
+<h3 id="hostname模块使用"><a href="#hostname模块使用" class="headerlink" title="hostname模块使用"></a>hostname模块使用</h3><p>hostname模块主要用来修改主机的名称。</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>必填</th>
+<th>默认</th>
+<th>选择</th>
+<th>注释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Name</td>
+<td>否</td>
+<td></td>
+<td></td>
+<td>主机名称</td>
+</tr>
+</tbody></table>
+<h3 id="修改主机名称"><a href="#修改主机名称" class="headerlink" title="修改主机名称"></a>修改主机名称</h3><p>[root@ansibleserver ~]# ansible pythonserver -m hostname -a “name=python”</p>
+<p>在查看的时候，主要查看文件/etc/sysconfig/network，重启之后才能生效</p>
+<h3 id="ping模块的使用"><a href="#ping模块的使用" class="headerlink" title="ping模块的使用"></a>ping模块的使用</h3><p>ping模块主要是无意义的测试模块，主要用来检查ansible是否可以用的模块以及python是否配置好的，在playbook中基本不会使用，在能成功连接之后，总是返回结果pong</p>
+<p>[root@ansibleserver ~]# ansible all -m ping</p>
+<h3 id="定时任务管理模块使用"><a href="#定时任务管理模块使用" class="headerlink" title="定时任务管理模块使用"></a>定时任务管理模块使用</h3><p>主要是用来对定时任务进行调度，定时任务模块会包含一句描述信息，格式如下：</p>
+<p>“#Ansible: <name>“</name></p>
+<p>name对应的为模块传递过去的参数，主要用来给以后ansible进行操作的时候，查看相关的状态或者检查相关状态</p>
+<p>依赖的模块为cron</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>必填</th>
+<th>默认</th>
+<th>选择</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Backup</td>
+<td>非</td>
+<td></td>
+<td>Yes/no</td>
+<td>如果yes，那么在修改之后会进行备份，备份的路径在backup_file</td>
+</tr>
+<tr>
+<td>Cron_file</td>
+<td>非</td>
+<td></td>
+<td></td>
+<td>如果设置了，那么在cron.d中使用此文件替代单独用户的crontab，在使用此选项的时候，必须使用user选项</td>
+</tr>
+<tr>
+<td>Day</td>
+<td>非</td>
+<td></td>
+<td></td>
+<td>天</td>
+</tr>
+<tr>
+<td>Hour</td>
+<td>非</td>
+<td></td>
+<td></td>
+<td>小时 ( 0-23, *, */2, etc )</td>
+</tr>
+<tr>
+<td>Job</td>
+<td>非</td>
+<td></td>
+<td></td>
+<td>需要执行的命令，必须状态为present</td>
+</tr>
+<tr>
+<td>Minute</td>
+<td>非</td>
+<td></td>
+<td></td>
+<td>分 ( 0-59, *, */2, etc )</td>
+</tr>
+<tr>
+<td>Month</td>
+<td>非</td>
+<td></td>
+<td></td>
+<td>月( 1-12, *, */2, etc )</td>
+</tr>
+<tr>
+<td>Name</td>
+<td>非</td>
+<td></td>
+<td></td>
+<td>任务的描述</td>
+</tr>
+<tr>
+<td>Reboot</td>
+<td>非</td>
+<td>No</td>
+<td>Yes/no</td>
+<td>重启后是否需要执行</td>
+</tr>
+<tr>
+<td>Special_time</td>
+<td>非</td>
+<td></td>
+<td>rebootyearlyannuallymonthlyweeklydailyhourly</td>
+<td>特定的执行时间</td>
+</tr>
+<tr>
+<td>State</td>
+<td>非</td>
+<td>Present</td>
+<td>PresentAbsent</td>
+<td>启用或停用任务</td>
+</tr>
+<tr>
+<td>User</td>
+<td>非</td>
+<td>Root</td>
+<td></td>
+<td>执行任务的用户</td>
+</tr>
+<tr>
+<td>Weekday</td>
+<td>非</td>
+<td></td>
+<td></td>
+<td>每一周的哪天进行运行（0-6 for Sunday-Saturday, *, etc）</td>
+</tr>
+</tbody></table>
+<h3 id="新增一个定时任务"><a href="#新增一个定时任务" class="headerlink" title="新增一个定时任务"></a>新增一个定时任务</h3><p>[root@ansibleserver ~]# ansible pythonserver -m cron -a “name=check minute=5 job=’crontab -l &gt;&gt;/root/123’”</p>
+<p>新增一个任务，每五分钟执行一次，任务名称为check</p>
+<h3 id="删除定时任务"><a href="#删除定时任务" class="headerlink" title="删除定时任务"></a>删除定时任务</h3><p>[root@ansibleserver ~]# ansible pythonserver -m cron -a “name=check state=absent”</p>
+<p>删除刚刚新建的定时任务</p>
+<h3 id="新建一个cron文件"><a href="#新建一个cron文件" class="headerlink" title="新建一个cron文件"></a>新建一个cron文件</h3><p>[root@ansibleserver ~]# ansible pythonserver -m cron -a “name=’for test’ weekday=’2’ minute=’0’ hour=12 user=’root’ job=’cat /etc/passwd &gt;/root/111’ cron_file=’test ansible’”</p>
+<p>新增一个任务，在目录/etc/cron.d/目录中，文件名称为test ansible，用户为root</p>
+<h3 id="删除一个cron文件"><a href="#删除一个cron文件" class="headerlink" title="删除一个cron文件"></a>删除一个cron文件</h3><p>[root@ansibleserver ~]# ansible pythonserver -m cron -a “name=’for test’ cron_file=’test ansible’ state=absent”</p>
+<p>删除上面新建的cron文件。</p>
+<h2 id="setup模块"><a href="#setup模块" class="headerlink" title="setup模块"></a>setup模块</h2><p>这个模块在playbook中自动被查找的，从而得到远程主机的相关信息，可以作为变量使用。</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>必填</th>
+<th>默认</th>
+<th>选择</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Fact_path</td>
+<td>否</td>
+<td>/etc/ansible/facts.d</td>
+<td></td>
+<td>Fact的路径</td>
+</tr>
+<tr>
+<td>Filter</td>
+<td>否</td>
+<td>*</td>
+<td></td>
+<td>过滤串</td>
+</tr>
+</tbody></table>
+<h2 id="收集fact并且进行保存"><a href="#收集fact并且进行保存" class="headerlink" title="收集fact并且进行保存"></a>收集fact并且进行保存</h2><p>ansible pythonserver -m setup –tree /tmp/facts</p>
+<p>执行之后，会显示相关的fact，并且在/tmp/facts中会保存fact信息，如下：</p>
+<p>[root@ansibleserver tmp]# ls -l /tmp/facts/total 12-rw-r–r– 1 root root 8990 Jan 18 13:16 192.168.1.60</p>
+<p>使用–tree选项，在分类的时候，会根据主机的名称进行分类</p>
+<h3 id="收集内存信息并输出"><a href="#收集内存信息并输出" class="headerlink" title="收集内存信息并输出"></a>收集内存信息并输出</h3><p>[root@ansibleserver tmp]# ansible pythonserver -m setup -a “filter=ansible_*_mb”</p>
+<p>使用过滤字符串，从而进行了相关的匹配，得到相关的内存信息</p>
+<h3 id="收集主机网卡信息"><a href="#收集主机网卡信息" class="headerlink" title="收集主机网卡信息"></a>收集主机网卡信息</h3><p>[root@ansibleserver tmp]# ansible pythonserver -m setup -a “filter=ansible_eth[02]”</p>
+<p>收集特定的网卡信息</p>
+]]></content>
+      <categories>
+        <category>ansible</category>
+      </categories>
+      <tags>
+        <tag>ansible</tag>
       </tags>
   </entry>
   <entry>
@@ -130,32 +730,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Hello World</title>
-    <url>/sugw.github.io/2020/10/20/hello-world/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><p><a href="http://localhost:4000/sugw.github.io/tags/">http://localhost:4000/sugw.github.io/tags/</a></p>
-<h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-<img src="/sugw.github.io/sugw.github/2020/10/20/hello-world/timg.jpeg" class title="timg">]]></content>
-      <categories>
-        <category>测试</category>
-      </categories>
-      <tags>
-        <tag>标签1</tag>
-        <tag>标签2</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>linux 磁盘</title>
     <url>/sugw.github.io/2020/10/21/linux%20%E7%A3%81%E7%9B%98%E6%BB%A1/</url>
     <content><![CDATA[<h3 id="问题："><a href="#问题：" class="headerlink" title="问题："></a>问题：</h3><hr>
@@ -179,6 +753,33 @@
       </categories>
       <tags>
         <tag>磁盘</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>linux内核优化</title>
+    <url>/sugw.github.io/2020/11/20/linux%E5%86%85%E6%A0%B8%E4%BC%98%E5%8C%96/</url>
+    <content><![CDATA[<h3 id="一、配置国内源和epel"><a href="#一、配置国内源和epel" class="headerlink" title="一、配置国内源和epel"></a>一、配置国内源和epel</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cd &#x2F;etc&#x2F;yum.repos.d&#x2F;</span><br><span class="line">mkdir repo_bak</span><br><span class="line">mv *.repo repo_bak&#x2F;</span><br><span class="line">#基础源文件</span><br><span class="line">wget -P &#x2F;etc&#x2F;yum.repos.d&#x2F; http:&#x2F;&#x2F;mirrors.aliyun.com&#x2F;repo&#x2F;Centos-7.repo</span><br><span class="line">#epel源文件</span><br><span class="line">wget -O &#x2F;etc&#x2F;yum.repos.d&#x2F;epel-7.repo http:&#x2F;&#x2F;mirrors.aliyun.com&#x2F;repo&#x2F;epel-7.repo</span><br><span class="line">#重新生成yum缓存</span><br><span class="line">yum clean all</span><br><span class="line">yum makecache</span><br><span class="line">#同步时间</span><br><span class="line">yum -y install ntp</span><br><span class="line">&#x2F;usr&#x2F;sbin&#x2F;ntpdate ntp1.aliyun.com</span><br><span class="line">echo &quot;* 04 * * * &#x2F;usr&#x2F;sbin&#x2F;ntpdate ntp1.aliyun.com &gt;&#x2F;dev&#x2F;null 2&gt;&amp;1&quot; &gt;&gt;&#x2F;var&#x2F;spool&#x2F;cron&#x2F;root</span><br><span class="line"></span><br><span class="line">#禁用selinux</span><br><span class="line">sed -i &#39;s&#x2F;SELINUX&#x3D;enforcing&#x2F;SELINUX&#x3D;disabled&#x2F;&#39; &#x2F;etc&#x2F;selinux&#x2F;config</span><br><span class="line">setenforce 0</span><br><span class="line"></span><br><span class="line">#set ssh</span><br><span class="line">sed -i &#39;s&#x2F;^GSSAPIAuthentication yes$&#x2F;GSSAPIAuthentication no&#x2F;&#39; &#x2F;etc&#x2F;ssh&#x2F;sshd_config</span><br><span class="line">sed -i &#39;s&#x2F;#UseDNS yes&#x2F;UseDNS no&#x2F;&#39; &#x2F;etc&#x2F;ssh&#x2F;sshd_config</span><br><span class="line">systemctl  restart sshd.service</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="二、安装基础依赖包"><a href="#二、安装基础依赖包" class="headerlink" title="二、安装基础依赖包"></a>二、安装基础依赖包</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">yum install -y htop lrzsz nmap screen man expect \</span><br><span class="line">gcc gcc-c++ autoconf automake bzip2-devel \</span><br><span class="line">openssl-devel multitail kernel-devel \</span><br><span class="line">pam-devel zlib-devel perl-devel tcp_wrappers-devel</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="三、关闭selinux"><a href="#三、关闭selinux" class="headerlink" title="三、关闭selinux"></a>三、关闭selinux</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sed -i &#39;s&#x2F;^SELINUX&#x3D;.*&#x2F;SELINUX&#x3D;disabled&#x2F;g&#39; &#x2F;etc&#x2F;selinux&#x2F;config</span><br><span class="line">setenforce 0</span><br><span class="line">#查看selinux设置</span><br><span class="line">getenforce</span><br></pre></td></tr></table></figure>
+
+<h3 id="四、关闭默认的邮件服务"><a href="#四、关闭默认的邮件服务" class="headerlink" title="四、关闭默认的邮件服务"></a>四、关闭默认的邮件服务</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#(默认端口25)</span><br><span class="line">systemctl disable postfix</span><br><span class="line">systemctl stop postfix</span><br><span class="line">#查看系统默认监听的端口</span><br><span class="line">netstat -nlput |grep -v &quot;Proto&quot; | grep &quot;LISTEN&quot;</span><br></pre></td></tr></table></figure>
+
+<h3 id="五、设置系统环境变量"><a href="#五、设置系统环境变量" class="headerlink" title="五、设置系统环境变量"></a>五、设置系统环境变量</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#添加执行权限</span><br><span class="line">chmod a+x &#x2F;etc&#x2F;rc.d&#x2F;rc.local</span><br><span class="line">#设置环境变量</span><br><span class="line">cat &gt;&gt;&#x2F;etc&#x2F;profile &lt;&lt;EOF</span><br><span class="line">$(date +%F)</span><br><span class="line">alias vi&#x3D;&#39;vim&#39;</span><br><span class="line">alias grep&#x3D;&#39;grep --color&#x3D;auto&#39;</span><br><span class="line">#设置300秒内用户无操作就字段断开终端</span><br><span class="line">export TMOUT&#x3D;300</span><br><span class="line">#将值设置为readonly 防止用户更改</span><br><span class="line">readonly TMOUT</span><br><span class="line">EOF</span><br><span class="line">source &#x2F;etc&#x2F;profile</span><br><span class="line">#vimrc设置</span><br><span class="line">cat &gt;&gt;&#x2F;etc&#x2F;vimrc &lt;&lt;EOF</span><br><span class="line">set tabstop&#x3D;4</span><br><span class="line">set softtabstop&#x3D;4</span><br><span class="line">set shiftwidth&#x3D;4</span><br><span class="line">set expandtab</span><br><span class="line">EOF</span><br></pre></td></tr></table></figure>
+
+<h3 id="六、设置文件打开描述符"><a href="#六、设置文件打开描述符" class="headerlink" title="六、设置文件打开描述符"></a>六、设置文件打开描述符</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cat &gt;&#x2F;etc&#x2F;security&#x2F;limits.conf &lt;&lt;EOF</span><br><span class="line">##### $(date) #####</span><br><span class="line">* soft noproc 65535</span><br><span class="line">* hard noproc 65535</span><br><span class="line">* soft nofile 409600</span><br><span class="line">* hard nofile 409600</span><br><span class="line">EOF</span><br></pre></td></tr></table></figure>
+
+<h3 id="七、优化系统内核参数"><a href="#七、优化系统内核参数" class="headerlink" title="七、优化系统内核参数"></a>七、优化系统内核参数</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#修改最大连接数</span><br><span class="line">net.nf_conntrack_max &#x3D; 655360</span><br><span class="line">net.netfilter.nf_conntrack_tcp_timeout_established &#x3D; 1200</span><br><span class="line">#套接字由本端关闭，这个参数决了它在FIN-WAIT-2状态的时间，默认是60秒。</span><br><span class="line">net.ipv4.tcp_fin_timeout &#x3D; 2</span><br><span class="line">#socket废弃前重试的次数，重负载web服务器建议调小</span><br><span class="line">net.ipv4.tcp_orphan_retries &#x3D; 1</span><br><span class="line">#表示开启重用。允许将TIME-WAIT sockets重新用于新的TCP连接。</span><br><span class="line">net.ipv4.tcp_tw_reuse &#x3D; 1</span><br><span class="line">#表示开启TCP连接中TIME-WAIT sockets的快速回收。</span><br><span class="line">net.ipv4.tcp_tw_recycle &#x3D; 1</span><br><span class="line">#表示开启SYN Cookies。当出现SYN等待队列溢出时，启用cookies来处理，可防范少量SYN***。</span><br><span class="line">net.ipv4.tcp_syncookies &#x3D; 1</span><br><span class="line">#表示当keepalive起用的时候，TCP发送keepalive消息的频度。缺省是2小时，改为10分钟。</span><br><span class="line">net.ipv4.tcp_keepalive_time &#x3D; 600</span><br><span class="line">#表示用于向外连接的端口范围。缺省情况下很小：32768到61000，改为1024到65000。</span><br><span class="line">net.ipv4.ip_local_port_range &#x3D; 1024 65000</span><br><span class="line">#加大SYN队列长度，默认是1024.可以容纳更多等待连接的网络连接数。</span><br><span class="line">net.ipv4.tcp_max_syn_backlog &#x3D; 262144</span><br><span class="line">#imewait的数量，默认是180000。</span><br><span class="line">net.ipv4.tcp_max_tw_buckets &#x3D; 6000</span><br><span class="line">net.core.rmem_max &#x3D; 16777216</span><br><span class="line">net.core.wmem_max &#x3D; 16777216</span><br><span class="line">net.ipv4.tcp_sack &#x3D; 1</span><br><span class="line">net.ipv4.tcp_window_scaling &#x3D; 1</span><br><span class="line">net.ipv4.tcp_rmem &#x3D; 4096        87380   4194304</span><br><span class="line">net.ipv4.tcp_wmem &#x3D; 4096        16384   4194304</span><br><span class="line">net.core.wmem_default &#x3D; 8388608</span><br><span class="line">net.core.rmem_default &#x3D; 8388608</span><br><span class="line"></span><br><span class="line">#路由缓存刷新频率，当一个路由失败后多长时间跳到另一个路由，默认是300。</span><br><span class="line">net.ipv4.route.gc_timeout &#x3D; 100</span><br><span class="line">#内核放弃连接之前发送SYN+ACK的时间</span><br><span class="line">net.ipv4.tcp_syn_retries &#x3D; 1</span><br><span class="line">#内核放弃建立连接之前发送SYN包的数量。</span><br><span class="line">net.ipv4.tcp_synack_retries &#x3D; 1</span><br><span class="line">#调解系统同时发起的TCP连接数，默认为128.在高并发的请求中，默认值可能导致连接超时或重传。</span><br><span class="line">net.core.somaxconn &#x3D; 262144</span><br><span class="line">#该参数决定了，网络设备接收数据包的速率比内核处理这些包的速率快时，允许送到队列的数据包的最大数目。</span><br><span class="line">net.core.netdev_max_backlog &#x3D; 262144</span><br><span class="line">#设定系统中最多有多少个TCP套接字不被关联到任何一个用户文件句柄上。可防止简单DoS***。</span><br><span class="line">net.ipv4.tcp_max_orphans &#x3D; 262144</span><br><span class="line"># 确保无人能修改路由表</span><br><span class="line">net.ipv4.conf.all.accept_redirects &#x3D; 0</span><br><span class="line">net.ipv4.conf.default.accept_redirects &#x3D; 0</span><br><span class="line">net.ipv4.conf.all.secure_redirects &#x3D; 0</span><br><span class="line">net.ipv4.conf.default.secure_redirects &#x3D; 0</span><br><span class="line"></span><br><span class="line">#关闭ipv6</span><br><span class="line">net.ipv6.conf.all.disable_ipv6 &#x3D; 1</span><br><span class="line">net.ipv6.conf.default.disable_ipv6 &#x3D; 1</span><br><span class="line"># 避免放大攻击</span><br><span class="line">net.ipv4.icmp_echo_ignore_broadcasts &#x3D; 1</span><br><span class="line"># 开启恶意icmp错误消息保护</span><br><span class="line">net.ipv4.icmp_ignore_bogus_error_responses &#x3D; 1</span><br><span class="line">#开启反向路径过滤</span><br><span class="line">net.ipv4.conf.all.rp_filter &#x3D; 1</span><br><span class="line">net.ipv4.conf.default.rp_filter &#x3D; 1</span><br><span class="line">关闭sysrq功能</span><br><span class="line">kernel.sysrq &#x3D; 0</span><br><span class="line"></span><br><span class="line">#core文件名中添加pid作为扩展名</span><br><span class="line">kernel.core_uses_pid &#x3D; 1</span><br><span class="line">net.ipv4.tcp_syncookies &#x3D; 1</span><br><span class="line">#修改消息队列长度</span><br><span class="line">kernel.msgmnb &#x3D; 65536</span><br><span class="line">kernel.msgmax &#x3D; 65536</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#设置最大内存共享段大小bytes</span><br><span class="line">kernel.shmmax &#x3D; 68719476736</span><br><span class="line">kernel.shmall &#x3D; 4294967296</span><br><span class="line"></span><br><span class="line">#刷新系统内核参数：</span><br><span class="line">&#x2F;sbin&#x2F;sysctl -p</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>Linux</category>
+      </categories>
+      <tags>
+        <tag>优化</tag>
       </tags>
   </entry>
   <entry>
@@ -272,6 +873,241 @@
       </tags>
   </entry>
   <entry>
+    <title>Prometheus-pushgateway</title>
+    <url>/sugw.github.io/2020/11/23/prometheus-pushgateway/</url>
+    <content><![CDATA[<h1 id="一、Pushgateway-简介"><a href="#一、Pushgateway-简介" class="headerlink" title="一、Pushgateway 简介"></a>一、Pushgateway 简介</h1><p><a href="https://github.com/prometheus/pushgateway">Pushgateway</a> 是 Prometheus 生态中一个重要工具，使用它的原因主要是：</p>
+<ul>
+<li>Prometheus 采用 pull 模式，可能由于不在一个子网或者防火墙原因，导致 Prometheus 无法直接拉取各个 target 数据。</li>
+<li>在监控业务数据的时候，需要将不同数据汇总, 由 Prometheus 统一收集。</li>
+</ul>
+<p>由于以上原因，不得不使用 pushgateway，但在使用之前，有必要了解一下它的一些弊端：</p>
+<ul>
+<li>将多个节点数据汇总到 pushgateway, 如果 pushgateway 挂了，受影响比多个 target 大。</li>
+<li>Prometheus 拉取状态 <code>up</code> 只针对 pushgateway, 无法做到对每个节点有效。</li>
+<li>Pushgateway 可以持久化推送给它的所有监控数据。</li>
+</ul>
+<p>因此，即使你的监控已经下线，prometheus 还会拉取到旧的监控数据，需要手动清理 pushgateway 不要的数据。</p>
+<p>拓扑图如下：</p>
+<img src="/sugw.github.io/2020/11/23/prometheus-pushgateway/1341090-20181109120151807-1018788353.png" class title="img">
+
+
+
+
+
+<h3 id="二、-安装"><a href="#二、-安装" class="headerlink" title="二、 安装"></a>二、 安装</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">wget https://github.com/prometheus/pushgateway/releases/download/v1.3.0/pushgateway-1.3.0.linux-amd64.tar.gz</span><br><span class="line"></span><br><span class="line">tar xf pushgateway-1.3.0.linux-amd64.tar.gz</span><br><span class="line"></span><br><span class="line">mv pushgateway-1.3.0.linux-amd64 pushgateway</span><br><span class="line"></span><br><span class="line"><span class="built_in">cd</span> pushgateway/</span><br><span class="line"></span><br><span class="line">./pushgateway</span><br></pre></td></tr></table></figure>
+
+
+
+<p>访问url：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">http:&#x2F;&#x2F;192.168.91.132:9091&#x2F;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>效果如下：</p>
+<img src="/sugw.github.io/2020/11/23/prometheus-pushgateway/1341090-20181108184527450-1425046509.png" class title="img">
+
+
+
+
+
+<p>要使Push Gateway正常工作，必须要在prometheus中配置对应的job才行</p>
+<p>修改配置文件 </p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">vim &#x2F;opt&#x2F;apps&#x2F;prometheus&#x2F;prometheus.yml</span><br></pre></td></tr></table></figure>
+
+
+
+<p>添加Push Gateway，完整内容如下：</p>
+<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">global:</span></span><br><span class="line">  <span class="attr">scrape_interval:</span>     <span class="string">60s</span></span><br><span class="line">  <span class="attr">evaluation_interval:</span> <span class="string">60s</span></span><br><span class="line"> </span><br><span class="line"><span class="attr">scrape_configs:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">job_name:</span> <span class="string">prometheus</span></span><br><span class="line">    <span class="attr">static_configs:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">targets:</span> [<span class="string">&#x27;localhost:9090&#x27;</span>]</span><br><span class="line">        <span class="attr">labels:</span></span><br><span class="line">          <span class="attr">instance:</span> <span class="string">prometheus</span></span><br><span class="line"> </span><br><span class="line">  <span class="bullet">-</span> <span class="attr">job_name:</span> <span class="string">linux</span></span><br><span class="line">    <span class="attr">static_configs:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">targets:</span> [<span class="string">&#x27;192.168.91.132:9100&#x27;</span>]</span><br><span class="line">        <span class="attr">labels:</span></span><br><span class="line">          <span class="attr">instance:</span> <span class="string">localhost</span></span><br><span class="line"></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">job_name:</span> <span class="string">pushgateway</span></span><br><span class="line">    <span class="attr">honor_labels:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">static_configs:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">targets:</span> [<span class="string">&#x27;192.168.91.132:9091&#x27;</span>]</span><br><span class="line">        <span class="attr">labels:</span></span><br><span class="line">          <span class="attr">instance:</span> <span class="string">pushgateway</span> </span><br></pre></td></tr></table></figure>
+
+<p>访问targets，等待1分钟，等待pushgateway状态为UP</p>
+<img src="/sugw.github.io/2020/11/23/prometheus-pushgateway/1341090-20181108185739578-1598911471.png" class title="img">
+
+
+
+<h2 id="三、数据管理"><a href="#三、数据管理" class="headerlink" title="三、数据管理"></a>三、数据管理</h2><p>正常情况我们会使用 Client SDK 推送数据到 pushgateway, 但是我们还可以通过 API 来管理, 例如：</p>
+<h2 id="shell脚本"><a href="#shell脚本" class="headerlink" title="shell脚本"></a>shell脚本</h2><p>向 {job=”some_job”} 添加单条数据：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">echo &quot;some_metric 3.14&quot; | curl --data-binary @- http:&#x2F;&#x2F;pushgateway.example.org:9091&#x2F;metrics&#x2F;job&#x2F;some_job</span><br></pre></td></tr></table></figure>
+
+
+
+<p> –data-binary 表示发送二进制数据，注意：它是使用POST方式发送的！</p>
+<p>添加更多更复杂数据，通常数据会带上 instance, 表示来源位置：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cat &lt;&lt;EOF | curl --data-binary @- http:&#x2F;&#x2F;pushgateway.example.org:9091&#x2F;metrics&#x2F;job&#x2F;some_job&#x2F;instance&#x2F;some_instance</span><br><span class="line"># TYPE some_metric counter</span><br><span class="line">some_metric&#123;label&#x3D;&quot;val1&quot;&#125; 42</span><br><span class="line"># TYPE another_metric gauge</span><br><span class="line"># HELP another_metric Just an example.</span><br><span class="line">another_metric 2398.283</span><br><span class="line">EOF</span><br></pre></td></tr></table></figure>
+
+
+
+<p>注意：必须是指定的格式才行！ </p>
+<p>删除某个组下的某实例的所有数据：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">curl -X DELETE http:&#x2F;&#x2F;pushgateway.example.org:9091&#x2F;metrics&#x2F;job&#x2F;some_job&#x2F;instance&#x2F;some_instance</span><br></pre></td></tr></table></figure>
+
+
+
+<p>删除某个组下的所有数据：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">curl -X DELETE http:&#x2F;&#x2F;pushgateway.example.org:9091&#x2F;metrics&#x2F;job&#x2F;some_job</span><br></pre></td></tr></table></figure>
+
+
+
+<p>可以发现 pushgateway 中的数据我们通常按照 <code>job</code> 和 <code>instance</code> 分组分类，所以这两个参数不可缺少。</p>
+<p>因为 Prometheus 配置 pushgateway 的时候，也会指定 job 和 instance, 但是它只表示 pushgateway 实例，不能真正表达收集数据的含义。所以在 prometheus 中配置 pushgateway 的时候，需要添加 <code>honor_labels: true</code> 参数， 从而避免收集数据本身的 <code>job</code> 和 <code>instance</code> 被覆盖。</p>
+<p>注意，为了防止 pushgateway 重启或意外挂掉，导致数据丢失，我们可以通过 <code>-persistence.file</code> 和 <code>-persistence.interval</code> 参数将数据持久化下来。</p>
+<p>本文参考链接：</p>
+<p><a href="https://songjiayang.gitbooks.io/prometheus/content/pushgateway/how.html">https://songjiayang.gitbooks.io/prometheus/content/pushgateway/how.html</a></p>
+<h2 id="python脚本"><a href="#python脚本" class="headerlink" title="python脚本"></a>python脚本</h2><h3 id="安装模块"><a href="#安装模块" class="headerlink" title="安装模块"></a>安装模块</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">pip3 install flask</span><br><span class="line">pip3 install prometheus_client</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="Metrics"><a href="#Metrics" class="headerlink" title="Metrics"></a>Metrics</h3><p>Prometheus提供4种类型Metrics：<code>Counter</code>, <code>Gauge</code>, <code>Summary</code>和<code>Histogram</code></p>
+<h4 id="Counter"><a href="#Counter" class="headerlink" title="Counter"></a>Counter</h4><p>Counter可以增长，并且在程序重启的时候会被重设为0，常被用于任务个数，总处理时间，错误个数等只增不减的指标。</p>
+<p>示例代码：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> prometheus_client</span><br><span class="line"><span class="keyword">from</span> prometheus_client <span class="keyword">import</span> Counter</span><br><span class="line"><span class="keyword">from</span> prometheus_client.core <span class="keyword">import</span> CollectorRegistry</span><br><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Response, Flask</span><br><span class="line"></span><br><span class="line">app = Flask(__name__)</span><br><span class="line"></span><br><span class="line">requests_total = Counter(<span class="string">&quot;request_count&quot;</span>, <span class="string">&quot;Total request cout of the host&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route(&quot;/metrics&quot;)</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">requests_count</span>():</span></span><br><span class="line">    requests_total.inc()</span><br><span class="line">    <span class="comment"># requests_total.inc(2)</span></span><br><span class="line">    <span class="keyword">return</span> Response(prometheus_client.generate_latest(requests_total),</span><br><span class="line">                    mimetype=<span class="string">&quot;text/plain&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route(&#x27;/&#x27;)</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">index</span>():</span></span><br><span class="line">    requests_total.inc()</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;Hello World&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    app.run(host=<span class="string">&quot;0.0.0.0&quot;</span>) </span><br></pre></td></tr></table></figure>
+
+<p>运行该脚本，访问youhost:5000/metrics</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># HELP request_count Total request cout of the host</span><br><span class="line"># TYPE request_count counter</span><br><span class="line">request_count 3.0</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="Gauge"><a href="#Gauge" class="headerlink" title="Gauge"></a>Gauge</h4><p>Gauge与Counter类似，唯一不同的是Gauge数值可以减少，常被用于温度、利用率等指标。</p>
+<p>示例代码：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import random</span><br><span class="line">import prometheus_client</span><br><span class="line">from prometheus_client import Gauge</span><br><span class="line">from flask import Response, Flask</span><br><span class="line"></span><br><span class="line">app &#x3D; Flask(__name__)</span><br><span class="line"></span><br><span class="line">random_value &#x3D; Gauge(&quot;random_value&quot;, &quot;Random value of the request&quot;)</span><br><span class="line"></span><br><span class="line">@app.route(&quot;&#x2F;metrics&quot;)</span><br><span class="line">def r_value():</span><br><span class="line">    random_value.set(random.randint(0, 10))</span><br><span class="line">    return Response(prometheus_client.generate_latest(random_value),</span><br><span class="line">                    mimetype&#x3D;&quot;text&#x2F;plain&quot;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">if __name__ &#x3D;&#x3D; &quot;__main__&quot;:</span><br><span class="line">    app.run(host&#x3D;&quot;0.0.0.0&quot;) </span><br></pre></td></tr></table></figure>
+
+<p>运行该脚本，访问youhost:5000/metrics</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># HELP random_value Random value of the request</span><br><span class="line"># TYPE random_value gauge</span><br><span class="line">random_value 3.0</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="Summary-Histogram"><a href="#Summary-Histogram" class="headerlink" title="Summary/Histogram"></a>Summary/Histogram</h4><p>Summary/Histogram概念比较复杂，一般exporter很难用到，暂且不说。</p>
+<p><strong>PLUS</strong></p>
+<p><strong>LABELS</strong></p>
+<p>使用labels来区分metric的特征</p>
+<p>示例代码：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">from prometheus_client import Counter</span><br><span class="line"></span><br><span class="line">c &#x3D; Counter(&#39;requests_total&#39;, &#39;HTTP requests total&#39;, [&#39;method&#39;, &#39;clientip&#39;])</span><br><span class="line"></span><br><span class="line">c.labels(&#39;get&#39;, &#39;127.0.0.1&#39;).inc()</span><br><span class="line">c.labels(&#39;post&#39;, &#39;192.168.0.1&#39;).inc(3)</span><br><span class="line">c.labels(method&#x3D;&quot;get&quot;, clientip&#x3D;&quot;192.168.0.1&quot;).inc()</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>REGISTRY</strong></p>
+<p>示例代码：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">from prometheus_client import Counter, Gauge</span><br><span class="line">from prometheus_client.core import CollectorRegistry</span><br><span class="line"></span><br><span class="line">REGISTRY &#x3D; CollectorRegistry(auto_describe&#x3D;False)</span><br><span class="line"></span><br><span class="line">requests_total &#x3D; Counter(&quot;request_count&quot;, &quot;Total request cout of the host&quot;, registry&#x3D;REGISTRY)</span><br><span class="line">random_value &#x3D; Gauge(&quot;random_value&quot;, &quot;Random value of the request&quot;, registry&#x3D;REGISTRY) </span><br></pre></td></tr></table></figure>
+
+<p>本文参考链接：</p>
+<p><a href="https://blog.csdn.net/huochen1994/article/details/76263078">https://blog.csdn.net/huochen1994/article/details/76263078</a></p>
+<h3 id="举例-网卡流量"><a href="#举例-网卡流量" class="headerlink" title="举例:(网卡流量)"></a>举例:(网卡流量)</h3><p>先访问这篇文章《python 获取网卡实时流量》：</p>
+<p><a href="http://www.py3study.com/Article/details/id/347.html">http://www.py3study.com/Article/details/id/347.html</a></p>
+<p>下面这段python脚本，主要是参考上面文章的基础上修改的</p>
+<p>发送本机网卡流量 </p>
+<p>执行脚本，它会发送1次数据给Push Gateway</p>
+<p>取到的流量没有除以1024，所以默认是字节</p>
+<p><strong>注意：发送的链接，约定成俗的格式如下：</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">http:&#x2F;&#x2F;Pushgateway地址:9091&#x2F;metrics&#x2F;job&#x2F;监控项目</span><br></pre></td></tr></table></figure>
+
+<p>比如监控etcd，地址就是这样的</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">http:&#x2F;&#x2F;Pushgateway地址:9091&#x2F;metrics&#x2F;job&#x2F;etcd</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>必须使用POST方式发送数据！</strong></p>
+<h4 id="代码解释"><a href="#代码解释" class="headerlink" title="代码解释"></a>代码解释</h4><p>关键代码，就是这几行</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">REGISTRY &#x3D; CollectorRegistry(auto_describe&#x3D;False)</span><br><span class="line">input &#x3D; Gauge(&quot;network_traffic_input&quot;, hostname,[&#39;adapter_name&#39;,&#39;unit&#39;,&#39;ip&#39;,&#39;instance&#39;],registry&#x3D;REGISTRY)  # 流入</span><br><span class="line">output &#x3D; Gauge(&quot;network_traffic_output&quot;, hostname,[&#39;adapter_name&#39;,&#39;unit&#39;,&#39;ip&#39;,&#39;instance&#39;],registry&#x3D;REGISTRY)  # 流出</span><br><span class="line"></span><br><span class="line">input.labels(ip&#x3D;net_addr[key],adapter_name&#x3D;key, unit&#x3D;&quot;Byte&quot;,instance&#x3D;hostname).inc(net_in.get(key))</span><br><span class="line">output.labels(ip&#x3D;net_addr[key],adapter_name&#x3D;key, unit&#x3D;&quot;Byte&quot;,instance&#x3D;hostname).inc(net_out.get(key))</span><br></pre></td></tr></table></figure>
+
+
+
+<p>1、自定义的指标收集类都必须到CollectorRegistry进行注册， 指标数据通过CollectorRegistry类的方法或者函数，返回给Prometheus.<br>2、CollectorRegistry必须提供register()和unregister()函数，一个指标收集器可以注册多个CollectorRegistry.<br>3、客户端库必须是线程安全的</p>
+<p>代码第一行，声明了CollectorRegistry</p>
+<p>input和output是流入流出的流量。Metrics使用的是Gauge</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">input &#x3D; Gauge(&quot;network_traffic_input&quot;, hostname,[&#39;adapter_name&#39;,&#39;unit&#39;,&#39;ip&#39;,&#39;instance&#39;],registry&#x3D;REGISTRY)  # 流入</span><br></pre></td></tr></table></figure>
+
+
+
+<p>network_traffic_input表示键值，它必须唯一。因为在grafana图表中，要用这个键值绘制图表。</p>
+<p>“” 为空，它其实对应的是描述信息。为了避免数据冗长，一般不写它。</p>
+<p>[‘adapter_name’,’unit’,’ip’,’instance’] ，它是一个列表，里面每一个元素都是labels，它是用来区分metric的特征</p>
+<p>registry=REGISTRY 把数据注册到REGISTRY中</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">input.labels(ip&#x3D;net_addr[key],adapter_name&#x3D;key, unit&#x3D;&quot;Byte&quot;,instance&#x3D;hostname).inc(net_in.get(key))</span><br></pre></td></tr></table></figure>
+
+
+
+<p>这里定义了input的labels，括号里面有3个键值对。<strong>注意：这3个键值对必须在[‘adapter_name’,’unit’,’ip’] 列表中。</strong></p>
+<p>如果labels中要增加键值对，那么上面的列表中，也要增加对应的元素。否则会报错！</p>
+<p>inc表示具体值。它对应的是input</p>
+<p>刷新Push Gateway页面</p>
+<img src="/sugw.github.io/2020/11/23/prometheus-pushgateway/1341090-20181108184858813-100768690.png" class title="img">
+
+
+
+<p>展开数据，这里就是流入流出的数据了</p>
+<img src="/sugw.github.io/2020/11/23/prometheus-pushgateway/1341090-20181108184910331-1187418117.png" class title="img">
+
+
+
+<p> 进入grafana页面，新建一个图表</p>
+<p>添加网络 流入和流出指标</p>
+ <img src="/sugw.github.io/2020/11/23/prometheus-pushgateway/1341090-20181108185021071-1832061672.png" class title="img">
+
+
+
+<p>更改标题</p>
+ <img src="/sugw.github.io/2020/11/23/prometheus-pushgateway/1341090-20181108185132311-1692507631.png" class title="img">
+
+
+
+<p>设置liunx任务计划，每分钟执行一次</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">* * * * * python3 &#x2F;opt&#x2F;test.py</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<p>效果如下：</p>
+<img src="/sugw.github.io/2020/11/23/prometheus-pushgateway/1341090-20181108185223977-1139168879.png" class title="img">
+
+
+
+<p>如果服务器没有流量的话，可以造点流量</p>
+<p>写一个脚本，持续访问某张图片</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import requests</span><br><span class="line">while True:</span><br><span class="line">    requests.get(&quot;http:&#x2F;&#x2F;192.168.91.128&#x2F;Netraffic&#x2F;dt.jpg&quot;)</span><br><span class="line">    print(&#39;正在访问图片&#39;)</span><br></pre></td></tr></table></figure>
+
+
+
+<p>如果需要监控Mysql，参考这篇文章</p>
+<p><a href="https://www.jianshu.com/p/27b979554ef8">https://www.jianshu.com/p/27b979554ef8</a></p>
+<p>注意：它使用的是用flask暴露了一个Metrics，用来给Prometheus提供数据。</p>
+<p>那么就需要在 Prometheus的配置文件中，添加对应的job才能收集到数据。</p>
+<p>它会定期访问暴露的http链接，获取数据。</p>
+<p>总结：</p>
+<p>使用Prometheus监控，有2中方式</p>
+<ol>
+<li><p>暴露http方式的Metrics，注意：需要在Prometheus的配置文件中添加job</p>
+</li>
+<li><p>主动发送数据到Pushgateway，注意：只需要添加一个Pushgateway就可以了。它相当于一个API，无论有多少个服务器，发送到统一的地址。</p>
+</li>
+</ol>
+<p>生产环境中，一般使用Pushgateway，简单，也不需要修改Prometheus的配置文件！</p>
+<ul>
+<li><h1 id="node-exports-推送"><a href="#node-exports-推送" class="headerlink" title="node_exports 推送"></a>node_exports 推送</h1></li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">curl 127.0.0.1:9100/metrics|curl --data-binary @- http://114.118.10.162:9091/metrics/job/node_exporter/instance/比格云/hostname/l-crmeb01.qa.hn-ml.com</span><br></pre></td></tr></table></figure>
+
+<p><strong>也可以通过使用官方给的<a href="https://github.com/prometheus/client_python">python library</a>，使用push 方式把数据推送到pushgateway。</strong></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># cat client.py </span></span><br><span class="line"><span class="comment">#!/usr/bin/python3</span></span><br><span class="line"><span class="keyword">from</span> prometheus_client <span class="keyword">import</span> CollectorRegistry, Gauge, push_to_gateway</span><br><span class="line">registry = CollectorRegistry()</span><br><span class="line">g = Gauge(<span class="string">&#x27;ping&#x27;</span>, <span class="string">&#x27;检测最大响应时间&#x27;</span>,[<span class="string">&#x27;dst_ip&#x27;</span>,<span class="string">&#x27;city&#x27;</span>], registry=registry) <span class="comment">#Guage(metric_name,HELP,labels_name,registry=registry)</span></span><br><span class="line">g.labels(<span class="string">&#x27;192.168.1.10&#x27;</span>,<span class="string">&#x27;shenzhen&#x27;</span>).<span class="built_in">set</span>(<span class="number">42.2</span>) <span class="comment">#set设定值</span></span><br><span class="line">g.labels(<span class="string">&#x27;192.168.1.11&#x27;</span>,<span class="string">&#x27;shenzhen&#x27;</span>).dec(<span class="number">2</span>)  <span class="comment">#dec递减2</span></span><br><span class="line">g.labels(<span class="string">&#x27;192.168.1.12&#x27;</span>,<span class="string">&#x27;shenzhen&#x27;</span>).inc()  <span class="comment">#inc递增，默认增1</span></span><br><span class="line">push_to_gateway(<span class="string">&#x27;localhost:9091&#x27;</span>, job=<span class="string">&#x27;ping_status&#x27;</span>, registry=registry)</span><br></pre></td></tr></table></figure>
+
+<p><strong>需要注意：使用这种方法，如果使用相同的job名 ，后面插入的数据会覆盖掉之前的。</strong></p>
+<p>例如，job 都叫 ping_status</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python3</span></span><br><span class="line"><span class="keyword">from</span> prometheus_client <span class="keyword">import</span> CollectorRegistry, Gauge, push_to_gateway</span><br><span class="line">registry = CollectorRegistry()</span><br><span class="line">g = Gauge(<span class="string">&#x27;test_metrics&#x27;</span>, <span class="string">&#x27;描述信息&#x27;</span>,[<span class="string">&#x27;label_name&#x27;</span>], registry=registry)</span><br><span class="line">g.labels(<span class="string">&#x27;label1&#x27;</span>).<span class="built_in">set</span>(<span class="number">2</span>)</span><br><span class="line">push_to_gateway(<span class="string">&#x27;localhost:9091&#x27;</span>, job=<span class="string">&#x27;ping_status&#x27;</span>, registry=registry)</span><br></pre></td></tr></table></figure>
+
+<p>监控脚本示例</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">获取tcp连接数脚本</span><br><span class="line"><span class="comment"># cat tcpestab.sh </span></span><br><span class="line"></span><br><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="comment">#获取主机名，常传输到Prometheus标签以主机名</span></span><br><span class="line">instance_name=`hostname -f | cut -d<span class="string">&#x27;.&#x27;</span> -f1`</span><br><span class="line"><span class="comment">#判断主机名不能是localhost不然发送过的数据不知道是那个主机的 </span></span><br><span class="line"><span class="keyword">if</span> [ <span class="variable">$instance_name</span> == <span class="string">&quot;localhost&quot;</span> ];<span class="keyword">then</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;Hostname must not localhost&quot;</span></span><br><span class="line"><span class="built_in">exit</span> 1</span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"><span class="comment">#自定义key，在Prometheus即可使用key查询</span></span><br><span class="line">label=<span class="string">&quot;count_estab_connections&quot;</span> </span><br><span class="line"><span class="comment">#获取TCP estab 连接数</span></span><br><span class="line">count_estab_connections=`netstat -an | grep -i <span class="string">&#x27;established&#x27;</span> | wc -l`</span><br><span class="line"><span class="comment">#将数据发送到pushgateway固定格式</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;<span class="variable">$label</span> <span class="variable">$count_estab_connections</span>&quot;</span>  | curl --data-binary @- http://192.168.184.130:9191/metrics/job/pushgateway/instance/<span class="variable">$instance_name</span></span><br></pre></td></tr></table></figure>
+
+<p>设置数据采集频率</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#15s 采集一次</span></span><br><span class="line">*/15 * * * * sh /root/tcpestab.sh &gt;/dev/null 2&gt;&amp;1</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>监控</category>
+      </categories>
+      <tags>
+        <tag>prometheus</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Centos6/7 安装PHP7.3教程</title>
     <url>/sugw.github.io/2020/11/03/Centos67%20%E5%AE%89%E8%A3%85PHP7.3%E6%95%99%E7%A8%8B/</url>
     <content><![CDATA[<h1 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h1><p>最近的 PHP 7.3.0 已经在 2018 年12月6日 发布 GA，大家已经可以开始第一时间体验新版本了，这里先放出 PHP7.3 安装的教程以便大家升级。</p>
@@ -338,6 +1174,338 @@
       </categories>
       <tags>
         <tag>php</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Jenkins+Gitlab+Ansible自动化部署(一)</title>
+    <url>/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/</url>
+    <content><![CDATA[<p>首先准备实验环境</p>
+<table>
+<thead>
+<tr>
+<th>虚拟机</th>
+<th>主机名</th>
+<th>IP地址</th>
+<th>服务</th>
+<th>系统版本</th>
+<th>内核版本</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Vmware Workstation 14</td>
+<td>gitlab.example.com</td>
+<td>192.168.244.130</td>
+<td>gitlab</td>
+<td>CentOS Linux release 7.5.1804 (Core)</td>
+<td>3.10.0-862.el7.x86_64</td>
+</tr>
+<tr>
+<td>jenkins.example.com</td>
+<td>192.168.244.131</td>
+<td>jenkis</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>ansible.example.com</td>
+<td>192.168.244.132</td>
+<td>asible</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p>除此之外，还要在宿主机win10系统下的C:\Windows\System32\drivers\etc\hosts文件中添加如下内容</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">192.168.244.130 gitlab.example.com</span><br><span class="line">192.168.244.131 jenkins.example.com</span><br><span class="line">192.168.244.132 ansible.example.com</span><br></pre></td></tr></table></figure>
+
+<p>关闭防火墙和selinux</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@gitlab ~]# sed -i &quot;s&#x2F;enforcing&#x2F;disabled&#x2F;&quot; &#x2F;etc&#x2F;selinux&#x2F;config</span><br><span class="line">[root@gitlab ~]# systemctl stop firewalld &amp;&amp; systemmctl disable firewalld</span><br><span class="line">[root@gitlab ~]# reboot</span><br><span class="line">[root@gitlab ~]# getenforce</span><br><span class="line">Permissive</span><br><span class="line">[root@server01 ~]# systemctl status firewalld</span><br><span class="line">● firewalld.service - firewalld - dynamic firewall daemon</span><br><span class="line">   Loaded: loaded (&#x2F;usr&#x2F;lib&#x2F;systemd&#x2F;system&#x2F;firewalld.service; disabled; vendor preset: enabled)</span><br><span class="line">   Active: inactive (dead)</span><br><span class="line">     Docs: man:firewalld(1)</span><br></pre></td></tr></table></figure>
+
+<p>安装postfix并启动</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@gitlab ~]# yum install postfix</span><br><span class="line">[root@gitlab ~]# systemctl start postfix &amp;&amp; systemctl enable postfix</span><br></pre></td></tr></table></figure>
+
+<p>安装Gitlab组件及gitlab-ce</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@gitlab ~]# yum install curl policycoreutils openssh-server openssh-clients</span><br><span class="line">[root@gitlab ~]# curl -sS https:&#x2F;&#x2F;packages.gitlab.com&#x2F;install&#x2F;repositories&#x2F;gitlab&#x2F;gitlab-ce&#x2F;script.rpm.sh | sudo bash</span><br><span class="line">[root@gitlab ~]# yum install -y gitlab-ce </span><br></pre></td></tr></table></figure>
+
+<p>也可以去<a href="https://packages.gitlab.com/gitlab/gitlab-ce/packages/el/7/gitlab-ce-10.0.0-ce.0.el7.x86_64.rpm%E5%AE%89%E8%A3%85%E6%96%B9%E6%B3%95%E3%80%82">https://packages.gitlab.com/gitlab/gitlab-ce/packages/el/7/gitlab-ce-10.0.0-ce.0.el7.x86_64.rpm安装方法。</a></p>
+<p>证书创建与配置加载</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@gitlab ~]# mkdir -p &#x2F;etc&#x2F;gitlab&#x2F;ssl </span><br><span class="line">创建私有密钥 </span><br><span class="line">[root@gitlab ~]# openssl genrsa -out &quot;&#x2F;etc&#x2F;gitlab&#x2F;ssl&#x2F;gitlab.example.com.key&quot;  2048</span><br><span class="line">Generating RSA private key, 2048 bit long modulus</span><br><span class="line">...............+++</span><br><span class="line">...............................................................................+++</span><br><span class="line">e is 65537 (0x10001)</span><br><span class="line">创建私有证书</span><br><span class="line">[root@gitlab ~]# openssl req -new -key &quot;&#x2F;etc&#x2F;gitlab&#x2F;ssl&#x2F;gitlab.example.com.key&quot;  -out &quot;&#x2F;etc&#x2F;gitlab&#x2F;ssl&#x2F;gitlab.example.com.csr&quot;</span><br><span class="line">You are about to be asked to enter information that will be incorporated</span><br><span class="line">into your certificate request.</span><br><span class="line">What you are about to enter is what is called a Distinguished Name or a DN.</span><br><span class="line">There are quite a few fields but you can leave some blank</span><br><span class="line">For some fields there will be a default value,</span><br><span class="line">If you enter &#39;.&#39;, the field will be left blank.</span><br><span class="line">-----</span><br><span class="line">Country Name (2 letter code) [XX]:cn</span><br><span class="line">State or Province Name (full name) []:sh</span><br><span class="line">Locality Name (eg, city) [Default City]:sh</span><br><span class="line">Organization Name (eg, company) [Default Company Ltd]:  #输入空格，然后回车</span><br><span class="line">Organizational Unit Name (eg, section) []:  #输入空格，然后回车</span><br><span class="line">Common Name (eg, your name or your server&#39;s hostname) []:gitlab.example.com</span><br><span class="line">Email Address []:admin@example.com</span><br><span class="line"></span><br><span class="line">Please enter the following &#39;extra&#39; attributes</span><br><span class="line">to be sent with your certificate request</span><br><span class="line">A challenge password []:123456</span><br><span class="line">An optional company name []:  #直接回车</span><br><span class="line">查看</span><br><span class="line">[root@gitlab ~]# ll &#x2F;etc&#x2F;gitlab&#x2F;ssl&#x2F;</span><br><span class="line">total 8</span><br><span class="line">-rw-r--r-- 1 root root 1066 Jan  2 15:32 gitlab.example.com.csr</span><br><span class="line">-rw-r--r-- 1 root root 1679 Jan  2 15:30 gitlab.example.com.key</span><br><span class="line">接下来利用私有密钥和私有证书创建CRT签署证书</span><br><span class="line">[root@gitlab ~]# openssl x509 -req -days 365 -in &quot;&#x2F;etc&#x2F;gitlab&#x2F;ssl&#x2F;gitlab.example.com.csr&quot; -signkey &quot;&#x2F;etc&#x2F;gitlab&#x2F;ssl&#x2F;gitlab.example.com.key&quot; -out &quot;&#x2F;etc&#x2F;gitlab&#x2F;ssl&#x2F;gitlab.example.com.crt&quot;</span><br><span class="line">Signature ok</span><br><span class="line">subject&#x3D;&#x2F;C&#x3D;cn&#x2F;ST&#x3D;sh&#x2F;L&#x3D;sh&#x2F;O&#x3D; &#x2F;OU&#x3D; &#x2F;CN&#x3D;gitlab.example.com&#x2F;emailAddress&#x3D;admin@example.com</span><br><span class="line">Getting Private key</span><br><span class="line">查看</span><br><span class="line">[root@gitlab ~]# ll &#x2F;etc&#x2F;gitlab&#x2F;ssl&#x2F;</span><br><span class="line">total 12</span><br><span class="line">-rw-r--r-- 1 root root 1265 Jan  2 15:39 gitlab.example.com.crt</span><br><span class="line">-rw-r--r-- 1 root root 1066 Jan  2 15:32 gitlab.example.com.csr</span><br><span class="line">-rw-r--r-- 1 root root 1679 Jan  2 15:30 gitlab.example.com.key</span><br><span class="line">利用openssl命令输出pem证书</span><br><span class="line">[root@gitlab ~]# openssl dhparam -out &#x2F;etc&#x2F;gitlab&#x2F;ssl&#x2F;dhparam.pem 2048</span><br><span class="line">Generating DH parameters, 2048 bit long safe prime, generator 2</span><br><span class="line">This is going to take a long time</span><br><span class="line">........................................................+................................................................................+.....................................+..................................................................................+..............................................+..................................................................................................................................+..+........................................................................................................................................+..............................................................................................................................................................................+......+..............+.....................................................+.................+.......................................................................................+..+.................................................................................................................................................+..........................................................+.............+.........+...........................................................+........................................................................................................................................................................................................................................+...................................................................................................................................................................................................................................................................................................................++*++*</span><br><span class="line">#  这个过程有点久</span><br><span class="line"># 查看生成的证书</span><br><span class="line">[root@gitlab ~]# ll &#x2F;etc&#x2F;gitlab&#x2F;ssl&#x2F;</span><br><span class="line">total 16</span><br><span class="line">-rw-r--r-- 1 root root  424 Jan  2 15:46 dhparam.pem</span><br><span class="line">-rw-r--r-- 1 root root 1265 Jan  2 15:39 gitlab.example.com.crt</span><br><span class="line">-rw-r--r-- 1 root root 1066 Jan  2 15:32 gitlab.example.com.csr</span><br><span class="line">-rw-r--r-- 1 root root 1679 Jan  2 15:30 gitlab.example.com.key</span><br><span class="line">更改文件权限</span><br><span class="line">[root@gitlab ~]# chmod 600 &#x2F;etc&#x2F;gitlab&#x2F;ssl&#x2F;*</span><br><span class="line">[root@gitlab ~]# ll &#x2F;etc&#x2F;gitlab&#x2F;ssl&#x2F;</span><br><span class="line">total 16</span><br><span class="line">-rw------- 1 root root  424 Jan  2 15:46 dhparam.pem</span><br><span class="line">-rw------- 1 root root 1265 Jan  2 15:39 gitlab.example.com.crt</span><br><span class="line">-rw------- 1 root root 1066 Jan  2 15:32 gitlab.example.com.csr</span><br><span class="line">-rw------- 1 root root 1679 Jan  2 15:30 gitlab.example.com.key</span><br></pre></td></tr></table></figure>
+
+<p>配置gitlab</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@gitlab ~]# cp &#x2F;etc&#x2F;gitlab&#x2F;gitlab.rb&#123;,.bak&#125;</span><br><span class="line">[root@gitlab ~]# vim &#x2F;etc&#x2F;gitlab&#x2F;gitlab.rb</span><br><span class="line">## 更改如下</span><br><span class="line"> 13 external_url &#39;https:&#x2F;&#x2F;gitlab.example.com&#39;  13行左右</span><br><span class="line">952 nginx[&#39;redirect_http_to_https&#39;] &#x3D; true</span><br><span class="line">964 nginx[&#39;ssl_certificate&#39;] &#x3D; &quot;&#x2F;etc&#x2F;gitlab&#x2F;ssl&#x2F;gitlab.example.com.crt&quot;</span><br><span class="line">965 nginx[&#39;ssl_certificate_key&#39;] &#x3D; &quot;&#x2F;etc&#x2F;gitlab&#x2F;ssl&#x2F;gitlab.example.com.key&quot;</span><br><span class="line">979 # nginx[&#39;ssl_dhparam&#39;] &#x3D; &#x2F;etc&#x2F;gitlab&#x2F;ssl&#x2F;dhparam.pem # Path to dhparams.pem,      eg. &#x2F;etc&#x2F;gitlab&#x2F;ssl&#x2F;dhparams.pem</span><br></pre></td></tr></table></figure>
+
+<p>初始化gitlab相关服务配置</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@gitlab ~]# gitlab-ctl reconfigure</span><br><span class="line">Starting Chef Client, version 13.6.4</span><br><span class="line">resolving cookbooks for run list: [&quot;gitlab&quot;]</span><br><span class="line">Synchronizing Cookbooks:</span><br><span class="line">  - gitlab (0.0.1)</span><br><span class="line">  - package (0.1.0)</span><br><span class="line">  - postgresql (0.1.0)</span><br><span class="line">  - redis (0.1.0)</span><br><span class="line">  - mattermost (0.1.0)</span><br><span class="line">  - registry (0.1.0)</span><br><span class="line">  - gitaly (0.1.0)</span><br><span class="line">  - consul (0.0.0)</span><br><span class="line">  - nginx (0.1.0)</span><br><span class="line">  - runit (0.14.2)</span><br><span class="line">  - letsencrypt (0.1.0)</span><br><span class="line">  - acme (3.1.0)</span><br><span class="line">  - crond (0.1.0)</span><br><span class="line">  - compat_resource (12.19.0)</span><br><span class="line">Installing Cookbook Gems:</span><br><span class="line">Compiling Cookbooks...</span><br><span class="line">Recipe: gitlab::default</span><br><span class="line">  * directory[&#x2F;etc&#x2F;gitlab] action create</span><br><span class="line">    - change mode from &#39;0755&#39; to &#39;0775&#39;</span><br><span class="line">  Converging 493 resources</span><br><span class="line">  * directory[&#x2F;etc&#x2F;gitlab] action create (up to date)</span><br><span class="line">  * directory[Create &#x2F;var&#x2F;opt&#x2F;gitlab] action create</span><br><span class="line">    - create new directory &#x2F;var&#x2F;opt&#x2F;gitlab</span><br><span class="line">    - change mode from &#39;&#39; to &#39;0755&#39;</span><br><span class="line">    - change owner from &#39;&#39; to &#39;root&#39;</span><br><span class="line">    - change group from &#39;&#39; to &#39;root&#39;</span><br><span class="line">  * directory[&#x2F;opt&#x2F;gitlab&#x2F;embedded&#x2F;etc] action create</span><br><span class="line">    - create new directory &#x2F;opt&#x2F;gitlab&#x2F;embedded&#x2F;etc</span><br><span class="line">    - change mode from &#39;&#39; to &#39;0755&#39;</span><br><span class="line">    - change owner from &#39;&#39; to &#39;root&#39;</span><br><span class="line">    - change group from &#39;&#39; to &#39;root&#39;</span><br><span class="line">  * template[&#x2F;opt&#x2F;gitlab&#x2F;embedded&#x2F;etc&#x2F;gitconfig] action create</span><br><span class="line">    - create new file &#x2F;opt&#x2F;gitlab&#x2F;embedded&#x2F;etc&#x2F;gitconfig</span><br><span class="line">    - update content in file &#x2F;opt&#x2F;gitlab&#x2F;embedded&#x2F;etc&#x2F;gitconfig from none to 987af3</span><br><span class="line"></span><br><span class="line">。。。。过程有点长，需要等一会（看个人服务器配置了）</span><br><span class="line">Running handlers:</span><br><span class="line">Running handlers complete</span><br><span class="line">Chef Client finished, 454&#x2F;655 resources updated in 02 minutes 16 seconds</span><br><span class="line">gitlab Reconfigured!</span><br><span class="line"># 出现这个表示配置没有问题！</span><br></pre></td></tr></table></figure>
+
+<p>对nginx配置</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@gitlab ~]# cp &#x2F;var&#x2F;opt&#x2F;gitlab&#x2F;nginx&#x2F;conf&#x2F;gitlab-http.conf&#123;,.bak&#125;</span><br><span class="line">[root@gitlab ~]# vim &#x2F;var&#x2F;opt&#x2F;gitlab&#x2F;nginx&#x2F;conf&#x2F;gitlab-http.conf</span><br><span class="line"> 37   server_name gitlab.example.com; #在此行下面添加38行的内容</span><br><span class="line"> 38   rewrite ^(.*)$ https:&#x2F;&#x2F;$host$1 permanent;</span><br></pre></td></tr></table></figure>
+
+<p>重启gitlab</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@gitlab ~]# gitlab-ctl restart</span><br><span class="line">ok: run: alertmanager: (pid 6526) 1s</span><br><span class="line">ok: run: gitaly: (pid 6543) 0s</span><br><span class="line">ok: run: gitlab-monitor: (pid 6556) 0s</span><br><span class="line">ok: run: gitlab-workhorse: (pid 6579) 1s</span><br><span class="line">ok: run: logrotate: (pid 6589) 0s</span><br><span class="line">ok: run: nginx: (pid 6597) 1s</span><br><span class="line">ok: run: node-exporter: (pid 6681) 0s</span><br><span class="line">ok: run: postgres-exporter: (pid 6687) 1s</span><br><span class="line">ok: run: postgresql: (pid 6698) 0s</span><br><span class="line">ok: run: prometheus: (pid 6706) 0s</span><br><span class="line">ok: run: redis: (pid 6722) 0s</span><br><span class="line">ok: run: redis-exporter: (pid 6856) 0s</span><br><span class="line">ok: run: sidekiq: (pid 6866) 0s</span><br><span class="line">ok: run: unicorn: (pid 6880) 0s</span><br><span class="line">#  可以看出gitlab的所有服务重启完成</span><br></pre></td></tr></table></figure>
+
+<p>使用宿主机win10下的chrome浏览器访问gitlab.example.com:80</p>
+<img src="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/804543-20190102164045215-3943660.png" class title="img">
+
+<img src="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/804543-20190102164153110-1651878067.png" class title="img">
+
+<img src="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/804543-20190102164224914-827989240.png" class title="img">
+
+<p>开始使用gitlab</p>
+<img src="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/804543-20190102164356206-501778199.png" class title="img">
+
+<p>创建一个测试工程</p>
+<img src="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/804543-20190102164555544-1084217569.png" class title="img">
+
+<p>复制仓库地址</p>
+<img src="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/804543-20190102164808408-621505099.png" class title="img">
+
+<p>回到win10宿主机，重新打开一个git命令行窗口如下所示操作</p>
+<img src="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/804543-20190102165212447-658335923.png" class title="img">
+
+<p># 粘贴仓库地址回车后会弹出输入账户和密码的窗口</p>
+<p>之后就会将空的测试仓库克隆到本地宿主机的桌面上的repo目录下</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">xueji@xueji MINGW64 ~&#x2F;Desktop&#x2F;repo</span><br><span class="line">$ git -c http.sslVerify&#x3D;false clone https:&#x2F;&#x2F;gitlab.example.com&#x2F;root&#x2F;test-repo.git</span><br><span class="line">Cloning into &#39;test-repo&#39;...</span><br><span class="line">warning: You appear to have cloned an empty repository.</span><br><span class="line"></span><br><span class="line">xueji@xueji MINGW64 ~&#x2F;Desktop&#x2F;repo</span><br><span class="line">$ pwd</span><br><span class="line">&#x2F;c&#x2F;Users&#x2F;xueji&#x2F;Desktop&#x2F;repo</span><br><span class="line"></span><br><span class="line">xueji@xueji MINGW64 ~&#x2F;Desktop&#x2F;repo</span><br><span class="line">$ ls</span><br><span class="line">test-repo&#x2F;</span><br><span class="line"></span><br><span class="line">xueji@xueji MINGW64 ~&#x2F;Desktop&#x2F;repo</span><br><span class="line">$ ls test-repo&#x2F;</span><br></pre></td></tr></table></figure>
+
+<p>在win10宿主机下的test-repo目录下新建一个test.py文件，并上传至gitlab</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">xueji@xueji MINGW64 ~&#x2F;Desktop&#x2F;repo</span><br><span class="line">$ cd test-repo&#x2F;</span><br><span class="line"></span><br><span class="line">xueji@xueji MINGW64 ~&#x2F;Desktop&#x2F;repo&#x2F;test-repo (master)</span><br><span class="line">$ vi test.py</span><br><span class="line"></span><br><span class="line">xueji@xueji MINGW64 ~&#x2F;Desktop&#x2F;repo&#x2F;test-repo (master)</span><br><span class="line">$ git add .</span><br><span class="line">warning: LF will be replaced by CRLF in test.py.</span><br><span class="line">The file will have its original line endings in your working directory</span><br><span class="line"></span><br><span class="line">xueji@xueji MINGW64 ~&#x2F;Desktop&#x2F;repo&#x2F;test-repo (master)</span><br><span class="line">$ git commit -m&quot;First Commit&quot;</span><br><span class="line">[master (root-commit) 93bd740] First Commit</span><br><span class="line"> Committer: unknown &lt;xueji@pin.com&gt;</span><br><span class="line">Your name and email address were configured automatically based</span><br><span class="line">on your username and hostname. Please check that they are accurate.</span><br><span class="line">You can suppress this message by setting them explicitly. Run the</span><br><span class="line">following command and follow the instructions in your editor to edit</span><br><span class="line">your configuration file:</span><br><span class="line"></span><br><span class="line">    git config --global --edit</span><br><span class="line"></span><br><span class="line">After doing this, you may fix the identity used for this commit with:</span><br><span class="line"></span><br><span class="line">    git commit --amend --reset-author</span><br><span class="line"></span><br><span class="line"> 1 file changed, 1 insertion(+)</span><br><span class="line"> create mode 100644 test.py</span><br><span class="line"></span><br><span class="line">xueji@xueji MINGW64 ~&#x2F;Desktop&#x2F;repo&#x2F;test-repo (master)</span><br><span class="line">$ git config  --global user.email &quot;admin@example.com&quot;</span><br><span class="line"></span><br><span class="line">xueji@xueji MINGW64 ~&#x2F;Desktop&#x2F;repo&#x2F;test-repo (master)</span><br><span class="line">$ git config --global user.name &quot;admin&quot;</span><br><span class="line"></span><br><span class="line">xueji@xueji MINGW64 ~&#x2F;Desktop&#x2F;repo&#x2F;test-repo (master)</span><br><span class="line">$ git commit -m&quot;First Commit&quot;</span><br><span class="line">On branch master</span><br><span class="line">Your branch is based on &#39;origin&#x2F;master&#39;, but the upstream is gone.</span><br><span class="line">  (use &quot;git branch --unset-upstream&quot; to fixup)</span><br><span class="line"></span><br><span class="line">nothing to commit, working tree clean</span><br><span class="line"></span><br><span class="line">xueji@xueji MINGW64 ~&#x2F;Desktop&#x2F;repo&#x2F;test-repo (master)</span><br><span class="line">$ git -c http.sslVerify&#x3D;false push master</span><br><span class="line">fatal: &#39;master&#39; does not appear to be a git repository</span><br><span class="line">fatal: Could not read from remote repository.</span><br><span class="line"></span><br><span class="line">Please make sure you have the correct access rights</span><br><span class="line">and the repository exists.</span><br><span class="line"></span><br><span class="line">xueji@xueji MINGW64 ~&#x2F;Desktop&#x2F;repo&#x2F;test-repo (master)</span><br></pre></td></tr></table></figure>
+
+<p>报错，跟据提示信息我们进行如下操作</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">xueji@xueji MINGW64 ~&#x2F;Desktop&#x2F;repo&#x2F;test-repo (master)</span><br><span class="line">$ git branch --unset-upstream</span><br><span class="line">xueji@xueji MINGW64 ~&#x2F;Desktop&#x2F;repo&#x2F;test-repo (master)</span><br><span class="line">$ git add .</span><br><span class="line"></span><br><span class="line">xueji@xueji MINGW64 ~&#x2F;Desktop&#x2F;repo&#x2F;test-repo (master)</span><br><span class="line">$ git config --global user.email &quot;admin@example.com&quot;</span><br><span class="line"></span><br><span class="line">xueji@xueji MINGW64 ~&#x2F;Desktop&#x2F;repo&#x2F;test-repo (master)</span><br><span class="line">$ git config --global user.name &quot;admin&quot;</span><br><span class="line"></span><br><span class="line">xueji@xueji MINGW64 ~&#x2F;Desktop&#x2F;repo&#x2F;test-repo (master)</span><br><span class="line">$ git commit -m&quot;First Commit&quot;</span><br><span class="line">On branch master</span><br><span class="line">nothing to commit, working tree clean</span><br><span class="line"></span><br><span class="line">xueji@xueji MINGW64 ~&#x2F;Desktop&#x2F;repo&#x2F;test-repo (master)</span><br><span class="line">$ git commit -m&quot;Second Commit&quot;</span><br><span class="line">On branch master</span><br><span class="line">nothing to commit, working tree clean</span><br><span class="line"></span><br><span class="line">xueji@xueji MINGW64 ~&#x2F;Desktop&#x2F;repo&#x2F;test-repo (master)</span><br><span class="line">$ git -c http.sslVerify&#x3D;false push origin master</span><br><span class="line">Enumerating objects: 3, done.</span><br><span class="line">Counting objects: 100% (3&#x2F;3), done.</span><br><span class="line">Writing objects: 100% (3&#x2F;3), 242 bytes | 242.00 KiB&#x2F;s, done.</span><br><span class="line">Total 3 (delta 0), reused 0 (delta 0)</span><br><span class="line">To https:&#x2F;&#x2F;gitlab.example.com&#x2F;root&#x2F;test-repo.git</span><br><span class="line"> * [new branch]      master -&gt; master</span><br></pre></td></tr></table></figure>
+
+<p>回到gitlab的浏览器页面，刷新查看</p>
+<img src="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/804543-20190102172541680-1685258190.png" class title="img">
+
+<p>已经成功上传到test-repo工程当中。</p>
+<p>Gitlab应用</p>
+<img src="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/804543-20190102172834006-957477766.png" class title="img">
+
+<p>比如说Systeminfo</p>
+<img src="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/804543-20190102173017476-1297762493.png" class title="img">
+
+<img src="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/804543-20190102173108736-1671134778.png" class title="img">
+
+<p>比如说日志</p>
+<img src="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/804543-20190102173204986-1045231309.png" class title="img">
+
+<p>需要我们关注的是application.log和production.log两项</p>
+<p>比如说健康状况</p>
+<img src="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/804543-20190102173522576-1583433372.png" class title="img">
+
+<p>创建开发人员及leader的账号</p>
+<p>开发人员账号</p>
+<img src="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/804543-20190102173648091-57729423.png" class title="img">
+
+<img src="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/804543-20190102173839541-132784246.png" class title="img">
+
+<p>其他选项不要动，点击创建即可。</p>
+<p>创建leader的账号</p>
+<img src="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/804543-20190102174006279-1152234077.png" class title="img">
+
+<img src="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/804543-20190102174112736-1497099430.png" class title="img">
+
+<p>其他也不要动。</p>
+<p>建好后的账户</p>
+<img src="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/804543-20190102174214548-2047513172.png" class title="img">
+
+<img src="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/804543-20190102174323576-45552471.png" class title="img">
+
+<img src="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/804543-20190102174428809-1250049533.png" class title="img">
+
+<img src="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/804543-20190102174525431-600068675.png" class title="img">
+
+<img src="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/804543-20190102174619643-830800285.png" class title="img">
+
+<img src="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/804543-20190102174809969-1580189936.png" class title="img">
+
+<p>同理添加lead账户</p>
+<img src="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/804543-20190102175038572-8109703.png" class title="img">
+
+<p>更改两个账户的密码</p>
+<img src="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/804543-20190102175340108-1125836966.png" class title="img">
+
+<img src="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/804543-20190102175430628-339857982.png" class title="img">
+
+<p>其他选项保持不变，然后点击页面最下面的save changes，同理更改lead的密码</p>
+<p>使用dev账户进行git命令行的提交操作</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">## 以下步骤也是在win10宿主机上进行的</span><br><span class="line">xueji@xueji MINGW64 ~&#x2F;Desktop&#x2F;repo&#x2F;test-repo (master)</span><br><span class="line">$ pwd</span><br><span class="line">&#x2F;c&#x2F;Users&#x2F;xueji&#x2F;Desktop&#x2F;repo&#x2F;test-repo</span><br><span class="line"></span><br><span class="line">xueji@xueji MINGW64 ~&#x2F;Desktop&#x2F;repo&#x2F;test-repo (master)</span><br><span class="line">$ cd ..</span><br><span class="line"></span><br><span class="line">xueji@xueji MINGW64 ~&#x2F;Desktop&#x2F;repo</span><br><span class="line">$ rm -rf test-repo&#x2F;</span><br><span class="line">$ git -c http.sslVerify&#x3D;false clone https:&#x2F;&#x2F;gitlab.example.com&#x2F;root&#x2F;test-repo.git</span><br><span class="line">Cloning into &#39;test-repo&#39;...</span><br><span class="line">remote: Enumerating objects: 3, done.</span><br><span class="line">remote: Counting objects: 100% (3&#x2F;3), done.</span><br><span class="line">remote: Total 3 (delta 0), reused 0 (delta 0)</span><br><span class="line">Unpacking objects: 100% (3&#x2F;3), done.</span><br><span class="line">#  这一步就很尴尬了，本来是想要验证dev账户的，谁知道什么都不需要输入就直接可以clone下来。</span><br><span class="line">xueji@xueji MINGW64 ~&#x2F;Desktop&#x2F;repo</span><br><span class="line">$ ls</span><br><span class="line">test-repo&#x2F;</span><br><span class="line"></span><br><span class="line">xueji@xueji MINGW64 ~&#x2F;Desktop&#x2F;repo</span><br><span class="line">$ ls test-repo&#x2F;</span><br><span class="line">test.py</span><br><span class="line"></span><br><span class="line">xueji@xueji MINGW64 ~&#x2F;Desktop&#x2F;repo</span><br><span class="line">$ cd test-repo&#x2F;</span><br><span class="line"></span><br><span class="line">xueji@xueji MINGW64 ~&#x2F;Desktop&#x2F;repo&#x2F;test-repo (master)</span><br><span class="line">$ git checkout -b release-1.0   #创建开发人员版本</span><br><span class="line">Switched to a new branch &#39;release-1.0&#39;</span><br><span class="line">xueji@xueji MINGW64 ~&#x2F;Desktop&#x2F;repo&#x2F;test-repo (release-1.0)</span><br><span class="line">$ ls</span><br><span class="line">test.py</span><br><span class="line"></span><br><span class="line">xueji@xueji MINGW64 ~&#x2F;Desktop&#x2F;repo&#x2F;test-repo (release-1.0)</span><br><span class="line">$ vim test.py</span><br><span class="line">xueji@xueji MINGW64 ~&#x2F;Desktop&#x2F;repo&#x2F;test-repo (release-1.0)</span><br><span class="line">$ cat test.py</span><br><span class="line">print(&quot;This is a test python file for release-1.0!&quot;)</span><br><span class="line">xueji@xueji MINGW64 ~&#x2F;Desktop&#x2F;repo&#x2F;test-repo (release-1.0)</span><br><span class="line">$ git -c http.sslVerify&#x3D;false push origin release-1.0</span><br><span class="line">Enumerating objects: 5, done.</span><br><span class="line">Counting objects: 100% (5&#x2F;5), done.</span><br><span class="line">Delta compression using up to 4 threads</span><br><span class="line">Compressing objects: 100% (2&#x2F;2), done.</span><br><span class="line">Writing objects: 100% (3&#x2F;3), 287 bytes | 287.00 KiB&#x2F;s, done.</span><br><span class="line">Total 3 (delta 0), reused 0 (delta 0)</span><br><span class="line">remote:</span><br><span class="line">remote: To create a merge request for release-1.0, visit:</span><br><span class="line">remote:   https:&#x2F;&#x2F;gitlab.example.com&#x2F;root&#x2F;test-repo&#x2F;merge_requests&#x2F;new?merge_request%5Bsource_branch%5D&#x3D;release-1.0</span><br><span class="line">remote:</span><br><span class="line">To https:&#x2F;&#x2F;gitlab.example.com&#x2F;root&#x2F;test-repo.git</span><br><span class="line"> * [new branch]      release-1.0 -&gt; release-1.0</span><br><span class="line">#  我靠，估计版本不一样，这一步不需要输入账户名和密码</span><br></pre></td></tr></table></figure>
+
+<p>返回gitlab的浏览器页面</p>
+<img src="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/804543-20190102180851535-2098739677.png" class title="img">
+
+<img src="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/804543-20190102180912746-365779940.png" class title="img">
+
+<p> 使用开发账户登录</p>
+<img src="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/804543-20190102202149369-1982672005.png" class title="img">
+
+<p>设置新密码</p>
+<img src="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/804543-20190102202530519-730722560.png" class title="img">
+
+<img src="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/804543-20190102202651084-1127147532.png" class title="img">
+
+<p> 至此，gitlab安装配置完成，接下来演示gitlab应用：</p>
+<p>开发人员创建一个分支，然后发申请到主管请求合并到主分支，</p>
+<p>回到gitbash命令行，首先删除之前的test-repo目录：</p>
+<img src="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/804543-20190106080255311-216023418.png" class title="img">
+
+<p>然后使用dev账号登陆gitlab，并复制gitlab仓库地址：</p>
+<img src="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/804543-20190106080504843-764533681.png" class title="img">
+
+<p>本地提交并推送到gitlab远端：</p>
+<img src="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/804543-20190106080550570-591512284.png" class title="img">
+
+<p>开始提交合并到主分支的申请</p>
+<img src="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/804543-20190106080711039-283092739.png" class title="img">
+
+<img src="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/804543-20190106080747722-293518077.png" class title="img">
+
+<img src="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/804543-20190106081015734-905282817.png" class title="img">
+
+<img src="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/804543-20190106081027714-647433423.png" class title="img">
+
+<img src="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/804543-20190106081223203-663097162.png" class title="img">
+
+<img src="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/804543-20190106081345859-1974744297.png" class title="img">
+
+<p>接着退出当前的dev账号，使用lead账号登录，同样lead账号首次登录需要更改密码，步骤同dev一样：</p>
+<img src="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/804543-20190106081654799-1325405956.png" class title="img">
+
+<img src="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/804543-20190106081737842-576013049.png" class title="img">
+
+ <img src="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/804543-20190106081834712-1983955035.png" class title="img">
+
+<img src="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/804543-20190106082118521-107543261.png" class title="img">
+
+<img src="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/804543-20190106082235982-1151283651.png" class title="img">
+
+<img src="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/804543-20190106082302424-429176945.png" class title="img">
+
+
+
+ <img src="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/804543-20190106082334050-1662187133.png" class title="img">
+
+<img src="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/804543-20190106082350221-411675038.png" class title="img">
+
+<p>jenkins的配置与使用见Jenkins+Gitlab+Ansible自动化部署(二)</p>
+]]></content>
+      <categories>
+        <category>Jenkins+Gitlab+Ansible</category>
+      </categories>
+      <tags>
+        <tag>自动部署</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>PHP-php-fpm配置优化</title>
+    <url>/sugw.github.io/2020/11/19/PHP-php-fpm%E9%85%8D%E7%BD%AE%E4%BC%98%E5%8C%96/</url>
+    <content><![CDATA[<p>前言:</p>
+<p>　　1.少安装PHP模块, 费内存</p>
+<p>　　2.调高linux内核打开文件数量，可以使用这些命令(必须是root帐号)(我是修改/etc/rc.local，加入ulimit -SHn 51200的)</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">echo &#96;ulimit -HSn 65536&#96; &gt;&gt; &#x2F;etc&#x2F;profile</span><br><span class="line">echo &#96;ulimit -HSn 65536&#96; &gt;&gt; &#x2F;etc&#x2F;rc.local</span><br><span class="line">source &#x2F;etc&#x2F;profile </span><br></pre></td></tr></table></figure>
+
+<p>　　如果<code>ulimit -n</code>数量依旧不多(即上面配置没生效)的话, 可以在 /etc/security/limits.conf 文件最后加上</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">* soft nofile 51200</span><br><span class="line">* hard nofile 51200</span><br></pre></td></tr></table></figure>
+
+<p>1.<strong>与Nginx使用Unix域Socket通信(Nginx和php-fpm在同一台服务器)</strong></p>
+<p>　　Unix域Socket因为不走网络，的确可以提高Nginx和php-fpm通信的性能，但在高并发时会不稳定。</p>
+<p>　　Nginx会频繁报错：connect() to unix:/dev/shm/php-fcgi.sock failed (11: Resource temporarily unavailable) while connecting to upstream</p>
+<p>　　可以通过下面两种方式提高稳定性：<br>　　1）调高nginx和php-fpm中的backlog<br>  　　 配置方法为：在nginx配置文件中这个域名的server下，在listen 80后面添加default backlog=1024。<br>   　　同时配置php-fpm.conf中的listen.backlog为1024，默认为128。<br>　　2）增加sock文件和php-fpm实例数<br>   　　再新建一个sock文件，在Nginx中通过upstream模块将请求负载均衡到两个sock文件背后的两套php-fpm实例上。</p>
+<p>2.<strong>php-fpm参数调优</strong></p>
+<p>　　pm = dynamic; 表示使用哪种进程数量管理方式</p>
+<p>　　　　dynamic表示php-fpm进程数是动态的，最开始是pm.start_servers指定的数量，如果请求较多，则会自动增加，保证空闲的进程数不小于pm.min_spare_servers，如果进程数较多，也会进行相应清理，保证多余的进程数不多于pm.max_spare_servers</p>
+<p>　　　　static表示php-fpm进程数是静态的, 进程数自始至终都是pm.max_children指定的数量，不再增加或减少</p>
+<p>　　pm.max_children = 300; <strong>静态方式</strong>下开启的php-fpm进程数量<br>　　pm.start_servers = 20; <strong>动态方式</strong>下的起始php-fpm进程数量<br>　　pm.min_spare_servers = 5; <strong>动态方式</strong>下的最小php-fpm进程数量<br>　　pm.max_spare_servers = 35; <strong>动态方式</strong>下的最大php-fpm进程数量</p>
+<p>　　　　如果pm为static, 那么其实只有pm.max_children这个参数生效。系统会开启设置数量的php-fpm进程</p>
+<p>　　　　如果pm为dynamic, 那么pm.max_children参数失效，后面3个参数生效。系统会在php-fpm运行开始的时候启动pm.start_servers个php-fpm进程，然后根据系统的需求动态在pm.min_spare_servers和pm.max_spare_servers之间调整php-fpm进程数</p>
+<p>　　　　那么，对于我们的服务器，选择哪种pm方式比较好呢？事实上，跟Apache一样，运行的PHP程序在执行完成后，或多或少会有内存泄露的问题。这也是为什么开始的时候一个php-fpm进程只占用3M左右内存，运行一段时间后就会上升到20-30M的原因了。</p>
+<p>　　　　对于内存大的服务器（比如8G以上）来说，指定静态的max_children实际上更为妥当，因为这样不需要进行额外的进程数目控制，会提高效率。因为频繁开关php-fpm进程也会有时滞，所以内存够大的情况下开静态效果会更好。数量也可以根据 内存/30M 得到，比如8GB内存可以设置为100，那么php-fpm耗费的内存就能控制在 2G-3G的样子。如果内存稍微小点，比如1G，那么指定静态的进程数量更加有利于服务器的稳定。这样可以保证php-fpm只获取够用的内存，将不多的内存分配给其他应用去使用，会使系统的运行更加畅通。</p>
+<p>　　　　对于小内存的服务器来说，比如256M内存的VPS，即使按照<strong>一个20M</strong>的内存量来算，10个php-cgi进程就将耗掉200M内存，那系统的崩溃就应该很正常了。因此应该尽量地控制php-fpm进程的数量，大体明确其他应用占用的内存后，给它指定一个静态的小数量，会让系统更加平稳一些。或者使用动态方式，因为动态方式会结束掉多余的进程，可以回收释放一些内存，所以推荐在内存较少的服务器或VPS上使用。具体最大数量根据 内存/20M 得到。比如说512M的VPS，建议pm.max_spare_servers设置为20。至于pm.min_spare_servers，则建议根据服务器的负载情况来设置，比较合适的值在5~10之间。</p>
+<p>　　　　在4G内存的服务器上200就可以(<strong>我的1G测试机，开64个是最好的</strong>，建议使用压力测试获取最佳值)</p>
+<p>　　pm.max_requests = 10240;</p>
+<p>　　　　nginx php-fpm配置过程中最大问题是内泄漏出问题：服务器的负载不大，但是内存占用迅速增加，很快吃掉内存接着开始吃交换分区，系统很快挂掉！其实根据官方的介绍，php-cgi不存在内存泄漏，每个请求完成后php-cgi会回收内存，但是不会释放给操作系统，这样就会导致大量内存被php-cgi占用。
+　　　　</p>
+<p>　　　　官方的解决办法是降低PHP_FCGI_MAX_REQUESTS的值，如果用的是php-fpm，对应的php-fpm.conf中的就是max_requests，该值的意思是发送多少个请求后会重启该线程，我们需要适当降低这个值，用以让php-fpm自动的释放内存，不是大部分网上说的51200等等，实际上还有另一个跟它有关联的值max_children，这个是每次php-fpm会建立多少个进程，这样实际上的内存消耗是max_children<em>max_requests</em>每个请求使用内存，根据这个我们可以预估一下内存的使用情况，就不用再写脚本去kill了。</p>
+<p>　　request_terminate_timeout = 30;</p>
+<p>　　　　最大执行时间, 在php.ini中也可以进行配置(max_execution_time)</p>
+<p>　　request_slowlog_timeout = 2; 开启慢日志<br>　　slowlog = log/$pool.log.slow; 慢日志路径</p>
+<p>　　rlimit_files = 1024; 增加php-fpm打开文件描述符的限制</p>
+<p>3.<strong>php-fpm的高CPU使用率排查方法</strong></p>
+<p>　　1)使用top命令, 直接执行top命令后，输入1就可以看到各个核心的CPU使用率。而且通过top -d 0.1可以缩短采样时间</p>
+<p>　　2)查询php-fpm慢日志</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">grep -v &quot;^$&quot; www.log.slow.tmp | cut -d &quot; &quot; -f 3,2 | sort | uniq -c | sort -k1,1nr | head -n 50</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">5181 run() &#x2F;www&#x2F;test.net&#x2F;framework&#x2F;web&#x2F;filters&#x2F;CFilter.php:41</span><br><span class="line"></span><br><span class="line">5156 filter() &#x2F;www&#x2F;test.net&#x2F;framework&#x2F;web&#x2F;filters&#x2F;CFilterChain.php:131</span><br><span class="line"></span><br><span class="line">2670 &#x3D; &#x2F;www&#x2F;test.net&#x2F;index.php</span><br><span class="line"></span><br><span class="line">2636 run() &#x2F;www&#x2F;test.net&#x2F;application&#x2F;controllers&#x2F;survey&#x2F;index.php:665</span><br><span class="line"></span><br><span class="line">2630 action() &#x2F;www&#x2F;test.net&#x2F;application&#x2F;controllers&#x2F;survey&#x2F;index.php:18</span><br><span class="line"></span><br><span class="line">2625 run() &#x2F;www&#x2F;test.net&#x2F;framework&#x2F;web&#x2F;actions&#x2F;CAction.php:75</span><br><span class="line"></span><br><span class="line">2605 runWithParams() &#x2F;www&#x2F;test.net&#x2F;framework&#x2F;web&#x2F;CController.php:309</span><br><span class="line"></span><br><span class="line">2604 runAction() &#x2F;www&#x2F;test.net&#x2F;framework&#x2F;web&#x2F;filters&#x2F;CFilterChain.php:134</span><br><span class="line"></span><br><span class="line">2538 run() &#x2F;www&#x2F;test.net&#x2F;framework&#x2F;web&#x2F;CController.php:292</span><br><span class="line"></span><br><span class="line">2484 runActionWithFilters() &#x2F;www&#x2F;test.net&#x2F;framework&#x2F;web&#x2F;CController.php:266</span><br><span class="line"></span><br><span class="line">2251 run() &#x2F;www&#x2F;test.net&#x2F;framework&#x2F;web&#x2F;CWebApplication.php:276</span><br><span class="line"></span><br><span class="line">1799 translate() &#x2F;www&#x2F;test.net&#x2F;application&#x2F;libraries&#x2F;Limesurvey_lang.php:118</span><br><span class="line"></span><br><span class="line">1786 load_tables() &#x2F;www&#x2F;test.net&#x2F;application&#x2F;third_party&#x2F;php-gettext&#x2F;gettext.php:254</span><br><span class="line"></span><br><span class="line">1447 runController() &#x2F;www&#x2F;test.net&#x2F;framework&#x2F;web&#x2F;CWebApplication.php:135</span><br></pre></td></tr></table></figure>
+
+<p>　　　　参数解释:</p>
+<p>​         sort: 对单词进行排序<br>​         uniq -c: 显示唯一的行，并在每行行首加上本行在文件中出现的次数<br>​         sort -k1,1nr: 按照第一个字段，数值排序，且为逆序<br>​         head -10: 取前10行数据</p>
+<p>　　3)用strace跟踪进程</p>
+<p>　　　　a)利用nohup将strace转为后台执行，直到attach上的php-fpm进程死掉为止：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">nohup strace -T -p 13167 &gt; 13167-strace.log &amp;</span><br></pre></td></tr></table></figure>
+
+<p>　　　　参数说明:</p>
+<p>　　　　　 -c 统计每一系统调用的所执行的时间,次数和出错的次数等.<br>         -d 输出strace关于标准错误的调试信息.<br>         -f 跟踪由fork调用所产生的子进程.<br>         -o filename,则所有进程的跟踪结果输出到相应的filename<br>         -F 尝试跟踪vfork调用.在-f时,vfork不被跟踪.<br>         -h 输出简要的帮助信息.<br>         -i 输出系统调用的入口指针.<br>         -q 禁止输出关于脱离的消息.<br>         -r 打印出相对时间关于,,每一个系统调用.<br>         -t 在输出中的每一行前加上时间信息.<br>         -tt 在输出中的每一行前加上时间信息,微秒级.<br>         -ttt 微秒级输出,以秒了表示时间.<br>         -T 显示每一调用所耗的时间.<br>         -v 输出所有的系统调用.一些调用关于环境变量,状态,输入输出等调用由于使用频繁,默认不输出.<br>         -V 输出strace的版本信息.<br>         -x 以十六进制形式输出非标准字符串<br>         -xx 所有字符串以十六进制形式输出.<br>         -a column<br>         设置返回值的输出位置.默认为40.<br>         -e execve 只记录 execve 这类系统调用<br>         -p 主进程号</p>
+<p>　　　　b)用利用-c参数让strace帮助汇总，非常方便非常强大！</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@b28-12 log]# strace -cp 9907</span><br><span class="line"></span><br><span class="line">Process 9907 attached - interrupt to quit</span><br><span class="line"></span><br><span class="line">Process 9907 detached</span><br><span class="line"></span><br><span class="line">% time     seconds  usecs&#x2F;call     calls    errors syscall</span><br><span class="line"></span><br><span class="line">------ ----------- ----------- --------- --------- ----------------</span><br><span class="line"></span><br><span class="line">56.61    0.016612           5      3121           read</span><br><span class="line"></span><br><span class="line">11.11    0.003259           1      2517       715 stat</span><br><span class="line"></span><br><span class="line">  8.04    0.002358           7       349           brk</span><br><span class="line"></span><br><span class="line">  6.02    0.001767           1      1315           poll</span><br><span class="line"></span><br><span class="line">  4.28    0.001255           6       228           recvfrom</span><br><span class="line"></span><br><span class="line">  2.71    0.000796           1       671           open</span><br><span class="line"></span><br><span class="line">  2.54    0.000745           0      2453           fcntl</span><br><span class="line"></span><br><span class="line">  2.37    0.000696           1      1141           write</span><br><span class="line"></span><br><span class="line">  1.69    0.000497           1       593        13 access</span><br><span class="line"></span><br><span class="line">  1.37    0.000403           0      1816           lseek</span><br><span class="line"></span><br><span class="line">  0.89    0.000262           1       451        22 sendto</span><br><span class="line"></span><br><span class="line">  0.56    0.000163           1       276       208 lstat</span><br><span class="line"></span><br><span class="line">  0.49    0.000145           0       384           getcwd</span><br><span class="line"></span><br><span class="line">  0.31    0.000090           0      1222           fstat</span><br><span class="line"></span><br><span class="line">  0.28    0.000082           0       173           munmap</span><br><span class="line"></span><br><span class="line">  0.26    0.000077           0       174           mmap</span><br><span class="line"></span><br><span class="line">  0.24    0.000069           2        41           socket</span><br><span class="line"></span><br><span class="line">  0.23    0.000068           0       725           close</span><br><span class="line"></span><br><span class="line">  0.00    0.000000           0        13           rt_sigaction</span><br><span class="line"></span><br><span class="line">  0.00    0.000000           0        13           rt_sigprocmask</span><br><span class="line"></span><br><span class="line">  0.00    0.000000           0         1           rt_sigreturn</span><br><span class="line"></span><br><span class="line">  0.00    0.000000           0        78           setitimer</span><br><span class="line"></span><br><span class="line">  0.00    0.000000           0        26        26 connect</span><br><span class="line"></span><br><span class="line">  0.00    0.000000           0        15         2 accept</span><br><span class="line"></span><br><span class="line">  0.00    0.000000           0        39           recvmsg</span><br><span class="line"></span><br><span class="line">  0.00    0.000000           0        26           shutdown</span><br><span class="line"></span><br><span class="line">  0.00    0.000000           0        13           bind</span><br><span class="line"></span><br><span class="line">  0.00    0.000000           0        13           getsockname</span><br><span class="line"></span><br><span class="line">  0.00    0.000000           0        65           setsockopt</span><br><span class="line"></span><br><span class="line">  0.00    0.000000           0        13           getsockopt</span><br><span class="line"></span><br><span class="line">  0.00    0.000000           0         8           getdents</span><br><span class="line"></span><br><span class="line">  0.00    0.000000           0        26           chdir</span><br><span class="line"></span><br><span class="line">  0.00    0.000000           0         1           futex</span><br><span class="line"></span><br><span class="line">------ ----------- ----------- --------- --------- ----------------</span><br><span class="line"></span><br><span class="line">100.00    0.029344                 18000       986 total</span><br></pre></td></tr></table></figure>
+
+<p>4.<strong>使用Opcode缓存</strong>(<a href="http://www.cnblogs.com/JohnABC/p/4531038.html">http://www.cnblogs.com/JohnABC/p/4531038.html</a>)</p>
+<p>5.<strong>对PHP性能进行监控</strong></p>
+<p>　　常用的方法就是开启xdebug的性能监控功能，将xdebug输出结果通过WinCacheGrind软件分析。</p>
+<p>　　xdebug的安装和配合IDE调试的方法参见：<a href="http://blog.csdn.net/dc_726/article/details/8809696">Vim+XDebug调试PHP</a></p>
+<p>　　php.ini中配置的这几项是输出性能信息的：</p>
+<blockquote>
+<p>xdebug.auto_trace = on</p>
+</blockquote>
+<blockquote>
+<p>xdebug.auto_profile = on<br>xdebug.collect_params = on<br>xdebug.collect_return = on<br>xdebug.profiler_enable = on<br>xdebug.trace_output_dir = “/tmp”<br>xdebug.profiler_output_dir =”/tmp”</p>
+</blockquote>
+<p>　　这样XDebug会输出所有执行php函数的性能数据，但产生的文件也会比较大。可以关闭一些选项如collect_params、collect_return，</p>
+<p>　　来减少输出的数据量。或者关闭自动输出，通过在想要监控的函数首尾调用xdebug函数来监控指定的函数。</p>
+<p>　　输出的文件名类似cachegrind.out.1277560600和trace.3495983249.txt，可以拿到Windows平台下用WinCacheGrind进行图形化分析。</p>
+<p>6.监测php-fpm线程状态</p>
+<p>　　nginx配置</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">location ~ ^&#x2F;status$ &#123;</span><br><span class="line">    include fastcgi_params;</span><br><span class="line">    fastcgi_pass 127.0.0.1:9000;</span><br><span class="line">    fastcgi_param SCRIPT_FILENAME $fastcgi_script_name;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>　　php-fpm配置</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">pm.status_path &#x3D; &#x2F;status</span><br></pre></td></tr></table></figure>
+
+<p>　　这样的话通过http://域名/status就可以看到当前的php情况</p>
+<p>　　下面介绍每个参数的作用：<br>　　pool：php-fpm池的名称，一般都是应该是www<br>　　process manage：进程的管理方法，php-fpm支持三种管理方法，分别是static,dynamic和ondemand，一般情况下都是dynamic<br>　　start time：php-fpm启动时候的时间，不管是restart或者reload都会更新这里的时间<br>　　start since：php-fpm自启动起来经过的时间，默认为秒<br>　　accepted conn：当前接收的连接数<br>　　listen queue：在队列中等待连接的请求个数，如果这个数字为非0，那么最好增加进程的fpm个数<br>　　max listen queue：从fpm启动以来，在队列中等待连接请求的最大值<br>　　listen queue len：等待连接的套接字队列大小<br>　　idle processes：空闲的进程个数<br>　　active processes：活动的进程个数<br>　　total processes：总共的进程个数<br>　　max active processes：从fpm启动以来，活动进程的最大个数，如果这个值小于当前的max_children，可以调小此值<br>　　max children reached：当pm尝试启动更多的进程，却因为max_children的限制，没有启动更多进程的次数。如果这个值非0，那么可以适当增加fpm的进程数<br>　　slow requests：慢请求的次数，一般如果这个值未非0，那么可能会有慢的php进程，一般一个不好的mysql查询是最大的祸首。</p>
+<p>7.开启php-fpm慢日志</p>
+<p>　　slowlog = /usr/local/php/log/php-fpm.log.slow</p>
+<p>　　request_slowlog_timeout = 5s</p>
+<p>8.设置php-fpm单次请求最大执行时间，今天碰到一个问题，测试服务器php-fpm一直是被占满状态，后来发现是set_time_limit(0)，file_get_content()，原因如下:</p>
+<p>　　比如file_get_contents(url)等函数，如果网站反应慢，会一直等在那儿不超时，php-fpm一直被占用。有一个参数 max_execution_time 可以设置 PHP 脚本的最大执行时间，但是，在 php-cgi(php-fpm) 中，该参数不会起效。真正能够控制 PHP 脚本最大执行时间的是 php-fpm.conf 配置文件中的以下参数。</p>
+<p>　　request_terminate_timeout = 10s</p>
+<p>　　默认值为 0 秒，也就是说，PHP 脚本会一直执行下去。这样，当所有的 php-cgi 进程都卡在 file_get_contents() 函数时，这台 Nginx+PHP 的 WebServer 已经无法再处理新的 PHP 请求了，Nginx 将给用户返回“502 Bad Gateway”。可以使用 request_terminate_timeout = 30s，但是如果发生 file_get_contents() 获取网页内容较慢的情况，这就意味着 150 个 php-cgi 进程，每秒钟只能处理 5 个请求，WebServer 同样很难避免“502 Bad Gateway”。php-cgi进程数不够用、php执行时间长、或者是php-cgi进程死掉，都会出现502错误。</p>
+<p>　　要做到彻底解决，只能让 PHP 程序员们改掉直接使用 file_get_contents(“<a href="http://example.com/&quot;">http://example.com/&quot;</a>) 的习惯，而是稍微修改一下，加个超时时间，用以下方式来实现 HTTP GET 请求。要是觉得麻烦，可以自行将以下代码封装成一个函数。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;?php  </span><br><span class="line">    $ctx &#x3D; stream_context_create(array(  </span><br><span class="line">       &#39;http&#39; &#x3D;&gt; array(  </span><br><span class="line">           &#39;timeout&#39; &#x3D;&gt; 1 &#x2F;&#x2F;设置一个超时时间，单位为秒  </span><br><span class="line">           )  </span><br><span class="line">       )  </span><br><span class="line">    );  </span><br><span class="line">    file_get_contents(&quot;http:&#x2F;&#x2F;example.com&#x2F;&quot;, 0, $ctx);  </span><br></pre></td></tr></table></figure>
+
+
+
+<p>　　当然，导致 php-cgi 进程 CPU 100% 的原因不只有这一种，那么，怎么确定是 file_get_contents() 函数导致的呢？</p>
+<p>　　首先，使用 top 命令查看 CPU 使用率较高的 php-cgi 进程。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">top - 10:34:18 up 724 days, 21:01,  3 users,  load average: 17.86, 11.16, 7.69</span><br><span class="line">Tasks: 561 total,  15 running, 546 sleeping,   0 stopped,   0 zombie</span><br><span class="line">Cpu(s):  5.9%us,  4.2%sy,  0.0%ni, 89.4%id,  0.2%wa,  0.0%hi,  0.2%si,  0.0%st</span><br><span class="line">Mem:   8100996k total,  4320108k used,  3780888k free,   772572k buffers</span><br><span class="line">Swap:  8193108k total,    50776k used,  8142332k free,   412088k cached</span><br><span class="line"></span><br><span class="line">  PID USER      PR  NI  VIRT  RES  SHR S %CPU %MEM    TIME+  COMMAND                                                                                                              </span><br><span class="line">10747 www       18   0  360m  22m  12m R 100.6 0.3    0:02.60 php-cgi                                                                                                              </span><br><span class="line">10709 www       16   0  359m  28m  17m R 96.8  0.4    0:11.34 php-cgi                                                                                                              </span><br><span class="line">10745 www       18   0  360m  24m  14m R 94.8  0.3    0:39.51 php-cgi                                                                                                              </span><br><span class="line">10707 www       18   0  360m  25m  14m S 77.4  0.3    0:33.48 php-cgi                                                                                                              </span><br><span class="line">10782 www       20   0  360m  26m  15m R 75.5  0.3    0:10.93 php-cgi                                                                                                              </span><br><span class="line">10708 www       25   0  360m  22m  12m R 69.7  0.3    0:45.16 php-cgi                                                                                                              </span><br><span class="line">10683 www       25   0  362m  28m  15m R 54.2  0.4    0:32.65 php-cgi                                                                                                              </span><br><span class="line">10711 www       25   0  360m  25m  15m R 52.2  0.3    0:44.25 php-cgi                                                                                                              </span><br><span class="line">10688 www       25   0  359m  25m  15m R 38.7  0.3    0:10.44 php-cgi                                                                                                              </span><br><span class="line">10719 www       25   0  360m  26m  16m R  7.7  0.3    0:40.59 php-cgi</span><br></pre></td></tr></table></figure>
+
+<p>　　找其中一个 CPU 100% 的 php-cgi 进程的 PID，用以下命令跟踪一下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">strace -p 10747</span><br></pre></td></tr></table></figure>
+
+<p>　　如果屏幕显示：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">select(7, [6], [6], [], &#123;15, 0&#125;)        &#x3D; 1 (out [6], left &#123;15, 0&#125;)</span><br><span class="line">poll([&#123;fd&#x3D;6, events&#x3D;POLLIN&#125;], 1, 0)     &#x3D; 0 (Timeout)</span><br><span class="line">select(7, [6], [6], [], &#123;15, 0&#125;)        &#x3D; 1 (out [6], left &#123;15, 0&#125;)</span><br><span class="line">poll([&#123;fd&#x3D;6, events&#x3D;POLLIN&#125;], 1, 0)     &#x3D; 0 (Timeout)</span><br><span class="line">select(7, [6], [6], [], &#123;15, 0&#125;)        &#x3D; 1 (out [6], left &#123;15, 0&#125;)</span><br><span class="line">poll([&#123;fd&#x3D;6, events&#x3D;POLLIN&#125;], 1, 0)     &#x3D; 0 (Timeout)</span><br><span class="line">select(7, [6], [6], [], &#123;15, 0&#125;)        &#x3D; 1 (out [6], left &#123;15, 0&#125;)</span><br><span class="line">poll([&#123;fd&#x3D;6, events&#x3D;POLLIN&#125;], 1, 0)     &#x3D; 0 (Timeout)</span><br><span class="line">select(7, [6], [6], [], &#123;15, 0&#125;)        &#x3D; 1 (out [6], left &#123;15, 0&#125;)</span><br><span class="line">poll([&#123;fd&#x3D;6, events&#x3D;POLLIN&#125;], 1, 0)     &#x3D; 0 (Timeout)</span><br><span class="line">select(7, [6], [6], [], &#123;15, 0&#125;)        &#x3D; 1 (out [6], left &#123;15, 0&#125;)</span><br><span class="line">poll([&#123;fd&#x3D;6, events&#x3D;POLLIN&#125;], 1, 0)     &#x3D; 0 (Timeout)</span><br><span class="line">select(7, [6], [6], [], &#123;15, 0&#125;)        &#x3D; 1 (out [6], left &#123;15, 0&#125;)</span><br><span class="line">poll([&#123;fd&#x3D;6, events&#x3D;POLLIN&#125;], 1, 0)     &#x3D; 0 (Timeout)</span><br><span class="line">select(7, [6], [6], [], &#123;15, 0&#125;)        &#x3D; 1 (out [6], left &#123;15, 0&#125;)</span><br><span class="line">poll([&#123;fd&#x3D;6, events&#x3D;POLLIN&#125;], 1, 0)     &#x3D; 0 (Timeout)</span><br><span class="line">select(7, [6], [6], [], &#123;15, 0&#125;)        &#x3D; 1 (out [6], left &#123;15, 0&#125;)</span><br><span class="line">poll([&#123;fd&#x3D;6, events&#x3D;POLLIN&#125;], 1, 0)     &#x3D; 0 (Timeout)</span><br><span class="line">select(7, [6], [6], [], &#123;15, 0&#125;)        &#x3D; 1 (out [6], left &#123;15, 0&#125;)</span><br><span class="line">poll([&#123;fd&#x3D;6, events&#x3D;POLLIN&#125;], 1, 0)     &#x3D; 0 (Timeout)</span><br></pre></td></tr></table></figure>
+
+<p>　　那么，就可以确定是 file_get_contents() 导致的问题了。(参考:<a href="http://zyan.cc/tags/request_terminate_timeout/1/">http://zyan.cc/tags/request_terminate_timeout/1/</a>)</p>
+<p>9.查看php-fpm启动时间(可以得出执行了多长时间)</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ps -A -o pid,lstart,cmd |grep php-fpm</span><br></pre></td></tr></table></figure>
+
+
+
+]]></content>
+      <categories>
+        <category>PHP</category>
+      </categories>
+      <tags>
+        <tag>优化</tag>
       </tags>
   </entry>
 </search>

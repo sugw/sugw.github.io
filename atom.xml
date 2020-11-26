@@ -6,7 +6,7 @@
   <link href="https://sugw.github.io/sugw.github.io/atom.xml" rel="self"/>
   
   <link href="https://sugw.github.io/sugw.github.io/"/>
-  <updated>2020-11-13T08:52:16.492Z</updated>
+  <updated>2020-11-26T10:41:47.653Z</updated>
   <id>https://sugw.github.io/sugw.github.io/</id>
   
   <author>
@@ -15,6 +15,453 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Jenkins+Gitlab+Ansible自动化部署(一)</title>
+    <link href="https://sugw.github.io/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/"/>
+    <id>https://sugw.github.io/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/</id>
+    <published>2020-11-26T10:33:50.167Z</published>
+    <updated>2020-11-26T10:41:47.653Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;首先准备实验环境&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;虚拟机&lt;/th&gt;
+&lt;th&gt;主机名&lt;/th&gt;
+&lt;th&gt;IP地址&lt;/th&gt;
+&lt;th&gt;服务&lt;/th&gt;
+&lt;th&gt;系统版本&lt;/th&gt;
+&lt;th&gt;内核版本&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;&lt;tr&gt;
+&lt;td&gt;Vmware Workstation 14&lt;/td&gt;
+&lt;td&gt;gitlab.example.com&lt;/td&gt;
+&lt;td&gt;192.168.244.130&lt;/td&gt;
+&lt;td&gt;gitlab&lt;/td&gt;
+&lt;td&gt;CentOS Linux release 7.5.1804 (Core)&lt;/td&gt;
+&lt;td&gt;3.10.0-862.el7.x86_64&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;jenkins.example.com&lt;/td&gt;
+&lt;td&gt;192.168.244.131&lt;/td&gt;
+&lt;td&gt;jenkis&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ansible.example.com&lt;/td&gt;
+&lt;td&gt;192.168.244.132&lt;/td&gt;
+&lt;td&gt;asible&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;&lt;/table&gt;
+&lt;p&gt;除此之外，还要在宿主机win10系统下的C:\Windows\System32\drivers\etc\hosts文件中添加如下内容&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;192.168.244.130 gitlab.example.com&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;192.168.244.131 jenkins.example.com&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;192.168.244.132 ansible.example.com&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+
+&lt;p&gt;关闭防火墙和selinux&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="Jenkins+Gitlab+Ansible" scheme="https://sugw.github.io/sugw.github.io/categories/Jenkins-Gitlab-Ansible/"/>
+    
+    
+    <category term="自动部署" scheme="https://sugw.github.io/sugw.github.io/tags/%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Prometheus-pushgateway</title>
+    <link href="https://sugw.github.io/sugw.github.io/2020/11/23/prometheus-pushgateway/"/>
+    <id>https://sugw.github.io/sugw.github.io/2020/11/23/prometheus-pushgateway/</id>
+    <published>2020-11-23T10:09:28.267Z</published>
+    <updated>2020-11-24T06:47:30.676Z</updated>
+    
+    
+    <summary type="html">&lt;h1 id=&quot;一、Pushgateway-简介&quot;&gt;&lt;a href=&quot;#一、Pushgateway-简介&quot; class=&quot;headerlink&quot; title=&quot;一、Pushgateway 简介&quot;&gt;&lt;/a&gt;一、Pushgateway 简介&lt;/h1&gt;&lt;p&gt;&lt;a href=&quot;https://github.com/prometheus/pushgateway&quot;&gt;Pushgateway&lt;/a&gt; 是 Prometheus 生态中一个重要工具，使用它的原因主要是：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Prometheus 采用 pull 模式，可能由于不在一个子网或者防火墙原因，导致 Prometheus 无法直接拉取各个 target 数据。&lt;/li&gt;
+&lt;li&gt;在监控业务数据的时候，需要将不同数据汇总, 由 Prometheus 统一收集。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;由于以上原因，不得不使用 pushgateway，但在使用之前，有必要了解一下它的一些弊端：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;将多个节点数据汇总到 pushgateway, 如果 pushgateway 挂了，受影响比多个 target 大。&lt;/li&gt;
+&lt;li&gt;Prometheus 拉取状态 &lt;code&gt;up&lt;/code&gt; 只针对 pushgateway, 无法做到对每个节点有效。&lt;/li&gt;
+&lt;li&gt;Pushgateway 可以持久化推送给它的所有监控数据。&lt;/li&gt;
+&lt;/ul&gt;</summary>
+    
+    
+    
+    <category term="监控" scheme="https://sugw.github.io/sugw.github.io/categories/%E7%9B%91%E6%8E%A7/"/>
+    
+    
+    <category term="prometheus" scheme="https://sugw.github.io/sugw.github.io/tags/prometheus/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>ansible定时任务和用户组模块使用</title>
+    <link href="https://sugw.github.io/sugw.github.io/2020/11/20/ansible%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1%E5%92%8C%E7%94%A8%E6%88%B7%E7%BB%84%E6%A8%A1%E5%9D%97%E4%BD%BF%E7%94%A8/"/>
+    <id>https://sugw.github.io/sugw.github.io/2020/11/20/ansible%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1%E5%92%8C%E7%94%A8%E6%88%B7%E7%BB%84%E6%A8%A1%E5%9D%97%E4%BD%BF%E7%94%A8/</id>
+    <published>2020-11-20T08:38:47.555Z</published>
+    <updated>2020-11-20T08:46:04.783Z</updated>
+    
+    
+    <summary type="html">&lt;h2 id=&quot;用户模块的使用&quot;&gt;&lt;a href=&quot;#用户模块的使用&quot; class=&quot;headerlink&quot; title=&quot;用户模块的使用&quot;&gt;&lt;/a&gt;用户模块的使用&lt;/h2&gt;&lt;p&gt;用户模块主要用来管理用户账号和用户的属性（对远程主机用户进行批量管理）。&lt;/p&gt;
+&lt;p&gt;用户模块依赖的指令为useradd，userdel，usermod&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;参数&lt;/th&gt;
+&lt;th&gt;必填&lt;/th&gt;
+&lt;th&gt;默认值&lt;/th&gt;
+&lt;th&gt;选项&lt;/th&gt;
+&lt;th&gt;说明&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;&lt;tr&gt;
+&lt;td&gt;Append&lt;/td&gt;
+&lt;td&gt;否&lt;/td&gt;
+&lt;td&gt;No&lt;/td&gt;
+&lt;td&gt;Yes/no&lt;/td&gt;
+&lt;td&gt;如果没有指定group，append设定为yes，那么会添加到用户同名组；append设定为no，那么会添加到user组。如果指定了group，那么都会添加在指定的group组&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Comment&lt;/td&gt;
+&lt;td&gt;否&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;用户的备注信息&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Force&lt;/td&gt;
+&lt;td&gt;否&lt;/td&gt;
+&lt;td&gt;No&lt;/td&gt;
+&lt;td&gt;Yes/no&lt;/td&gt;
+&lt;td&gt;当状态为absent的时候，相当于userdel -force&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;generate_ssh_key&lt;/td&gt;
+&lt;td&gt;否&lt;/td&gt;
+&lt;td&gt;No&lt;/td&gt;
+&lt;td&gt;Yes/no&lt;/td&gt;
+&lt;td&gt;是否生成秘钥&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Group&lt;/td&gt;
+&lt;td&gt;否&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;可选的，设定用户的主组&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Groups&lt;/td&gt;
+&lt;td&gt;否&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;用逗号分隔的组，当groups设定为空的时候，那么会移除除了主组的其他所有组&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Home&lt;/td&gt;
+&lt;td&gt;否&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;可选的，设定为用户的home目录&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Login_class&lt;/td&gt;
+&lt;td&gt;否&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;可选的，设定用户的登录类 FreeBSD, OpenBSD and NetBSD systems.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Name&lt;/td&gt;
+&lt;td&gt;是&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;用户创建，移除，修改&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Move_home&lt;/td&gt;
+&lt;td&gt;否&lt;/td&gt;
+&lt;td&gt;No&lt;/td&gt;
+&lt;td&gt;Yes/no&lt;/td&gt;
+&lt;td&gt;如果使用了选项home=设置为yes，那么会将用户家目录移到不存在的home目录中&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Non_unique&lt;/td&gt;
+&lt;td&gt;否&lt;/td&gt;
+&lt;td&gt;No&lt;/td&gt;
+&lt;td&gt;Yes/no&lt;/td&gt;
+&lt;td&gt;可选的，当使用-u选项的时候，将用户的uid设置为non_unique&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Password&lt;/td&gt;
+&lt;td&gt;否&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;设定用户的密码&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Remove&lt;/td&gt;
+&lt;td&gt;否&lt;/td&gt;
+&lt;td&gt;No&lt;/td&gt;
+&lt;td&gt;Yes/no&lt;/td&gt;
+&lt;td&gt;当使用状态为state=absent的时候，差不多和userdel –remove（删除所有信息）&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Shell&lt;/td&gt;
+&lt;td&gt;否&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;设定用户的shell&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Ssh_key_bits&lt;/td&gt;
+&lt;td&gt;否&lt;/td&gt;
+&lt;td&gt;2048&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;设定秘钥的位数&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Ssh_key_comments&lt;/td&gt;
+&lt;td&gt;否&lt;/td&gt;
+&lt;td&gt;￥HOSTHOME&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;Ssh key备注信息&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Ssh_key_file&lt;/td&gt;
+&lt;td&gt;否&lt;/td&gt;
+&lt;td&gt;.sha/id_rsa&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;秘钥的文件名&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ssh_key_passphrase&lt;/td&gt;
+&lt;td&gt;否&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;Ssh秘钥的密码&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Ssh_key_type&lt;/td&gt;
+&lt;td&gt;否&lt;/td&gt;
+&lt;td&gt;Rsa&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;Ssh秘钥的类型&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;State&lt;/td&gt;
+&lt;td&gt;否&lt;/td&gt;
+&lt;td&gt;Present&lt;/td&gt;
+&lt;td&gt;PresentAbsent&lt;/td&gt;
+&lt;td&gt;新增删除&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;System&lt;/td&gt;
+&lt;td&gt;否&lt;/td&gt;
+&lt;td&gt;No&lt;/td&gt;
+&lt;td&gt;Yes/no&lt;/td&gt;
+&lt;td&gt;创建为系统账号，不会改变已经存在的用户&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Uid&lt;/td&gt;
+&lt;td&gt;否&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;设定为用户的uid&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Update_password&lt;/td&gt;
+&lt;td&gt;否&lt;/td&gt;
+&lt;td&gt;Always&lt;/td&gt;
+&lt;td&gt;AlwaysOn_create&lt;/td&gt;
+&lt;td&gt;Always当用户密码不同，会修改，是否需要修改密码&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;&lt;/table&gt;
+&lt;h3 id=&quot;添加用户&quot;&gt;&lt;a href=&quot;#添加用户&quot; class=&quot;headerlink&quot; title=&quot;添加用户&quot;&gt;&lt;/a&gt;添加用户&lt;/h3&gt;</summary>
+    
+    
+    
+    <category term="ansible" scheme="https://sugw.github.io/sugw.github.io/categories/ansible/"/>
+    
+    
+    <category term="ansible" scheme="https://sugw.github.io/sugw.github.io/tags/ansible/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>linux内核优化</title>
+    <link href="https://sugw.github.io/sugw.github.io/2020/11/20/linux%E5%86%85%E6%A0%B8%E4%BC%98%E5%8C%96/"/>
+    <id>https://sugw.github.io/sugw.github.io/2020/11/20/linux%E5%86%85%E6%A0%B8%E4%BC%98%E5%8C%96/</id>
+    <published>2020-11-20T07:36:05.082Z</published>
+    <updated>2020-11-20T08:14:21.669Z</updated>
+    
+    
+    <summary type="html">&lt;h3 id=&quot;一、配置国内源和epel&quot;&gt;&lt;a href=&quot;#一、配置国内源和epel&quot; class=&quot;headerlink&quot; title=&quot;一、配置国内源和epel&quot;&gt;&lt;/a&gt;一、配置国内源和epel&lt;/h3&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;22&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;23&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;24&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;25&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;cd &amp;#x2F;etc&amp;#x2F;yum.repos.d&amp;#x2F;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;mkdir repo_bak&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;mv *.repo repo_bak&amp;#x2F;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;#基础源文件&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;wget -P &amp;#x2F;etc&amp;#x2F;yum.repos.d&amp;#x2F; http:&amp;#x2F;&amp;#x2F;mirrors.aliyun.com&amp;#x2F;repo&amp;#x2F;Centos-7.repo&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;#epel源文件&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;wget -O &amp;#x2F;etc&amp;#x2F;yum.repos.d&amp;#x2F;epel-7.repo http:&amp;#x2F;&amp;#x2F;mirrors.aliyun.com&amp;#x2F;repo&amp;#x2F;epel-7.repo&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;#重新生成yum缓存&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;yum clean all&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;yum makecache&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;#同步时间&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;yum -y install ntp&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#x2F;usr&amp;#x2F;sbin&amp;#x2F;ntpdate ntp1.aliyun.com&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;echo &amp;quot;* 04 * * * &amp;#x2F;usr&amp;#x2F;sbin&amp;#x2F;ntpdate ntp1.aliyun.com &amp;gt;&amp;#x2F;dev&amp;#x2F;null 2&amp;gt;&amp;amp;1&amp;quot; &amp;gt;&amp;gt;&amp;#x2F;var&amp;#x2F;spool&amp;#x2F;cron&amp;#x2F;root&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;#禁用selinux&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;sed -i &amp;#39;s&amp;#x2F;SELINUX&amp;#x3D;enforcing&amp;#x2F;SELINUX&amp;#x3D;disabled&amp;#x2F;&amp;#39; &amp;#x2F;etc&amp;#x2F;selinux&amp;#x2F;config&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;setenforce 0&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;#set ssh&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;sed -i &amp;#39;s&amp;#x2F;^GSSAPIAuthentication yes$&amp;#x2F;GSSAPIAuthentication no&amp;#x2F;&amp;#39; &amp;#x2F;etc&amp;#x2F;ssh&amp;#x2F;sshd_config&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;sed -i &amp;#39;s&amp;#x2F;#UseDNS yes&amp;#x2F;UseDNS no&amp;#x2F;&amp;#39; &amp;#x2F;etc&amp;#x2F;ssh&amp;#x2F;sshd_config&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;systemctl  restart sshd.service&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+
+&lt;h3 id=&quot;二、安装基础依赖包&quot;&gt;&lt;a href=&quot;#二、安装基础依赖包&quot; class=&quot;headerlink&quot; title=&quot;二、安装基础依赖包&quot;&gt;&lt;/a&gt;二、安装基础依赖包&lt;/h3&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;yum install -y htop lrzsz nmap screen man expect \&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;gcc gcc-c++ autoconf automake bzip2-devel \&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;openssl-devel multitail kernel-devel \&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;pam-devel zlib-devel perl-devel tcp_wrappers-devel&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+
+
+
+&lt;h3 id=&quot;三、关闭selinux&quot;&gt;&lt;a href=&quot;#三、关闭selinux&quot; class=&quot;headerlink&quot; title=&quot;三、关闭selinux&quot;&gt;&lt;/a&gt;三、关闭selinux&lt;/h3&gt;</summary>
+    
+    
+    
+    <category term="Linux" scheme="https://sugw.github.io/sugw.github.io/categories/Linux/"/>
+    
+    
+    <category term="优化" scheme="https://sugw.github.io/sugw.github.io/tags/%E4%BC%98%E5%8C%96/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>PHP-FPM 设置多pool、配置文件重写</title>
+    <link href="https://sugw.github.io/sugw.github.io/2020/11/19/PHP-FPM%20%E8%AE%BE%E7%BD%AE%E5%A4%9Apool%E3%80%81%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E9%87%8D%E5%86%99/"/>
+    <id>https://sugw.github.io/sugw.github.io/2020/11/19/PHP-FPM%20%E8%AE%BE%E7%BD%AE%E5%A4%9Apool%E3%80%81%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E9%87%8D%E5%86%99/</id>
+    <published>2020-11-19T10:00:00.543Z</published>
+    <updated>2020-11-19T10:02:12.268Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;&lt;strong&gt;重写配置文件&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;1&lt;/strong&gt;、清空php配置文件&lt;/p&gt;
+&lt;p&gt;命令：&amp;gt; /usr/local/php/etc/php-fpm.conf&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;2&lt;/strong&gt;、重新写入php-fpm配置&lt;/p&gt;
+&lt;p&gt;命令：vim /usr/local/php/etc/php-fpm.conf&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="PHP" scheme="https://sugw.github.io/sugw.github.io/categories/PHP/"/>
+    
+    
+    <category term="优化" scheme="https://sugw.github.io/sugw.github.io/tags/%E4%BC%98%E5%8C%96/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>PHP-php-fpm配置优化</title>
+    <link href="https://sugw.github.io/sugw.github.io/2020/11/19/PHP-php-fpm%E9%85%8D%E7%BD%AE%E4%BC%98%E5%8C%96/"/>
+    <id>https://sugw.github.io/sugw.github.io/2020/11/19/PHP-php-fpm%E9%85%8D%E7%BD%AE%E4%BC%98%E5%8C%96/</id>
+    <published>2020-11-19T09:53:18.262Z</published>
+    <updated>2020-11-20T07:35:07.765Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;前言:&lt;/p&gt;
+&lt;p&gt;　　1.少安装PHP模块, 费内存&lt;/p&gt;
+&lt;p&gt;　　2.调高linux内核打开文件数量，可以使用这些命令(必须是root帐号)(我是修改/etc/rc.local，加入ulimit -SHn 51200的)&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;echo &amp;#96;ulimit -HSn 65536&amp;#96; &amp;gt;&amp;gt; &amp;#x2F;etc&amp;#x2F;profile&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;echo &amp;#96;ulimit -HSn 65536&amp;#96; &amp;gt;&amp;gt; &amp;#x2F;etc&amp;#x2F;rc.local&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;source &amp;#x2F;etc&amp;#x2F;profile &lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+
+&lt;p&gt;　　如果&lt;code&gt;ulimit -n&lt;/code&gt;数量依旧不多(即上面配置没生效)的话, 可以在 /etc/security/limits.conf 文件最后加上&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="PHP" scheme="https://sugw.github.io/sugw.github.io/categories/PHP/"/>
+    
+    
+    <category term="优化" scheme="https://sugw.github.io/sugw.github.io/tags/%E4%BC%98%E5%8C%96/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>ab压测工具</title>
+    <link href="https://sugw.github.io/sugw.github.io/2020/11/19/ab%E5%8E%8B%E6%B5%8B%E5%B7%A5%E5%85%B7/"/>
+    <id>https://sugw.github.io/sugw.github.io/2020/11/19/ab%E5%8E%8B%E6%B5%8B%E5%B7%A5%E5%85%B7/</id>
+    <published>2020-11-19T07:58:50.150Z</published>
+    <updated>2020-11-19T07:59:29.671Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;ab压测参数：&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;22&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;23&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;24&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;-n 测试会话中所执行的请求个数,默认仅执行一个请求 &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;-c 一次产生的请求个数,即同一时间发出多少个请求,默认为一次一个 &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;-t 测试所进行的最大秒数,默认为无时间限制....其内部隐含值是[-n 50000],它可以使对服务器的测试限制在一个固定的总时间以内 &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;-p 包含了需要POST的数据的文件 &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;-T POST数据所使用的Content-type头信息 &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;-v 设置显示信息的详细程度 &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;-w 以HTML表格的形式输出结果,默认是白色背景的两列宽度的一张表&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;-i 以HTML表格的形式输出结果,默认是白色背景的两列宽度的一张表 &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;-x 设置&amp;lt;table&amp;gt;属性的字符串,此属性被填入&amp;lt;table 这里&amp;gt; &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;-y 设置&amp;lt;tr&amp;gt;属性的字符串 &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;-z 设置&amp;lt;td&amp;gt;属性的字符串 &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;-C 对请求附加一个Cookie行，其典型形式是name&amp;#x3D;value的参数对,此参数可以重复 &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;-H 对请求附加额外的头信息,此参数的典型形式是一个有效的头信息行,其中包含了以冒号分隔的字段和值的对(如&amp;quot;Accept-Encoding: zip&amp;#x2F;zop;8bit&amp;quot;) &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;-A HTTP验证,用冒号:分隔传递用户名及密码 &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;-P 无论服务器是否需要(即是否发送了401认证需求代码),此字符串都会被发送 &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;-X 对请求使用代理服务器 &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;-V 显示版本号并退出 &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;-k 启用HTTP KeepAlive功能,即在一个HTTP会话中执行多个请求,默认为不启用KeepAlive功能 &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;-d 不显示&amp;quot;percentage served within XX [ms] table&amp;quot;的消息(为以前的版本提供支持) &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;-S 不显示中值和标准背离值,且均值和中值为标准背离值的1到2倍时,也不显示警告或出错信息,默认会显示最小值&amp;#x2F;均值&amp;#x2F;最大值等(为以前的版本提供支持) &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;-g 把所有测试结果写入一个&amp;#39;gnuplot&amp;#39;或者TSV(以Tab分隔的)文件 &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;-e 产生一个以逗号分隔的(CSV)文件,其中包含了处理每个相应百分比的请求所需要(从1%到100%)的相应百分比的(以微妙为单位)时间 &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;-h 显示使用方法 &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;-k 发送keep-alive指令到服务器端&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+
+&lt;p&gt;ab压测命令：&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;ab -n 10 -s 50000 -k &amp;quot;http:&amp;#x2F;&amp;#x2F;127.0.0.1:9501&amp;#x2F;?uid&amp;#x3D;123&amp;quot;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+
+&lt;p&gt;ab压测结果:&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="测试" scheme="https://sugw.github.io/sugw.github.io/categories/%E6%B5%8B%E8%AF%95/"/>
+    
+    
+    <category term="测试" scheme="https://sugw.github.io/sugw.github.io/tags/%E6%B5%8B%E8%AF%95/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Nginx优化详解</title>
+    <link href="https://sugw.github.io/sugw.github.io/2020/11/19/Nginx%E4%BC%98%E5%8C%96%E8%AF%A6%E8%A7%A3/"/>
+    <id>https://sugw.github.io/sugw.github.io/2020/11/19/Nginx%E4%BC%98%E5%8C%96%E8%AF%A6%E8%A7%A3/</id>
+    <published>2020-11-19T03:31:16.539Z</published>
+    <updated>2020-11-19T08:03:22.316Z</updated>
+    
+    
+    <summary type="html">&lt;h2 id=&quot;一、一般来说nginx-配置文件中对优化比较有作用的为以下几项：&quot;&gt;&lt;a href=&quot;#一、一般来说nginx-配置文件中对优化比较有作用的为以下几项：&quot; class=&quot;headerlink&quot; title=&quot;一、一般来说nginx 配置文件中对优化比较有作用的为以下几项：&quot;&gt;&lt;/a&gt;&lt;strong&gt;一、一般来说nginx 配置文件中对优化比较有作用的为以下几项：&lt;/strong&gt;&lt;/h2&gt;&lt;h3 id=&quot;1-worker-processes-8&quot;&gt;&lt;a href=&quot;#1-worker-processes-8&quot; class=&quot;headerlink&quot; title=&quot;1. worker_processes 8;&quot;&gt;&lt;/a&gt;&lt;strong&gt;1. worker_processes 8;&lt;/strong&gt;&lt;/h3&gt;&lt;p&gt;​     nginx 进程数，建议按照cpu 数目来指定，一般为它的倍数 (如,2个四核的cpu计为8)。&lt;/p&gt;
+&lt;p&gt;   &lt;strong&gt;2. worker_cpu_affinity 00000001 00000010 00000100 00001000 00010000 00100000 01000000 10000000;&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;​     为每个进程分配cpu，上例中将8 个进程分配到8 个cpu，当然可以写多个，或者将一个进程分配到多个cpu。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="优化" scheme="https://sugw.github.io/sugw.github.io/categories/%E4%BC%98%E5%8C%96/"/>
+    
+    
+    <category term="nginx" scheme="https://sugw.github.io/sugw.github.io/tags/nginx/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>DOClever for centos7安装</title>
+    <link href="https://sugw.github.io/sugw.github.io/2020/11/18/DOClever-for-centos7%E5%AE%89%E8%A3%85/"/>
+    <id>https://sugw.github.io/sugw.github.io/2020/11/18/DOClever-for-centos7%E5%AE%89%E8%A3%85/</id>
+    <published>2020-11-18T07:48:51.183Z</published>
+    <updated>2020-11-18T08:01:02.612Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;#安装参考&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/sx1989827/DOClever/blob/master/README.md&quot;&gt;https://github.com/sx1989827/DOClever/blob/master/README.md&lt;/a&gt; &lt;/p&gt;
+&lt;h2 id=&quot;安装node&quot;&gt;&lt;a href=&quot;#安装node&quot; class=&quot;headerlink&quot; title=&quot;安装node&quot;&gt;&lt;/a&gt;安装node&lt;/h2&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;wget https:&amp;#x2F;&amp;#x2F;nodejs.org&amp;#x2F;dist&amp;#x2F;v8.11.1&amp;#x2F;node-v8.11.1-linux-x64.tar.xz&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;tar xvf node-v8.11.1-linux-x64.tar.xz&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;mv node-v8.11.1-linux-x64 nodev8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;ln -s &amp;#x2F;data&amp;#x2F;nodev8&amp;#x2F;bin&amp;#x2F;node &amp;#x2F;usr&amp;#x2F;local&amp;#x2F;bin&amp;#x2F;node&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;ln -s &amp;#x2F;data&amp;#x2F;nodev8&amp;#x2F;bin&amp;#x2F;npm &amp;#x2F;usr&amp;#x2F;local&amp;#x2F;bin&amp;#x2F;npm&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+
+&lt;h2 id=&quot;安装mongodb&quot;&gt;&lt;a href=&quot;#安装mongodb&quot; class=&quot;headerlink&quot; title=&quot;安装mongodb&quot;&gt;&lt;/a&gt;安装mongodb&lt;/h2&gt;</summary>
+    
+    
+    
+    <category term="接口管理" scheme="https://sugw.github.io/sugw.github.io/categories/%E6%8E%A5%E5%8F%A3%E7%AE%A1%E7%90%86/"/>
+    
+    
+    <category term="接口管理" scheme="https://sugw.github.io/sugw.github.io/tags/%E6%8E%A5%E5%8F%A3%E7%AE%A1%E7%90%86/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Mysqldump备份数据库时排除某些库</title>
+    <link href="https://sugw.github.io/sugw.github.io/2020/11/17/Mysqldump%E5%A4%87%E4%BB%BD%E6%95%B0%E6%8D%AE%E5%BA%93%E6%97%B6%E6%8E%92%E9%99%A4%E6%9F%90%E4%BA%9B%E5%BA%93/"/>
+    <id>https://sugw.github.io/sugw.github.io/2020/11/17/Mysqldump%E5%A4%87%E4%BB%BD%E6%95%B0%E6%8D%AE%E5%BA%93%E6%97%B6%E6%8E%92%E9%99%A4%E6%9F%90%E4%BA%9B%E5%BA%93/</id>
+    <published>2020-11-17T06:06:49.105Z</published>
+    <updated>2020-11-17T06:36:51.025Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;&lt;strong&gt;说明：&lt;/strong&gt;&lt;br&gt;使用mysqldump –all-databases会导出所有库。但如果做主从，从主库dump出数据时，我们是不需要也不想要information_schema 和 mysql 库的。数据库少的情况下还可以通过&lt;code&gt;/usr/local/mysql/bin/mysqldump -uroot -p --databases db1 db2 &amp;gt; db1db2.sql&lt;/code&gt; 这样再导出，但如果数据多，这样指定就很麻烦了。&lt;br&gt;mysql是支持 ignore-table 的，但是没有ignore-database，所以要导出除 information_schema和mysql库的其它所有库，难道就只能一个个指定database吗？&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;解决：&lt;/strong&gt;&lt;/p&gt;
+&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;# mysql -e &amp;quot;show databases;&amp;quot; -uroot -p| grep -Ev &amp;quot;Database|information_schema|mysql|test&amp;quot; | xargs mysqldump -uroot -p --databases &amp;gt; mysql_dump.sql&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+
+
+&lt;p&gt;&lt;strong&gt;附录：&lt;/strong&gt;&lt;br&gt;附录1：mysqldump: Got error: 1142: SELECT,LOCK TABL command denied to user ‘root’@’localhost’ for table ‘cond_instances’ when using LOCK TABLES&lt;br&gt;在mysql5.5中增加了performance_schema，当我们进行mysqldump的时候，会报如下错误信息：&lt;br&gt;mysqldump: Got error: 1142: SELECT,LOCK TABL command denied to user ‘root’@’localhost’ for table ‘cond_instances’ when using LOCK TABLES&lt;/p&gt;
+&lt;p&gt;我们可以在mysqldump中加上参数 –skip-lock-tables，如&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="数据库" scheme="https://sugw.github.io/sugw.github.io/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
+    
+    
+    <category term="mysql" scheme="https://sugw.github.io/sugw.github.io/tags/mysql/"/>
+    
+  </entry>
   
   <entry>
     <title>mediawiki悬浮目录</title>
@@ -243,7 +690,7 @@ $wgWhitelistRead = array (&quot;Main Page&quot;, &quot;MediaWiki:Common.css&quot
     <link href="https://sugw.github.io/sugw.github.io/2020/10/27/Mysql%20%E6%89%B9%E9%87%8F%E5%88%A0%E9%99%A4%E8%A1%A8/"/>
     <id>https://sugw.github.io/sugw.github.io/2020/10/27/Mysql%20%E6%89%B9%E9%87%8F%E5%88%A0%E9%99%A4%E8%A1%A8/</id>
     <published>2020-10-27T07:49:07.417Z</published>
-    <updated>2020-10-27T07:54:00.552Z</updated>
+    <updated>2020-11-19T06:26:44.234Z</updated>
     
     
     <summary type="html">生成删除表语句
@@ -298,7 +745,7 @@ mysql -h主机 -D库 -u用户 -p密码 -e &quot;source /opt/delete_tables.sql&qu
     <link href="https://sugw.github.io/sugw.github.io/2020/10/26/Prometheus%E7%9B%91%E6%8E%A7node_exporter%E7%9A%84%E5%91%8A%E8%AD%A6%E8%A7%84%E5%88%99/"/>
     <id>https://sugw.github.io/sugw.github.io/2020/10/26/Prometheus%E7%9B%91%E6%8E%A7node_exporter%E7%9A%84%E5%91%8A%E8%AD%A6%E8%A7%84%E5%88%99/</id>
     <published>2020-10-26T05:52:30.964Z</published>
-    <updated>2020-10-26T06:18:00.570Z</updated>
+    <updated>2020-11-24T02:58:29.480Z</updated>
     
     
     <summary type="html">针对磁盘CPU,IO ,磁盘使用、内存使用、TCP、网络流量配置监控告警
@@ -384,77 +831,10 @@ groups:
     
     
     
-    <category term="Linux" scheme="https://sugw.github.io/sugw.github.io/categories/Linux/"/>
+    <category term="监控" scheme="https://sugw.github.io/sugw.github.io/categories/%E7%9B%91%E6%8E%A7/"/>
     
     
     <category term="prometheus" scheme="https://sugw.github.io/sugw.github.io/tags/prometheus/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Mac start hexo for supervisor</title>
-    <link href="https://sugw.github.io/sugw.github.io/2020/10/26/mac%20for%20supervisor/"/>
-    <id>https://sugw.github.io/sugw.github.io/2020/10/26/mac%20for%20supervisor/</id>
-    <published>2020-10-26T03:15:45.979Z</published>
-    <updated>2020-10-26T06:09:05.699Z</updated>
-    
-    
-    <summary type="html">&lt;h1 id=&quot;环境：&quot;&gt;&lt;a href=&quot;#环境：&quot; class=&quot;headerlink&quot; title=&quot;环境：&quot;&gt;&lt;/a&gt;环境：&lt;/h1&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;系统：mac&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;应用：hexo&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;守护程序：supervisord&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-
-&lt;h1 id=&quot;1-安装supervisord&quot;&gt;&lt;a href=&quot;#1-安装supervisord&quot; class=&quot;headerlink&quot; title=&quot;1.安装supervisord&quot;&gt;&lt;/a&gt;1.安装supervisord&lt;/h1&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;sudo pip install supervisor&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-
-&lt;h1 id=&quot;2-配置&quot;&gt;&lt;a href=&quot;#2-配置&quot; class=&quot;headerlink&quot; title=&quot;2.配置&quot;&gt;&lt;/a&gt;2.配置&lt;/h1&gt;</summary>
-    
-    
-    
-    <category term="Mac" scheme="https://sugw.github.io/sugw.github.io/categories/Mac/"/>
-    
-    
-    <category term="supervisor" scheme="https://sugw.github.io/sugw.github.io/tags/supervisor/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>linux 磁盘</title>
-    <link href="https://sugw.github.io/sugw.github.io/2020/10/21/linux%20%E7%A3%81%E7%9B%98%E6%BB%A1/"/>
-    <id>https://sugw.github.io/sugw.github.io/2020/10/21/linux%20%E7%A3%81%E7%9B%98%E6%BB%A1/</id>
-    <published>2020-10-21T07:29:37.710Z</published>
-    <updated>2020-11-13T08:41:43.675Z</updated>
-    
-    
-    <summary type="html">&lt;h3 id=&quot;问题：&quot;&gt;&lt;a href=&quot;#问题：&quot; class=&quot;headerlink&quot; title=&quot;问题：&quot;&gt;&lt;/a&gt;问题：&lt;/h3&gt;&lt;hr&gt;
-&lt;p&gt;​        磁盘显示已满，实际占用空间很小&lt;/p&gt;
-&lt;h3 id=&quot;原因：&quot;&gt;&lt;a href=&quot;#原因：&quot; class=&quot;headerlink&quot; title=&quot;原因：&quot;&gt;&lt;/a&gt;原因：&lt;/h3&gt;&lt;hr&gt;</summary>
-    
-    
-    
-    <category term="Linux" scheme="https://sugw.github.io/sugw.github.io/categories/Linux/"/>
-    
-    
-    <category term="磁盘" scheme="https://sugw.github.io/sugw.github.io/tags/%E7%A3%81%E7%9B%98/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Hello World</title>
-    <link href="https://sugw.github.io/sugw.github.io/2020/10/20/hello-world/"/>
-    <id>https://sugw.github.io/sugw.github.io/2020/10/20/hello-world/</id>
-    <published>2020-10-20T09:06:44.719Z</published>
-    <updated>2020-10-28T09:14:26.198Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.io/docs/&quot;&gt;documentation&lt;/a&gt; for more info. If you get any problems when using Hexo, you can find the answer in &lt;a href=&quot;https://hexo.io/docs/troubleshooting.html&quot;&gt;troubleshooting&lt;/a&gt; or you can ask me on &lt;a href=&quot;https://github.com/hexojs/hexo/issues&quot;&gt;GitHub&lt;/a&gt;.&lt;/p&gt;
-&lt;h2 id=&quot;Quick-Start&quot;&gt;&lt;a href=&quot;#Quick-Start&quot; class=&quot;headerlink&quot; title=&quot;Quick Start&quot;&gt;&lt;/a&gt;Quick Start&lt;/h2&gt;&lt;p&gt;&lt;a href=&quot;http://localhost:4000/sugw.github.io/tags/&quot;&gt;http://localhost:4000/sugw.github.io/tags/&lt;/a&gt;&lt;/p&gt;
-&lt;h3 id=&quot;Create-a-new-post&quot;&gt;&lt;a href=&quot;#Create-a-new-post&quot; class=&quot;headerlink&quot; title=&quot;Create a new post&quot;&gt;&lt;/a&gt;Create a new post&lt;/h3&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$ hexo new &lt;span class=&quot;string&quot;&gt;&amp;quot;My New Post&amp;quot;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;</summary>
-    
-    
-    
-    <category term="测试" scheme="https://sugw.github.io/sugw.github.io/categories/%E6%B5%8B%E8%AF%95/"/>
-    
-    
-    <category term="标签1" scheme="https://sugw.github.io/sugw.github.io/tags/%E6%A0%87%E7%AD%BE1/"/>
-    
-    <category term="标签2" scheme="https://sugw.github.io/sugw.github.io/tags/%E6%A0%87%E7%AD%BE2/"/>
     
   </entry>
   

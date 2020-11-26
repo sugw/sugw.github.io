@@ -1,0 +1,858 @@
+<!--动态线条背景-->
+<script type="text/javascript"
+color="220,220,220" opacity='0.7' zIndex="-2" count="200" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js">
+</script>
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><!-- hexo injector head_begin start --><link href="https://cdn.jsdelivr.net/npm/hexo-widget-tree@0.0.5/css/index.css" rel="stylesheet"/><!-- hexo injector head_begin end -->
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/sugw.github.io/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/sugw.github.io/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/sugw.github.io/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/sugw.github.io/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/sugw.github.io/css/main.css">
+
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.14.0/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"sugw.github.io","root":"/sugw.github.io/","scheme":"Gemini","version":"8.0.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
+  </script>
+
+  <meta name="description" content="首先准备实验环境    虚拟机 主机名 IP地址 服务 系统版本 内核版本    Vmware Workstation 14 gitlab.example.com 192.168.244.130 gitlab CentOS Linux release 7.5.1804 (Core) 3.10.0-862.el7.x86_64   jenkins.example.com 192.168.244.13">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Jenkins+Gitlab+Ansible自动化部署(一)">
+<meta property="og:url" content="https://sugw.github.io/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/index.html">
+<meta property="og:site_name" content="一只小笨鸟">
+<meta property="og:description" content="首先准备实验环境    虚拟机 主机名 IP地址 服务 系统版本 内核版本    Vmware Workstation 14 gitlab.example.com 192.168.244.130 gitlab CentOS Linux release 7.5.1804 (Core) 3.10.0-862.el7.x86_64   jenkins.example.com 192.168.244.13">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://sugw.github.io/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/804543-20190102164045215-3943660.png">
+<meta property="og:image" content="https://sugw.github.io/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/804543-20190102164153110-1651878067.png">
+<meta property="og:image" content="https://sugw.github.io/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/804543-20190102164224914-827989240.png">
+<meta property="og:image" content="https://sugw.github.io/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/804543-20190102164356206-501778199.png">
+<meta property="og:image" content="https://sugw.github.io/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/804543-20190102164555544-1084217569.png">
+<meta property="og:image" content="https://sugw.github.io/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/804543-20190102164808408-621505099.png">
+<meta property="og:image" content="https://sugw.github.io/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/804543-20190102165212447-658335923.png">
+<meta property="og:image" content="https://sugw.github.io/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/804543-20190102172541680-1685258190.png">
+<meta property="og:image" content="https://sugw.github.io/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/804543-20190102172834006-957477766.png">
+<meta property="og:image" content="https://sugw.github.io/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/804543-20190102173017476-1297762493.png">
+<meta property="og:image" content="https://sugw.github.io/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/804543-20190102173108736-1671134778.png">
+<meta property="og:image" content="https://sugw.github.io/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/804543-20190102173204986-1045231309.png">
+<meta property="og:image" content="https://sugw.github.io/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/804543-20190102173522576-1583433372.png">
+<meta property="og:image" content="https://sugw.github.io/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/804543-20190102173648091-57729423.png">
+<meta property="og:image" content="https://sugw.github.io/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/804543-20190102173839541-132784246.png">
+<meta property="og:image" content="https://sugw.github.io/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/804543-20190102174006279-1152234077.png">
+<meta property="og:image" content="https://sugw.github.io/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/804543-20190102174112736-1497099430.png">
+<meta property="og:image" content="https://sugw.github.io/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/804543-20190102174214548-2047513172.png">
+<meta property="og:image" content="https://sugw.github.io/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/804543-20190102174323576-45552471.png">
+<meta property="og:image" content="https://sugw.github.io/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/804543-20190102174428809-1250049533.png">
+<meta property="og:image" content="https://sugw.github.io/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/804543-20190102174525431-600068675.png">
+<meta property="og:image" content="https://sugw.github.io/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/804543-20190102174619643-830800285.png">
+<meta property="og:image" content="https://sugw.github.io/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/804543-20190102174809969-1580189936.png">
+<meta property="og:image" content="https://sugw.github.io/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/804543-20190102175038572-8109703.png">
+<meta property="og:image" content="https://sugw.github.io/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/804543-20190102175340108-1125836966.png">
+<meta property="og:image" content="https://sugw.github.io/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/804543-20190102175430628-339857982.png">
+<meta property="og:image" content="https://sugw.github.io/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/804543-20190102180851535-2098739677.png">
+<meta property="og:image" content="https://sugw.github.io/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/804543-20190102180912746-365779940.png">
+<meta property="og:image" content="https://sugw.github.io/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/804543-20190102202149369-1982672005.png">
+<meta property="og:image" content="https://sugw.github.io/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/804543-20190102202530519-730722560.png">
+<meta property="og:image" content="https://sugw.github.io/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/804543-20190102202651084-1127147532.png">
+<meta property="og:image" content="https://sugw.github.io/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/804543-20190106080255311-216023418.png">
+<meta property="og:image" content="https://sugw.github.io/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/804543-20190106080504843-764533681.png">
+<meta property="og:image" content="https://sugw.github.io/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/804543-20190106080550570-591512284.png">
+<meta property="og:image" content="https://sugw.github.io/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/804543-20190106080711039-283092739.png">
+<meta property="og:image" content="https://sugw.github.io/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/804543-20190106080747722-293518077.png">
+<meta property="og:image" content="https://sugw.github.io/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/804543-20190106081015734-905282817.png">
+<meta property="og:image" content="https://sugw.github.io/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/804543-20190106081027714-647433423.png">
+<meta property="og:image" content="https://sugw.github.io/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/804543-20190106081223203-663097162.png">
+<meta property="og:image" content="https://sugw.github.io/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/804543-20190106081345859-1974744297.png">
+<meta property="og:image" content="https://sugw.github.io/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/804543-20190106081654799-1325405956.png">
+<meta property="og:image" content="https://sugw.github.io/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/804543-20190106081737842-576013049.png">
+<meta property="og:image" content="https://sugw.github.io/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/804543-20190106081834712-1983955035.png">
+<meta property="og:image" content="https://sugw.github.io/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/804543-20190106082118521-107543261.png">
+<meta property="og:image" content="https://sugw.github.io/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/804543-20190106082235982-1151283651.png">
+<meta property="og:image" content="https://sugw.github.io/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/804543-20190106082302424-429176945.png">
+<meta property="og:image" content="https://sugw.github.io/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/804543-20190106082334050-1662187133.png">
+<meta property="og:image" content="https://sugw.github.io/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/804543-20190106082350221-411675038.png">
+<meta property="article:published_time" content="2020-11-26T10:33:50.167Z">
+<meta property="article:modified_time" content="2020-11-26T10:41:47.653Z">
+<meta property="article:author" content="guowei su">
+<meta property="article:tag" content="自动部署">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://sugw.github.io/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/804543-20190102164045215-3943660.png">
+
+
+<link rel="canonical" href="https://sugw.github.io/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/">
+
+
+<script data-pjax class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Jenkins+Gitlab+Ansible自动化部署(一) | 一只小笨鸟</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/sugw.github.io/atom.xml" title="一只小笨鸟" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/sugw.github.io/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">一只小笨鸟</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-首页">
+
+    <a href="/sugw.github.io/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-作者">
+
+    <a href="/sugw.github.io/about/" rel="section"><i class="fa fa-user fa-fw"></i>作者</a>
+
+  </li>
+        <li class="menu-item menu-item-标签">
+
+    <a href="/sugw.github.io/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-分类">
+
+    <a href="/sugw.github.io/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-归档">
+
+    <a href="/sugw.github.io/%E5%BD%92%E6%A1%A3/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-日历">
+
+    <a href="/sugw.github.io/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>日历</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-overview-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <section class="post-toc-wrap sidebar-panel">
+      </section>
+      <!--/noindex-->
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="guowei su"
+      src="/sugw.github.io/images/291603183698.jpg">
+  <p class="site-author-name" itemprop="name">guowei su</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/sugw.github.io/archives">
+          <span class="site-state-item-count">22</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/sugw.github.io/categories/">
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </section>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+      
+
+      
+  
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://sugw.github.io/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/sugw.github.io/images/291603183698.jpg">
+      <meta itemprop="name" content="guowei su">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="一只小笨鸟">
+    </span>
+
+    
+    
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Jenkins+Gitlab+Ansible自动化部署(一)
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2020-11-26 18:33:50 / 修改时间：18:41:47" itemprop="dateCreated datePublished" datetime="2020-11-26T18:33:50+08:00">2020-11-26</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/sugw.github.io/categories/Jenkins-Gitlab-Ansible/" itemprop="url" rel="index"><span itemprop="name">Jenkins+Gitlab+Ansible</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>15k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>14 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>首先准备实验环境</p>
+<table>
+<thead>
+<tr>
+<th>虚拟机</th>
+<th>主机名</th>
+<th>IP地址</th>
+<th>服务</th>
+<th>系统版本</th>
+<th>内核版本</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Vmware Workstation 14</td>
+<td>gitlab.example.com</td>
+<td>192.168.244.130</td>
+<td>gitlab</td>
+<td>CentOS Linux release 7.5.1804 (Core)</td>
+<td>3.10.0-862.el7.x86_64</td>
+</tr>
+<tr>
+<td>jenkins.example.com</td>
+<td>192.168.244.131</td>
+<td>jenkis</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>ansible.example.com</td>
+<td>192.168.244.132</td>
+<td>asible</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p>除此之外，还要在宿主机win10系统下的C:\Windows\System32\drivers\etc\hosts文件中添加如下内容</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">192.168.244.130 gitlab.example.com</span><br><span class="line">192.168.244.131 jenkins.example.com</span><br><span class="line">192.168.244.132 ansible.example.com</span><br></pre></td></tr></table></figure>
+
+<p>关闭防火墙和selinux</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[root@gitlab ~]# sed -i &quot;s&#x2F;enforcing&#x2F;disabled&#x2F;&quot; &#x2F;etc&#x2F;selinux&#x2F;config</span><br><span class="line">[root@gitlab ~]# systemctl stop firewalld &amp;&amp; systemmctl disable firewalld</span><br><span class="line">[root@gitlab ~]# reboot</span><br><span class="line">[root@gitlab ~]# getenforce</span><br><span class="line">Permissive</span><br><span class="line">[root@server01 ~]# systemctl status firewalld</span><br><span class="line">● firewalld.service - firewalld - dynamic firewall daemon</span><br><span class="line">   Loaded: loaded (&#x2F;usr&#x2F;lib&#x2F;systemd&#x2F;system&#x2F;firewalld.service; disabled; vendor preset: enabled)</span><br><span class="line">   Active: inactive (dead)</span><br><span class="line">     Docs: man:firewalld(1)</span><br></pre></td></tr></table></figure>
+
+<p>安装postfix并启动</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@gitlab ~]# yum install postfix</span><br><span class="line">[root@gitlab ~]# systemctl start postfix &amp;&amp; systemctl enable postfix</span><br></pre></td></tr></table></figure>
+
+<p>安装Gitlab组件及gitlab-ce</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@gitlab ~]# yum install curl policycoreutils openssh-server openssh-clients</span><br><span class="line">[root@gitlab ~]# curl -sS https:&#x2F;&#x2F;packages.gitlab.com&#x2F;install&#x2F;repositories&#x2F;gitlab&#x2F;gitlab-ce&#x2F;script.rpm.sh | sudo bash</span><br><span class="line">[root@gitlab ~]# yum install -y gitlab-ce </span><br></pre></td></tr></table></figure>
+
+<p>也可以去<a href="https://packages.gitlab.com/gitlab/gitlab-ce/packages/el/7/gitlab-ce-10.0.0-ce.0.el7.x86_64.rpm%E5%AE%89%E8%A3%85%E6%96%B9%E6%B3%95%E3%80%82">https://packages.gitlab.com/gitlab/gitlab-ce/packages/el/7/gitlab-ce-10.0.0-ce.0.el7.x86_64.rpm安装方法。</a></p>
+<p>证书创建与配置加载</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line">[root@gitlab ~]# mkdir -p &#x2F;etc&#x2F;gitlab&#x2F;ssl </span><br><span class="line">创建私有密钥 </span><br><span class="line">[root@gitlab ~]# openssl genrsa -out &quot;&#x2F;etc&#x2F;gitlab&#x2F;ssl&#x2F;gitlab.example.com.key&quot;  2048</span><br><span class="line">Generating RSA private key, 2048 bit long modulus</span><br><span class="line">...............+++</span><br><span class="line">...............................................................................+++</span><br><span class="line">e is 65537 (0x10001)</span><br><span class="line">创建私有证书</span><br><span class="line">[root@gitlab ~]# openssl req -new -key &quot;&#x2F;etc&#x2F;gitlab&#x2F;ssl&#x2F;gitlab.example.com.key&quot;  -out &quot;&#x2F;etc&#x2F;gitlab&#x2F;ssl&#x2F;gitlab.example.com.csr&quot;</span><br><span class="line">You are about to be asked to enter information that will be incorporated</span><br><span class="line">into your certificate request.</span><br><span class="line">What you are about to enter is what is called a Distinguished Name or a DN.</span><br><span class="line">There are quite a few fields but you can leave some blank</span><br><span class="line">For some fields there will be a default value,</span><br><span class="line">If you enter &#39;.&#39;, the field will be left blank.</span><br><span class="line">-----</span><br><span class="line">Country Name (2 letter code) [XX]:cn</span><br><span class="line">State or Province Name (full name) []:sh</span><br><span class="line">Locality Name (eg, city) [Default City]:sh</span><br><span class="line">Organization Name (eg, company) [Default Company Ltd]:  #输入空格，然后回车</span><br><span class="line">Organizational Unit Name (eg, section) []:  #输入空格，然后回车</span><br><span class="line">Common Name (eg, your name or your server&#39;s hostname) []:gitlab.example.com</span><br><span class="line">Email Address []:admin@example.com</span><br><span class="line"></span><br><span class="line">Please enter the following &#39;extra&#39; attributes</span><br><span class="line">to be sent with your certificate request</span><br><span class="line">A challenge password []:123456</span><br><span class="line">An optional company name []:  #直接回车</span><br><span class="line">查看</span><br><span class="line">[root@gitlab ~]# ll &#x2F;etc&#x2F;gitlab&#x2F;ssl&#x2F;</span><br><span class="line">total 8</span><br><span class="line">-rw-r--r-- 1 root root 1066 Jan  2 15:32 gitlab.example.com.csr</span><br><span class="line">-rw-r--r-- 1 root root 1679 Jan  2 15:30 gitlab.example.com.key</span><br><span class="line">接下来利用私有密钥和私有证书创建CRT签署证书</span><br><span class="line">[root@gitlab ~]# openssl x509 -req -days 365 -in &quot;&#x2F;etc&#x2F;gitlab&#x2F;ssl&#x2F;gitlab.example.com.csr&quot; -signkey &quot;&#x2F;etc&#x2F;gitlab&#x2F;ssl&#x2F;gitlab.example.com.key&quot; -out &quot;&#x2F;etc&#x2F;gitlab&#x2F;ssl&#x2F;gitlab.example.com.crt&quot;</span><br><span class="line">Signature ok</span><br><span class="line">subject&#x3D;&#x2F;C&#x3D;cn&#x2F;ST&#x3D;sh&#x2F;L&#x3D;sh&#x2F;O&#x3D; &#x2F;OU&#x3D; &#x2F;CN&#x3D;gitlab.example.com&#x2F;emailAddress&#x3D;admin@example.com</span><br><span class="line">Getting Private key</span><br><span class="line">查看</span><br><span class="line">[root@gitlab ~]# ll &#x2F;etc&#x2F;gitlab&#x2F;ssl&#x2F;</span><br><span class="line">total 12</span><br><span class="line">-rw-r--r-- 1 root root 1265 Jan  2 15:39 gitlab.example.com.crt</span><br><span class="line">-rw-r--r-- 1 root root 1066 Jan  2 15:32 gitlab.example.com.csr</span><br><span class="line">-rw-r--r-- 1 root root 1679 Jan  2 15:30 gitlab.example.com.key</span><br><span class="line">利用openssl命令输出pem证书</span><br><span class="line">[root@gitlab ~]# openssl dhparam -out &#x2F;etc&#x2F;gitlab&#x2F;ssl&#x2F;dhparam.pem 2048</span><br><span class="line">Generating DH parameters, 2048 bit long safe prime, generator 2</span><br><span class="line">This is going to take a long time</span><br><span class="line">........................................................+................................................................................+.....................................+..................................................................................+..............................................+..................................................................................................................................+..+........................................................................................................................................+..............................................................................................................................................................................+......+..............+.....................................................+.................+.......................................................................................+..+.................................................................................................................................................+..........................................................+.............+.........+...........................................................+........................................................................................................................................................................................................................................+...................................................................................................................................................................................................................................................................................................................++*++*</span><br><span class="line">#  这个过程有点久</span><br><span class="line"># 查看生成的证书</span><br><span class="line">[root@gitlab ~]# ll &#x2F;etc&#x2F;gitlab&#x2F;ssl&#x2F;</span><br><span class="line">total 16</span><br><span class="line">-rw-r--r-- 1 root root  424 Jan  2 15:46 dhparam.pem</span><br><span class="line">-rw-r--r-- 1 root root 1265 Jan  2 15:39 gitlab.example.com.crt</span><br><span class="line">-rw-r--r-- 1 root root 1066 Jan  2 15:32 gitlab.example.com.csr</span><br><span class="line">-rw-r--r-- 1 root root 1679 Jan  2 15:30 gitlab.example.com.key</span><br><span class="line">更改文件权限</span><br><span class="line">[root@gitlab ~]# chmod 600 &#x2F;etc&#x2F;gitlab&#x2F;ssl&#x2F;*</span><br><span class="line">[root@gitlab ~]# ll &#x2F;etc&#x2F;gitlab&#x2F;ssl&#x2F;</span><br><span class="line">total 16</span><br><span class="line">-rw------- 1 root root  424 Jan  2 15:46 dhparam.pem</span><br><span class="line">-rw------- 1 root root 1265 Jan  2 15:39 gitlab.example.com.crt</span><br><span class="line">-rw------- 1 root root 1066 Jan  2 15:32 gitlab.example.com.csr</span><br><span class="line">-rw------- 1 root root 1679 Jan  2 15:30 gitlab.example.com.key</span><br></pre></td></tr></table></figure>
+
+<p>配置gitlab</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[root@gitlab ~]# cp &#x2F;etc&#x2F;gitlab&#x2F;gitlab.rb&#123;,.bak&#125;</span><br><span class="line">[root@gitlab ~]# vim &#x2F;etc&#x2F;gitlab&#x2F;gitlab.rb</span><br><span class="line">## 更改如下</span><br><span class="line"> 13 external_url &#39;https:&#x2F;&#x2F;gitlab.example.com&#39;  13行左右</span><br><span class="line">952 nginx[&#39;redirect_http_to_https&#39;] &#x3D; true</span><br><span class="line">964 nginx[&#39;ssl_certificate&#39;] &#x3D; &quot;&#x2F;etc&#x2F;gitlab&#x2F;ssl&#x2F;gitlab.example.com.crt&quot;</span><br><span class="line">965 nginx[&#39;ssl_certificate_key&#39;] &#x3D; &quot;&#x2F;etc&#x2F;gitlab&#x2F;ssl&#x2F;gitlab.example.com.key&quot;</span><br><span class="line">979 # nginx[&#39;ssl_dhparam&#39;] &#x3D; &#x2F;etc&#x2F;gitlab&#x2F;ssl&#x2F;dhparam.pem # Path to dhparams.pem,      eg. &#x2F;etc&#x2F;gitlab&#x2F;ssl&#x2F;dhparams.pem</span><br></pre></td></tr></table></figure>
+
+<p>初始化gitlab相关服务配置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">[root@gitlab ~]# gitlab-ctl reconfigure</span><br><span class="line">Starting Chef Client, version 13.6.4</span><br><span class="line">resolving cookbooks for run list: [&quot;gitlab&quot;]</span><br><span class="line">Synchronizing Cookbooks:</span><br><span class="line">  - gitlab (0.0.1)</span><br><span class="line">  - package (0.1.0)</span><br><span class="line">  - postgresql (0.1.0)</span><br><span class="line">  - redis (0.1.0)</span><br><span class="line">  - mattermost (0.1.0)</span><br><span class="line">  - registry (0.1.0)</span><br><span class="line">  - gitaly (0.1.0)</span><br><span class="line">  - consul (0.0.0)</span><br><span class="line">  - nginx (0.1.0)</span><br><span class="line">  - runit (0.14.2)</span><br><span class="line">  - letsencrypt (0.1.0)</span><br><span class="line">  - acme (3.1.0)</span><br><span class="line">  - crond (0.1.0)</span><br><span class="line">  - compat_resource (12.19.0)</span><br><span class="line">Installing Cookbook Gems:</span><br><span class="line">Compiling Cookbooks...</span><br><span class="line">Recipe: gitlab::default</span><br><span class="line">  * directory[&#x2F;etc&#x2F;gitlab] action create</span><br><span class="line">    - change mode from &#39;0755&#39; to &#39;0775&#39;</span><br><span class="line">  Converging 493 resources</span><br><span class="line">  * directory[&#x2F;etc&#x2F;gitlab] action create (up to date)</span><br><span class="line">  * directory[Create &#x2F;var&#x2F;opt&#x2F;gitlab] action create</span><br><span class="line">    - create new directory &#x2F;var&#x2F;opt&#x2F;gitlab</span><br><span class="line">    - change mode from &#39;&#39; to &#39;0755&#39;</span><br><span class="line">    - change owner from &#39;&#39; to &#39;root&#39;</span><br><span class="line">    - change group from &#39;&#39; to &#39;root&#39;</span><br><span class="line">  * directory[&#x2F;opt&#x2F;gitlab&#x2F;embedded&#x2F;etc] action create</span><br><span class="line">    - create new directory &#x2F;opt&#x2F;gitlab&#x2F;embedded&#x2F;etc</span><br><span class="line">    - change mode from &#39;&#39; to &#39;0755&#39;</span><br><span class="line">    - change owner from &#39;&#39; to &#39;root&#39;</span><br><span class="line">    - change group from &#39;&#39; to &#39;root&#39;</span><br><span class="line">  * template[&#x2F;opt&#x2F;gitlab&#x2F;embedded&#x2F;etc&#x2F;gitconfig] action create</span><br><span class="line">    - create new file &#x2F;opt&#x2F;gitlab&#x2F;embedded&#x2F;etc&#x2F;gitconfig</span><br><span class="line">    - update content in file &#x2F;opt&#x2F;gitlab&#x2F;embedded&#x2F;etc&#x2F;gitconfig from none to 987af3</span><br><span class="line"></span><br><span class="line">。。。。过程有点长，需要等一会（看个人服务器配置了）</span><br><span class="line">Running handlers:</span><br><span class="line">Running handlers complete</span><br><span class="line">Chef Client finished, 454&#x2F;655 resources updated in 02 minutes 16 seconds</span><br><span class="line">gitlab Reconfigured!</span><br><span class="line"># 出现这个表示配置没有问题！</span><br></pre></td></tr></table></figure>
+
+<p>对nginx配置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@gitlab ~]# cp &#x2F;var&#x2F;opt&#x2F;gitlab&#x2F;nginx&#x2F;conf&#x2F;gitlab-http.conf&#123;,.bak&#125;</span><br><span class="line">[root@gitlab ~]# vim &#x2F;var&#x2F;opt&#x2F;gitlab&#x2F;nginx&#x2F;conf&#x2F;gitlab-http.conf</span><br><span class="line"> 37   server_name gitlab.example.com; #在此行下面添加38行的内容</span><br><span class="line"> 38   rewrite ^(.*)$ https:&#x2F;&#x2F;$host$1 permanent;</span><br></pre></td></tr></table></figure>
+
+<p>重启gitlab</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">[root@gitlab ~]# gitlab-ctl restart</span><br><span class="line">ok: run: alertmanager: (pid 6526) 1s</span><br><span class="line">ok: run: gitaly: (pid 6543) 0s</span><br><span class="line">ok: run: gitlab-monitor: (pid 6556) 0s</span><br><span class="line">ok: run: gitlab-workhorse: (pid 6579) 1s</span><br><span class="line">ok: run: logrotate: (pid 6589) 0s</span><br><span class="line">ok: run: nginx: (pid 6597) 1s</span><br><span class="line">ok: run: node-exporter: (pid 6681) 0s</span><br><span class="line">ok: run: postgres-exporter: (pid 6687) 1s</span><br><span class="line">ok: run: postgresql: (pid 6698) 0s</span><br><span class="line">ok: run: prometheus: (pid 6706) 0s</span><br><span class="line">ok: run: redis: (pid 6722) 0s</span><br><span class="line">ok: run: redis-exporter: (pid 6856) 0s</span><br><span class="line">ok: run: sidekiq: (pid 6866) 0s</span><br><span class="line">ok: run: unicorn: (pid 6880) 0s</span><br><span class="line">#  可以看出gitlab的所有服务重启完成</span><br></pre></td></tr></table></figure>
+
+<p>使用宿主机win10下的chrome浏览器访问gitlab.example.com:80</p>
+<img src="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/804543-20190102164045215-3943660.png" class title="img">
+
+<img src="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/804543-20190102164153110-1651878067.png" class title="img">
+
+<img src="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/804543-20190102164224914-827989240.png" class title="img">
+
+<p>开始使用gitlab</p>
+<img src="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/804543-20190102164356206-501778199.png" class title="img">
+
+<p>创建一个测试工程</p>
+<img src="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/804543-20190102164555544-1084217569.png" class title="img">
+
+<p>复制仓库地址</p>
+<img src="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/804543-20190102164808408-621505099.png" class title="img">
+
+<p>回到win10宿主机，重新打开一个git命令行窗口如下所示操作</p>
+<img src="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/804543-20190102165212447-658335923.png" class title="img">
+
+<p># 粘贴仓库地址回车后会弹出输入账户和密码的窗口</p>
+<p>之后就会将空的测试仓库克隆到本地宿主机的桌面上的repo目录下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">xueji@xueji MINGW64 ~&#x2F;Desktop&#x2F;repo</span><br><span class="line">$ git -c http.sslVerify&#x3D;false clone https:&#x2F;&#x2F;gitlab.example.com&#x2F;root&#x2F;test-repo.git</span><br><span class="line">Cloning into &#39;test-repo&#39;...</span><br><span class="line">warning: You appear to have cloned an empty repository.</span><br><span class="line"></span><br><span class="line">xueji@xueji MINGW64 ~&#x2F;Desktop&#x2F;repo</span><br><span class="line">$ pwd</span><br><span class="line">&#x2F;c&#x2F;Users&#x2F;xueji&#x2F;Desktop&#x2F;repo</span><br><span class="line"></span><br><span class="line">xueji@xueji MINGW64 ~&#x2F;Desktop&#x2F;repo</span><br><span class="line">$ ls</span><br><span class="line">test-repo&#x2F;</span><br><span class="line"></span><br><span class="line">xueji@xueji MINGW64 ~&#x2F;Desktop&#x2F;repo</span><br><span class="line">$ ls test-repo&#x2F;</span><br></pre></td></tr></table></figure>
+
+<p>在win10宿主机下的test-repo目录下新建一个test.py文件，并上传至gitlab</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">xueji@xueji MINGW64 ~&#x2F;Desktop&#x2F;repo</span><br><span class="line">$ cd test-repo&#x2F;</span><br><span class="line"></span><br><span class="line">xueji@xueji MINGW64 ~&#x2F;Desktop&#x2F;repo&#x2F;test-repo (master)</span><br><span class="line">$ vi test.py</span><br><span class="line"></span><br><span class="line">xueji@xueji MINGW64 ~&#x2F;Desktop&#x2F;repo&#x2F;test-repo (master)</span><br><span class="line">$ git add .</span><br><span class="line">warning: LF will be replaced by CRLF in test.py.</span><br><span class="line">The file will have its original line endings in your working directory</span><br><span class="line"></span><br><span class="line">xueji@xueji MINGW64 ~&#x2F;Desktop&#x2F;repo&#x2F;test-repo (master)</span><br><span class="line">$ git commit -m&quot;First Commit&quot;</span><br><span class="line">[master (root-commit) 93bd740] First Commit</span><br><span class="line"> Committer: unknown &lt;xueji@pin.com&gt;</span><br><span class="line">Your name and email address were configured automatically based</span><br><span class="line">on your username and hostname. Please check that they are accurate.</span><br><span class="line">You can suppress this message by setting them explicitly. Run the</span><br><span class="line">following command and follow the instructions in your editor to edit</span><br><span class="line">your configuration file:</span><br><span class="line"></span><br><span class="line">    git config --global --edit</span><br><span class="line"></span><br><span class="line">After doing this, you may fix the identity used for this commit with:</span><br><span class="line"></span><br><span class="line">    git commit --amend --reset-author</span><br><span class="line"></span><br><span class="line"> 1 file changed, 1 insertion(+)</span><br><span class="line"> create mode 100644 test.py</span><br><span class="line"></span><br><span class="line">xueji@xueji MINGW64 ~&#x2F;Desktop&#x2F;repo&#x2F;test-repo (master)</span><br><span class="line">$ git config  --global user.email &quot;admin@example.com&quot;</span><br><span class="line"></span><br><span class="line">xueji@xueji MINGW64 ~&#x2F;Desktop&#x2F;repo&#x2F;test-repo (master)</span><br><span class="line">$ git config --global user.name &quot;admin&quot;</span><br><span class="line"></span><br><span class="line">xueji@xueji MINGW64 ~&#x2F;Desktop&#x2F;repo&#x2F;test-repo (master)</span><br><span class="line">$ git commit -m&quot;First Commit&quot;</span><br><span class="line">On branch master</span><br><span class="line">Your branch is based on &#39;origin&#x2F;master&#39;, but the upstream is gone.</span><br><span class="line">  (use &quot;git branch --unset-upstream&quot; to fixup)</span><br><span class="line"></span><br><span class="line">nothing to commit, working tree clean</span><br><span class="line"></span><br><span class="line">xueji@xueji MINGW64 ~&#x2F;Desktop&#x2F;repo&#x2F;test-repo (master)</span><br><span class="line">$ git -c http.sslVerify&#x3D;false push master</span><br><span class="line">fatal: &#39;master&#39; does not appear to be a git repository</span><br><span class="line">fatal: Could not read from remote repository.</span><br><span class="line"></span><br><span class="line">Please make sure you have the correct access rights</span><br><span class="line">and the repository exists.</span><br><span class="line"></span><br><span class="line">xueji@xueji MINGW64 ~&#x2F;Desktop&#x2F;repo&#x2F;test-repo (master)</span><br></pre></td></tr></table></figure>
+
+<p>报错，跟据提示信息我们进行如下操作</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">xueji@xueji MINGW64 ~&#x2F;Desktop&#x2F;repo&#x2F;test-repo (master)</span><br><span class="line">$ git branch --unset-upstream</span><br><span class="line">xueji@xueji MINGW64 ~&#x2F;Desktop&#x2F;repo&#x2F;test-repo (master)</span><br><span class="line">$ git add .</span><br><span class="line"></span><br><span class="line">xueji@xueji MINGW64 ~&#x2F;Desktop&#x2F;repo&#x2F;test-repo (master)</span><br><span class="line">$ git config --global user.email &quot;admin@example.com&quot;</span><br><span class="line"></span><br><span class="line">xueji@xueji MINGW64 ~&#x2F;Desktop&#x2F;repo&#x2F;test-repo (master)</span><br><span class="line">$ git config --global user.name &quot;admin&quot;</span><br><span class="line"></span><br><span class="line">xueji@xueji MINGW64 ~&#x2F;Desktop&#x2F;repo&#x2F;test-repo (master)</span><br><span class="line">$ git commit -m&quot;First Commit&quot;</span><br><span class="line">On branch master</span><br><span class="line">nothing to commit, working tree clean</span><br><span class="line"></span><br><span class="line">xueji@xueji MINGW64 ~&#x2F;Desktop&#x2F;repo&#x2F;test-repo (master)</span><br><span class="line">$ git commit -m&quot;Second Commit&quot;</span><br><span class="line">On branch master</span><br><span class="line">nothing to commit, working tree clean</span><br><span class="line"></span><br><span class="line">xueji@xueji MINGW64 ~&#x2F;Desktop&#x2F;repo&#x2F;test-repo (master)</span><br><span class="line">$ git -c http.sslVerify&#x3D;false push origin master</span><br><span class="line">Enumerating objects: 3, done.</span><br><span class="line">Counting objects: 100% (3&#x2F;3), done.</span><br><span class="line">Writing objects: 100% (3&#x2F;3), 242 bytes | 242.00 KiB&#x2F;s, done.</span><br><span class="line">Total 3 (delta 0), reused 0 (delta 0)</span><br><span class="line">To https:&#x2F;&#x2F;gitlab.example.com&#x2F;root&#x2F;test-repo.git</span><br><span class="line"> * [new branch]      master -&gt; master</span><br></pre></td></tr></table></figure>
+
+<p>回到gitlab的浏览器页面，刷新查看</p>
+<img src="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/804543-20190102172541680-1685258190.png" class title="img">
+
+<p>已经成功上传到test-repo工程当中。</p>
+<p>Gitlab应用</p>
+<img src="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/804543-20190102172834006-957477766.png" class title="img">
+
+<p>比如说Systeminfo</p>
+<img src="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/804543-20190102173017476-1297762493.png" class title="img">
+
+<img src="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/804543-20190102173108736-1671134778.png" class title="img">
+
+<p>比如说日志</p>
+<img src="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/804543-20190102173204986-1045231309.png" class title="img">
+
+<p>需要我们关注的是application.log和production.log两项</p>
+<p>比如说健康状况</p>
+<img src="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/804543-20190102173522576-1583433372.png" class title="img">
+
+<p>创建开发人员及leader的账号</p>
+<p>开发人员账号</p>
+<img src="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/804543-20190102173648091-57729423.png" class title="img">
+
+<img src="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/804543-20190102173839541-132784246.png" class title="img">
+
+<p>其他选项不要动，点击创建即可。</p>
+<p>创建leader的账号</p>
+<img src="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/804543-20190102174006279-1152234077.png" class title="img">
+
+<img src="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/804543-20190102174112736-1497099430.png" class title="img">
+
+<p>其他也不要动。</p>
+<p>建好后的账户</p>
+<img src="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/804543-20190102174214548-2047513172.png" class title="img">
+
+<img src="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/804543-20190102174323576-45552471.png" class title="img">
+
+<img src="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/804543-20190102174428809-1250049533.png" class title="img">
+
+<img src="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/804543-20190102174525431-600068675.png" class title="img">
+
+<img src="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/804543-20190102174619643-830800285.png" class title="img">
+
+<img src="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/804543-20190102174809969-1580189936.png" class title="img">
+
+<p>同理添加lead账户</p>
+<img src="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/804543-20190102175038572-8109703.png" class title="img">
+
+<p>更改两个账户的密码</p>
+<img src="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/804543-20190102175340108-1125836966.png" class title="img">
+
+<img src="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/804543-20190102175430628-339857982.png" class title="img">
+
+<p>其他选项保持不变，然后点击页面最下面的save changes，同理更改lead的密码</p>
+<p>使用dev账户进行git命令行的提交操作</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line">## 以下步骤也是在win10宿主机上进行的</span><br><span class="line">xueji@xueji MINGW64 ~&#x2F;Desktop&#x2F;repo&#x2F;test-repo (master)</span><br><span class="line">$ pwd</span><br><span class="line">&#x2F;c&#x2F;Users&#x2F;xueji&#x2F;Desktop&#x2F;repo&#x2F;test-repo</span><br><span class="line"></span><br><span class="line">xueji@xueji MINGW64 ~&#x2F;Desktop&#x2F;repo&#x2F;test-repo (master)</span><br><span class="line">$ cd ..</span><br><span class="line"></span><br><span class="line">xueji@xueji MINGW64 ~&#x2F;Desktop&#x2F;repo</span><br><span class="line">$ rm -rf test-repo&#x2F;</span><br><span class="line">$ git -c http.sslVerify&#x3D;false clone https:&#x2F;&#x2F;gitlab.example.com&#x2F;root&#x2F;test-repo.git</span><br><span class="line">Cloning into &#39;test-repo&#39;...</span><br><span class="line">remote: Enumerating objects: 3, done.</span><br><span class="line">remote: Counting objects: 100% (3&#x2F;3), done.</span><br><span class="line">remote: Total 3 (delta 0), reused 0 (delta 0)</span><br><span class="line">Unpacking objects: 100% (3&#x2F;3), done.</span><br><span class="line">#  这一步就很尴尬了，本来是想要验证dev账户的，谁知道什么都不需要输入就直接可以clone下来。</span><br><span class="line">xueji@xueji MINGW64 ~&#x2F;Desktop&#x2F;repo</span><br><span class="line">$ ls</span><br><span class="line">test-repo&#x2F;</span><br><span class="line"></span><br><span class="line">xueji@xueji MINGW64 ~&#x2F;Desktop&#x2F;repo</span><br><span class="line">$ ls test-repo&#x2F;</span><br><span class="line">test.py</span><br><span class="line"></span><br><span class="line">xueji@xueji MINGW64 ~&#x2F;Desktop&#x2F;repo</span><br><span class="line">$ cd test-repo&#x2F;</span><br><span class="line"></span><br><span class="line">xueji@xueji MINGW64 ~&#x2F;Desktop&#x2F;repo&#x2F;test-repo (master)</span><br><span class="line">$ git checkout -b release-1.0   #创建开发人员版本</span><br><span class="line">Switched to a new branch &#39;release-1.0&#39;</span><br><span class="line">xueji@xueji MINGW64 ~&#x2F;Desktop&#x2F;repo&#x2F;test-repo (release-1.0)</span><br><span class="line">$ ls</span><br><span class="line">test.py</span><br><span class="line"></span><br><span class="line">xueji@xueji MINGW64 ~&#x2F;Desktop&#x2F;repo&#x2F;test-repo (release-1.0)</span><br><span class="line">$ vim test.py</span><br><span class="line">xueji@xueji MINGW64 ~&#x2F;Desktop&#x2F;repo&#x2F;test-repo (release-1.0)</span><br><span class="line">$ cat test.py</span><br><span class="line">print(&quot;This is a test python file for release-1.0!&quot;)</span><br><span class="line">xueji@xueji MINGW64 ~&#x2F;Desktop&#x2F;repo&#x2F;test-repo (release-1.0)</span><br><span class="line">$ git -c http.sslVerify&#x3D;false push origin release-1.0</span><br><span class="line">Enumerating objects: 5, done.</span><br><span class="line">Counting objects: 100% (5&#x2F;5), done.</span><br><span class="line">Delta compression using up to 4 threads</span><br><span class="line">Compressing objects: 100% (2&#x2F;2), done.</span><br><span class="line">Writing objects: 100% (3&#x2F;3), 287 bytes | 287.00 KiB&#x2F;s, done.</span><br><span class="line">Total 3 (delta 0), reused 0 (delta 0)</span><br><span class="line">remote:</span><br><span class="line">remote: To create a merge request for release-1.0, visit:</span><br><span class="line">remote:   https:&#x2F;&#x2F;gitlab.example.com&#x2F;root&#x2F;test-repo&#x2F;merge_requests&#x2F;new?merge_request%5Bsource_branch%5D&#x3D;release-1.0</span><br><span class="line">remote:</span><br><span class="line">To https:&#x2F;&#x2F;gitlab.example.com&#x2F;root&#x2F;test-repo.git</span><br><span class="line"> * [new branch]      release-1.0 -&gt; release-1.0</span><br><span class="line">#  我靠，估计版本不一样，这一步不需要输入账户名和密码</span><br></pre></td></tr></table></figure>
+
+<p>返回gitlab的浏览器页面</p>
+<img src="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/804543-20190102180851535-2098739677.png" class title="img">
+
+<img src="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/804543-20190102180912746-365779940.png" class title="img">
+
+<p> 使用开发账户登录</p>
+<img src="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/804543-20190102202149369-1982672005.png" class title="img">
+
+<p>设置新密码</p>
+<img src="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/804543-20190102202530519-730722560.png" class title="img">
+
+<img src="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/804543-20190102202651084-1127147532.png" class title="img">
+
+<p> 至此，gitlab安装配置完成，接下来演示gitlab应用：</p>
+<p>开发人员创建一个分支，然后发申请到主管请求合并到主分支，</p>
+<p>回到gitbash命令行，首先删除之前的test-repo目录：</p>
+<img src="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/804543-20190106080255311-216023418.png" class title="img">
+
+<p>然后使用dev账号登陆gitlab，并复制gitlab仓库地址：</p>
+<img src="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/804543-20190106080504843-764533681.png" class title="img">
+
+<p>本地提交并推送到gitlab远端：</p>
+<img src="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/804543-20190106080550570-591512284.png" class title="img">
+
+<p>开始提交合并到主分支的申请</p>
+<img src="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/804543-20190106080711039-283092739.png" class title="img">
+
+<img src="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/804543-20190106080747722-293518077.png" class title="img">
+
+<img src="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/804543-20190106081015734-905282817.png" class title="img">
+
+<img src="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/804543-20190106081027714-647433423.png" class title="img">
+
+<img src="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/804543-20190106081223203-663097162.png" class title="img">
+
+<img src="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/804543-20190106081345859-1974744297.png" class title="img">
+
+<p>接着退出当前的dev账号，使用lead账号登录，同样lead账号首次登录需要更改密码，步骤同dev一样：</p>
+<img src="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/804543-20190106081654799-1325405956.png" class title="img">
+
+<img src="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/804543-20190106081737842-576013049.png" class title="img">
+
+ <img src="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/804543-20190106081834712-1983955035.png" class title="img">
+
+<img src="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/804543-20190106082118521-107543261.png" class title="img">
+
+<img src="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/804543-20190106082235982-1151283651.png" class title="img">
+
+<img src="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/804543-20190106082302424-429176945.png" class title="img">
+
+
+
+ <img src="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/804543-20190106082334050-1662187133.png" class title="img">
+
+<img src="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/804543-20190106082350221-411675038.png" class title="img">
+
+<p>jenkins的配置与使用见Jenkins+Gitlab+Ansible自动化部署(二)</p>
+
+    </div>
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+  <div class="followme">
+    <span>欢迎关注我的其它发布渠道</span>
+
+    <div class="social-list">
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="/atom.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
+
+            <span class="label">RSS</span>
+          </a>
+        </div>
+    </div>
+  </div>
+
+          <div class="post-tags">
+              <a href="/sugw.github.io/tags/%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2/" rel="tag"># 自动部署</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/sugw.github.io/2020/11/23/prometheus-pushgateway/" rel="prev" title="Prometheus-pushgateway">
+                  <i class="fa fa-chevron-left"></i> Prometheus-pushgateway
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+  
+  
+  
+
+
+
+      
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      
+
+      
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">guowei su</span>
+</div>
+
+<div>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span id="busuanzi_container_site_pv" style='display:none'>
+    本站总访问量 <span id="busuanzi_value_site_pv"></span> 次
+    <span class="post-meta-divider">|</span>
+</span>
+<span id="busuanzi_container_site_uv" style='display:none'>
+    有<span id="busuanzi_value_site_uv"></span>人看过我的博客啦
+</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">111k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">1:41</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+
+
+    </div>
+  </footer>
+
+  
+  <script size="300" alpha="0.6" zIndex="-1" src="//cdn.jsdelivr.net/npm/ribbon.js@1.0.2/dist/ribbon.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/animejs@3.2.0/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/@next-theme/pjax@0.4.0/pjax.min.js"></script>
+<script src="/sugw.github.io/js/utils.js"></script><script src="/sugw.github.io/js/motion.js"></script><script src="/sugw.github.io/js/next-boot.js"></script>
+  <script>
+var pjax = new Pjax({
+  selectors: [
+    'head title',
+    '.page-configurations',
+    '.main-inner',
+    '.post-toc-wrap',
+    '.languages',
+    '.pjax'
+  ],
+  analytics: false,
+  cacheBust: false,
+  scrollRestoration: false,
+  scrollTo: !CONFIG.bookmark.enable
+});
+
+document.addEventListener('pjax:success', () => {
+  pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+  NexT.boot.refresh();
+  // Define Motion Sequence & Bootstrap Motion.
+  if (CONFIG.motion.enable) {
+    NexT.motion.integrator
+      .init()
+      .add(NexT.motion.middleWares.subMenu)
+      .add(NexT.motion.middleWares.postList)
+      .bootstrap();
+  }
+  const hasTOC = document.querySelector('.post-toc');
+  document.querySelector('.sidebar-inner').classList.toggle('sidebar-nav-active', hasTOC);
+  document.querySelector(hasTOC ? '.sidebar-nav-toc' : '.sidebar-nav-overview').click();
+  NexT.utils.updateSidebarPosition();
+});
+</script>
+
+
+  
+
+
+
+
+  <script src="/sugw.github.io/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+
+
+
+    <div class="pjax">
+  
+
+  
+<script>
+NexT.utils.loadComments('#valine-comments', () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', () => {
+    new Valine(Object.assign({
+      el  : '#valine-comments',
+      path: "/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/",
+    }, {"enable":true,"appId":"Rvi5XTbIGoBGqGhM3SdPXNnc-gzGzoHsz","appKey":"tsLwTwnG13sIxCOXRrDVxPqW","placeholder":"Just go go","avatar":"mm","meta":["nick","mail","link"],"pageSize":10,"lang":null,"visitor":false,"comment_count":true,"recordIP":false,"serverURLs":null,"enableQQ":false,"requiredFields":[]}
+    ));
+  }, window.Valine);
+});
+</script>
+
+    </div>
+<!-- hexo injector body_end start --><script src="https://cdn.jsdelivr.net/npm/hexo-widget-tree@0.0.5/js/index.js"></script><div id="widget-tree">
+      <ul><li class="tree-list-item"><i class="toggle-post-icon gg-folder-add"></i><a class="tree-list-link" href="/sugw.github.io/categories/Jenkins-Gitlab-Ansible/">Jenkins+Gitlab+Ansible</a><ul class="tree-list-children"><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/" title="Jenkins+Gitlab+Ansible自动化部署(一)"><i class="post-icon gg-file-document"></i>Jenkins+Gitlab+Ansible自动化部署(一)</a></li></ul></li><li class="tree-list-item"><i class="toggle-post-icon gg-folder-add"></i><a class="tree-list-link" href="/sugw.github.io/categories/Linux/">Linux</a><ul class="tree-list-children"><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2020/10/28/Firewalld/" title="Firewalld"><i class="post-icon gg-file-document"></i>Firewalld</a></li><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2020/10/28/centos6.8%20%E5%AE%89%E8%A3%85supervisor/" title="centos6.8 安装supervisor"><i class="post-icon gg-file-document"></i>centos6.8 安装supervisor</a></li><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2020/10/21/linux%20%E7%A3%81%E7%9B%98%E6%BB%A1/" title="linux 磁盘"><i class="post-icon gg-file-document"></i>linux 磁盘</a></li><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2020/11/20/linux%E5%86%85%E6%A0%B8%E4%BC%98%E5%8C%96/" title="linux内核优化"><i class="post-icon gg-file-document"></i>linux内核优化</a></li><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2020/10/28/nginx%E9%98%BB%E6%AD%A2IP%E8%AE%BF%E9%97%AE%E5%AE%9E%E4%BE%8B/" title="nginx 阻止IP访问实例"><i class="post-icon gg-file-document"></i>nginx 阻止IP访问实例</a></li><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2020/11/03/Centos67%20%E5%AE%89%E8%A3%85PHP7.3%E6%95%99%E7%A8%8B/" title="Centos6/7 安装PHP7.3教程"><i class="post-icon gg-file-document"></i>Centos6/7 安装PHP7.3教程</a></li></ul></li><li class="tree-list-item"><i class="toggle-post-icon gg-folder-add"></i><a class="tree-list-link" href="/sugw.github.io/categories/Mac/">Mac</a><ul class="tree-list-children"><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2020/10/26/mac%20for%20supervisor/" title="Mac start hexo for supervisor"><i class="post-icon gg-file-document"></i>Mac start hexo for supervisor</a></li></ul></li><li class="tree-list-item"><i class="toggle-post-icon gg-folder-add"></i><a class="tree-list-link" href="/sugw.github.io/categories/PHP/">PHP</a><ul class="tree-list-children"><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2020/11/19/PHP-FPM%20%E8%AE%BE%E7%BD%AE%E5%A4%9Apool%E3%80%81%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E9%87%8D%E5%86%99/" title="PHP-FPM 设置多pool、配置文件重写"><i class="post-icon gg-file-document"></i>PHP-FPM 设置多pool、配置文件重写</a></li><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2020/11/19/PHP-php-fpm%E9%85%8D%E7%BD%AE%E4%BC%98%E5%8C%96/" title="PHP-php-fpm配置优化"><i class="post-icon gg-file-document"></i>PHP-php-fpm配置优化</a></li></ul></li><li class="tree-list-item"><i class="toggle-post-icon gg-folder-add"></i><a class="tree-list-link" href="/sugw.github.io/categories/ansible/">ansible</a><ul class="tree-list-children"><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2020/11/20/ansible%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1%E5%92%8C%E7%94%A8%E6%88%B7%E7%BB%84%E6%A8%A1%E5%9D%97%E4%BD%BF%E7%94%A8/" title="ansible定时任务和用户组模块使用"><i class="post-icon gg-file-document"></i>ansible定时任务和用户组模块使用</a></li></ul></li><li class="tree-list-item"><i class="toggle-post-icon gg-folder-add"></i><a class="tree-list-link" href="/sugw.github.io/categories/wiki/">wiki</a><ul class="tree-list-children"><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2020/11/13/mediawiki%20lockdown%E6%9D%83%E9%99%90%E9%85%8D%E7%BD%AE/" title="mediawiki lockdown权限配置"><i class="post-icon gg-file-document"></i>mediawiki lockdown权限配置</a></li><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2020/11/13/mediawiki%E5%AE%89%E8%A3%85/" title="mediawiki安装"><i class="post-icon gg-file-document"></i>mediawiki安装</a></li><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2020/11/13/mediawiki%E6%82%AC%E6%B5%AE%E7%9B%AE%E5%BD%95/" title="mediawiki悬浮目录"><i class="post-icon gg-file-document"></i>mediawiki悬浮目录</a></li></ul></li><li class="tree-list-item"><i class="toggle-post-icon gg-folder-add"></i><a class="tree-list-link" href="/sugw.github.io/categories/%E4%BC%98%E5%8C%96/">优化</a><ul class="tree-list-children"><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2020/11/19/Nginx%E4%BC%98%E5%8C%96%E8%AF%A6%E8%A7%A3/" title="Nginx优化详解"><i class="post-icon gg-file-document"></i>Nginx优化详解</a></li></ul></li><li class="tree-list-item"><i class="toggle-post-icon gg-folder-add"></i><a class="tree-list-link" href="/sugw.github.io/categories/%E6%8E%A5%E5%8F%A3%E7%AE%A1%E7%90%86/">接口管理</a><ul class="tree-list-children"><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2020/11/18/DOClever-for-centos7%E5%AE%89%E8%A3%85/" title="DOClever for centos7安装"><i class="post-icon gg-file-document"></i>DOClever for centos7安装</a></li></ul></li><li class="tree-list-item"><i class="toggle-post-icon gg-folder-add"></i><a class="tree-list-link" href="/sugw.github.io/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a><ul class="tree-list-children"><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2020/10/27/Mysql%20%E5%BA%93%E6%9F%A5%E8%AF%A2%E5%A4%A7%E5%B0%8F/" title="Mysql数据库查询大小"><i class="post-icon gg-file-document"></i>Mysql数据库查询大小</a></li><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2020/10/27/Mysql%20%E6%89%B9%E9%87%8F%E5%88%A0%E9%99%A4%E8%A1%A8/" title="Mysql 批量删除表"><i class="post-icon gg-file-document"></i>Mysql 批量删除表</a></li><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2020/11/17/Mysqldump%E5%A4%87%E4%BB%BD%E6%95%B0%E6%8D%AE%E5%BA%93%E6%97%B6%E6%8E%92%E9%99%A4%E6%9F%90%E4%BA%9B%E5%BA%93/" title="Mysqldump备份数据库时排除某些库"><i class="post-icon gg-file-document"></i>Mysqldump备份数据库时排除某些库</a></li></ul></li><li class="tree-list-item"><i class="toggle-post-icon gg-folder-add"></i><a class="tree-list-link" href="/sugw.github.io/categories/%E6%B5%8B%E8%AF%95/">测试</a><ul class="tree-list-children"><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2020/11/19/ab%E5%8E%8B%E6%B5%8B%E5%B7%A5%E5%85%B7/" title="ab压测工具"><i class="post-icon gg-file-document"></i>ab压测工具</a></li></ul></li><li class="tree-list-item"><i class="toggle-post-icon gg-folder-add"></i><a class="tree-list-link" href="/sugw.github.io/categories/%E7%9B%91%E6%8E%A7/">监控</a><ul class="tree-list-children"><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2020/10/26/Prometheus%E7%9B%91%E6%8E%A7node_exporter%E7%9A%84%E5%91%8A%E8%AD%A6%E8%A7%84%E5%88%99/" title="Prometheus监控node_exporter的告警规则"><i class="post-icon gg-file-document"></i>Prometheus监控node_exporter的告警规则</a></li><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2020/11/23/prometheus-pushgateway/" title="Prometheus-pushgateway"><i class="post-icon gg-file-document"></i>Prometheus-pushgateway</a></li></ul></li></ul>
+        <div id="widget-tree-button">
+          <i class="gg-chevron-right"></i>
+        </div>
+      </div><!-- hexo injector body_end end --><script src="/sugw.github.io/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"live2d-widget-model-chitose"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false});</script></body>
+</html>
