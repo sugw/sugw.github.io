@@ -228,17 +228,17 @@ color="220,220,220" opacity='0.7' zIndex="-2" count="200" src="//cdn.bootcss.com
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/sugw.github.io/archives">
-          <span class="site-state-item-count">24</span>
+          <span class="site-state-item-count">30</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/sugw.github.io/categories/">
-        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-count">12</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-count">15</span>
         <span class="site-state-item-name">标签</span>
       </div>
   </nav>
@@ -273,7 +273,7 @@ color="220,220,220" opacity='0.7' zIndex="-2" count="200" src="//cdn.bootcss.com
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://sugw.github.io/sugw.github.io/2020/11/20/linux%E5%86%85%E6%A0%B8%E4%BC%98%E5%8C%96/">
+    <link itemprop="mainEntityOfPage" href="https://sugw.github.io/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E5%9B%9B)/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/sugw.github.io/images/291603183698.jpg">
@@ -290,231 +290,7 @@ color="220,220,220" opacity='0.7' zIndex="-2" count="200" src="//cdn.bootcss.com
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/sugw.github.io/2020/11/20/linux%E5%86%85%E6%A0%B8%E4%BC%98%E5%8C%96/" class="post-title-link" itemprop="url">linux内核优化</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-      
-
-      <time title="创建时间：2020-11-20 15:36:05 / 修改时间：16:14:21" itemprop="dateCreated datePublished" datetime="2020-11-20T15:36:05+08:00">2020-11-20</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/sugw.github.io/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/sugw.github.io/2020/11/20/linux%E5%86%85%E6%A0%B8%E4%BC%98%E5%8C%96/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/sugw.github.io/2020/11/20/linux%E5%86%85%E6%A0%B8%E4%BC%98%E5%8C%96/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>4.4k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>4 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h3 id="一、配置国内源和epel"><a href="#一、配置国内源和epel" class="headerlink" title="一、配置国内源和epel"></a>一、配置国内源和epel</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">cd &#x2F;etc&#x2F;yum.repos.d&#x2F;</span><br><span class="line">mkdir repo_bak</span><br><span class="line">mv *.repo repo_bak&#x2F;</span><br><span class="line">#基础源文件</span><br><span class="line">wget -P &#x2F;etc&#x2F;yum.repos.d&#x2F; http:&#x2F;&#x2F;mirrors.aliyun.com&#x2F;repo&#x2F;Centos-7.repo</span><br><span class="line">#epel源文件</span><br><span class="line">wget -O &#x2F;etc&#x2F;yum.repos.d&#x2F;epel-7.repo http:&#x2F;&#x2F;mirrors.aliyun.com&#x2F;repo&#x2F;epel-7.repo</span><br><span class="line">#重新生成yum缓存</span><br><span class="line">yum clean all</span><br><span class="line">yum makecache</span><br><span class="line">#同步时间</span><br><span class="line">yum -y install ntp</span><br><span class="line">&#x2F;usr&#x2F;sbin&#x2F;ntpdate ntp1.aliyun.com</span><br><span class="line">echo &quot;* 04 * * * &#x2F;usr&#x2F;sbin&#x2F;ntpdate ntp1.aliyun.com &gt;&#x2F;dev&#x2F;null 2&gt;&amp;1&quot; &gt;&gt;&#x2F;var&#x2F;spool&#x2F;cron&#x2F;root</span><br><span class="line"></span><br><span class="line">#禁用selinux</span><br><span class="line">sed -i &#39;s&#x2F;SELINUX&#x3D;enforcing&#x2F;SELINUX&#x3D;disabled&#x2F;&#39; &#x2F;etc&#x2F;selinux&#x2F;config</span><br><span class="line">setenforce 0</span><br><span class="line"></span><br><span class="line">#set ssh</span><br><span class="line">sed -i &#39;s&#x2F;^GSSAPIAuthentication yes$&#x2F;GSSAPIAuthentication no&#x2F;&#39; &#x2F;etc&#x2F;ssh&#x2F;sshd_config</span><br><span class="line">sed -i &#39;s&#x2F;#UseDNS yes&#x2F;UseDNS no&#x2F;&#39; &#x2F;etc&#x2F;ssh&#x2F;sshd_config</span><br><span class="line">systemctl  restart sshd.service</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h3 id="二、安装基础依赖包"><a href="#二、安装基础依赖包" class="headerlink" title="二、安装基础依赖包"></a>二、安装基础依赖包</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">yum install -y htop lrzsz nmap screen man expect \</span><br><span class="line">gcc gcc-c++ autoconf automake bzip2-devel \</span><br><span class="line">openssl-devel multitail kernel-devel \</span><br><span class="line">pam-devel zlib-devel perl-devel tcp_wrappers-devel</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="三、关闭selinux"><a href="#三、关闭selinux" class="headerlink" title="三、关闭selinux"></a>三、关闭selinux</h3>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/sugw.github.io/2020/11/20/linux%E5%86%85%E6%A0%B8%E4%BC%98%E5%8C%96/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-  
-  
-  
-
-    
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://sugw.github.io/sugw.github.io/2020/11/19/PHP-FPM%20%E8%AE%BE%E7%BD%AE%E5%A4%9Apool%E3%80%81%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E9%87%8D%E5%86%99/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/sugw.github.io/images/291603183698.jpg">
-      <meta itemprop="name" content="guowei su">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="一只小笨鸟">
-    </span>
-
-    
-    
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/sugw.github.io/2020/11/19/PHP-FPM%20%E8%AE%BE%E7%BD%AE%E5%A4%9Apool%E3%80%81%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E9%87%8D%E5%86%99/" class="post-title-link" itemprop="url">PHP-FPM 设置多pool、配置文件重写</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-      
-
-      <time title="创建时间：2020-11-19 18:00:00 / 修改时间：18:02:12" itemprop="dateCreated datePublished" datetime="2020-11-19T18:00:00+08:00">2020-11-19</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/sugw.github.io/categories/PHP/" itemprop="url" rel="index"><span itemprop="name">PHP</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/sugw.github.io/2020/11/19/PHP-FPM%20%E8%AE%BE%E7%BD%AE%E5%A4%9Apool%E3%80%81%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E9%87%8D%E5%86%99/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/sugw.github.io/2020/11/19/PHP-FPM%20%E8%AE%BE%E7%BD%AE%E5%A4%9Apool%E3%80%81%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E9%87%8D%E5%86%99/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>4.3k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>4 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p><strong>重写配置文件</strong></p>
-<p><strong>1</strong>、清空php配置文件</p>
-<p>命令：&gt; /usr/local/php/etc/php-fpm.conf</p>
-<p><strong>2</strong>、重新写入php-fpm配置</p>
-<p>命令：vim /usr/local/php/etc/php-fpm.conf</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/sugw.github.io/2020/11/19/PHP-FPM%20%E8%AE%BE%E7%BD%AE%E5%A4%9Apool%E3%80%81%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E9%87%8D%E5%86%99/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-  
-  
-  
-
-    
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://sugw.github.io/sugw.github.io/2020/11/19/PHP-php-fpm%E9%85%8D%E7%BD%AE%E4%BC%98%E5%8C%96/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/sugw.github.io/images/291603183698.jpg">
-      <meta itemprop="name" content="guowei su">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="一只小笨鸟">
-    </span>
-
-    
-    
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/sugw.github.io/2020/11/19/PHP-php-fpm%E9%85%8D%E7%BD%AE%E4%BC%98%E5%8C%96/" class="post-title-link" itemprop="url">PHP-php-fpm配置优化</a>
+            <a href="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E5%9B%9B)/" class="post-title-link" itemprop="url">Jenkins+Gitlab+Ansible自动化部署(四)</a>
         </h2>
 
         <div class="post-meta-container">
@@ -525,14 +301,14 @@ color="220,220,220" opacity='0.7' zIndex="-2" count="200" src="//cdn.bootcss.com
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2020-11-19 17:53:18" itemprop="dateCreated datePublished" datetime="2020-11-19T17:53:18+08:00">2020-11-19</time>
+      <time title="创建时间：2020-11-26 19:08:52" itemprop="dateCreated datePublished" datetime="2020-11-26T19:08:52+08:00">2020-11-26</time>
     </span>
       <span class="post-meta-item">
         <span class="post-meta-item-icon">
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2020-11-20 15:35:07" itemprop="dateModified" datetime="2020-11-20T15:35:07+08:00">2020-11-20</time>
+        <time title="修改时间：2020-11-27 09:56:59" itemprop="dateModified" datetime="2020-11-27T09:56:59+08:00">2020-11-27</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -540,7 +316,7 @@ color="220,220,220" opacity='0.7' zIndex="-2" count="200" src="//cdn.bootcss.com
       </span>
       <span class="post-meta-item-text">分类于</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/sugw.github.io/categories/PHP/" itemprop="url" rel="index"><span itemprop="name">PHP</span></a>
+          <a href="/sugw.github.io/categories/Jenkins-Gitlab-Ansible/" itemprop="url" rel="index"><span itemprop="name">Jenkins+Gitlab+Ansible</span></a>
         </span>
     </span>
 
@@ -553,8 +329,8 @@ color="220,220,220" opacity='0.7' zIndex="-2" count="200" src="//cdn.bootcss.com
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/sugw.github.io/2020/11/19/PHP-php-fpm%E9%85%8D%E7%BD%AE%E4%BC%98%E5%8C%96/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/sugw.github.io/2020/11/19/PHP-php-fpm%E9%85%8D%E7%BD%AE%E4%BC%98%E5%8C%96/" itemprop="commentCount"></span>
+    <a title="valine" href="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E5%9B%9B)/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E5%9B%9B)/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -564,14 +340,14 @@ color="220,220,220" opacity='0.7' zIndex="-2" count="200" src="//cdn.bootcss.com
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>11k</span>
+      <span>29k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>10 分钟</span>
+      <span>26 分钟</span>
     </span>
 </div>
 
@@ -582,15 +358,15 @@ color="220,220,220" opacity='0.7' zIndex="-2" count="200" src="//cdn.bootcss.com
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>前言:</p>
-<p>　　1.少安装PHP模块, 费内存</p>
-<p>　　2.调高linux内核打开文件数量，可以使用这些命令(必须是root帐号)(我是修改/etc/rc.local，加入ulimit -SHn 51200的)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">echo &#96;ulimit -HSn 65536&#96; &gt;&gt; &#x2F;etc&#x2F;profile</span><br><span class="line">echo &#96;ulimit -HSn 65536&#96; &gt;&gt; &#x2F;etc&#x2F;rc.local</span><br><span class="line">source &#x2F;etc&#x2F;profile </span><br></pre></td></tr></table></figure>
+          <p><strong>Jenkins应用</strong></p>
+<p>Jenkins Linux Shell集成</p>
+<p>登录Jenkins web管理页，点击新建任务</p>
+<img src="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E5%9B%9B)/804543-20190109151723046-524146976-20201127095232069.png" class title="img">
 
-<p>　　如果<code>ulimit -n</code>数量依旧不多(即上面配置没生效)的话, 可以在 /etc/security/limits.conf 文件最后加上</p>
+<p>添加描述信息</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/sugw.github.io/2020/11/19/PHP-php-fpm%E9%85%8D%E7%BD%AE%E4%BC%98%E5%8C%96/#more" rel="contents">
+              <a class="btn" href="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E5%9B%9B)/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -615,7 +391,7 @@ color="220,220,220" opacity='0.7' zIndex="-2" count="200" src="//cdn.bootcss.com
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://sugw.github.io/sugw.github.io/2020/11/19/ab%E5%8E%8B%E6%B5%8B%E5%B7%A5%E5%85%B7/">
+    <link itemprop="mainEntityOfPage" href="https://sugw.github.io/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%89)/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/sugw.github.io/images/291603183698.jpg">
@@ -632,7 +408,7 @@ color="220,220,220" opacity='0.7' zIndex="-2" count="200" src="//cdn.bootcss.com
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/sugw.github.io/2020/11/19/ab%E5%8E%8B%E6%B5%8B%E5%B7%A5%E5%85%B7/" class="post-title-link" itemprop="url">ab压测工具</a>
+            <a href="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%89)/" class="post-title-link" itemprop="url">Jenkins+Gitlab+Ansible自动化部署(三)</a>
         </h2>
 
         <div class="post-meta-container">
@@ -642,17 +418,23 @@ color="220,220,220" opacity='0.7' zIndex="-2" count="200" src="//cdn.bootcss.com
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
-      
 
-      <time title="创建时间：2020-11-19 15:58:50 / 修改时间：15:59:29" itemprop="dateCreated datePublished" datetime="2020-11-19T15:58:50+08:00">2020-11-19</time>
+      <time title="创建时间：2020-11-26 18:54:18" itemprop="dateCreated datePublished" datetime="2020-11-26T18:54:18+08:00">2020-11-26</time>
     </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2020-12-01 18:41:19" itemprop="dateModified" datetime="2020-12-01T18:41:19+08:00">2020-12-01</time>
+      </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-folder"></i>
       </span>
       <span class="post-meta-item-text">分类于</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/sugw.github.io/categories/%E6%B5%8B%E8%AF%95/" itemprop="url" rel="index"><span itemprop="name">测试</span></a>
+          <a href="/sugw.github.io/categories/Jenkins-Gitlab-Ansible/" itemprop="url" rel="index"><span itemprop="name">Jenkins+Gitlab+Ansible</span></a>
         </span>
     </span>
 
@@ -665,8 +447,8 @@ color="220,220,220" opacity='0.7' zIndex="-2" count="200" src="//cdn.bootcss.com
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/sugw.github.io/2020/11/19/ab%E5%8E%8B%E6%B5%8B%E5%B7%A5%E5%85%B7/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/sugw.github.io/2020/11/19/ab%E5%8E%8B%E6%B5%8B%E5%B7%A5%E5%85%B7/" itemprop="commentCount"></span>
+    <a title="valine" href="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%89)/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%89)/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -676,120 +458,7 @@ color="220,220,220" opacity='0.7' zIndex="-2" count="200" src="//cdn.bootcss.com
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>2.5k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>2 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>ab压测参数：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">-n 测试会话中所执行的请求个数,默认仅执行一个请求 </span><br><span class="line">-c 一次产生的请求个数,即同一时间发出多少个请求,默认为一次一个 </span><br><span class="line">-t 测试所进行的最大秒数,默认为无时间限制....其内部隐含值是[-n 50000],它可以使对服务器的测试限制在一个固定的总时间以内 </span><br><span class="line">-p 包含了需要POST的数据的文件 </span><br><span class="line">-T POST数据所使用的Content-type头信息 </span><br><span class="line">-v 设置显示信息的详细程度 </span><br><span class="line">-w 以HTML表格的形式输出结果,默认是白色背景的两列宽度的一张表</span><br><span class="line">-i 以HTML表格的形式输出结果,默认是白色背景的两列宽度的一张表 </span><br><span class="line">-x 设置&lt;table&gt;属性的字符串,此属性被填入&lt;table 这里&gt; </span><br><span class="line">-y 设置&lt;tr&gt;属性的字符串 </span><br><span class="line">-z 设置&lt;td&gt;属性的字符串 </span><br><span class="line">-C 对请求附加一个Cookie行，其典型形式是name&#x3D;value的参数对,此参数可以重复 </span><br><span class="line">-H 对请求附加额外的头信息,此参数的典型形式是一个有效的头信息行,其中包含了以冒号分隔的字段和值的对(如&quot;Accept-Encoding: zip&#x2F;zop;8bit&quot;) </span><br><span class="line">-A HTTP验证,用冒号:分隔传递用户名及密码 </span><br><span class="line">-P 无论服务器是否需要(即是否发送了401认证需求代码),此字符串都会被发送 </span><br><span class="line">-X 对请求使用代理服务器 </span><br><span class="line">-V 显示版本号并退出 </span><br><span class="line">-k 启用HTTP KeepAlive功能,即在一个HTTP会话中执行多个请求,默认为不启用KeepAlive功能 </span><br><span class="line">-d 不显示&quot;percentage served within XX [ms] table&quot;的消息(为以前的版本提供支持) </span><br><span class="line">-S 不显示中值和标准背离值,且均值和中值为标准背离值的1到2倍时,也不显示警告或出错信息,默认会显示最小值&#x2F;均值&#x2F;最大值等(为以前的版本提供支持) </span><br><span class="line">-g 把所有测试结果写入一个&#39;gnuplot&#39;或者TSV(以Tab分隔的)文件 </span><br><span class="line">-e 产生一个以逗号分隔的(CSV)文件,其中包含了处理每个相应百分比的请求所需要(从1%到100%)的相应百分比的(以微妙为单位)时间 </span><br><span class="line">-h 显示使用方法 </span><br><span class="line">-k 发送keep-alive指令到服务器端</span><br></pre></td></tr></table></figure>
-
-<p>ab压测命令：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ab -n 10 -s 50000 -k &quot;http:&#x2F;&#x2F;127.0.0.1:9501&#x2F;?uid&#x3D;123&quot;</span><br></pre></td></tr></table></figure>
-
-<p>ab压测结果:</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/sugw.github.io/2020/11/19/ab%E5%8E%8B%E6%B5%8B%E5%B7%A5%E5%85%B7/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-  
-  
-  
-
-    
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://sugw.github.io/sugw.github.io/2020/11/19/Nginx%E4%BC%98%E5%8C%96%E8%AF%A6%E8%A7%A3/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/sugw.github.io/images/291603183698.jpg">
-      <meta itemprop="name" content="guowei su">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="一只小笨鸟">
-    </span>
-
-    
-    
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/sugw.github.io/2020/11/19/Nginx%E4%BC%98%E5%8C%96%E8%AF%A6%E8%A7%A3/" class="post-title-link" itemprop="url">Nginx优化详解</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-      
-
-      <time title="创建时间：2020-11-19 11:31:16 / 修改时间：16:03:22" itemprop="dateCreated datePublished" datetime="2020-11-19T11:31:16+08:00">2020-11-19</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/sugw.github.io/categories/%E4%BC%98%E5%8C%96/" itemprop="url" rel="index"><span itemprop="name">优化</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/sugw.github.io/2020/11/19/Nginx%E4%BC%98%E5%8C%96%E8%AF%A6%E8%A7%A3/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/sugw.github.io/2020/11/19/Nginx%E4%BC%98%E5%8C%96%E8%AF%A6%E8%A7%A3/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>8.3k</span>
+      <span>8.9k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -807,12 +476,424 @@ color="220,220,220" opacity='0.7' zIndex="-2" count="200" src="//cdn.bootcss.com
     
     
     <div class="post-body" itemprop="articleBody">
-          <h2 id="一、一般来说nginx-配置文件中对优化比较有作用的为以下几项："><a href="#一、一般来说nginx-配置文件中对优化比较有作用的为以下几项：" class="headerlink" title="一、一般来说nginx 配置文件中对优化比较有作用的为以下几项："></a><strong>一、一般来说nginx 配置文件中对优化比较有作用的为以下几项：</strong></h2><h3 id="1-worker-processes-8"><a href="#1-worker-processes-8" class="headerlink" title="1. worker_processes 8;"></a><strong>1. worker_processes 8;</strong></h3><p>​     nginx 进程数，建议按照cpu 数目来指定，一般为它的倍数 (如,2个四核的cpu计为8)。</p>
-<p>   <strong>2. worker_cpu_affinity 00000001 00000010 00000100 00001000 00010000 00100000 01000000 10000000;</strong></p>
-<p>​     为每个进程分配cpu，上例中将8 个进程分配到8 个cpu，当然可以写多个，或者将一个进程分配到多个cpu。</p>
+          <p>接Jenkins+Gitlab+Ansible自动化部署（一）<a href="https://www.cnblogs.com/zd520pyx1314/p/10210727.html">https://www.cnblogs.com/zd520pyx1314/p/10210727.html</a> 和（二）<a href="https://www.cnblogs.com/zd520pyx1314/p/10213549.html">https://www.cnblogs.com/zd520pyx1314/p/10213549.html </a></p>
+<p>Jenkins是一个开源持续集成工具，提供了软甲你开发的持续集成服务，支持主流软件配置管理，配合实现软件配置管理，持续集成功能。是主流的运维开发平台，兼容所有主流开发环境，插件市场可与海量业内主流开发工具实现集成，Job为配置单位与日志管理，使运维与开发人员能协同工作。丰富的权限管理划分不同Job不同角色；强大的负载均衡功能，保证我们项目的可靠性。</p>
+<p><strong>Jenkins的安装、配置与管理</strong></p>
+<p>添加Jenkins yum仓库</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">官网地址</span><br><span class="line">https:&#x2F;&#x2F;pkg.jenkins.io&#x2F;redhat-stable&#x2F;</span><br></pre></td></tr></table></figure>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/sugw.github.io/2020/11/19/Nginx%E4%BC%98%E5%8C%96%E8%AF%A6%E8%A7%A3/#more" rel="contents">
+              <a class="btn" href="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%89)/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+  
+  
+  
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://sugw.github.io/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%BA%8C)/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/sugw.github.io/images/291603183698.jpg">
+      <meta itemprop="name" content="guowei su">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="一只小笨鸟">
+    </span>
+
+    
+    
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%BA%8C)/" class="post-title-link" itemprop="url">Jenkins+Gitlab+Ansible自动化部署(二)</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2020-11-26 18:47:07" itemprop="dateCreated datePublished" datetime="2020-11-26T18:47:07+08:00">2020-11-26</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2020-12-07 10:30:05" itemprop="dateModified" datetime="2020-12-07T10:30:05+08:00">2020-12-07</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/sugw.github.io/categories/Jenkins-Gitlab-Ansible/" itemprop="url" rel="index"><span itemprop="name">Jenkins+Gitlab+Ansible</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%BA%8C)/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%BA%8C)/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>32k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>29 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>接Jenkins+Gitlab+Ansbile自动化部署(一):</p>
+<p><a href="https://sugw.github.io/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/">https://sugw.github.io/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/</a></p>
+<p>Ansible的配置与部署</p>
+<table>
+<thead>
+<tr>
+<th>工具名称</th>
+<th>介绍</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Chef</td>
+<td>采用Ruby编写，C/S架构，配置需要Git依赖，Recipe脚本编写规范，需要良好的编程经验。</td>
+</tr>
+<tr>
+<td>Ansible</td>
+<td>采用Python编写，无Client，模块化配置管理，Playbook脚本编写规范，易于上手，适合中小规模快速部署。</td>
+</tr>
+<tr>
+<td>Saltstack</td>
+<td>采用Python编写，C/S架构，模块化配置管理，YAML脚本编写规范，内置异步文件服务器可以为客户端文件加快服务速度，适合大规模集群部署，但是需要安装客户端。</td>
+</tr>
+</tbody></table>
+<p>Ansible的优势和应用场景</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%BA%8C)/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+  
+  
+  
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://sugw.github.io/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/sugw.github.io/images/291603183698.jpg">
+      <meta itemprop="name" content="guowei su">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="一只小笨鸟">
+    </span>
+
+    
+    
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/" class="post-title-link" itemprop="url">Jenkins+Gitlab+Ansible自动化部署(一)</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2020-11-26 18:33:50" itemprop="dateCreated datePublished" datetime="2020-11-26T18:33:50+08:00">2020-11-26</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2020-11-30 10:54:01" itemprop="dateModified" datetime="2020-11-30T10:54:01+08:00">2020-11-30</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/sugw.github.io/categories/Jenkins-Gitlab-Ansible/" itemprop="url" rel="index"><span itemprop="name">Jenkins+Gitlab+Ansible</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>28k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>26 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="首先准备实验环境"><a href="#首先准备实验环境" class="headerlink" title="首先准备实验环境"></a>首先准备实验环境</h2><table>
+<thead>
+<tr>
+<th>虚拟机</th>
+<th>主机名</th>
+<th>IP地址</th>
+<th>服务</th>
+<th>系统版本</th>
+<th>内核版本</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Vmware Workstation 14</td>
+<td>gitlab.example.com</td>
+<td>20.10.1.249</td>
+<td>gitlab</td>
+<td>CentOS Linux release 7.5.1804 (Core)</td>
+<td>3.10.0-862.el7.x86_64</td>
+</tr>
+<tr>
+<td></td>
+<td>jenkins.example.com</td>
+<td>192.168.244.131</td>
+<td>jenkis</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>ansible.example.com</td>
+<td>192.168.244.132</td>
+<td>asible</td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<h2 id="hosts解析"><a href="#hosts解析" class="headerlink" title="hosts解析"></a>hosts解析</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">20.10.1.249 gitlab.example.com</span><br><span class="line">192.168.244.131 jenkins.example.com</span><br><span class="line">192.168.244.132 ansible.example.com</span><br></pre></td></tr></table></figure>
+
+<h2 id="关闭防火墙和selinux"><a href="#关闭防火墙和selinux" class="headerlink" title="关闭防火墙和selinux"></a>关闭防火墙和selinux</h2>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+  
+  
+  
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://sugw.github.io/sugw.github.io/2020/11/23/prometheus-pushgateway/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/sugw.github.io/images/291603183698.jpg">
+      <meta itemprop="name" content="guowei su">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="一只小笨鸟">
+    </span>
+
+    
+    
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/sugw.github.io/2020/11/23/prometheus-pushgateway/" class="post-title-link" itemprop="url">Prometheus-pushgateway</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2020-11-23 18:09:28" itemprop="dateCreated datePublished" datetime="2020-11-23T18:09:28+08:00">2020-11-23</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2020-11-24 14:47:30" itemprop="dateModified" datetime="2020-11-24T14:47:30+08:00">2020-11-24</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/sugw.github.io/categories/%E7%9B%91%E6%8E%A7/" itemprop="url" rel="index"><span itemprop="name">监控</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/sugw.github.io/2020/11/23/prometheus-pushgateway/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/sugw.github.io/2020/11/23/prometheus-pushgateway/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>9.3k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>8 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="一、Pushgateway-简介"><a href="#一、Pushgateway-简介" class="headerlink" title="一、Pushgateway 简介"></a>一、Pushgateway 简介</h1><p><a href="https://github.com/prometheus/pushgateway">Pushgateway</a> 是 Prometheus 生态中一个重要工具，使用它的原因主要是：</p>
+<ul>
+<li>Prometheus 采用 pull 模式，可能由于不在一个子网或者防火墙原因，导致 Prometheus 无法直接拉取各个 target 数据。</li>
+<li>在监控业务数据的时候，需要将不同数据汇总, 由 Prometheus 统一收集。</li>
+</ul>
+<p>由于以上原因，不得不使用 pushgateway，但在使用之前，有必要了解一下它的一些弊端：</p>
+<ul>
+<li>将多个节点数据汇总到 pushgateway, 如果 pushgateway 挂了，受影响比多个 target 大。</li>
+<li>Prometheus 拉取状态 <code>up</code> 只针对 pushgateway, 无法做到对每个节点有效。</li>
+<li>Pushgateway 可以持久化推送给它的所有监控数据。</li>
+</ul>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/sugw.github.io/2020/11/23/prometheus-pushgateway/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -836,7 +917,7 @@ color="220,220,220" opacity='0.7' zIndex="-2" count="200" src="//cdn.bootcss.com
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/sugw.github.io/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/sugw.github.io/">1</a><span class="page-number current">2</span><a class="page-number" href="/sugw.github.io/page/3/">3</a><a class="page-number" href="/sugw.github.io/page/4/">4</a><a class="page-number" href="/sugw.github.io/page/5/">5</a><a class="extend next" rel="next" href="/sugw.github.io/page/3/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/sugw.github.io/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/sugw.github.io/">1</a><span class="page-number current">2</span><a class="page-number" href="/sugw.github.io/page/3/">3</a><a class="page-number" href="/sugw.github.io/page/4/">4</a><a class="page-number" href="/sugw.github.io/page/5/">5</a><a class="page-number" href="/sugw.github.io/page/6/">6</a><a class="extend next" rel="next" href="/sugw.github.io/page/3/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -899,13 +980,13 @@ color="220,220,220" opacity='0.7' zIndex="-2" count="200" src="//cdn.bootcss.com
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">168k</span>
+    <span title="站点总字数">263k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">2:32</span>
+    <span title="站点阅读时长">3:59</span>
   </span>
 </div>
 <div class="busuanzi-count">
@@ -1021,7 +1102,7 @@ NexT.utils.loadComments('#valine-comments', () => {
 
     </div>
 <!-- hexo injector body_end start --><script src="https://cdn.jsdelivr.net/npm/hexo-widget-tree@0.0.5/js/index.js"></script><div id="widget-tree">
-      <ul><li class="tree-list-item"><i class="toggle-post-icon gg-folder-add"></i><a class="tree-list-link" href="/sugw.github.io/categories/Jenkins-Gitlab-Ansible/">Jenkins+Gitlab+Ansible</a><ul class="tree-list-children"><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%89)/" title="Jenkins+Gitlab+Ansible自动化部署(三)"><i class="post-icon gg-file-document"></i>Jenkins+Gitlab+Ansible自动化部署(三)</a></li><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/" title="Jenkins+Gitlab+Ansible自动化部署(一)"><i class="post-icon gg-file-document"></i>Jenkins+Gitlab+Ansible自动化部署(一)</a></li><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%BA%8C)/" title="Jenkins+Gitlab+Ansible自动化部署(二)"><i class="post-icon gg-file-document"></i>Jenkins+Gitlab+Ansible自动化部署(二)</a></li></ul></li><li class="tree-list-item"><i class="toggle-post-icon gg-folder-add"></i><a class="tree-list-link" href="/sugw.github.io/categories/Linux/">Linux</a><ul class="tree-list-children"><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2020/10/28/Firewalld/" title="Firewalld"><i class="post-icon gg-file-document"></i>Firewalld</a></li><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2020/10/28/centos6.8%20%E5%AE%89%E8%A3%85supervisor/" title="centos6.8 安装supervisor"><i class="post-icon gg-file-document"></i>centos6.8 安装supervisor</a></li><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2020/10/21/linux%20%E7%A3%81%E7%9B%98%E6%BB%A1/" title="linux 磁盘"><i class="post-icon gg-file-document"></i>linux 磁盘</a></li><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2020/11/20/linux%E5%86%85%E6%A0%B8%E4%BC%98%E5%8C%96/" title="linux内核优化"><i class="post-icon gg-file-document"></i>linux内核优化</a></li><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2020/10/28/nginx%E9%98%BB%E6%AD%A2IP%E8%AE%BF%E9%97%AE%E5%AE%9E%E4%BE%8B/" title="nginx 阻止IP访问实例"><i class="post-icon gg-file-document"></i>nginx 阻止IP访问实例</a></li><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2020/11/03/Centos67%20%E5%AE%89%E8%A3%85PHP7.3%E6%95%99%E7%A8%8B/" title="Centos6/7 安装PHP7.3教程"><i class="post-icon gg-file-document"></i>Centos6/7 安装PHP7.3教程</a></li></ul></li><li class="tree-list-item"><i class="toggle-post-icon gg-folder-add"></i><a class="tree-list-link" href="/sugw.github.io/categories/Mac/">Mac</a><ul class="tree-list-children"><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2020/10/26/mac%20for%20supervisor/" title="Mac start hexo for supervisor"><i class="post-icon gg-file-document"></i>Mac start hexo for supervisor</a></li></ul></li><li class="tree-list-item"><i class="toggle-post-icon gg-folder-add"></i><a class="tree-list-link" href="/sugw.github.io/categories/PHP/">PHP</a><ul class="tree-list-children"><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2020/11/19/PHP-FPM%20%E8%AE%BE%E7%BD%AE%E5%A4%9Apool%E3%80%81%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E9%87%8D%E5%86%99/" title="PHP-FPM 设置多pool、配置文件重写"><i class="post-icon gg-file-document"></i>PHP-FPM 设置多pool、配置文件重写</a></li><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2020/11/19/PHP-php-fpm%E9%85%8D%E7%BD%AE%E4%BC%98%E5%8C%96/" title="PHP-php-fpm配置优化"><i class="post-icon gg-file-document"></i>PHP-php-fpm配置优化</a></li></ul></li><li class="tree-list-item"><i class="toggle-post-icon gg-folder-add"></i><a class="tree-list-link" href="/sugw.github.io/categories/ansible/">ansible</a><ul class="tree-list-children"><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2020/11/20/ansible%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1%E5%92%8C%E7%94%A8%E6%88%B7%E7%BB%84%E6%A8%A1%E5%9D%97%E4%BD%BF%E7%94%A8/" title="ansible定时任务和用户组模块使用"><i class="post-icon gg-file-document"></i>ansible定时任务和用户组模块使用</a></li></ul></li><li class="tree-list-item"><i class="toggle-post-icon gg-folder-add"></i><a class="tree-list-link" href="/sugw.github.io/categories/wiki/">wiki</a><ul class="tree-list-children"><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2020/11/13/mediawiki%20lockdown%E6%9D%83%E9%99%90%E9%85%8D%E7%BD%AE/" title="mediawiki lockdown权限配置"><i class="post-icon gg-file-document"></i>mediawiki lockdown权限配置</a></li><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2020/11/13/mediawiki%E5%AE%89%E8%A3%85/" title="mediawiki安装"><i class="post-icon gg-file-document"></i>mediawiki安装</a></li><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2020/11/13/mediawiki%E6%82%AC%E6%B5%AE%E7%9B%AE%E5%BD%95/" title="mediawiki悬浮目录"><i class="post-icon gg-file-document"></i>mediawiki悬浮目录</a></li></ul></li><li class="tree-list-item"><i class="toggle-post-icon gg-folder-add"></i><a class="tree-list-link" href="/sugw.github.io/categories/%E4%BC%98%E5%8C%96/">优化</a><ul class="tree-list-children"><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2020/11/19/Nginx%E4%BC%98%E5%8C%96%E8%AF%A6%E8%A7%A3/" title="Nginx优化详解"><i class="post-icon gg-file-document"></i>Nginx优化详解</a></li></ul></li><li class="tree-list-item"><i class="toggle-post-icon gg-folder-add"></i><a class="tree-list-link" href="/sugw.github.io/categories/%E6%8E%A5%E5%8F%A3%E7%AE%A1%E7%90%86/">接口管理</a><ul class="tree-list-children"><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2020/11/18/DOClever-for-centos7%E5%AE%89%E8%A3%85/" title="DOClever for centos7安装"><i class="post-icon gg-file-document"></i>DOClever for centos7安装</a></li></ul></li><li class="tree-list-item"><i class="toggle-post-icon gg-folder-add"></i><a class="tree-list-link" href="/sugw.github.io/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a><ul class="tree-list-children"><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2020/10/27/Mysql%20%E5%BA%93%E6%9F%A5%E8%AF%A2%E5%A4%A7%E5%B0%8F/" title="Mysql数据库查询大小"><i class="post-icon gg-file-document"></i>Mysql数据库查询大小</a></li><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2020/10/27/Mysql%20%E6%89%B9%E9%87%8F%E5%88%A0%E9%99%A4%E8%A1%A8/" title="Mysql 批量删除表"><i class="post-icon gg-file-document"></i>Mysql 批量删除表</a></li><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2020/11/17/Mysqldump%E5%A4%87%E4%BB%BD%E6%95%B0%E6%8D%AE%E5%BA%93%E6%97%B6%E6%8E%92%E9%99%A4%E6%9F%90%E4%BA%9B%E5%BA%93/" title="Mysqldump备份数据库时排除某些库"><i class="post-icon gg-file-document"></i>Mysqldump备份数据库时排除某些库</a></li></ul></li><li class="tree-list-item"><i class="toggle-post-icon gg-folder-add"></i><a class="tree-list-link" href="/sugw.github.io/categories/%E6%B5%8B%E8%AF%95/">测试</a><ul class="tree-list-children"><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2020/11/19/ab%E5%8E%8B%E6%B5%8B%E5%B7%A5%E5%85%B7/" title="ab压测工具"><i class="post-icon gg-file-document"></i>ab压测工具</a></li></ul></li><li class="tree-list-item"><i class="toggle-post-icon gg-folder-add"></i><a class="tree-list-link" href="/sugw.github.io/categories/%E7%9B%91%E6%8E%A7/">监控</a><ul class="tree-list-children"><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2020/10/26/Prometheus%E7%9B%91%E6%8E%A7node_exporter%E7%9A%84%E5%91%8A%E8%AD%A6%E8%A7%84%E5%88%99/" title="Prometheus监控node_exporter的告警规则"><i class="post-icon gg-file-document"></i>Prometheus监控node_exporter的告警规则</a></li><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2020/11/23/prometheus-pushgateway/" title="Prometheus-pushgateway"><i class="post-icon gg-file-document"></i>Prometheus-pushgateway</a></li></ul></li></ul>
+      <ul><li class="tree-list-item"><i class="toggle-post-icon gg-folder-add"></i><a class="tree-list-link" href="/sugw.github.io/categories/Jenkins-Gitlab-Ansible/">Jenkins+Gitlab+Ansible</a><ul class="tree-list-children"><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%89)/" title="Jenkins+Gitlab+Ansible自动化部署(三)"><i class="post-icon gg-file-document"></i>Jenkins+Gitlab+Ansible自动化部署(三)</a></li><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2020/11/27/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%BA%94)/" title="Jenkins+Gitlab+Ansible自动化部署(五)"><i class="post-icon gg-file-document"></i>Jenkins+Gitlab+Ansible自动化部署(五)</a></li><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2020/12/08/Jenkins-pipeline%E7%9A%84%E5%88%9B%E5%BB%BA%E5%92%8C%E5%8F%82%E6%95%B0%E4%BC%A0%E9%80%92/" title="Jenkins-pipeline的创建和参数传递"><i class="post-icon gg-file-document"></i>Jenkins-pipeline的创建和参数传递</a></li><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E5%9B%9B)/" title="Jenkins+Gitlab+Ansible自动化部署(四)"><i class="post-icon gg-file-document"></i>Jenkins+Gitlab+Ansible自动化部署(四)</a></li><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/" title="Jenkins+Gitlab+Ansible自动化部署(一)"><i class="post-icon gg-file-document"></i>Jenkins+Gitlab+Ansible自动化部署(一)</a></li><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%BA%8C)/" title="Jenkins+Gitlab+Ansible自动化部署(二)"><i class="post-icon gg-file-document"></i>Jenkins+Gitlab+Ansible自动化部署(二)</a></li><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2020/11/27/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E5%85%AD)/" title="Jenkins+Gitlab+Ansible自动化部署(六)"><i class="post-icon gg-file-document"></i>Jenkins+Gitlab+Ansible自动化部署(六)</a></li></ul></li><li class="tree-list-item"><i class="toggle-post-icon gg-folder-add"></i><a class="tree-list-link" href="/sugw.github.io/categories/Linux/">Linux</a><ul class="tree-list-children"><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2020/10/28/Firewalld/" title="Firewalld"><i class="post-icon gg-file-document"></i>Firewalld</a></li><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2020/10/28/centos6.8%20%E5%AE%89%E8%A3%85supervisor/" title="centos6.8 安装supervisor"><i class="post-icon gg-file-document"></i>centos6.8 安装supervisor</a></li><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2020/10/21/linux%20%E7%A3%81%E7%9B%98%E6%BB%A1/" title="linux 磁盘"><i class="post-icon gg-file-document"></i>linux 磁盘</a></li><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2020/11/20/linux%E5%86%85%E6%A0%B8%E4%BC%98%E5%8C%96/" title="linux内核优化"><i class="post-icon gg-file-document"></i>linux内核优化</a></li><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2020/10/28/nginx%E9%98%BB%E6%AD%A2IP%E8%AE%BF%E9%97%AE%E5%AE%9E%E4%BE%8B/" title="nginx 阻止IP访问实例"><i class="post-icon gg-file-document"></i>nginx 阻止IP访问实例</a></li><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2020/11/03/Centos67%20%E5%AE%89%E8%A3%85PHP7.3%E6%95%99%E7%A8%8B/" title="Centos6/7 安装PHP7.3教程"><i class="post-icon gg-file-document"></i>Centos6/7 安装PHP7.3教程</a></li></ul></li><li class="tree-list-item"><i class="toggle-post-icon gg-folder-add"></i><a class="tree-list-link" href="/sugw.github.io/categories/Mac/">Mac</a><ul class="tree-list-children"><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2020/10/26/mac%20for%20supervisor/" title="Mac start hexo for supervisor"><i class="post-icon gg-file-document"></i>Mac start hexo for supervisor</a></li></ul></li><li class="tree-list-item"><i class="toggle-post-icon gg-folder-add"></i><a class="tree-list-link" href="/sugw.github.io/categories/PHP/">PHP</a><ul class="tree-list-children"><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2020/11/19/PHP-FPM%20%E8%AE%BE%E7%BD%AE%E5%A4%9Apool%E3%80%81%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E9%87%8D%E5%86%99/" title="PHP-FPM 设置多pool、配置文件重写"><i class="post-icon gg-file-document"></i>PHP-FPM 设置多pool、配置文件重写</a></li><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2020/11/19/PHP-php-fpm%E9%85%8D%E7%BD%AE%E4%BC%98%E5%8C%96/" title="PHP-php-fpm配置优化"><i class="post-icon gg-file-document"></i>PHP-php-fpm配置优化</a></li></ul></li><li class="tree-list-item"><i class="toggle-post-icon gg-folder-add"></i><a class="tree-list-link" href="/sugw.github.io/categories/ansible/">ansible</a><ul class="tree-list-children"><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2020/11/20/ansible%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1%E5%92%8C%E7%94%A8%E6%88%B7%E7%BB%84%E6%A8%A1%E5%9D%97%E4%BD%BF%E7%94%A8/" title="ansible定时任务和用户组模块使用"><i class="post-icon gg-file-document"></i>ansible定时任务和用户组模块使用</a></li></ul></li><li class="tree-list-item"><i class="toggle-post-icon gg-folder-add"></i><a class="tree-list-link" href="/sugw.github.io/categories/wiki/">wiki</a><ul class="tree-list-children"><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2020/11/13/mediawiki%20lockdown%E6%9D%83%E9%99%90%E9%85%8D%E7%BD%AE/" title="mediawiki lockdown权限配置"><i class="post-icon gg-file-document"></i>mediawiki lockdown权限配置</a></li><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2020/11/13/mediawiki%E5%AE%89%E8%A3%85/" title="mediawiki安装"><i class="post-icon gg-file-document"></i>mediawiki安装</a></li><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2020/11/13/mediawiki%E6%82%AC%E6%B5%AE%E7%9B%AE%E5%BD%95/" title="mediawiki悬浮目录"><i class="post-icon gg-file-document"></i>mediawiki悬浮目录</a></li></ul></li><li class="tree-list-item"><i class="toggle-post-icon gg-folder-add"></i><a class="tree-list-link" href="/sugw.github.io/categories/%E4%BC%98%E5%8C%96/">优化</a><ul class="tree-list-children"><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2020/11/19/Nginx%E4%BC%98%E5%8C%96%E8%AF%A6%E8%A7%A3/" title="Nginx优化详解"><i class="post-icon gg-file-document"></i>Nginx优化详解</a></li></ul></li><li class="tree-list-item"><i class="toggle-post-icon gg-folder-add"></i><a class="tree-list-link" href="/sugw.github.io/categories/%E6%8E%A5%E5%8F%A3%E7%AE%A1%E7%90%86/">接口管理</a><ul class="tree-list-children"><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2020/11/18/DOClever-for-centos7%E5%AE%89%E8%A3%85/" title="DOClever for centos7安装"><i class="post-icon gg-file-document"></i>DOClever for centos7安装</a></li></ul></li><li class="tree-list-item"><i class="toggle-post-icon gg-folder-add"></i><a class="tree-list-link" href="/sugw.github.io/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a><ul class="tree-list-children"><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2020/10/27/Mysql%20%E6%89%B9%E9%87%8F%E5%88%A0%E9%99%A4%E8%A1%A8/" title="Mysql 批量删除表"><i class="post-icon gg-file-document"></i>Mysql 批量删除表</a></li><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2020/10/27/Mysql%20%E5%BA%93%E6%9F%A5%E8%AF%A2%E5%A4%A7%E5%B0%8F/" title="Mysql数据库查询大小"><i class="post-icon gg-file-document"></i>Mysql数据库查询大小</a></li><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2020/11/17/Mysqldump%E5%A4%87%E4%BB%BD%E6%95%B0%E6%8D%AE%E5%BA%93%E6%97%B6%E6%8E%92%E9%99%A4%E6%9F%90%E4%BA%9B%E5%BA%93/" title="Mysqldump备份数据库时排除某些库"><i class="post-icon gg-file-document"></i>Mysqldump备份数据库时排除某些库</a></li></ul></li><li class="tree-list-item"><i class="toggle-post-icon gg-folder-add"></i><a class="tree-list-link" href="/sugw.github.io/categories/%E6%B5%8B%E8%AF%95/">测试</a><ul class="tree-list-children"><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2020/11/19/ab%E5%8E%8B%E6%B5%8B%E5%B7%A5%E5%85%B7/" title="ab压测工具"><i class="post-icon gg-file-document"></i>ab压测工具</a></li></ul></li><li class="tree-list-item"><i class="toggle-post-icon gg-folder-add"></i><a class="tree-list-link" href="/sugw.github.io/categories/%E6%BF%80%E6%B4%BB/">激活</a><ul class="tree-list-children"><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2020/12/01/datagrip/" title="datagrip"><i class="post-icon gg-file-document"></i>datagrip</a></li></ul></li><li class="tree-list-item"><i class="toggle-post-icon gg-folder-add"></i><a class="tree-list-link" href="/sugw.github.io/categories/%E7%9B%91%E6%8E%A7/">监控</a><ul class="tree-list-children"><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2020/10/26/Prometheus%E7%9B%91%E6%8E%A7node_exporter%E7%9A%84%E5%91%8A%E8%AD%A6%E8%A7%84%E5%88%99/" title="Prometheus监控node_exporter的告警规则"><i class="post-icon gg-file-document"></i>Prometheus监控node_exporter的告警规则</a></li><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2020/11/23/prometheus-pushgateway/" title="Prometheus-pushgateway"><i class="post-icon gg-file-document"></i>Prometheus-pushgateway</a></li></ul></li></ul>
         <div id="widget-tree-button">
           <i class="gg-chevron-right"></i>
         </div>

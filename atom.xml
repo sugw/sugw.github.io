@@ -6,7 +6,7 @@
   <link href="https://sugw.github.io/sugw.github.io/atom.xml" rel="self"/>
   
   <link href="https://sugw.github.io/sugw.github.io/"/>
-  <updated>2020-11-26T10:59:02.189Z</updated>
+  <updated>2020-12-17T02:05:34.680Z</updated>
   <id>https://sugw.github.io/sugw.github.io/</id>
   
   <author>
@@ -17,11 +17,166 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title></title>
+    <link href="https://sugw.github.io/sugw.github.io/2020/12/17/%E5%BC%80%E5%90%AFGTID%E7%9A%84%E6%83%85%E5%86%B5%E4%B8%8B%E5%AF%BC%E5%87%BA%E5%AF%BC%E5%85%A5%E5%BA%93%E7%9A%84%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9%20/"/>
+    <id>https://sugw.github.io/sugw.github.io/2020/12/17/%E5%BC%80%E5%90%AFGTID%E7%9A%84%E6%83%85%E5%86%B5%E4%B8%8B%E5%AF%BC%E5%87%BA%E5%AF%BC%E5%85%A5%E5%BA%93%E7%9A%84%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9%20/</id>
+    <published>2020-12-17T02:04:49.059Z</published>
+    <updated>2020-12-17T02:05:34.680Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;title: 开启GTID的情况下导出导入库的注意事项&lt;br&gt;tags: mysql&lt;br&gt;categories: mysql&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;在开启了 GTID 功能的 MySQL 数据库中, 不论是否使用了 GTID 的方式做了主从同步, 导出导入时都需要特别注意数据库中的 GTID 信息.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1 id=&quot;导出&quot;&gt;&lt;a href=&quot;#导出&quot; class=&quot;headerlink&quot; title=&quot;导出&quot;&gt;&lt;/a&gt;导出&lt;/h1&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;➜  mysqldump -uroot -p userdb &amp;gt; userdb.sql&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Warning: A partial dump from a server that has GTIDs will by default include the GTIDs of all transactions, even those that changed suppressed parts of the database. If you don&amp;#39;t want to restore GTIDs, pass --set-gtid-purged&amp;#x3D;OFF. To make a complete dump, pass --all-databases --triggers --routines --events&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+
+&lt;p&gt;mysql提示: 当前数据库实例中开启了 GTID 功能, 在开启有 GTID 功能的数据库实例中, 导出其中任何一个库, 如果没有显示地指定&lt;code&gt;--set-gtid-purged&lt;/code&gt;参数, 都会提示这一行信息. 意思是默认情况下, 导出的库中含有 GTID 信息, 如果不想导出包含有 GTID 信息的数据库, 需要显示地添加&lt;code&gt;--set-gtid-purged=OFF&lt;/code&gt;参数. 于是乎, dump 变成了如下样子&lt;/p&gt;</summary>
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Jenkins-pipeline的创建和参数传递</title>
+    <link href="https://sugw.github.io/sugw.github.io/2020/12/08/Jenkins-pipeline%E7%9A%84%E5%88%9B%E5%BB%BA%E5%92%8C%E5%8F%82%E6%95%B0%E4%BC%A0%E9%80%92/"/>
+    <id>https://sugw.github.io/sugw.github.io/2020/12/08/Jenkins-pipeline%E7%9A%84%E5%88%9B%E5%BB%BA%E5%92%8C%E5%8F%82%E6%95%B0%E4%BC%A0%E9%80%92/</id>
+    <published>2020-12-08T09:00:19.996Z</published>
+    <updated>2020-12-08T09:00:58.833Z</updated>
+    
+    
+    <summary type="html">&lt;h2 id=&quot;一、单分支的pipeline&quot;&gt;&lt;a href=&quot;#一、单分支的pipeline&quot; class=&quot;headerlink&quot; title=&quot;一、单分支的pipeline&quot;&gt;&lt;/a&gt;&lt;strong&gt;一、单分支的pipeline&lt;/strong&gt;&lt;/h2&gt;&lt;p&gt;Pipline的特点是可以多节点运行，节点之间可以并行或者串行执行，从而实现编译-部署-部署的持续化构建和发布。&lt;/p&gt;
+&lt;p&gt;与自由风格不同的是，我们可以通过编写功能强大的Jenkinsfile脚本，来实现我们所需要的功能，比如：执行shell，执行bat，重试，等待，并行/串行，发邮件，触发其他工程。难点在于需要遵循一定的Groovy语法。有一定的学习成本。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;h4 id=&quot;job的创建&quot;&gt;&lt;a href=&quot;#job的创建&quot; class=&quot;headerlink&quot; title=&quot;job的创建&quot;&gt;&lt;/a&gt;job的创建&lt;/h4&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;img src=&quot;/sugw.github.io/2020/12/08/Jenkins-pipeline%E7%9A%84%E5%88%9B%E5%BB%BA%E5%92%8C%E5%8F%82%E6%95%B0%E4%BC%A0%E9%80%92/up-d0c14a7f65815132bf26825168817ae9188.png&quot; class title=&quot;img&quot;&gt;</summary>
+    
+    
+    
+    <category term="Jenkins+Gitlab+Ansible" scheme="https://sugw.github.io/sugw.github.io/categories/Jenkins-Gitlab-Ansible/"/>
+    
+    
+    <category term="自动部署" scheme="https://sugw.github.io/sugw.github.io/tags/%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>datagrip</title>
+    <link href="https://sugw.github.io/sugw.github.io/2020/12/01/datagrip/"/>
+    <id>https://sugw.github.io/sugw.github.io/2020/12/01/datagrip/</id>
+    <published>2020-12-01T08:13:10.440Z</published>
+    <updated>2020-12-01T08:13:11.312Z</updated>
+    
+    
+    <summary type="html">https://mp.weixin.qq.com/s/DTECLX-Y-9XJEScsA4boDw</summary>
+    
+    
+    
+    <category term="激活" scheme="https://sugw.github.io/sugw.github.io/categories/%E6%BF%80%E6%B4%BB/"/>
+    
+    
+    <category term="激活" scheme="https://sugw.github.io/sugw.github.io/tags/%E6%BF%80%E6%B4%BB/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Jenkins+Gitlab+Ansible自动化部署(六)</title>
+    <link href="https://sugw.github.io/sugw.github.io/2020/11/27/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E5%85%AD)/"/>
+    <id>https://sugw.github.io/sugw.github.io/2020/11/27/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E5%85%AD)/</id>
+    <published>2020-11-27T02:03:01.705Z</published>
+    <updated>2020-12-07T06:24:45.466Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;&lt;strong&gt;Pipeline Job实现Nginix+MySQL+PHP+Wordpress实现自动化部署交付（Jenkins+Gitlab+Ansible自动化部署（五））&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;环境准备&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;编写ansible playbook脚本实现Wordpress远程部署&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;将wordpress源码与playbook部署脚本提交到gitlab仓库&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;编写pipeline job脚本实现Jenkins流水线持续交付流程&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Jenkins集成Ansible与gitlab实现wordpress的自动化部署&lt;/p&gt;
+&lt;p&gt;验证环境&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;登录Jenkins主机&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;xueji@xueji MINGW64 ~&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;$ ssh root@jenkins.example.com&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Last login: Thu Jan 10 11:41:49 2019 from 192.168.244.1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;[root@jenkins ~]# su - deploy&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Last login: Wed Jan  9 20:24:43 CST 2019 on pts&amp;#x2F;0&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;[deploy@jenkins ~]$ source &amp;#x2F;home&amp;#x2F;deploy&amp;#x2F;.py3-a2.5-env&amp;#x2F;bin&amp;#x2F;activate           (.py3-a2.5-env) [deploy@jenkins ~]$ source &amp;#x2F;home&amp;#x2F;deploy&amp;#x2F;.py3-a2.5-env&amp;#x2F;ansible&amp;#x2F;hacking&amp;#x2F;env-setup -q&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;(.py3-a2.5-env) [deploy@jenkins ~]$ ansible-playbook --version&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;ansible-playbook 2.5.14 (stable-2.5 c748512c4c) last updated 2019&amp;#x2F;01&amp;#x2F;09 20:03:39 (GMT +800)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  config file &amp;#x3D; None&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  configured module search path &amp;#x3D; [&amp;#39;&amp;#x2F;home&amp;#x2F;deploy&amp;#x2F;.ansible&amp;#x2F;plugins&amp;#x2F;modules&amp;#39;, &amp;#39;&amp;#x2F;usr&amp;#x2F;share&amp;#x2F;ansible&amp;#x2F;plugins&amp;#x2F;modules&amp;#39;]&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  ansible python module location &amp;#x3D; &amp;#x2F;home&amp;#x2F;deploy&amp;#x2F;.py3-a2.5-env&amp;#x2F;ansible&amp;#x2F;lib&amp;#x2F;ansible&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  executable location &amp;#x3D; &amp;#x2F;home&amp;#x2F;deploy&amp;#x2F;.py3-a2.5-env&amp;#x2F;ansible&amp;#x2F;bin&amp;#x2F;ansible-playbook&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  python version &amp;#x3D; 3.6.8 (default, Jan  9 2019, 19:44:42) [GCC 4.8.5 20150623 (Red Hat 4.8.5-36)]&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;(.py3-a2.5-env) [deploy@jenkins ~]$ ssh root@test.example.com&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Last login: Thu Jan 10 13:04:32 2019 from 192.168.244.131&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;[root@test ~]# hostname&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;test.example.com&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+
+
+
+&lt;p&gt;登录Jenkins web管理页&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="Jenkins+Gitlab+Ansible" scheme="https://sugw.github.io/sugw.github.io/categories/Jenkins-Gitlab-Ansible/"/>
+    
+    
+    <category term="自动部署" scheme="https://sugw.github.io/sugw.github.io/tags/%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Jenkins+Gitlab+Ansible自动化部署(五)</title>
+    <link href="https://sugw.github.io/sugw.github.io/2020/11/27/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%BA%94)/"/>
+    <id>https://sugw.github.io/sugw.github.io/2020/11/27/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%BA%94)/</id>
+    <published>2020-11-27T01:59:28.622Z</published>
+    <updated>2020-11-27T02:01:22.990Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;&lt;strong&gt;Freestyle Job实现静态网站部署交付（接Jenkins+Gitlab+Ansible自动化部署（四&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;环境构建&lt;/li&gt;
+&lt;li&gt;编写ansible playbook脚本实现静态网页远程部署&lt;/li&gt;
+&lt;li&gt;将playbook部署脚本提交到GitLab仓库&lt;/li&gt;
+&lt;li&gt;构建Freestyle Job任务框架&lt;/li&gt;
+&lt;li&gt;Jenkins集成Ansible与Gitlab实现静态网页的自动化部署&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;首先确定自己的环境已经准备完毕。&lt;/p&gt;
+&lt;p&gt;登录gitlab查看&lt;/p&gt;
+&lt;img src=&quot;/sugw.github.io/2020/11/27/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%BA%94)/804543-20190110114757705-2039134505.png&quot; class title=&quot;img&quot;&gt;</summary>
+    
+    
+    
+    <category term="Jenkins+Gitlab+Ansible" scheme="https://sugw.github.io/sugw.github.io/categories/Jenkins-Gitlab-Ansible/"/>
+    
+    
+    <category term="自动部署" scheme="https://sugw.github.io/sugw.github.io/tags/%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Jenkins+Gitlab+Ansible自动化部署(四)</title>
+    <link href="https://sugw.github.io/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E5%9B%9B)/"/>
+    <id>https://sugw.github.io/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E5%9B%9B)/</id>
+    <published>2020-11-26T11:08:52.453Z</published>
+    <updated>2020-11-27T01:56:59.283Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;&lt;strong&gt;Jenkins应用&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Jenkins Linux Shell集成&lt;/p&gt;
+&lt;p&gt;登录Jenkins web管理页，点击新建任务&lt;/p&gt;
+&lt;img src=&quot;/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E5%9B%9B)/804543-20190109151723046-524146976-20201127095232069.png&quot; class title=&quot;img&quot;&gt;
+
+&lt;p&gt;添加描述信息&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="Jenkins+Gitlab+Ansible" scheme="https://sugw.github.io/sugw.github.io/categories/Jenkins-Gitlab-Ansible/"/>
+    
+    
+    <category term="自动部署" scheme="https://sugw.github.io/sugw.github.io/tags/%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Jenkins+Gitlab+Ansible自动化部署(三)</title>
     <link href="https://sugw.github.io/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%89)/"/>
     <id>https://sugw.github.io/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%89)/</id>
     <published>2020-11-26T10:54:18.246Z</published>
-    <updated>2020-11-26T10:59:02.189Z</updated>
+    <updated>2020-12-01T10:41:19.853Z</updated>
     
     
     <summary type="html">&lt;p&gt;接Jenkins+Gitlab+Ansible自动化部署（一）&lt;a href=&quot;https://www.cnblogs.com/zd520pyx1314/p/10210727.html&quot;&gt;https://www.cnblogs.com/zd520pyx1314/p/10210727.html&lt;/a&gt; 和（二）&lt;a href=&quot;https://www.cnblogs.com/zd520pyx1314/p/10213549.html&quot;&gt;https://www.cnblogs.com/zd520pyx1314/p/10213549.html &lt;/a&gt;&lt;/p&gt;
@@ -44,7 +199,7 @@
     <link href="https://sugw.github.io/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%BA%8C)/"/>
     <id>https://sugw.github.io/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%BA%8C)/</id>
     <published>2020-11-26T10:47:07.196Z</published>
-    <updated>2020-11-26T10:54:02.053Z</updated>
+    <updated>2020-12-07T02:30:05.671Z</updated>
     
     
     <summary type="html">&lt;p&gt;接Jenkins+Gitlab+Ansbile自动化部署(一):&lt;/p&gt;
@@ -86,11 +241,10 @@
     <link href="https://sugw.github.io/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/"/>
     <id>https://sugw.github.io/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/</id>
     <published>2020-11-26T10:33:50.167Z</published>
-    <updated>2020-11-26T10:45:05.295Z</updated>
+    <updated>2020-11-30T02:54:01.770Z</updated>
     
     
-    <summary type="html">&lt;p&gt;首先准备实验环境&lt;/p&gt;
-&lt;table&gt;
+    <summary type="html">&lt;h2 id=&quot;首先准备实验环境&quot;&gt;&lt;a href=&quot;#首先准备实验环境&quot; class=&quot;headerlink&quot; title=&quot;首先准备实验环境&quot;&gt;&lt;/a&gt;首先准备实验环境&lt;/h2&gt;&lt;table&gt;
 &lt;thead&gt;
 &lt;tr&gt;
 &lt;th&gt;虚拟机&lt;/th&gt;
@@ -104,32 +258,31 @@
 &lt;tbody&gt;&lt;tr&gt;
 &lt;td&gt;Vmware Workstation 14&lt;/td&gt;
 &lt;td&gt;gitlab.example.com&lt;/td&gt;
-&lt;td&gt;192.168.244.130&lt;/td&gt;
+&lt;td&gt;20.10.1.249&lt;/td&gt;
 &lt;td&gt;gitlab&lt;/td&gt;
 &lt;td&gt;CentOS Linux release 7.5.1804 (Core)&lt;/td&gt;
 &lt;td&gt;3.10.0-862.el7.x86_64&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
+&lt;td&gt;&lt;/td&gt;
 &lt;td&gt;jenkins.example.com&lt;/td&gt;
 &lt;td&gt;192.168.244.131&lt;/td&gt;
 &lt;td&gt;jenkis&lt;/td&gt;
 &lt;td&gt;&lt;/td&gt;
 &lt;td&gt;&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
+&lt;td&gt;&lt;/td&gt;
 &lt;td&gt;ansible.example.com&lt;/td&gt;
 &lt;td&gt;192.168.244.132&lt;/td&gt;
 &lt;td&gt;asible&lt;/td&gt;
 &lt;td&gt;&lt;/td&gt;
 &lt;td&gt;&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
 &lt;/tr&gt;
 &lt;/tbody&gt;&lt;/table&gt;
-&lt;p&gt;除此之外，还要在宿主机win10系统下的C:\Windows\System32\drivers\etc\hosts文件中添加如下内容&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;192.168.244.130 gitlab.example.com&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;192.168.244.131 jenkins.example.com&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;192.168.244.132 ansible.example.com&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h2 id=&quot;hosts解析&quot;&gt;&lt;a href=&quot;#hosts解析&quot; class=&quot;headerlink&quot; title=&quot;hosts解析&quot;&gt;&lt;/a&gt;hosts解析&lt;/h2&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;20.10.1.249 gitlab.example.com&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;192.168.244.131 jenkins.example.com&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;192.168.244.132 ansible.example.com&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
 
-&lt;p&gt;关闭防火墙和selinux&lt;/p&gt;</summary>
+&lt;h2 id=&quot;关闭防火墙和selinux&quot;&gt;&lt;a href=&quot;#关闭防火墙和selinux&quot; class=&quot;headerlink&quot; title=&quot;关闭防火墙和selinux&quot;&gt;&lt;/a&gt;关闭防火墙和selinux&lt;/h2&gt;</summary>
     
     
     
@@ -174,7 +327,7 @@
     <link href="https://sugw.github.io/sugw.github.io/2020/11/20/ansible%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1%E5%92%8C%E7%94%A8%E6%88%B7%E7%BB%84%E6%A8%A1%E5%9D%97%E4%BD%BF%E7%94%A8/"/>
     <id>https://sugw.github.io/sugw.github.io/2020/11/20/ansible%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1%E5%92%8C%E7%94%A8%E6%88%B7%E7%BB%84%E6%A8%A1%E5%9D%97%E4%BD%BF%E7%94%A8/</id>
     <published>2020-11-20T08:38:47.555Z</published>
-    <updated>2020-11-20T08:46:04.783Z</updated>
+    <updated>2020-12-07T09:26:15.430Z</updated>
     
     
     <summary type="html">&lt;h2 id=&quot;用户模块的使用&quot;&gt;&lt;a href=&quot;#用户模块的使用&quot; class=&quot;headerlink&quot; title=&quot;用户模块的使用&quot;&gt;&lt;/a&gt;用户模块的使用&lt;/h2&gt;&lt;p&gt;用户模块主要用来管理用户账号和用户的属性（对远程主机用户进行批量管理）。&lt;/p&gt;
@@ -636,149 +789,6 @@ $wgWhitelistRead = array (&quot;Main Page&quot;, &quot;MediaWiki:Common.css&quot
     
     
     <category term="wiki" scheme="https://sugw.github.io/sugw.github.io/tags/wiki/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>mediawiki安装</title>
-    <link href="https://sugw.github.io/sugw.github.io/2020/11/13/mediawiki%E5%AE%89%E8%A3%85/"/>
-    <id>https://sugw.github.io/sugw.github.io/2020/11/13/mediawiki%E5%AE%89%E8%A3%85/</id>
-    <published>2020-11-13T01:19:58.732Z</published>
-    <updated>2020-11-13T08:17:05.662Z</updated>
-    
-    
-    <summary type="html">&lt;h2 id=&quot;环境：php73-mysql5-7-mediawiki1-35-nginx1-18&quot;&gt;&lt;a href=&quot;#环境：php73-mysql5-7-mediawiki1-35-nginx1-18&quot; class=&quot;headerlink&quot; title=&quot;环境：php73+mysql5.7+mediawiki1.35+nginx1.18&quot;&gt;&lt;/a&gt;环境：php73+mysql5.7+mediawiki1.35+nginx1.18&lt;/h2&gt;&lt;h3 id=&quot;安装PHP73&quot;&gt;&lt;a href=&quot;#安装PHP73&quot; class=&quot;headerlink&quot; title=&quot;安装PHP73&quot;&gt;&lt;/a&gt;安装PHP73&lt;/h3&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;22&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;23&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;24&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;25&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;26&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;27&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;28&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;29&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;30&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;31&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;32&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;33&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;34&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;35&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;36&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;37&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;38&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;39&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;40&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;41&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;42&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;43&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;44&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;45&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;46&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;47&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;48&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;49&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;50&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;51&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;52&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;53&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;54&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;55&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;56&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;57&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;58&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;59&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;60&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;61&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;62&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;63&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;64&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;65&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;66&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;67&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;68&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;69&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;70&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;71&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;72&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;73&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;74&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;75&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;76&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;77&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;78&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;79&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;80&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;81&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;82&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;83&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;84&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;85&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;#首先安装 EPEL 源：&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;yum install epel-release&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;#安装 REMI 源：&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;yum install http://rpms.remirepo.net/enterprise/remi-release-7.rpm&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;#安装&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;yum install -y php73 php73-php-pecl-apcu php73-php-intl php73-php-mbstring php73-php-xml php73-php-pecl-mysql&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;#启动&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;systemctl restart php73-php-fpm&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;#开机启动&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;systemctl &lt;span class=&quot;built_in&quot;&gt;enable&lt;/span&gt; php73-php-fpm&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;#查看安装包&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;[root@l-wiki01 ~]&lt;span class=&quot;comment&quot;&gt;#  rpm -qa | grep &amp;#x27;php&amp;#x27;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;php73-php-cli-7.3.24-1.el7.remi.x86_64&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;php73-2.0-1.el7.remi.x86_64&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;php73-php-mbstring-7.3.24-1.el7.remi.x86_64&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;php73-php-gd-7.3.24-1.el7.remi.x86_64&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;php73-php-pecl-crypto-0.3.1-5.el7.remi.x86_64&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;oniguruma5php-6.9.5+rev1-4.el7.remi.x86_64&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;php73-runtime-2.0-1.el7.remi.x86_64&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;php73-php-common-7.3.24-1.el7.remi.x86_64&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;php73-php-pdo-7.3.24-1.el7.remi.x86_64&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;php73-php-pecl-mysql-1.0.0-0.20.20180226.647c933.el7.remi.x86_64&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;php73-php-intl-7.3.24-1.el7.remi.x86_64&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;php73-php-pecl-apcu-5.1.19-1.el7.remi.x86_64&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;php73-php-pecl-mcrypt-1.0.3-1.el7.remi.x86_64&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;php73-php-snmp-7.3.24-1.el7.remi.x86_64&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;php73-php-bcmath-7.3.24-1.el7.remi.x86_64&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;php73-php-pecl-geoip-1.1.1-6.el7.remi.x86_64&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;php73-php-soap-7.3.24-1.el7.remi.x86_64&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;php73-php-json-7.3.24-1.el7.remi.x86_64&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;php73-php-mysqlnd-7.3.24-1.el7.remi.x86_64&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;php73-php-xml-7.3.24-1.el7.remi.x86_64&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;php73-php-recode-7.3.24-1.el7.remi.x86_64&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;php73-php-opcache-7.3.24-1.el7.remi.x86_64&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;php73-php-fpm-7.3.24-1.el7.remi.x86_64&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;找到：php73-php-fpm-7.3.24-1.el7.remi.x86_64安装位置&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;[root@l-wiki01 ~]&lt;span class=&quot;comment&quot;&gt;# rpm -ql php73-php-fpm-7.3.24-1.el7.remi.x86_64&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;/etc/logrotate.d/php73-php-fpm&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;/etc/opt/remi/php73/php-fpm.conf&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;/etc/opt/remi/php73/php-fpm.d&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;/etc/opt/remi/php73/php-fpm.d/www.conf&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;/etc/opt/remi/php73/sysconfig/php-fpm&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;/etc/systemd/system/php73-php-fpm.service.d&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;/opt/remi/php73/root/usr/sbin/php-fpm&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;/opt/remi/php73/root/usr/share/doc/php73-php-fpm-7.3.24&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;/opt/remi/php73/root/usr/share/doc/php73-php-fpm-7.3.24/php-fpm.conf.default&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;/opt/remi/php73/root/usr/share/doc/php73-php-fpm-7.3.24/www.conf.default&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;/opt/remi/php73/root/usr/share/fpm&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;/opt/remi/php73/root/usr/share/fpm/status.html&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;/opt/remi/php73/root/usr/share/licenses/php73-php-fpm-7.3.24&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;/opt/remi/php73/root/usr/share/licenses/php73-php-fpm-7.3.24/fpm_LICENSE&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;/opt/remi/php73/root/usr/share/man/man8/php-fpm.8.gz&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;/usr/lib/systemd/system/php73-php-fpm.service&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;/var/opt/remi/php73/lib/php/opcache&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;/var/opt/remi/php73/lib/php/session&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;/var/opt/remi/php73/lib/php/wsdlcache&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;/var/opt/remi/php73/&lt;span class=&quot;built_in&quot;&gt;log&lt;/span&gt;/php-fpm&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;/var/opt/remi/php73/run/php-fpm&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;查找php.ini位置：&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;[root@l-wiki01 ~]&lt;span class=&quot;comment&quot;&gt;# find /etc/opt/remi/php73 -name php.ini&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;/etc/opt/remi/php73/php.ini&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;编辑/etc/opt/remi/php73/php.ini替换换 ;cgi.fix_pathinfo=1 为 cgi.fix_pathinfo=0 快捷命令：&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;sed -i &lt;span class=&quot;string&quot;&gt;&amp;#x27;s/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/&amp;#x27;&lt;/span&gt; /etc/opt/remi/php73/php.ini&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;重启php73-php-fpm&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;systemctl restart php73-php-fpm&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;更多操作：&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;systemctl restart php73-php-fpm &lt;span class=&quot;comment&quot;&gt;#重启&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;systemctl start php73-php-fpm &lt;span class=&quot;comment&quot;&gt;#启动&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;systemctl stop php73-php-fpm &lt;span class=&quot;comment&quot;&gt;#关闭&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;systemctl status php73-php-fpm &lt;span class=&quot;comment&quot;&gt;#检查状态&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;查看 PHP&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;验证一下是否安装成功：&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;[root@l-wiki01 ~]&lt;span class=&quot;comment&quot;&gt;# php73 -v&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;PHP 7.3.24 (cli) (built: Oct 27 2020 11:01:59) ( NTS )&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Copyright (c) 1997-2018 The PHP Group&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Zend Engine v3.3.24, Copyright (c) 1998-2018 Zend Technologies&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    with Zend OPcache v7.3.24, Copyright (c) 1999-2018, by Zend Technologies&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-
-&lt;h3 id=&quot;安装mysql&quot;&gt;&lt;a href=&quot;#安装mysql&quot; class=&quot;headerlink&quot; title=&quot;安装mysql&quot;&gt;&lt;/a&gt;安装mysql&lt;/h3&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;22&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;23&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;#下载源&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;wget https://dev.mysql.com/get/mysql57-community-release-el7-9.noarch.rpm&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;#更新源&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;rpm -ivh mysql57-community-release-el7-9.noarch.rpm&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;#安装mysql&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;yum -y install mysql-server&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;#启动&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;systemctl start mysqld&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;#开机启动&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;systemctl &lt;span class=&quot;built_in&quot;&gt;enable&lt;/span&gt; mysqld&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;#查看状态&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;systemctl status mysqld&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;#查看临时密码&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;grep &lt;span class=&quot;string&quot;&gt;&amp;#x27;temporary password&amp;#x27;&lt;/span&gt; /var/&lt;span class=&quot;built_in&quot;&gt;log&lt;/span&gt;/mysqld.log&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;#修改root临时密码&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;ALTER USER &lt;span class=&quot;string&quot;&gt;&amp;#x27;root&amp;#x27;&lt;/span&gt;@&lt;span class=&quot;string&quot;&gt;&amp;#x27;localhost&amp;#x27;&lt;/span&gt; IDENTIFIED BY &lt;span class=&quot;string&quot;&gt;&amp;#x27;123@CSDN.com&amp;#x27;&lt;/span&gt;;  &lt;span class=&quot;comment&quot;&gt;#密码要符合安全策略否则不生效&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;#创建wiki库&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;CREATE DATABASE IF NOT EXISTS wiki DEFAULT CHARACTER SET = utf8mb4;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;#创建wiki库管理账号密码&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;#授权的同时设置密码&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;grant all privileges on wiki.* to wiki@&lt;span class=&quot;string&quot;&gt;&amp;#x27;localhost&amp;#x27;&lt;/span&gt; identified by &lt;span class=&quot;string&quot;&gt;&amp;#x27;123456&amp;#x27;&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;</summary>
-    
-    
-    
-    <category term="wiki" scheme="https://sugw.github.io/sugw.github.io/categories/wiki/"/>
-    
-    
-    <category term="wiki" scheme="https://sugw.github.io/sugw.github.io/tags/wiki/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Centos6/7 安装PHP7.3教程</title>
-    <link href="https://sugw.github.io/sugw.github.io/2020/11/03/Centos67%20%E5%AE%89%E8%A3%85PHP7.3%E6%95%99%E7%A8%8B/"/>
-    <id>https://sugw.github.io/sugw.github.io/2020/11/03/Centos67%20%E5%AE%89%E8%A3%85PHP7.3%E6%95%99%E7%A8%8B/</id>
-    <published>2020-11-03T09:14:19.731Z</published>
-    <updated>2020-11-13T08:50:45.494Z</updated>
-    
-    
-    <summary type="html">&lt;h1 id=&quot;介绍&quot;&gt;&lt;a href=&quot;#介绍&quot; class=&quot;headerlink&quot; title=&quot;介绍&quot;&gt;&lt;/a&gt;介绍&lt;/h1&gt;&lt;p&gt;最近的 PHP 7.3.0 已经在 2018 年12月6日 发布 GA，大家已经可以开始第一时间体验新版本了，这里先放出 PHP7.3 安装的教程以便大家升级。&lt;/p&gt;
-&lt;h1 id=&quot;更新内容&quot;&gt;&lt;a href=&quot;#更新内容&quot; class=&quot;headerlink&quot; title=&quot;更新内容&quot;&gt;&lt;/a&gt;更新内容&lt;/h1&gt;&lt;p&gt;PHP 7.3 的主要更新内容：&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;灵活的 Heredoc 和 Nowdoc 语法&lt;br&gt;从 PCRE 迁移至 PCRE2&lt;br&gt;Multiple MBString Improvements&lt;br&gt;LDAP 控件支持&lt;br&gt;改善 FPM 日志&lt;br&gt;改善 Windows 文件删除&lt;br&gt;弃用相关就平台&lt;/p&gt;
-&lt;/blockquote&gt;</summary>
-    
-    
-    
-    <category term="Linux" scheme="https://sugw.github.io/sugw.github.io/categories/Linux/"/>
-    
-    
-    <category term="php" scheme="https://sugw.github.io/sugw.github.io/tags/php/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>centos6.8 安装supervisor</title>
-    <link href="https://sugw.github.io/sugw.github.io/2020/10/28/centos6.8%20%E5%AE%89%E8%A3%85supervisor/"/>
-    <id>https://sugw.github.io/sugw.github.io/2020/10/28/centos6.8%20%E5%AE%89%E8%A3%85supervisor/</id>
-    <published>2020-10-28T11:06:36.000Z</published>
-    <updated>2020-11-09T10:36:12.564Z</updated>
-    
-    
-    <summary type="html">&lt;h1 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h1&gt;&lt;p&gt; centos6.8安装supervisor，有很多种方法，但是有很多坑，为了以后不重复踩坑，这里记录一下。&lt;/p&gt;
-&lt;p&gt;如果用yum install supervisor, 默认安装的是2.1.9版本，2.x版本的问题很多，可以启动supervisord进程，但是启动的进程不输出日志&lt;/p&gt;
-&lt;p&gt;用pip install supervisor，默认装的是最新的4.0.3版本，但是centos6.8默认的只有python2.6，4.0.3的supervisor跑不起来，具体错误没有记录了&lt;/p&gt;
-&lt;h2 id=&quot;升级到python2-7&quot;&gt;&lt;a href=&quot;#升级到python2-7&quot; class=&quot;headerlink&quot; title=&quot;升级到python2.7&quot;&gt;&lt;/a&gt;升级到python2.7&lt;/h2&gt;</summary>
-    
-    
-    
-    <category term="Linux" scheme="https://sugw.github.io/sugw.github.io/categories/Linux/"/>
-    
-    
-    <category term="supervisors" scheme="https://sugw.github.io/sugw.github.io/tags/supervisors/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>nginx 阻止IP访问实例</title>
-    <link href="https://sugw.github.io/sugw.github.io/2020/10/28/nginx%E9%98%BB%E6%AD%A2IP%E8%AE%BF%E9%97%AE%E5%AE%9E%E4%BE%8B/"/>
-    <id>https://sugw.github.io/sugw.github.io/2020/10/28/nginx%E9%98%BB%E6%AD%A2IP%E8%AE%BF%E9%97%AE%E5%AE%9E%E4%BE%8B/</id>
-    <published>2020-10-28T08:17:48.772Z</published>
-    <updated>2020-11-09T10:33:04.361Z</updated>
-    
-    
-    <summary type="html">&lt;h3 id=&quot;方式一：&quot;&gt;&lt;a href=&quot;#方式一：&quot; class=&quot;headerlink&quot; title=&quot;方式一：&quot;&gt;&lt;/a&gt;方式一：&lt;/h3&gt;&lt;p&gt;静态文件，较简单&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;location ^~ &amp;#x2F;static&amp;#x2F;css&amp;#x2F; &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;       deny 10.120.0.1;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;       deny 10.120.11.78;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;       #allow 10.120.11.3;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;       #allow 43.243.138.146;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;       #allow 114.118.12.231;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;       deny all;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;   &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-
-&lt;h3 id=&quot;方式二：&quot;&gt;&lt;a href=&quot;#方式二：&quot; class=&quot;headerlink&quot; title=&quot;方式二：&quot;&gt;&lt;/a&gt;方式二：&lt;/h3&gt;&lt;p&gt;路由较复杂：&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="Linux" scheme="https://sugw.github.io/sugw.github.io/categories/Linux/"/>
-    
-    
-    <category term="nginx" scheme="https://sugw.github.io/sugw.github.io/tags/nginx/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Firewalld</title>
-    <link href="https://sugw.github.io/sugw.github.io/2020/10/28/Firewalld/"/>
-    <id>https://sugw.github.io/sugw.github.io/2020/10/28/Firewalld/</id>
-    <published>2020-10-28T07:51:18.000Z</published>
-    <updated>2020-10-28T08:16:41.062Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;启动一个服务：systemctl start firewalld.service&lt;/p&gt;
-&lt;p&gt;关闭一个服务：systemctl stop firewalld.service&lt;/p&gt;
-&lt;p&gt;重启一个服务：systemctl restart firewalld.service&lt;/p&gt;
-&lt;p&gt;显示一个服务的状态：systemctl status firewalld.service&lt;/p&gt;
-&lt;p&gt;在开机时启用一个服务：systemctl enable firewalld.service&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="Linux" scheme="https://sugw.github.io/sugw.github.io/categories/Linux/"/>
-    
-    
-    <category term="防火墙" scheme="https://sugw.github.io/sugw.github.io/tags/%E9%98%B2%E7%81%AB%E5%A2%99/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Mysql 批量删除表</title>
-    <link href="https://sugw.github.io/sugw.github.io/2020/10/27/Mysql%20%E6%89%B9%E9%87%8F%E5%88%A0%E9%99%A4%E8%A1%A8/"/>
-    <id>https://sugw.github.io/sugw.github.io/2020/10/27/Mysql%20%E6%89%B9%E9%87%8F%E5%88%A0%E9%99%A4%E8%A1%A8/</id>
-    <published>2020-10-27T07:49:07.417Z</published>
-    <updated>2020-11-19T06:26:44.234Z</updated>
-    
-    
-    <summary type="html">生成删除表语句
-1
-2
-
-
-mysql -h主机 -D库 -u用户 -p密码 -e &quot;Select CONCAT( &#39;drop tables &#39;, table_name, &#39;;&#39; ) FROM information_schema.tables Where table_name LIKE &#39;sample_%&#39;;&quot; &gt;delete_tables.sql
-
-
-
-批量删除表
-1
-
-
-mysql -h主机 -D库 -u用户 -p密码 -e &quot;source /opt/delete_tables.sql&quot;</summary>
-    
-    
-    
-    <category term="数据库" scheme="https://sugw.github.io/sugw.github.io/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
-    
-    
-    <category term="mysql" scheme="https://sugw.github.io/sugw.github.io/tags/mysql/"/>
     
   </entry>
   
