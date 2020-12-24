@@ -6,7 +6,7 @@
   <link href="https://sugw.github.io/sugw.github.io/atom.xml" rel="self"/>
   
   <link href="https://sugw.github.io/sugw.github.io/"/>
-  <updated>2020-12-24T02:52:15.579Z</updated>
+  <updated>2020-12-24T06:39:49.637Z</updated>
   <id>https://sugw.github.io/sugw.github.io/</id>
   
   <author>
@@ -17,18 +17,14 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title></title>
+    <title>Jenkins pipeline 多服务器，多分支发版</title>
     <link href="https://sugw.github.io/sugw.github.io/2020/12/23/Jenkins%20pipeline%20%E5%A4%9A%E6%9C%8D%E5%8A%A1%E5%99%A8%EF%BC%8C%E5%A4%9A%E5%88%86%E6%94%AF%E5%8F%91%E7%89%88/"/>
     <id>https://sugw.github.io/sugw.github.io/2020/12/23/Jenkins%20pipeline%20%E5%A4%9A%E6%9C%8D%E5%8A%A1%E5%99%A8%EF%BC%8C%E5%A4%9A%E5%88%86%E6%94%AF%E5%8F%91%E7%89%88/</id>
     <published>2020-12-23T07:34:21.286Z</published>
-    <updated>2020-12-24T02:52:15.579Z</updated>
+    <updated>2020-12-24T06:39:49.637Z</updated>
     
     
-    <summary type="html">title: Jenkins pipeline 多服务器，多分支发版
-tags: jenkins
-categories: Jenkins
-
-Jenkins pipeline 多服务器，多分支发版
+    <summary type="html">Jenkins pipeline 多服务器，多分支发版
 1
 2
 3
@@ -99,10 +95,37 @@ Jenkins pipeline 多服务器，多分支发版
 68
 69
 70
-7</summary>
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94</summary>
     
     
     
+    <category term="Jenkins" scheme="https://sugw.github.io/sugw.github.io/categories/Jenkins/"/>
+    
+    
+    <category term="jenkins" scheme="https://sugw.github.io/sugw.github.io/tags/jenkins/"/>
     
   </entry>
   
