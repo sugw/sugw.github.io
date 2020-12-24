@@ -6,7 +6,7 @@
   <link href="https://sugw.github.io/sugw.github.io/atom.xml" rel="self"/>
   
   <link href="https://sugw.github.io/sugw.github.io/"/>
-  <updated>2020-12-17T02:05:34.680Z</updated>
+  <updated>2020-12-24T02:52:15.579Z</updated>
   <id>https://sugw.github.io/sugw.github.io/</id>
   
   <author>
@@ -18,10 +18,100 @@
   
   <entry>
     <title></title>
+    <link href="https://sugw.github.io/sugw.github.io/2020/12/23/Jenkins%20pipeline%20%E5%A4%9A%E6%9C%8D%E5%8A%A1%E5%99%A8%EF%BC%8C%E5%A4%9A%E5%88%86%E6%94%AF%E5%8F%91%E7%89%88/"/>
+    <id>https://sugw.github.io/sugw.github.io/2020/12/23/Jenkins%20pipeline%20%E5%A4%9A%E6%9C%8D%E5%8A%A1%E5%99%A8%EF%BC%8C%E5%A4%9A%E5%88%86%E6%94%AF%E5%8F%91%E7%89%88/</id>
+    <published>2020-12-23T07:34:21.286Z</published>
+    <updated>2020-12-24T02:52:15.579Z</updated>
+    
+    
+    <summary type="html">title: Jenkins pipeline 多服务器，多分支发版
+tags: jenkins
+categories: Jenkins
+
+Jenkins pipeline 多服务器，多分支发版
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+7</summary>
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title></title>
     <link href="https://sugw.github.io/sugw.github.io/2020/12/17/%E5%BC%80%E5%90%AFGTID%E7%9A%84%E6%83%85%E5%86%B5%E4%B8%8B%E5%AF%BC%E5%87%BA%E5%AF%BC%E5%85%A5%E5%BA%93%E7%9A%84%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9%20/"/>
     <id>https://sugw.github.io/sugw.github.io/2020/12/17/%E5%BC%80%E5%90%AFGTID%E7%9A%84%E6%83%85%E5%86%B5%E4%B8%8B%E5%AF%BC%E5%87%BA%E5%AF%BC%E5%85%A5%E5%BA%93%E7%9A%84%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9%20/</id>
     <published>2020-12-17T02:04:49.059Z</published>
-    <updated>2020-12-17T02:05:34.680Z</updated>
+    <updated>2020-12-17T03:26:30.292Z</updated>
     
     
     <summary type="html">&lt;p&gt;title: 开启GTID的情况下导出导入库的注意事项&lt;br&gt;tags: mysql&lt;br&gt;categories: mysql&lt;/p&gt;
@@ -742,46 +832,6 @@
  max-height: 20px;
  overflow-y: scroll;
  border: 1px solid #a</summary>
-    
-    
-    
-    <category term="wiki" scheme="https://sugw.github.io/sugw.github.io/categories/wiki/"/>
-    
-    
-    <category term="wiki" scheme="https://sugw.github.io/sugw.github.io/tags/wiki/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>mediawiki lockdown权限配置</title>
-    <link href="https://sugw.github.io/sugw.github.io/2020/11/13/mediawiki%20lockdown%E6%9D%83%E9%99%90%E9%85%8D%E7%BD%AE/"/>
-    <id>https://sugw.github.io/sugw.github.io/2020/11/13/mediawiki%20lockdown%E6%9D%83%E9%99%90%E9%85%8D%E7%BD%AE/</id>
-    <published>2020-11-13T02:26:32.719Z</published>
-    <updated>2020-11-13T08:19:01.711Z</updated>
-    
-    
-    <summary type="html">禁止游客访问站点内容，需注册
-1
-2
-3
-4
-5
-6
-
-
-## 拒绝没注册用户浏览和编辑
-$wgGroupPermissions[&#39;*&#39;][&#39;edit&#39;] = false;
-$wgGroupPermissions[&#39;*&#39;][&#39;read&#39;] = false;
-
-## 设置游客可以看到的页面
-$wgWhitelistRead = array (&quot;Main Page&quot;, &quot;MediaWiki:Common.css&quot;,&quot;MediaWiki:Common.js&quot;,&quot;Special:Userlogin&quot;,&quot;特殊:创建账户&quot;, &quot;Wikipedia:Help&quot;);
-
-
-安装lockdown插件
-1
-2
-3
-</summary>
     
     
     
