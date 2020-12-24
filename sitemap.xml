@@ -2,16 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://sugw.github.io/sugw.github.io/2020/12/23/Jenkins%20pipeline%20%E5%A4%9A%E6%9C%8D%E5%8A%A1%E5%99%A8%EF%BC%8C%E5%A4%9A%E5%88%86%E6%94%AF%E5%8F%91%E7%89%88/</loc>
+    <loc>https://sugw.github.io/sugw.github.io/2020/12/17/%E5%BC%80%E5%90%AFGTID%E7%9A%84%E6%83%85%E5%86%B5%E4%B8%8B%E5%AF%BC%E5%87%BA%E5%AF%BC%E5%85%A5%E5%BA%93%E7%9A%84%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9%20/</loc>
     
     <lastmod>2020-12-24</lastmod>
     
   </url>
   
   <url>
-    <loc>https://sugw.github.io/sugw.github.io/2020/12/17/%E5%BC%80%E5%90%AFGTID%E7%9A%84%E6%83%85%E5%86%B5%E4%B8%8B%E5%AF%BC%E5%87%BA%E5%AF%BC%E5%85%A5%E5%BA%93%E7%9A%84%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9%20/</loc>
+    <loc>https://sugw.github.io/sugw.github.io/2020/12/23/Jenkins%20pipeline%20%E5%A4%9A%E6%9C%8D%E5%8A%A1%E5%99%A8%EF%BC%8C%E5%A4%9A%E5%88%86%E6%94%AF%E5%8F%91%E7%89%88/</loc>
     
-    <lastmod>2020-12-17</lastmod>
+    <lastmod>2020-12-24</lastmod>
     
   </url>
   
@@ -455,6 +455,13 @@
   
   <url>
     <loc>https://sugw.github.io/sugw.github.io/categories/wiki/</loc>
+    <lastmod>2020-12-24</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://sugw.github.io/sugw.github.io/categories/mysql/</loc>
     <lastmod>2020-12-24</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>

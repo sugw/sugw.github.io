@@ -130,23 +130,27 @@
   </entry>
   
   <entry>
-    <title></title>
+    <title>开启GTID的情况下导出导入库的注意事项</title>
     <link href="https://sugw.github.io/sugw.github.io/2020/12/17/%E5%BC%80%E5%90%AFGTID%E7%9A%84%E6%83%85%E5%86%B5%E4%B8%8B%E5%AF%BC%E5%87%BA%E5%AF%BC%E5%85%A5%E5%BA%93%E7%9A%84%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9%20/"/>
     <id>https://sugw.github.io/sugw.github.io/2020/12/17/%E5%BC%80%E5%90%AFGTID%E7%9A%84%E6%83%85%E5%86%B5%E4%B8%8B%E5%AF%BC%E5%87%BA%E5%AF%BC%E5%85%A5%E5%BA%93%E7%9A%84%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9%20/</id>
     <published>2020-12-17T02:04:49.059Z</published>
-    <updated>2020-12-17T03:26:30.292Z</updated>
+    <updated>2020-12-24T08:40:01.931Z</updated>
     
     
-    <summary type="html">&lt;p&gt;title: 开启GTID的情况下导出导入库的注意事项&lt;br&gt;tags: mysql&lt;br&gt;categories: mysql&lt;/p&gt;
-&lt;blockquote&gt;
+    <summary type="html">&lt;blockquote&gt;
 &lt;p&gt;在开启了 GTID 功能的 MySQL 数据库中, 不论是否使用了 GTID 的方式做了主从同步, 导出导入时都需要特别注意数据库中的 GTID 信息.&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h1 id=&quot;导出&quot;&gt;&lt;a href=&quot;#导出&quot; class=&quot;headerlink&quot; title=&quot;导出&quot;&gt;&lt;/a&gt;导出&lt;/h1&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;➜  mysqldump -uroot -p userdb &amp;gt; userdb.sql&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Warning: A partial dump from a server that has GTIDs will by default include the GTIDs of all transactions, even those that changed suppressed parts of the database. If you don&amp;#39;t want to restore GTIDs, pass --set-gtid-purged&amp;#x3D;OFF. To make a complete dump, pass --all-databases --triggers --routines --events&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
 
-&lt;p&gt;mysql提示: 当前数据库实例中开启了 GTID 功能, 在开启有 GTID 功能的数据库实例中, 导出其中任何一个库, 如果没有显示地指定&lt;code&gt;--set-gtid-purged&lt;/code&gt;参数, 都会提示这一行信息. 意思是默认情况下, 导出的库中含有 GTID 信息, 如果不想导出包含有 GTID 信息的数据库, 需要显示地添加&lt;code&gt;--set-gtid-purged=OFF&lt;/code&gt;参数. 于是乎, dump 变成了如下样子&lt;/p&gt;</summary>
+&lt;p&gt;mysql提示: 当前数据库实例中开启了 GTID 功能, 在开启有 GTID 功能的数据库实例中, 导出其中任何一个库, 如果没有显示地指定&lt;code&gt;--set-gtid-purged&lt;/code&gt;参数, 都会提示这一行信息. 意思是默认情况下, 导出的库中含有 GTID 信息, 如果不想导出包含有 GTID 信息的数据库, 需要显示地添加&lt;code&gt;--set-gtid-purged=OFF&lt;/code&gt;参数. 于是乎, dump 变成了如下样子&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;➜ mysqldump -uroot -p --set-gtid-purged&amp;#x3D;OFF userdb &amp;gt; userdb.sql&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;</summary>
     
     
     
+    <category term="mysql" scheme="https://sugw.github.io/sugw.github.io/categories/mysql/"/>
+    
+    
+    <category term="mysql" scheme="https://sugw.github.io/sugw.github.io/tags/mysql/"/>
     
   </entry>
   
