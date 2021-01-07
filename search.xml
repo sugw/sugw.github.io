@@ -447,6 +447,21 @@
       </tags>
   </entry>
   <entry>
+    <title>Mysql 批量删除表</title>
+    <url>/sugw.github.io/2020/10/27/Mysql%20%E6%89%B9%E9%87%8F%E5%88%A0%E9%99%A4%E8%A1%A8/</url>
+    <content><![CDATA[<h2 id="生成删除表语句"><a href="#生成删除表语句" class="headerlink" title="生成删除表语句"></a>生成删除表语句</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">mysql -h主机 -D库 -u用户 -p密码 -e &quot;Select CONCAT( &#x27;drop tables &#x27;, table_name, &#x27;;&#x27; ) FROM information_schema.tables Where table_name LIKE &#x27;sample_%&#x27;;&quot; &gt;delete_tables.sql</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="批量删除表"><a href="#批量删除表" class="headerlink" title="批量删除表"></a>批量删除表</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">mysql -h主机 -D库 -u用户 -p密码 -e &quot;source /opt/delete_tables.sql&quot;</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>数据库</category>
+      </categories>
+      <tags>
+        <tag>mysql</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Mysql数据库查询大小</title>
     <url>/sugw.github.io/2020/10/27/Mysql%20%E5%BA%93%E6%9F%A5%E8%AF%A2%E5%A4%A7%E5%B0%8F/</url>
     <content><![CDATA[<h2 id="查询库大小"><a href="#查询库大小" class="headerlink" title="查询库大小"></a>查询库大小</h2><figure class="highlight pgsql"><table><tr><td class="code"><pre><span class="line"><span class="number">1.</span>查看所有数据库容量大小</span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span></span><br><span class="line">table_schema <span class="keyword">as</span> <span class="string">&#x27;数据库&#x27;</span>,</span><br><span class="line">sum(table_rows) <span class="keyword">as</span> <span class="string">&#x27;记录数&#x27;</span>,</span><br><span class="line">sum(<span class="keyword">truncate</span>(data_length/<span class="number">1024</span>/<span class="number">1024</span>, <span class="number">2</span>)) <span class="keyword">as</span> <span class="string">&#x27;数据容量(MB)&#x27;</span>,</span><br><span class="line">sum(<span class="keyword">truncate</span>(index_length/<span class="number">1024</span>/<span class="number">1024</span>, <span class="number">2</span>)) <span class="keyword">as</span> <span class="string">&#x27;索引容量(MB)&#x27;</span></span><br><span class="line"><span class="keyword">from</span> information_schema.<span class="keyword">tables</span></span><br><span class="line"><span class="keyword">group</span> <span class="keyword">by</span> table_schema</span><br><span class="line"><span class="keyword">order</span> <span class="keyword">by</span> sum(data_length) <span class="keyword">desc</span>, sum(index_length) <span class="keyword">desc</span>;</span><br><span class="line"><span class="number">2.</span>查看所有数据库各表容量大小</span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span></span><br><span class="line">table_schema <span class="keyword">as</span> <span class="string">&#x27;数据库&#x27;</span>,</span><br><span class="line"><span class="built_in">table_name</span> <span class="keyword">as</span> <span class="string">&#x27;表名&#x27;</span>,</span><br><span class="line">table_rows <span class="keyword">as</span> <span class="string">&#x27;记录数&#x27;</span>,</span><br><span class="line"><span class="keyword">truncate</span>(data_length/<span class="number">1024</span>/<span class="number">1024</span>, <span class="number">2</span>) <span class="keyword">as</span> <span class="string">&#x27;数据容量(MB)&#x27;</span>,</span><br><span class="line"><span class="keyword">truncate</span>(index_length/<span class="number">1024</span>/<span class="number">1024</span>, <span class="number">2</span>) <span class="keyword">as</span> <span class="string">&#x27;索引容量(MB)&#x27;</span></span><br><span class="line"><span class="keyword">from</span> information_schema.<span class="keyword">tables</span></span><br><span class="line"><span class="keyword">order</span> <span class="keyword">by</span> data_length <span class="keyword">desc</span>, index_length <span class="keyword">desc</span>;</span><br><span class="line"><span class="number">3.</span>查看指定数据库容量大小</span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span></span><br><span class="line">table_schema <span class="keyword">as</span> <span class="string">&#x27;数据库&#x27;</span>,</span><br><span class="line">sum(table_rows) <span class="keyword">as</span> <span class="string">&#x27;记录数&#x27;</span>,</span><br><span class="line">sum(<span class="keyword">truncate</span>(data_length/<span class="number">1024</span>/<span class="number">1024</span>, <span class="number">2</span>)) <span class="keyword">as</span> <span class="string">&#x27;数据容量(MB)&#x27;</span>,</span><br><span class="line">sum(<span class="keyword">truncate</span>(index_length/<span class="number">1024</span>/<span class="number">1024</span>, <span class="number">2</span>)) <span class="keyword">as</span> <span class="string">&#x27;索引容量(MB)&#x27;</span></span><br><span class="line"><span class="keyword">from</span> information_schema.<span class="keyword">tables</span></span><br><span class="line"><span class="keyword">where</span> table_schema=<span class="string">&#x27;mysql&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="number">4.</span>查看指定数据库各表容量大小</span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span></span><br><span class="line">table_schema <span class="keyword">as</span> <span class="string">&#x27;数据库&#x27;</span>,</span><br><span class="line"><span class="built_in">table_name</span> <span class="keyword">as</span> <span class="string">&#x27;表名&#x27;</span>,</span><br><span class="line">table_rows <span class="keyword">as</span> <span class="string">&#x27;记录数&#x27;</span>,</span><br><span class="line"><span class="keyword">truncate</span>(data_length/<span class="number">1024</span>/<span class="number">1024</span>, <span class="number">2</span>) <span class="keyword">as</span> <span class="string">&#x27;数据容量(MB)&#x27;</span>,</span><br><span class="line"><span class="keyword">truncate</span>(index_length/<span class="number">1024</span>/<span class="number">1024</span>, <span class="number">2</span>) <span class="keyword">as</span> <span class="string">&#x27;索引容量(MB)&#x27;</span></span><br><span class="line"><span class="keyword">from</span> information_schema.<span class="keyword">tables</span></span><br><span class="line"><span class="keyword">where</span> table_schema=<span class="string">&#x27;mysql&#x27;</span></span><br><span class="line"><span class="keyword">order</span> <span class="keyword">by</span> data_length <span class="keyword">desc</span>, index_length <span class="keyword">desc</span>;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
@@ -480,21 +495,6 @@
 
 <p>或者过滤掉performance_schema这个库</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># mysql -e &quot;show databases;&quot; -uroot -p| grep -Ev &quot;Database|information_schema|mysql|test|performance_schema&quot; | xargs mysqldump -uroot -p --databases &gt; mysql_dump.sql</span></span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <categories>
-        <category>数据库</category>
-      </categories>
-      <tags>
-        <tag>mysql</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Mysql 批量删除表</title>
-    <url>/sugw.github.io/2020/10/27/Mysql%20%E6%89%B9%E9%87%8F%E5%88%A0%E9%99%A4%E8%A1%A8/</url>
-    <content><![CDATA[<h2 id="生成删除表语句"><a href="#生成删除表语句" class="headerlink" title="生成删除表语句"></a>生成删除表语句</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">mysql -h主机 -D库 -u用户 -p密码 -e &quot;Select CONCAT( &#x27;drop tables &#x27;, table_name, &#x27;;&#x27; ) FROM information_schema.tables Where table_name LIKE &#x27;sample_%&#x27;;&quot; &gt;delete_tables.sql</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h2 id="批量删除表"><a href="#批量删除表" class="headerlink" title="批量删除表"></a>批量删除表</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">mysql -h主机 -D库 -u用户 -p密码 -e &quot;source /opt/delete_tables.sql&quot;</span><br></pre></td></tr></table></figure>
 
 ]]></content>
       <categories>
@@ -682,29 +682,6 @@
       </categories>
       <tags>
         <tag>prometheus</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>ab压测工具</title>
-    <url>/sugw.github.io/2020/11/19/ab%E5%8E%8B%E6%B5%8B%E5%B7%A5%E5%85%B7/</url>
-    <content><![CDATA[<p>ab压测参数：</p>
-<figure class="highlight haml"><table><tr><td class="code"><pre><span class="line">-<span class="ruby">n 测试会话中所执行的请求个数,默认仅执行一个请求 </span></span><br><span class="line"><span class="ruby">-c 一次产生的请求个数,即同一时间发出多少个请求,默认为一次一个 </span></span><br><span class="line"><span class="ruby">-t 测试所进行的最大秒数,默认为无时间限制....其内部隐含值是[-n <span class="number">50000</span>],它可以使对服务器的测试限制在一个固定的总时间以内 </span></span><br><span class="line"><span class="ruby">-p 包含了需要POST的数据的文件 </span></span><br><span class="line"><span class="ruby">-T POST数据所使用的Content-type头信息 </span></span><br><span class="line"><span class="ruby">-v 设置显示信息的详细程度 </span></span><br><span class="line"><span class="ruby">-w 以HTML表格的形式输出结果,默认是白色背景的两列宽度的一张表</span></span><br><span class="line"><span class="ruby">-i 以HTML表格的形式输出结果,默认是白色背景的两列宽度的一张表 </span></span><br><span class="line"><span class="ruby">-x 设置&lt;table&gt;属性的字符串,此属性被填入&lt;table 这里&gt; </span></span><br><span class="line"><span class="ruby">-y 设置&lt;tr&gt;属性的字符串 </span></span><br><span class="line"><span class="ruby">-z 设置&lt;td&gt;属性的字符串 </span></span><br><span class="line"><span class="ruby">-C 对请求附加一个Cookie行，其典型形式是name=value的参数对,此参数可以重复 </span></span><br><span class="line"><span class="ruby">-H 对请求附加额外的头信息,此参数的典型形式是一个有效的头信息行,其中包含了以冒号分隔的字段和值的对(如<span class="string">&quot;Accept-Encoding: zip/zop;8bit&quot;</span>) </span></span><br><span class="line"><span class="ruby">-A HTTP验证,用冒号<span class="symbol">:</span>分隔传递用户名及密码 </span></span><br><span class="line"><span class="ruby">-P 无论服务器是否需要(即是否发送了<span class="number">401</span>认证需求代码),此字符串都会被发送 </span></span><br><span class="line"><span class="ruby">-X 对请求使用代理服务器 </span></span><br><span class="line"><span class="ruby">-V 显示版本号并退出 </span></span><br><span class="line"><span class="ruby">-k 启用HTTP KeepAlive功能,即在一个HTTP会话中执行多个请求,默认为不启用KeepAlive功能 </span></span><br><span class="line"><span class="ruby">-d 不显示<span class="string">&quot;percentage served within XX [ms] table&quot;</span>的消息(为以前的版本提供支持) </span></span><br><span class="line"><span class="ruby">-S 不显示中值和标准背离值,且均值和中值为标准背离值的<span class="number">1</span>到<span class="number">2</span>倍时,也不显示警告或出错信息,默认会显示最小值/均值/最大值等(为以前的版本提供支持) </span></span><br><span class="line"><span class="ruby">-g 把所有测试结果写入一个<span class="string">&#x27;gnuplot&#x27;</span>或者TSV(以Tab分隔的)文件 </span></span><br><span class="line"><span class="ruby">-e 产生一个以逗号分隔的(CSV)文件,其中包含了处理每个相应百分比的请求所需要(从<span class="number">1</span>%到<span class="number">100</span>%)的相应百分比的(以微妙为单位)时间 </span></span><br><span class="line"><span class="ruby">-h 显示使用方法 </span></span><br><span class="line"><span class="ruby">-k 发送keep-alive指令到服务器端</span></span><br></pre></td></tr></table></figure>
-
-<p>ab压测命令：</p>
-<figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">ab</span> -n <span class="number">10</span> -s <span class="number">50000</span> -k <span class="string">&quot;http://127.0.0.1:9501/?uid=123&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>ab压测结果:</p>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="string">This</span> <span class="string">is</span> <span class="string">apacheBench,</span> <span class="string">Version</span> <span class="number">2.3</span> <span class="string">&lt;$Revision:</span> <span class="number">1843412</span> <span class="string">$&gt;</span></span><br><span class="line"><span class="string">Copyright</span> <span class="number">1996 </span><span class="string">Adam</span> <span class="string">Twiss,</span> <span class="string">Zeus</span> <span class="string">Technology</span> <span class="string">Ltd,</span> <span class="string">http://www.zeustech.net/</span></span><br><span class="line"><span class="string">Licensed</span> <span class="string">to</span> <span class="string">The</span> <span class="string">Apache</span> <span class="string">Software</span> <span class="string">Foundation,</span> <span class="string">http://www.apache.org/</span></span><br><span class="line"></span><br><span class="line"><span class="string">Benchmarking</span> <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span> <span class="string">(be</span> <span class="string">patient).....done</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="attr">Server Software:</span>        <span class="string">swoole-http-server#服务器软件</span></span><br><span class="line"><span class="attr">Server Hostname:</span>        <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span><span class="comment">#域名</span></span><br><span class="line"><span class="attr">Server Port:</span>            <span class="number">9501</span><span class="comment">#请求端口号</span></span><br><span class="line"></span><br><span class="line"><span class="attr">Document Path:</span>          <span class="string">/?uid=123#文件路径</span></span><br><span class="line"><span class="attr">Document Length:</span>        <span class="number">818</span> <span class="string">bytes#页面字节数</span></span><br><span class="line"></span><br><span class="line"><span class="attr">Concurrency Level:</span>      <span class="number">1</span><span class="comment">#请求的并发数</span></span><br><span class="line"><span class="attr">Time taken for tests:</span>   <span class="number">225.551</span> <span class="string">seconds#总访问时间</span></span><br><span class="line"><span class="attr">Complete requests:</span>      <span class="number">10</span><span class="comment">#请求成功数量</span></span><br><span class="line"><span class="attr">Failed requests:</span>        <span class="number">1</span><span class="comment">#请求失败数量</span></span><br><span class="line">   <span class="string">(Connect:</span> <span class="number">0</span><span class="string">,</span> <span class="attr">Receive:</span> <span class="number">0</span><span class="string">,</span> <span class="attr">Length:</span> <span class="number">1</span><span class="string">,</span> <span class="attr">Exceptions:</span> <span class="number">0</span><span class="string">)</span></span><br><span class="line"><span class="attr">Keep-Alive requests:</span>    <span class="number">10</span></span><br><span class="line"><span class="attr">Total transferred:</span>      <span class="number">9791 </span><span class="string">bytes#请求总数据大小（包括header头信息）</span></span><br><span class="line"><span class="attr">HTML transferred:</span>       <span class="number">8181 </span><span class="string">bytes#html页面实际总字节数</span></span><br><span class="line"><span class="attr">Requests per second:</span>    <span class="number">0.04</span> [<span class="comment">#/sec] (mean)#每秒多少请求，服务器的吞吐量</span></span><br><span class="line"><span class="attr">Time per request:</span>       <span class="number">22555.056</span> [<span class="string">ms</span>] <span class="string">(mean)#用户平均请求等待时间</span> </span><br><span class="line"><span class="attr">Time per request:</span>       <span class="number">22555.056</span> [<span class="string">ms</span>] <span class="string">(mean</span>, <span class="string">across</span> <span class="string">all</span> <span class="string">concurrent</span> <span class="string">requests)#</span> <span class="string">服务器平均处理时间，也就是服务器吞吐量的倒数</span></span><br><span class="line"><span class="attr">Transfer rate:</span>          <span class="number">0.04</span> [<span class="string">Kbytes/sec</span>] <span class="string">received#每秒获取的数据长度</span></span><br><span class="line"></span><br><span class="line"><span class="string">Connection</span> <span class="string">Times</span> <span class="string">(ms)</span></span><br><span class="line">              <span class="string">min</span>  <span class="string">mean</span>[<span class="string">+/-sd</span>] <span class="string">median</span>   <span class="string">max</span></span><br><span class="line"><span class="attr">Connect:</span>        <span class="number">0</span>    <span class="number">0</span>   <span class="number">0.0</span>      <span class="number">0</span>       <span class="number">0</span></span><br><span class="line"><span class="attr">Processing:</span>  <span class="number">6434 </span><span class="number">22555</span> <span class="number">19246.5</span>  <span class="number">21379</span>   <span class="number">61285</span></span><br><span class="line"><span class="attr">Waiting:</span>     <span class="number">6434 </span><span class="number">22555</span> <span class="number">19246.4</span>  <span class="number">21379</span>   <span class="number">61285</span></span><br><span class="line"><span class="attr">Total:</span>       <span class="number">6434 </span><span class="number">22555</span> <span class="number">19246.5</span>  <span class="number">21379</span>   <span class="number">61285</span></span><br><span class="line"></span><br><span class="line"><span class="string">Percentage</span> <span class="string">of</span> <span class="string">the</span> <span class="string">requests</span> <span class="string">served</span> <span class="string">within</span> <span class="string">a</span> <span class="string">certain</span> <span class="string">time</span> <span class="string">(ms)</span></span><br><span class="line">  <span class="number">50</span><span class="string">%</span>  <span class="number">21379</span><span class="comment">#50%用户请求在21379ms内返回</span></span><br><span class="line">  <span class="number">66</span><span class="string">%</span>  <span class="number">30850</span><span class="comment">#66%用户请求在30850ms内返回</span></span><br><span class="line">  <span class="number">75</span><span class="string">%</span>  <span class="number">31684</span><span class="comment">#75%用户请求在31684ms内返回</span></span><br><span class="line">  <span class="number">80</span><span class="string">%</span>  <span class="number">44672</span><span class="comment">#80%用户请求在44672ms内返回</span></span><br><span class="line">  <span class="number">90</span><span class="string">%</span>  <span class="number">61285</span><span class="comment">#90%用户请求在61285ms内返回</span></span><br><span class="line">  <span class="number">95</span><span class="string">%</span>  <span class="number">61285</span><span class="comment">#95%用户请求在61285ms内返回</span></span><br><span class="line">  <span class="number">98</span><span class="string">%</span>  <span class="number">61285</span><span class="comment">#98%用户请求在61285ms内返回</span></span><br><span class="line">  <span class="number">99</span><span class="string">%</span>  <span class="number">61285</span><span class="comment">#99%用户请求在61285ms内返回</span></span><br><span class="line"> <span class="number">100</span><span class="string">%</span>  <span class="number">61285</span> <span class="string">(longest</span> <span class="string">request)</span></span><br></pre></td></tr></table></figure>
-
-
-
-<p>以上就是ab压测参数详解的全部内容。</p>
-]]></content>
-      <categories>
-        <category>测试</category>
-      </categories>
-      <tags>
-        <tag>测试</tag>
       </tags>
   </entry>
   <entry>
@@ -1072,6 +1049,29 @@
       </tags>
   </entry>
   <entry>
+    <title>ab压测工具</title>
+    <url>/sugw.github.io/2020/11/19/ab%E5%8E%8B%E6%B5%8B%E5%B7%A5%E5%85%B7/</url>
+    <content><![CDATA[<p>ab压测参数：</p>
+<figure class="highlight haml"><table><tr><td class="code"><pre><span class="line">-<span class="ruby">n 测试会话中所执行的请求个数,默认仅执行一个请求 </span></span><br><span class="line"><span class="ruby">-c 一次产生的请求个数,即同一时间发出多少个请求,默认为一次一个 </span></span><br><span class="line"><span class="ruby">-t 测试所进行的最大秒数,默认为无时间限制....其内部隐含值是[-n <span class="number">50000</span>],它可以使对服务器的测试限制在一个固定的总时间以内 </span></span><br><span class="line"><span class="ruby">-p 包含了需要POST的数据的文件 </span></span><br><span class="line"><span class="ruby">-T POST数据所使用的Content-type头信息 </span></span><br><span class="line"><span class="ruby">-v 设置显示信息的详细程度 </span></span><br><span class="line"><span class="ruby">-w 以HTML表格的形式输出结果,默认是白色背景的两列宽度的一张表</span></span><br><span class="line"><span class="ruby">-i 以HTML表格的形式输出结果,默认是白色背景的两列宽度的一张表 </span></span><br><span class="line"><span class="ruby">-x 设置&lt;table&gt;属性的字符串,此属性被填入&lt;table 这里&gt; </span></span><br><span class="line"><span class="ruby">-y 设置&lt;tr&gt;属性的字符串 </span></span><br><span class="line"><span class="ruby">-z 设置&lt;td&gt;属性的字符串 </span></span><br><span class="line"><span class="ruby">-C 对请求附加一个Cookie行，其典型形式是name=value的参数对,此参数可以重复 </span></span><br><span class="line"><span class="ruby">-H 对请求附加额外的头信息,此参数的典型形式是一个有效的头信息行,其中包含了以冒号分隔的字段和值的对(如<span class="string">&quot;Accept-Encoding: zip/zop;8bit&quot;</span>) </span></span><br><span class="line"><span class="ruby">-A HTTP验证,用冒号<span class="symbol">:</span>分隔传递用户名及密码 </span></span><br><span class="line"><span class="ruby">-P 无论服务器是否需要(即是否发送了<span class="number">401</span>认证需求代码),此字符串都会被发送 </span></span><br><span class="line"><span class="ruby">-X 对请求使用代理服务器 </span></span><br><span class="line"><span class="ruby">-V 显示版本号并退出 </span></span><br><span class="line"><span class="ruby">-k 启用HTTP KeepAlive功能,即在一个HTTP会话中执行多个请求,默认为不启用KeepAlive功能 </span></span><br><span class="line"><span class="ruby">-d 不显示<span class="string">&quot;percentage served within XX [ms] table&quot;</span>的消息(为以前的版本提供支持) </span></span><br><span class="line"><span class="ruby">-S 不显示中值和标准背离值,且均值和中值为标准背离值的<span class="number">1</span>到<span class="number">2</span>倍时,也不显示警告或出错信息,默认会显示最小值/均值/最大值等(为以前的版本提供支持) </span></span><br><span class="line"><span class="ruby">-g 把所有测试结果写入一个<span class="string">&#x27;gnuplot&#x27;</span>或者TSV(以Tab分隔的)文件 </span></span><br><span class="line"><span class="ruby">-e 产生一个以逗号分隔的(CSV)文件,其中包含了处理每个相应百分比的请求所需要(从<span class="number">1</span>%到<span class="number">100</span>%)的相应百分比的(以微妙为单位)时间 </span></span><br><span class="line"><span class="ruby">-h 显示使用方法 </span></span><br><span class="line"><span class="ruby">-k 发送keep-alive指令到服务器端</span></span><br></pre></td></tr></table></figure>
+
+<p>ab压测命令：</p>
+<figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">ab</span> -n <span class="number">10</span> -s <span class="number">50000</span> -k <span class="string">&quot;http://127.0.0.1:9501/?uid=123&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>ab压测结果:</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="string">This</span> <span class="string">is</span> <span class="string">apacheBench,</span> <span class="string">Version</span> <span class="number">2.3</span> <span class="string">&lt;$Revision:</span> <span class="number">1843412</span> <span class="string">$&gt;</span></span><br><span class="line"><span class="string">Copyright</span> <span class="number">1996 </span><span class="string">Adam</span> <span class="string">Twiss,</span> <span class="string">Zeus</span> <span class="string">Technology</span> <span class="string">Ltd,</span> <span class="string">http://www.zeustech.net/</span></span><br><span class="line"><span class="string">Licensed</span> <span class="string">to</span> <span class="string">The</span> <span class="string">Apache</span> <span class="string">Software</span> <span class="string">Foundation,</span> <span class="string">http://www.apache.org/</span></span><br><span class="line"></span><br><span class="line"><span class="string">Benchmarking</span> <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span> <span class="string">(be</span> <span class="string">patient).....done</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="attr">Server Software:</span>        <span class="string">swoole-http-server#服务器软件</span></span><br><span class="line"><span class="attr">Server Hostname:</span>        <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span><span class="comment">#域名</span></span><br><span class="line"><span class="attr">Server Port:</span>            <span class="number">9501</span><span class="comment">#请求端口号</span></span><br><span class="line"></span><br><span class="line"><span class="attr">Document Path:</span>          <span class="string">/?uid=123#文件路径</span></span><br><span class="line"><span class="attr">Document Length:</span>        <span class="number">818</span> <span class="string">bytes#页面字节数</span></span><br><span class="line"></span><br><span class="line"><span class="attr">Concurrency Level:</span>      <span class="number">1</span><span class="comment">#请求的并发数</span></span><br><span class="line"><span class="attr">Time taken for tests:</span>   <span class="number">225.551</span> <span class="string">seconds#总访问时间</span></span><br><span class="line"><span class="attr">Complete requests:</span>      <span class="number">10</span><span class="comment">#请求成功数量</span></span><br><span class="line"><span class="attr">Failed requests:</span>        <span class="number">1</span><span class="comment">#请求失败数量</span></span><br><span class="line">   <span class="string">(Connect:</span> <span class="number">0</span><span class="string">,</span> <span class="attr">Receive:</span> <span class="number">0</span><span class="string">,</span> <span class="attr">Length:</span> <span class="number">1</span><span class="string">,</span> <span class="attr">Exceptions:</span> <span class="number">0</span><span class="string">)</span></span><br><span class="line"><span class="attr">Keep-Alive requests:</span>    <span class="number">10</span></span><br><span class="line"><span class="attr">Total transferred:</span>      <span class="number">9791 </span><span class="string">bytes#请求总数据大小（包括header头信息）</span></span><br><span class="line"><span class="attr">HTML transferred:</span>       <span class="number">8181 </span><span class="string">bytes#html页面实际总字节数</span></span><br><span class="line"><span class="attr">Requests per second:</span>    <span class="number">0.04</span> [<span class="comment">#/sec] (mean)#每秒多少请求，服务器的吞吐量</span></span><br><span class="line"><span class="attr">Time per request:</span>       <span class="number">22555.056</span> [<span class="string">ms</span>] <span class="string">(mean)#用户平均请求等待时间</span> </span><br><span class="line"><span class="attr">Time per request:</span>       <span class="number">22555.056</span> [<span class="string">ms</span>] <span class="string">(mean</span>, <span class="string">across</span> <span class="string">all</span> <span class="string">concurrent</span> <span class="string">requests)#</span> <span class="string">服务器平均处理时间，也就是服务器吞吐量的倒数</span></span><br><span class="line"><span class="attr">Transfer rate:</span>          <span class="number">0.04</span> [<span class="string">Kbytes/sec</span>] <span class="string">received#每秒获取的数据长度</span></span><br><span class="line"></span><br><span class="line"><span class="string">Connection</span> <span class="string">Times</span> <span class="string">(ms)</span></span><br><span class="line">              <span class="string">min</span>  <span class="string">mean</span>[<span class="string">+/-sd</span>] <span class="string">median</span>   <span class="string">max</span></span><br><span class="line"><span class="attr">Connect:</span>        <span class="number">0</span>    <span class="number">0</span>   <span class="number">0.0</span>      <span class="number">0</span>       <span class="number">0</span></span><br><span class="line"><span class="attr">Processing:</span>  <span class="number">6434 </span><span class="number">22555</span> <span class="number">19246.5</span>  <span class="number">21379</span>   <span class="number">61285</span></span><br><span class="line"><span class="attr">Waiting:</span>     <span class="number">6434 </span><span class="number">22555</span> <span class="number">19246.4</span>  <span class="number">21379</span>   <span class="number">61285</span></span><br><span class="line"><span class="attr">Total:</span>       <span class="number">6434 </span><span class="number">22555</span> <span class="number">19246.5</span>  <span class="number">21379</span>   <span class="number">61285</span></span><br><span class="line"></span><br><span class="line"><span class="string">Percentage</span> <span class="string">of</span> <span class="string">the</span> <span class="string">requests</span> <span class="string">served</span> <span class="string">within</span> <span class="string">a</span> <span class="string">certain</span> <span class="string">time</span> <span class="string">(ms)</span></span><br><span class="line">  <span class="number">50</span><span class="string">%</span>  <span class="number">21379</span><span class="comment">#50%用户请求在21379ms内返回</span></span><br><span class="line">  <span class="number">66</span><span class="string">%</span>  <span class="number">30850</span><span class="comment">#66%用户请求在30850ms内返回</span></span><br><span class="line">  <span class="number">75</span><span class="string">%</span>  <span class="number">31684</span><span class="comment">#75%用户请求在31684ms内返回</span></span><br><span class="line">  <span class="number">80</span><span class="string">%</span>  <span class="number">44672</span><span class="comment">#80%用户请求在44672ms内返回</span></span><br><span class="line">  <span class="number">90</span><span class="string">%</span>  <span class="number">61285</span><span class="comment">#90%用户请求在61285ms内返回</span></span><br><span class="line">  <span class="number">95</span><span class="string">%</span>  <span class="number">61285</span><span class="comment">#95%用户请求在61285ms内返回</span></span><br><span class="line">  <span class="number">98</span><span class="string">%</span>  <span class="number">61285</span><span class="comment">#98%用户请求在61285ms内返回</span></span><br><span class="line">  <span class="number">99</span><span class="string">%</span>  <span class="number">61285</span><span class="comment">#99%用户请求在61285ms内返回</span></span><br><span class="line"> <span class="number">100</span><span class="string">%</span>  <span class="number">61285</span> <span class="string">(longest</span> <span class="string">request)</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>以上就是ab压测参数详解的全部内容。</p>
+]]></content>
+      <categories>
+        <category>测试</category>
+      </categories>
+      <tags>
+        <tag>测试</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>centos6.8 安装supervisor</title>
     <url>/sugw.github.io/2020/10/28/centos6.8%20%E5%AE%89%E8%A3%85supervisor/</url>
     <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p> centos6.8安装supervisor，有很多种方法，但是有很多坑，为了以后不重复踩坑，这里记录一下。</p>
@@ -1126,6 +1126,32 @@
       </tags>
   </entry>
   <entry>
+    <title>linux 磁盘</title>
+    <url>/sugw.github.io/2020/10/21/linux%20%E7%A3%81%E7%9B%98%E6%BB%A1/</url>
+    <content><![CDATA[<h3 id="问题："><a href="#问题：" class="headerlink" title="问题："></a>问题：</h3><hr>
+<p>​        磁盘显示已满，实际占用空间很小</p>
+<h3 id="原因："><a href="#原因：" class="headerlink" title="原因："></a>原因：</h3><hr>
+<p>​        程序没有释放已删除的文件</p>
+<h3 id="解决："><a href="#解决：" class="headerlink" title="解决："></a>解决：</h3><hr>
+<blockquote>
+<p>​        重启占用文件的程序</p>
+<p>​        1.检查磁盘占用</p>
+<p>​                 df -Th</p>
+<p>​        2.检查目录占用大小</p>
+<p>​                cd /</p>
+<p>​                du -sh *|grep G</p>
+<p>​        3.查看为释放文件的程序</p>
+<p>​                lsof -i|grep delete</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>Linux</category>
+      </categories>
+      <tags>
+        <tag>磁盘</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>linux内核优化</title>
     <url>/sugw.github.io/2020/11/20/linux%E5%86%85%E6%A0%B8%E4%BC%98%E5%8C%96/</url>
     <content><![CDATA[<h3 id="一、配置国内源和epel"><a href="#一、配置国内源和epel" class="headerlink" title="一、配置国内源和epel"></a>一、配置国内源和epel</h3><figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">cd <span class="regexp">/etc/yum</span>.repos.d/</span><br><span class="line">mkdir repo_bak</span><br><span class="line">mv *.repo repo_bak/</span><br><span class="line"><span class="comment">#基础源文件</span></span><br><span class="line">wget -P <span class="regexp">/etc/yum</span>.repos.d<span class="regexp">/ http:/</span><span class="regexp">/mirrors.aliyun.com/</span>repo/Centos-<span class="number">7</span>.repo</span><br><span class="line"><span class="comment">#epel源文件</span></span><br><span class="line">wget -O <span class="regexp">/etc/yum</span>.repos.d<span class="regexp">/epel-7.repo http:/</span><span class="regexp">/mirrors.aliyun.com/</span>repo/epel-<span class="number">7</span>.repo</span><br><span class="line"><span class="comment">#重新生成yum缓存</span></span><br><span class="line">yum clean all</span><br><span class="line">yum makecache</span><br><span class="line"><span class="comment">#同步时间</span></span><br><span class="line">yum -y install ntp</span><br><span class="line"><span class="regexp">/usr/</span>sbin/ntpdate ntp1.aliyun.com</span><br><span class="line">echo <span class="string">&quot;* 04 * * * /usr/sbin/ntpdate ntp1.aliyun.com &gt;/dev/null 2&gt;&amp;1&quot;</span> &gt;&gt;<span class="regexp">/var/</span>spool<span class="regexp">/cron/</span>root</span><br><span class="line"></span><br><span class="line"><span class="comment">#禁用selinux</span></span><br><span class="line">sed -i <span class="string">&#x27;s/SELINUX=enforcing/SELINUX=disabled/&#x27;</span> <span class="regexp">/etc/</span>selinux/config</span><br><span class="line">setenforce <span class="number">0</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#set ssh</span></span><br><span class="line">sed -i <span class="string">&#x27;s/^GSSAPIAuthentication yes$/GSSAPIAuthentication no/&#x27;</span> <span class="regexp">/etc/</span>ssh/sshd_config</span><br><span class="line">sed -i <span class="string">&#x27;s/#UseDNS yes/UseDNS no/&#x27;</span> <span class="regexp">/etc/</span>ssh/sshd_config</span><br><span class="line">systemctl  restart sshd.service</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
@@ -1150,32 +1176,6 @@
       </categories>
       <tags>
         <tag>优化</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>linux 磁盘</title>
-    <url>/sugw.github.io/2020/10/21/linux%20%E7%A3%81%E7%9B%98%E6%BB%A1/</url>
-    <content><![CDATA[<h3 id="问题："><a href="#问题：" class="headerlink" title="问题："></a>问题：</h3><hr>
-<p>​        磁盘显示已满，实际占用空间很小</p>
-<h3 id="原因："><a href="#原因：" class="headerlink" title="原因："></a>原因：</h3><hr>
-<p>​        程序没有释放已删除的文件</p>
-<h3 id="解决："><a href="#解决：" class="headerlink" title="解决："></a>解决：</h3><hr>
-<blockquote>
-<p>​        重启占用文件的程序</p>
-<p>​        1.检查磁盘占用</p>
-<p>​                 df -Th</p>
-<p>​        2.检查目录占用大小</p>
-<p>​                cd /</p>
-<p>​                du -sh *|grep G</p>
-<p>​        3.查看为释放文件的程序</p>
-<p>​                lsof -i|grep delete</p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>Linux</category>
-      </categories>
-      <tags>
-        <tag>磁盘</tag>
       </tags>
   </entry>
   <entry>
@@ -1284,37 +1284,6 @@
       </categories>
       <tags>
         <tag>nginx</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>开启GTID的情况下导出导入库的注意事项</title>
-    <url>/sugw.github.io/2020/12/17/%E5%BC%80%E5%90%AFGTID%E7%9A%84%E6%83%85%E5%86%B5%E4%B8%8B%E5%AF%BC%E5%87%BA%E5%AF%BC%E5%85%A5%E5%BA%93%E7%9A%84%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9%20/</url>
-    <content><![CDATA[<blockquote>
-<p>在开启了 GTID 功能的 MySQL 数据库中, 不论是否使用了 GTID 的方式做了主从同步, 导出导入时都需要特别注意数据库中的 GTID 信息.</p>
-</blockquote>
-<h1 id="导出"><a href="#导出" class="headerlink" title="导出"></a>导出</h1><figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">➜  mysqldump -uroot -p userdb &gt; userdb.sql</span><br><span class="line">Warning: A partial dump <span class="keyword">from</span> a<span class="built_in"> server </span>that has GTIDs will by<span class="built_in"> default </span>include the GTIDs of all transactions, even those that changed suppressed parts of the database. <span class="keyword">If</span> you don<span class="string">&#x27;t want to restore GTIDs, pass --set-gtid-purged=OFF. To make a complete dump, pass --all-databases --triggers --routines --events</span></span><br></pre></td></tr></table></figure>
-
-<p>mysql提示: 当前数据库实例中开启了 GTID 功能, 在开启有 GTID 功能的数据库实例中, 导出其中任何一个库, 如果没有显示地指定<code>--set-gtid-purged</code>参数, 都会提示这一行信息. 意思是默认情况下, 导出的库中含有 GTID 信息, 如果不想导出包含有 GTID 信息的数据库, 需要显示地添加<code>--set-gtid-purged=OFF</code>参数. 于是乎, dump 变成了如下样子</p>
-<figure class="highlight cmake"><table><tr><td class="code"><pre><span class="line">➜ mysqldump -uroot -p --<span class="keyword">set</span>-gtid-purged=<span class="keyword">OFF</span> userdb &gt; userdb.sql</span><br></pre></td></tr></table></figure>
-
-<p>使用以上这条命令 dump 出来的库是不包含 GTID 信息的</p>
-<h1 id="导入"><a href="#导入" class="headerlink" title="导入"></a>导入</h1><p>导入的时候也分两种, 一种是导入带有 GTID 的信息的库, 一种是导入不带有 GTID 信息的库</p>
-<h2 id="不带有-GTID-信息"><a href="#不带有-GTID-信息" class="headerlink" title="不带有 GTID 信息"></a>不带有 GTID 信息</h2><p>不带有 GTID 信息的 dump 文件, 不管目标数据库实例是否开启了 GTID 功能, 且不管数据库实例是否已有其他 GTID 信息, 都可以顺利导入</p>
-<h2 id="带有-GTID-信息"><a href="#带有-GTID-信息" class="headerlink" title="带有 GTID 信息"></a>带有 GTID 信息</h2><p>带有 GTID 信息的 dump 文件, 要求目标数据库实例必须开启 GTID 功能, 且当前数据库中无其他 GTID 信息. 如果目标数据库中已经记录了一条或一条以上的 GTID 信息, 那么在导入数据库时会报出类似如下的错误❌</p>
-<figure class="highlight subunit"><table><tr><td class="code"><pre><span class="line">➜  mysql -uroot -p userdb &lt; userdb.sql</span><br><span class="line">Password:xxxxxxxx</span><br><span class="line"><span class="keyword">ERROR </span>1840 (HY000) at line 24: @@GLOBAL.GTID_PURGED can only be set when @@GLOBAL.GTID_EXECUTED is empty.</span><br></pre></td></tr></table></figure>
-
-<p>在 mysql5.7版本中加入了多 channel 的特性, 一台数据库实例可以同时与多个主库同步, 实现多主一从架构, 但是假如现在数据库实例中开启了 GTID, 并以 GTID 的方式与 A 主库和 B 主库同步,那么现在的 slave 中就记录有两条 GTID 信息. 在导入带有新 GTID 信息的库时, 会报错, 要求你清除掉目标数据库实例中所有的 GTID 信息. 在这种情况下, 问题就比较严重了, 因为我的这台数据库已经和两台主库建立主从关系, 现在为了导入一个新库, 需要 reset 掉所有同步信息(GTID 信息)</p>
-<p>这个时候你有两个选择:</p>
-<ol>
-<li>重新 dump 数据库, 使用<code>--set-gtid-purged=OFF</code>的参数禁止🚫导出 GTID 信息,再 load 进目标数据库</li>
-<li>在目标数据库中执行<code>mysql&gt; reset slave all;</code> <code>mysql&gt; reset master;</code> 清空所有 GTID 信息之后就可以导入了</li>
-</ol>
-]]></content>
-      <categories>
-        <category>mysql</category>
-      </categories>
-      <tags>
-        <tag>mysql</tag>
       </tags>
   </entry>
   <entry>
@@ -1558,6 +1527,37 @@
     <content><![CDATA[]]></content>
       <tags>
         <tag>测试</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>开启GTID的情况下导出导入库的注意事项</title>
+    <url>/sugw.github.io/2020/12/17/%E5%BC%80%E5%90%AFGTID%E7%9A%84%E6%83%85%E5%86%B5%E4%B8%8B%E5%AF%BC%E5%87%BA%E5%AF%BC%E5%85%A5%E5%BA%93%E7%9A%84%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9%20/</url>
+    <content><![CDATA[<blockquote>
+<p>在开启了 GTID 功能的 MySQL 数据库中, 不论是否使用了 GTID 的方式做了主从同步, 导出导入时都需要特别注意数据库中的 GTID 信息.</p>
+</blockquote>
+<h1 id="导出"><a href="#导出" class="headerlink" title="导出"></a>导出</h1><figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">➜  mysqldump -uroot -p userdb &gt; userdb.sql</span><br><span class="line">Warning: A partial dump <span class="keyword">from</span> a<span class="built_in"> server </span>that has GTIDs will by<span class="built_in"> default </span>include the GTIDs of all transactions, even those that changed suppressed parts of the database. <span class="keyword">If</span> you don<span class="string">&#x27;t want to restore GTIDs, pass --set-gtid-purged=OFF. To make a complete dump, pass --all-databases --triggers --routines --events</span></span><br></pre></td></tr></table></figure>
+
+<p>mysql提示: 当前数据库实例中开启了 GTID 功能, 在开启有 GTID 功能的数据库实例中, 导出其中任何一个库, 如果没有显示地指定<code>--set-gtid-purged</code>参数, 都会提示这一行信息. 意思是默认情况下, 导出的库中含有 GTID 信息, 如果不想导出包含有 GTID 信息的数据库, 需要显示地添加<code>--set-gtid-purged=OFF</code>参数. 于是乎, dump 变成了如下样子</p>
+<figure class="highlight cmake"><table><tr><td class="code"><pre><span class="line">➜ mysqldump -uroot -p --<span class="keyword">set</span>-gtid-purged=<span class="keyword">OFF</span> userdb &gt; userdb.sql</span><br></pre></td></tr></table></figure>
+
+<p>使用以上这条命令 dump 出来的库是不包含 GTID 信息的</p>
+<h1 id="导入"><a href="#导入" class="headerlink" title="导入"></a>导入</h1><p>导入的时候也分两种, 一种是导入带有 GTID 的信息的库, 一种是导入不带有 GTID 信息的库</p>
+<h2 id="不带有-GTID-信息"><a href="#不带有-GTID-信息" class="headerlink" title="不带有 GTID 信息"></a>不带有 GTID 信息</h2><p>不带有 GTID 信息的 dump 文件, 不管目标数据库实例是否开启了 GTID 功能, 且不管数据库实例是否已有其他 GTID 信息, 都可以顺利导入</p>
+<h2 id="带有-GTID-信息"><a href="#带有-GTID-信息" class="headerlink" title="带有 GTID 信息"></a>带有 GTID 信息</h2><p>带有 GTID 信息的 dump 文件, 要求目标数据库实例必须开启 GTID 功能, 且当前数据库中无其他 GTID 信息. 如果目标数据库中已经记录了一条或一条以上的 GTID 信息, 那么在导入数据库时会报出类似如下的错误❌</p>
+<figure class="highlight subunit"><table><tr><td class="code"><pre><span class="line">➜  mysql -uroot -p userdb &lt; userdb.sql</span><br><span class="line">Password:xxxxxxxx</span><br><span class="line"><span class="keyword">ERROR </span>1840 (HY000) at line 24: @@GLOBAL.GTID_PURGED can only be set when @@GLOBAL.GTID_EXECUTED is empty.</span><br></pre></td></tr></table></figure>
+
+<p>在 mysql5.7版本中加入了多 channel 的特性, 一台数据库实例可以同时与多个主库同步, 实现多主一从架构, 但是假如现在数据库实例中开启了 GTID, 并以 GTID 的方式与 A 主库和 B 主库同步,那么现在的 slave 中就记录有两条 GTID 信息. 在导入带有新 GTID 信息的库时, 会报错, 要求你清除掉目标数据库实例中所有的 GTID 信息. 在这种情况下, 问题就比较严重了, 因为我的这台数据库已经和两台主库建立主从关系, 现在为了导入一个新库, 需要 reset 掉所有同步信息(GTID 信息)</p>
+<p>这个时候你有两个选择:</p>
+<ol>
+<li>重新 dump 数据库, 使用<code>--set-gtid-purged=OFF</code>的参数禁止🚫导出 GTID 信息,再 load 进目标数据库</li>
+<li>在目标数据库中执行<code>mysql&gt; reset slave all;</code> <code>mysql&gt; reset master;</code> 清空所有 GTID 信息之后就可以导入了</li>
+</ol>
+]]></content>
+      <categories>
+        <category>mysql</category>
+      </categories>
+      <tags>
+        <tag>mysql</tag>
       </tags>
   </entry>
   <entry>
