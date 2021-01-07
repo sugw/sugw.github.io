@@ -467,6 +467,21 @@
       </tags>
   </entry>
   <entry>
+    <title>Mysql 批量删除表</title>
+    <url>/sugw.github.io/2020/10/27/Mysql%20%E6%89%B9%E9%87%8F%E5%88%A0%E9%99%A4%E8%A1%A8/</url>
+    <content><![CDATA[<h2 id="生成删除表语句"><a href="#生成删除表语句" class="headerlink" title="生成删除表语句"></a>生成删除表语句</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">mysql -h主机 -D库 -u用户 -p密码 -e &quot;Select CONCAT( &#x27;drop tables &#x27;, table_name, &#x27;;&#x27; ) FROM information_schema.tables Where table_name LIKE &#x27;sample_%&#x27;;&quot; &gt;delete_tables.sql</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="批量删除表"><a href="#批量删除表" class="headerlink" title="批量删除表"></a>批量删除表</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">mysql -h主机 -D库 -u用户 -p密码 -e &quot;source /opt/delete_tables.sql&quot;</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>数据库</category>
+      </categories>
+      <tags>
+        <tag>mysql</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Mysqldump备份数据库时排除某些库</title>
     <url>/sugw.github.io/2020/11/17/Mysqldump%E5%A4%87%E4%BB%BD%E6%95%B0%E6%8D%AE%E5%BA%93%E6%97%B6%E6%8E%92%E9%99%A4%E6%9F%90%E4%BA%9B%E5%BA%93/</url>
     <content><![CDATA[<p><strong>说明：</strong><br>使用mysqldump –all-databases会导出所有库。但如果做主从，从主库dump出数据时，我们是不需要也不想要information_schema 和 mysql 库的。数据库少的情况下还可以通过<code>/usr/local/mysql/bin/mysqldump -uroot -p --databases db1 db2 &gt; db1db2.sql</code> 这样再导出，但如果数据多，这样指定就很麻烦了。<br>mysql是支持 ignore-table 的，但是没有ignore-database，所以要导出除 information_schema和mysql库的其它所有库，难道就只能一个个指定database吗？</p>
@@ -480,21 +495,6 @@
 
 <p>或者过滤掉performance_schema这个库</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># mysql -e &quot;show databases;&quot; -uroot -p| grep -Ev &quot;Database|information_schema|mysql|test|performance_schema&quot; | xargs mysqldump -uroot -p --databases &gt; mysql_dump.sql</span></span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <categories>
-        <category>数据库</category>
-      </categories>
-      <tags>
-        <tag>mysql</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Mysql 批量删除表</title>
-    <url>/sugw.github.io/2020/10/27/Mysql%20%E6%89%B9%E9%87%8F%E5%88%A0%E9%99%A4%E8%A1%A8/</url>
-    <content><![CDATA[<h2 id="生成删除表语句"><a href="#生成删除表语句" class="headerlink" title="生成删除表语句"></a>生成删除表语句</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">mysql -h主机 -D库 -u用户 -p密码 -e &quot;Select CONCAT( &#x27;drop tables &#x27;, table_name, &#x27;;&#x27; ) FROM information_schema.tables Where table_name LIKE &#x27;sample_%&#x27;;&quot; &gt;delete_tables.sql</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h2 id="批量删除表"><a href="#批量删除表" class="headerlink" title="批量删除表"></a>批量删除表</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">mysql -h主机 -D库 -u用户 -p密码 -e &quot;source /opt/delete_tables.sql&quot;</span><br></pre></td></tr></table></figure>
 
 ]]></content>
       <categories>
