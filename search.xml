@@ -467,21 +467,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Mysql 批量删除表</title>
-    <url>/sugw.github.io/2020/10/27/Mysql%20%E6%89%B9%E9%87%8F%E5%88%A0%E9%99%A4%E8%A1%A8/</url>
-    <content><![CDATA[<h2 id="生成删除表语句"><a href="#生成删除表语句" class="headerlink" title="生成删除表语句"></a>生成删除表语句</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">mysql -h主机 -D库 -u用户 -p密码 -e &quot;Select CONCAT( &#x27;drop tables &#x27;, table_name, &#x27;;&#x27; ) FROM information_schema.tables Where table_name LIKE &#x27;sample_%&#x27;;&quot; &gt;delete_tables.sql</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h2 id="批量删除表"><a href="#批量删除表" class="headerlink" title="批量删除表"></a>批量删除表</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">mysql -h主机 -D库 -u用户 -p密码 -e &quot;source /opt/delete_tables.sql&quot;</span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <categories>
-        <category>数据库</category>
-      </categories>
-      <tags>
-        <tag>mysql</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Mysqldump备份数据库时排除某些库</title>
     <url>/sugw.github.io/2020/11/17/Mysqldump%E5%A4%87%E4%BB%BD%E6%95%B0%E6%8D%AE%E5%BA%93%E6%97%B6%E6%8E%92%E9%99%A4%E6%9F%90%E4%BA%9B%E5%BA%93/</url>
     <content><![CDATA[<p><strong>说明：</strong><br>使用mysqldump –all-databases会导出所有库。但如果做主从，从主库dump出数据时，我们是不需要也不想要information_schema 和 mysql 库的。数据库少的情况下还可以通过<code>/usr/local/mysql/bin/mysqldump -uroot -p --databases db1 db2 &gt; db1db2.sql</code> 这样再导出，但如果数据多，这样指定就很麻烦了。<br>mysql是支持 ignore-table 的，但是没有ignore-database，所以要导出除 information_schema和mysql库的其它所有库，难道就只能一个个指定database吗？</p>
@@ -495,6 +480,21 @@
 
 <p>或者过滤掉performance_schema这个库</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># mysql -e &quot;show databases;&quot; -uroot -p| grep -Ev &quot;Database|information_schema|mysql|test|performance_schema&quot; | xargs mysqldump -uroot -p --databases &gt; mysql_dump.sql</span></span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>数据库</category>
+      </categories>
+      <tags>
+        <tag>mysql</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Mysql 批量删除表</title>
+    <url>/sugw.github.io/2020/10/27/Mysql%20%E6%89%B9%E9%87%8F%E5%88%A0%E9%99%A4%E8%A1%A8/</url>
+    <content><![CDATA[<h2 id="生成删除表语句"><a href="#生成删除表语句" class="headerlink" title="生成删除表语句"></a>生成删除表语句</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">mysql -h主机 -D库 -u用户 -p密码 -e &quot;Select CONCAT( &#x27;drop tables &#x27;, table_name, &#x27;;&#x27; ) FROM information_schema.tables Where table_name LIKE &#x27;sample_%&#x27;;&quot; &gt;delete_tables.sql</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="批量删除表"><a href="#批量删除表" class="headerlink" title="批量删除表"></a>批量删除表</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">mysql -h主机 -D库 -u用户 -p密码 -e &quot;source /opt/delete_tables.sql&quot;</span><br></pre></td></tr></table></figure>
 
 ]]></content>
       <categories>
@@ -1126,32 +1126,6 @@
       </tags>
   </entry>
   <entry>
-    <title>linux 磁盘</title>
-    <url>/sugw.github.io/2020/10/21/linux%20%E7%A3%81%E7%9B%98%E6%BB%A1/</url>
-    <content><![CDATA[<h3 id="问题："><a href="#问题：" class="headerlink" title="问题："></a>问题：</h3><hr>
-<p>​        磁盘显示已满，实际占用空间很小</p>
-<h3 id="原因："><a href="#原因：" class="headerlink" title="原因："></a>原因：</h3><hr>
-<p>​        程序没有释放已删除的文件</p>
-<h3 id="解决："><a href="#解决：" class="headerlink" title="解决："></a>解决：</h3><hr>
-<blockquote>
-<p>​        重启占用文件的程序</p>
-<p>​        1.检查磁盘占用</p>
-<p>​                 df -Th</p>
-<p>​        2.检查目录占用大小</p>
-<p>​                cd /</p>
-<p>​                du -sh *|grep G</p>
-<p>​        3.查看为释放文件的程序</p>
-<p>​                lsof -i|grep delete</p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>Linux</category>
-      </categories>
-      <tags>
-        <tag>磁盘</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>linux内核优化</title>
     <url>/sugw.github.io/2020/11/20/linux%E5%86%85%E6%A0%B8%E4%BC%98%E5%8C%96/</url>
     <content><![CDATA[<h3 id="一、配置国内源和epel"><a href="#一、配置国内源和epel" class="headerlink" title="一、配置国内源和epel"></a>一、配置国内源和epel</h3><figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">cd <span class="regexp">/etc/yum</span>.repos.d/</span><br><span class="line">mkdir repo_bak</span><br><span class="line">mv *.repo repo_bak/</span><br><span class="line"><span class="comment">#基础源文件</span></span><br><span class="line">wget -P <span class="regexp">/etc/yum</span>.repos.d<span class="regexp">/ http:/</span><span class="regexp">/mirrors.aliyun.com/</span>repo/Centos-<span class="number">7</span>.repo</span><br><span class="line"><span class="comment">#epel源文件</span></span><br><span class="line">wget -O <span class="regexp">/etc/yum</span>.repos.d<span class="regexp">/epel-7.repo http:/</span><span class="regexp">/mirrors.aliyun.com/</span>repo/epel-<span class="number">7</span>.repo</span><br><span class="line"><span class="comment">#重新生成yum缓存</span></span><br><span class="line">yum clean all</span><br><span class="line">yum makecache</span><br><span class="line"><span class="comment">#同步时间</span></span><br><span class="line">yum -y install ntp</span><br><span class="line"><span class="regexp">/usr/</span>sbin/ntpdate ntp1.aliyun.com</span><br><span class="line">echo <span class="string">&quot;* 04 * * * /usr/sbin/ntpdate ntp1.aliyun.com &gt;/dev/null 2&gt;&amp;1&quot;</span> &gt;&gt;<span class="regexp">/var/</span>spool<span class="regexp">/cron/</span>root</span><br><span class="line"></span><br><span class="line"><span class="comment">#禁用selinux</span></span><br><span class="line">sed -i <span class="string">&#x27;s/SELINUX=enforcing/SELINUX=disabled/&#x27;</span> <span class="regexp">/etc/</span>selinux/config</span><br><span class="line">setenforce <span class="number">0</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#set ssh</span></span><br><span class="line">sed -i <span class="string">&#x27;s/^GSSAPIAuthentication yes$/GSSAPIAuthentication no/&#x27;</span> <span class="regexp">/etc/</span>ssh/sshd_config</span><br><span class="line">sed -i <span class="string">&#x27;s/#UseDNS yes/UseDNS no/&#x27;</span> <span class="regexp">/etc/</span>ssh/sshd_config</span><br><span class="line">systemctl  restart sshd.service</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
@@ -1176,6 +1150,32 @@
       </categories>
       <tags>
         <tag>优化</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>linux 磁盘</title>
+    <url>/sugw.github.io/2020/10/21/linux%20%E7%A3%81%E7%9B%98%E6%BB%A1/</url>
+    <content><![CDATA[<h3 id="问题："><a href="#问题：" class="headerlink" title="问题："></a>问题：</h3><hr>
+<p>​        磁盘显示已满，实际占用空间很小</p>
+<h3 id="原因："><a href="#原因：" class="headerlink" title="原因："></a>原因：</h3><hr>
+<p>​        程序没有释放已删除的文件</p>
+<h3 id="解决："><a href="#解决：" class="headerlink" title="解决："></a>解决：</h3><hr>
+<blockquote>
+<p>​        重启占用文件的程序</p>
+<p>​        1.检查磁盘占用</p>
+<p>​                 df -Th</p>
+<p>​        2.检查目录占用大小</p>
+<p>​                cd /</p>
+<p>​                du -sh *|grep G</p>
+<p>​        3.查看为释放文件的程序</p>
+<p>​                lsof -i|grep delete</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>Linux</category>
+      </categories>
+      <tags>
+        <tag>磁盘</tag>
       </tags>
   </entry>
   <entry>
@@ -1284,6 +1284,37 @@
       </categories>
       <tags>
         <tag>nginx</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>开启GTID的情况下导出导入库的注意事项</title>
+    <url>/sugw.github.io/2020/12/17/%E5%BC%80%E5%90%AFGTID%E7%9A%84%E6%83%85%E5%86%B5%E4%B8%8B%E5%AF%BC%E5%87%BA%E5%AF%BC%E5%85%A5%E5%BA%93%E7%9A%84%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9%20/</url>
+    <content><![CDATA[<blockquote>
+<p>在开启了 GTID 功能的 MySQL 数据库中, 不论是否使用了 GTID 的方式做了主从同步, 导出导入时都需要特别注意数据库中的 GTID 信息.</p>
+</blockquote>
+<h1 id="导出"><a href="#导出" class="headerlink" title="导出"></a>导出</h1><figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">➜  mysqldump -uroot -p userdb &gt; userdb.sql</span><br><span class="line">Warning: A partial dump <span class="keyword">from</span> a<span class="built_in"> server </span>that has GTIDs will by<span class="built_in"> default </span>include the GTIDs of all transactions, even those that changed suppressed parts of the database. <span class="keyword">If</span> you don<span class="string">&#x27;t want to restore GTIDs, pass --set-gtid-purged=OFF. To make a complete dump, pass --all-databases --triggers --routines --events</span></span><br></pre></td></tr></table></figure>
+
+<p>mysql提示: 当前数据库实例中开启了 GTID 功能, 在开启有 GTID 功能的数据库实例中, 导出其中任何一个库, 如果没有显示地指定<code>--set-gtid-purged</code>参数, 都会提示这一行信息. 意思是默认情况下, 导出的库中含有 GTID 信息, 如果不想导出包含有 GTID 信息的数据库, 需要显示地添加<code>--set-gtid-purged=OFF</code>参数. 于是乎, dump 变成了如下样子</p>
+<figure class="highlight cmake"><table><tr><td class="code"><pre><span class="line">➜ mysqldump -uroot -p --<span class="keyword">set</span>-gtid-purged=<span class="keyword">OFF</span> userdb &gt; userdb.sql</span><br></pre></td></tr></table></figure>
+
+<p>使用以上这条命令 dump 出来的库是不包含 GTID 信息的</p>
+<h1 id="导入"><a href="#导入" class="headerlink" title="导入"></a>导入</h1><p>导入的时候也分两种, 一种是导入带有 GTID 的信息的库, 一种是导入不带有 GTID 信息的库</p>
+<h2 id="不带有-GTID-信息"><a href="#不带有-GTID-信息" class="headerlink" title="不带有 GTID 信息"></a>不带有 GTID 信息</h2><p>不带有 GTID 信息的 dump 文件, 不管目标数据库实例是否开启了 GTID 功能, 且不管数据库实例是否已有其他 GTID 信息, 都可以顺利导入</p>
+<h2 id="带有-GTID-信息"><a href="#带有-GTID-信息" class="headerlink" title="带有 GTID 信息"></a>带有 GTID 信息</h2><p>带有 GTID 信息的 dump 文件, 要求目标数据库实例必须开启 GTID 功能, 且当前数据库中无其他 GTID 信息. 如果目标数据库中已经记录了一条或一条以上的 GTID 信息, 那么在导入数据库时会报出类似如下的错误❌</p>
+<figure class="highlight subunit"><table><tr><td class="code"><pre><span class="line">➜  mysql -uroot -p userdb &lt; userdb.sql</span><br><span class="line">Password:xxxxxxxx</span><br><span class="line"><span class="keyword">ERROR </span>1840 (HY000) at line 24: @@GLOBAL.GTID_PURGED can only be set when @@GLOBAL.GTID_EXECUTED is empty.</span><br></pre></td></tr></table></figure>
+
+<p>在 mysql5.7版本中加入了多 channel 的特性, 一台数据库实例可以同时与多个主库同步, 实现多主一从架构, 但是假如现在数据库实例中开启了 GTID, 并以 GTID 的方式与 A 主库和 B 主库同步,那么现在的 slave 中就记录有两条 GTID 信息. 在导入带有新 GTID 信息的库时, 会报错, 要求你清除掉目标数据库实例中所有的 GTID 信息. 在这种情况下, 问题就比较严重了, 因为我的这台数据库已经和两台主库建立主从关系, 现在为了导入一个新库, 需要 reset 掉所有同步信息(GTID 信息)</p>
+<p>这个时候你有两个选择:</p>
+<ol>
+<li>重新 dump 数据库, 使用<code>--set-gtid-purged=OFF</code>的参数禁止🚫导出 GTID 信息,再 load 进目标数据库</li>
+<li>在目标数据库中执行<code>mysql&gt; reset slave all;</code> <code>mysql&gt; reset master;</code> 清空所有 GTID 信息之后就可以导入了</li>
+</ol>
+]]></content>
+      <categories>
+        <category>mysql</category>
+      </categories>
+      <tags>
+        <tag>mysql</tag>
       </tags>
   </entry>
   <entry>
@@ -1519,37 +1550,6 @@
       </categories>
       <tags>
         <tag>prometheus</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>开启GTID的情况下导出导入库的注意事项</title>
-    <url>/sugw.github.io/2020/12/17/%E5%BC%80%E5%90%AFGTID%E7%9A%84%E6%83%85%E5%86%B5%E4%B8%8B%E5%AF%BC%E5%87%BA%E5%AF%BC%E5%85%A5%E5%BA%93%E7%9A%84%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9%20/</url>
-    <content><![CDATA[<blockquote>
-<p>在开启了 GTID 功能的 MySQL 数据库中, 不论是否使用了 GTID 的方式做了主从同步, 导出导入时都需要特别注意数据库中的 GTID 信息.</p>
-</blockquote>
-<h1 id="导出"><a href="#导出" class="headerlink" title="导出"></a>导出</h1><figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">➜  mysqldump -uroot -p userdb &gt; userdb.sql</span><br><span class="line">Warning: A partial dump <span class="keyword">from</span> a<span class="built_in"> server </span>that has GTIDs will by<span class="built_in"> default </span>include the GTIDs of all transactions, even those that changed suppressed parts of the database. <span class="keyword">If</span> you don<span class="string">&#x27;t want to restore GTIDs, pass --set-gtid-purged=OFF. To make a complete dump, pass --all-databases --triggers --routines --events</span></span><br></pre></td></tr></table></figure>
-
-<p>mysql提示: 当前数据库实例中开启了 GTID 功能, 在开启有 GTID 功能的数据库实例中, 导出其中任何一个库, 如果没有显示地指定<code>--set-gtid-purged</code>参数, 都会提示这一行信息. 意思是默认情况下, 导出的库中含有 GTID 信息, 如果不想导出包含有 GTID 信息的数据库, 需要显示地添加<code>--set-gtid-purged=OFF</code>参数. 于是乎, dump 变成了如下样子</p>
-<figure class="highlight cmake"><table><tr><td class="code"><pre><span class="line">➜ mysqldump -uroot -p --<span class="keyword">set</span>-gtid-purged=<span class="keyword">OFF</span> userdb &gt; userdb.sql</span><br></pre></td></tr></table></figure>
-
-<p>使用以上这条命令 dump 出来的库是不包含 GTID 信息的</p>
-<h1 id="导入"><a href="#导入" class="headerlink" title="导入"></a>导入</h1><p>导入的时候也分两种, 一种是导入带有 GTID 的信息的库, 一种是导入不带有 GTID 信息的库</p>
-<h2 id="不带有-GTID-信息"><a href="#不带有-GTID-信息" class="headerlink" title="不带有 GTID 信息"></a>不带有 GTID 信息</h2><p>不带有 GTID 信息的 dump 文件, 不管目标数据库实例是否开启了 GTID 功能, 且不管数据库实例是否已有其他 GTID 信息, 都可以顺利导入</p>
-<h2 id="带有-GTID-信息"><a href="#带有-GTID-信息" class="headerlink" title="带有 GTID 信息"></a>带有 GTID 信息</h2><p>带有 GTID 信息的 dump 文件, 要求目标数据库实例必须开启 GTID 功能, 且当前数据库中无其他 GTID 信息. 如果目标数据库中已经记录了一条或一条以上的 GTID 信息, 那么在导入数据库时会报出类似如下的错误❌</p>
-<figure class="highlight subunit"><table><tr><td class="code"><pre><span class="line">➜  mysql -uroot -p userdb &lt; userdb.sql</span><br><span class="line">Password:xxxxxxxx</span><br><span class="line"><span class="keyword">ERROR </span>1840 (HY000) at line 24: @@GLOBAL.GTID_PURGED can only be set when @@GLOBAL.GTID_EXECUTED is empty.</span><br></pre></td></tr></table></figure>
-
-<p>在 mysql5.7版本中加入了多 channel 的特性, 一台数据库实例可以同时与多个主库同步, 实现多主一从架构, 但是假如现在数据库实例中开启了 GTID, 并以 GTID 的方式与 A 主库和 B 主库同步,那么现在的 slave 中就记录有两条 GTID 信息. 在导入带有新 GTID 信息的库时, 会报错, 要求你清除掉目标数据库实例中所有的 GTID 信息. 在这种情况下, 问题就比较严重了, 因为我的这台数据库已经和两台主库建立主从关系, 现在为了导入一个新库, 需要 reset 掉所有同步信息(GTID 信息)</p>
-<p>这个时候你有两个选择:</p>
-<ol>
-<li>重新 dump 数据库, 使用<code>--set-gtid-purged=OFF</code>的参数禁止🚫导出 GTID 信息,再 load 进目标数据库</li>
-<li>在目标数据库中执行<code>mysql&gt; reset slave all;</code> <code>mysql&gt; reset master;</code> 清空所有 GTID 信息之后就可以导入了</li>
-</ol>
-]]></content>
-      <categories>
-        <category>mysql</category>
-      </categories>
-      <tags>
-        <tag>mysql</tag>
       </tags>
   </entry>
   <entry>
