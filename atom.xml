@@ -6,7 +6,7 @@
   <link href="https://sugw.github.io/sugw.github.io/atom.xml" rel="self"/>
   
   <link href="https://sugw.github.io/sugw.github.io/"/>
-  <updated>2020-12-24T06:39:49.637Z</updated>
+  <updated>2021-01-06T06:36:23.489Z</updated>
   <id>https://sugw.github.io/sugw.github.io/</id>
   
   <author>
@@ -15,6 +15,27 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>mysql 删除表数据空间没有释放</title>
+    <link href="https://sugw.github.io/sugw.github.io/2021/01/06/mysql-delete/"/>
+    <id>https://sugw.github.io/sugw.github.io/2021/01/06/mysql-delete/</id>
+    <published>2021-01-06T03:41:26.355Z</published>
+    <updated>2021-01-06T06:36:23.489Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;事件起因：&lt;/p&gt;
+&lt;p&gt;今天运维人员找我，说我们的数据库磁盘空间满了。于是提供了一些删除表数据的sql给他，让他执行下。&lt;/p&gt;
+&lt;p&gt;执行之后，查询数据库，表数据是不在了，但是问题来了。&lt;/p&gt;
+&lt;p&gt;磁盘空间并没有释放，这是为啥咧？？？？&lt;/p&gt;
+&lt;p&gt;于是乎，上网查找资料，功夫不负有心人，终于找到问题原因：&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="mysql 删除表数据空间没有释放" scheme="https://sugw.github.io/sugw.github.io/categories/mysql-%E5%88%A0%E9%99%A4%E8%A1%A8%E6%95%B0%E6%8D%AE%E7%A9%BA%E9%97%B4%E6%B2%A1%E6%9C%89%E9%87%8A%E6%94%BE/"/>
+    
+    
+  </entry>
   
   <entry>
     <title>Jenkins pipeline 多服务器，多分支发版</title>
@@ -795,77 +816,6 @@
     
     
     <category term="mysql" scheme="https://sugw.github.io/sugw.github.io/tags/mysql/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>mediawiki悬浮目录</title>
-    <link href="https://sugw.github.io/sugw.github.io/2020/11/13/mediawiki%E6%82%AC%E6%B5%AE%E7%9B%AE%E5%BD%95/"/>
-    <id>https://sugw.github.io/sugw.github.io/2020/11/13/mediawiki%E6%82%AC%E6%B5%AE%E7%9B%AE%E5%BD%95/</id>
-    <published>2020-11-13T03:32:43.099Z</published>
-    <updated>2020-11-13T08:52:16.492Z</updated>
-    
-    
-    <summary type="html">MediaWiki:Common.css
-1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-20
-21
-22
-23
-24
-25
-26
-27
-28
-29
-30
-31
-32
-33
-34
-35
-36
-37
-38
-39
-40
-
-
-#toc{
- display: block;
- position: fixed;
- top: 100px;
- right: 0px;
- min-width: 100px;
- max-width: 350px;
- max-height: 20px;
- overflow-y: scroll;
- border: 1px solid #a</summary>
-    
-    
-    
-    <category term="wiki" scheme="https://sugw.github.io/sugw.github.io/categories/wiki/"/>
-    
-    
-    <category term="wiki" scheme="https://sugw.github.io/sugw.github.io/tags/wiki/"/>
     
   </entry>
   

@@ -449,7 +449,7 @@
   <entry>
     <title>Mysql数据库查询大小</title>
     <url>/sugw.github.io/2020/10/27/Mysql%20%E5%BA%93%E6%9F%A5%E8%AF%A2%E5%A4%A7%E5%B0%8F/</url>
-    <content><![CDATA[<h2 id="查询库大小"><a href="#查询库大小" class="headerlink" title="查询库大小"></a>查询库大小</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">SELECT table_schema,SUM(AVG_ROW_LENGTH*TABLE_ROWS+INDEX_LENGTH)&#x2F;1024&#x2F;1024&#x2F;1024 AS total_gb FROM information_schema.TABLES group by table_schema;</span><br><span class="line">#查询指定库大小</span><br><span class="line">select concat(round(sum(data_length&#x2F;1024&#x2F;1024),2),&#39;MB&#39;) as data from tables where table_schema&#x3D;&#39;null_ifensi&#39;;</span><br></pre></td></tr></table></figure>
+    <content><![CDATA[<h2 id="查询库大小"><a href="#查询库大小" class="headerlink" title="查询库大小"></a>查询库大小</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">1.查看所有数据库容量大小</span><br><span class="line"></span><br><span class="line">select</span><br><span class="line">table_schema as &#39;数据库&#39;,</span><br><span class="line">sum(table_rows) as &#39;记录数&#39;,</span><br><span class="line">sum(truncate(data_length&#x2F;1024&#x2F;1024, 2)) as &#39;数据容量(MB)&#39;,</span><br><span class="line">sum(truncate(index_length&#x2F;1024&#x2F;1024, 2)) as &#39;索引容量(MB)&#39;</span><br><span class="line">from information_schema.tables</span><br><span class="line">group by table_schema</span><br><span class="line">order by sum(data_length) desc, sum(index_length) desc;</span><br><span class="line">2.查看所有数据库各表容量大小</span><br><span class="line"></span><br><span class="line">select</span><br><span class="line">table_schema as &#39;数据库&#39;,</span><br><span class="line">table_name as &#39;表名&#39;,</span><br><span class="line">table_rows as &#39;记录数&#39;,</span><br><span class="line">truncate(data_length&#x2F;1024&#x2F;1024, 2) as &#39;数据容量(MB)&#39;,</span><br><span class="line">truncate(index_length&#x2F;1024&#x2F;1024, 2) as &#39;索引容量(MB)&#39;</span><br><span class="line">from information_schema.tables</span><br><span class="line">order by data_length desc, index_length desc;</span><br><span class="line">3.查看指定数据库容量大小</span><br><span class="line"></span><br><span class="line">select</span><br><span class="line">table_schema as &#39;数据库&#39;,</span><br><span class="line">sum(table_rows) as &#39;记录数&#39;,</span><br><span class="line">sum(truncate(data_length&#x2F;1024&#x2F;1024, 2)) as &#39;数据容量(MB)&#39;,</span><br><span class="line">sum(truncate(index_length&#x2F;1024&#x2F;1024, 2)) as &#39;索引容量(MB)&#39;</span><br><span class="line">from information_schema.tables</span><br><span class="line">where table_schema&#x3D;&#39;mysql&#39;;</span><br><span class="line"></span><br><span class="line">4.查看指定数据库各表容量大小</span><br><span class="line"></span><br><span class="line">select</span><br><span class="line">table_schema as &#39;数据库&#39;,</span><br><span class="line">table_name as &#39;表名&#39;,</span><br><span class="line">table_rows as &#39;记录数&#39;,</span><br><span class="line">truncate(data_length&#x2F;1024&#x2F;1024, 2) as &#39;数据容量(MB)&#39;,</span><br><span class="line">truncate(index_length&#x2F;1024&#x2F;1024, 2) as &#39;索引容量(MB)&#39;</span><br><span class="line">from information_schema.tables</span><br><span class="line">where table_schema&#x3D;&#39;mysql&#39;</span><br><span class="line">order by data_length desc, index_length desc;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 
 
@@ -1114,6 +1114,44 @@
       </tags>
   </entry>
   <entry>
+    <title>linux 磁盘</title>
+    <url>/sugw.github.io/2020/10/21/linux%20%E7%A3%81%E7%9B%98%E6%BB%A1/</url>
+    <content><![CDATA[<h3 id="问题："><a href="#问题：" class="headerlink" title="问题："></a>问题：</h3><hr>
+<p>​        磁盘显示已满，实际占用空间很小</p>
+<h3 id="原因："><a href="#原因：" class="headerlink" title="原因："></a>原因：</h3><hr>
+<p>​        程序没有释放已删除的文件</p>
+<h3 id="解决："><a href="#解决：" class="headerlink" title="解决："></a>解决：</h3><hr>
+<blockquote>
+<p>​        重启占用文件的程序</p>
+<p>​        1.检查磁盘占用</p>
+<p>​                 df -Th</p>
+<p>​        2.检查目录占用大小</p>
+<p>​                cd /</p>
+<p>​                du -sh *|grep G</p>
+<p>​        3.查看为释放文件的程序</p>
+<p>​                lsof -i|grep delete</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>Linux</category>
+      </categories>
+      <tags>
+        <tag>磁盘</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>datagrip</title>
+    <url>/sugw.github.io/2020/12/01/datagrip/</url>
+    <content><![CDATA[<p><a href="https://mp.weixin.qq.com/s/DTECLX-Y-9XJEScsA4boDw">https://mp.weixin.qq.com/s/DTECLX-Y-9XJEScsA4boDw</a></p>
+]]></content>
+      <categories>
+        <category>激活</category>
+      </categories>
+      <tags>
+        <tag>激活</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>linux内核优化</title>
     <url>/sugw.github.io/2020/11/20/linux%E5%86%85%E6%A0%B8%E4%BC%98%E5%8C%96/</url>
     <content><![CDATA[<h3 id="一、配置国内源和epel"><a href="#一、配置国内源和epel" class="headerlink" title="一、配置国内源和epel"></a>一、配置国内源和epel</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cd &#x2F;etc&#x2F;yum.repos.d&#x2F;</span><br><span class="line">mkdir repo_bak</span><br><span class="line">mv *.repo repo_bak&#x2F;</span><br><span class="line">#基础源文件</span><br><span class="line">wget -P &#x2F;etc&#x2F;yum.repos.d&#x2F; http:&#x2F;&#x2F;mirrors.aliyun.com&#x2F;repo&#x2F;Centos-7.repo</span><br><span class="line">#epel源文件</span><br><span class="line">wget -O &#x2F;etc&#x2F;yum.repos.d&#x2F;epel-7.repo http:&#x2F;&#x2F;mirrors.aliyun.com&#x2F;repo&#x2F;epel-7.repo</span><br><span class="line">#重新生成yum缓存</span><br><span class="line">yum clean all</span><br><span class="line">yum makecache</span><br><span class="line">#同步时间</span><br><span class="line">yum -y install ntp</span><br><span class="line">&#x2F;usr&#x2F;sbin&#x2F;ntpdate ntp1.aliyun.com</span><br><span class="line">echo &quot;* 04 * * * &#x2F;usr&#x2F;sbin&#x2F;ntpdate ntp1.aliyun.com &gt;&#x2F;dev&#x2F;null 2&gt;&amp;1&quot; &gt;&gt;&#x2F;var&#x2F;spool&#x2F;cron&#x2F;root</span><br><span class="line"></span><br><span class="line">#禁用selinux</span><br><span class="line">sed -i &#39;s&#x2F;SELINUX&#x3D;enforcing&#x2F;SELINUX&#x3D;disabled&#x2F;&#39; &#x2F;etc&#x2F;selinux&#x2F;config</span><br><span class="line">setenforce 0</span><br><span class="line"></span><br><span class="line">#set ssh</span><br><span class="line">sed -i &#39;s&#x2F;^GSSAPIAuthentication yes$&#x2F;GSSAPIAuthentication no&#x2F;&#39; &#x2F;etc&#x2F;ssh&#x2F;sshd_config</span><br><span class="line">sed -i &#39;s&#x2F;#UseDNS yes&#x2F;UseDNS no&#x2F;&#39; &#x2F;etc&#x2F;ssh&#x2F;sshd_config</span><br><span class="line">systemctl  restart sshd.service</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
@@ -1141,44 +1179,6 @@
       </tags>
   </entry>
   <entry>
-    <title>datagrip</title>
-    <url>/sugw.github.io/2020/12/01/datagrip/</url>
-    <content><![CDATA[<p><a href="https://mp.weixin.qq.com/s/DTECLX-Y-9XJEScsA4boDw">https://mp.weixin.qq.com/s/DTECLX-Y-9XJEScsA4boDw</a></p>
-]]></content>
-      <categories>
-        <category>激活</category>
-      </categories>
-      <tags>
-        <tag>激活</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>linux 磁盘</title>
-    <url>/sugw.github.io/2020/10/21/linux%20%E7%A3%81%E7%9B%98%E6%BB%A1/</url>
-    <content><![CDATA[<h3 id="问题："><a href="#问题：" class="headerlink" title="问题："></a>问题：</h3><hr>
-<p>​        磁盘显示已满，实际占用空间很小</p>
-<h3 id="原因："><a href="#原因：" class="headerlink" title="原因："></a>原因：</h3><hr>
-<p>​        程序没有释放已删除的文件</p>
-<h3 id="解决："><a href="#解决：" class="headerlink" title="解决："></a>解决：</h3><hr>
-<blockquote>
-<p>​        重启占用文件的程序</p>
-<p>​        1.检查磁盘占用</p>
-<p>​                 df -Th</p>
-<p>​        2.检查目录占用大小</p>
-<p>​                cd /</p>
-<p>​                du -sh *|grep G</p>
-<p>​        3.查看为释放文件的程序</p>
-<p>​                lsof -i|grep delete</p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>Linux</category>
-      </categories>
-      <tags>
-        <tag>磁盘</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Mac start hexo for supervisor</title>
     <url>/sugw.github.io/2020/10/26/mac%20for%20supervisor/</url>
     <content><![CDATA[<h1 id="环境："><a href="#环境：" class="headerlink" title="环境："></a>环境：</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">系统：mac</span><br><span class="line"></span><br><span class="line">应用：hexo</span><br><span class="line"></span><br><span class="line">守护程序：supervisord</span><br></pre></td></tr></table></figure>
@@ -1203,6 +1203,21 @@
       </tags>
   </entry>
   <entry>
+    <title>mediawiki lockdown权限配置</title>
+    <url>/sugw.github.io/2020/11/13/mediawiki%20lockdown%E6%9D%83%E9%99%90%E9%85%8D%E7%BD%AE/</url>
+    <content><![CDATA[<h2 id="禁止游客访问站点内容，需注册"><a href="#禁止游客访问站点内容，需注册" class="headerlink" title="禁止游客访问站点内容，需注册"></a>禁止游客访问站点内容，需注册</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">## 拒绝没注册用户浏览和编辑</span><br><span class="line">$wgGroupPermissions[&#39;*&#39;][&#39;edit&#39;] &#x3D; false;</span><br><span class="line">$wgGroupPermissions[&#39;*&#39;][&#39;read&#39;] &#x3D; false;</span><br><span class="line"></span><br><span class="line">## 设置游客可以看到的页面</span><br><span class="line">$wgWhitelistRead &#x3D; array (&quot;Main Page&quot;, &quot;MediaWiki:Common.css&quot;,&quot;MediaWiki:Common.js&quot;,&quot;Special:Userlogin&quot;,&quot;特殊:创建账户&quot;, &quot;Wikipedia:Help&quot;);</span><br></pre></td></tr></table></figure>
+
+<h2 id="安装lockdown插件"><a href="#安装lockdown插件" class="headerlink" title="安装lockdown插件"></a>安装lockdown插件</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#1.下载</span><br><span class="line"># 2.解压</span><br><span class="line"># 3. 放到extensions&#x2F;目录下</span><br><span class="line">extensions&#x2F;Lockdown&#x2F;</span><br><span class="line"># 4. 配置文件引入</span><br><span class="line">wfLoadExtension( &#39;Lockdown&#39; );</span><br><span class="line"># 5. LocalSettings.php创建名字空间</span><br><span class="line">$wgExtraNamespaces &#x3D;</span><br><span class="line">       array (104 &#x3D;&gt; &quot;OPS&quot;,</span><br><span class="line">             105 &#x3D;&gt; &quot;OPS_Talk&quot;);</span><br><span class="line"># 6. 只允许sysop用户访问</span><br><span class="line">$wgNamespacePermissionLockdown &#x3D; array_fill( 104, 105, [  &#39;*&#39; &#x3D;&gt; [ &#39;sysop&#39;  ] ] );</span><br><span class="line"></span><br><span class="line"># 7. 创建页面，把页面移动到ops名字空间</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>wiki</category>
+      </categories>
+      <tags>
+        <tag>wiki</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>mediawiki安装</title>
     <url>/sugw.github.io/2020/11/13/mediawiki%E5%AE%89%E8%A3%85/</url>
     <content><![CDATA[<h2 id="环境：php73-mysql5-7-mediawiki1-35-nginx1-18"><a href="#环境：php73-mysql5-7-mediawiki1-35-nginx1-18" class="headerlink" title="环境：php73+mysql5.7+mediawiki1.35+nginx1.18"></a>环境：php73+mysql5.7+mediawiki1.35+nginx1.18</h2><h3 id="安装PHP73"><a href="#安装PHP73" class="headerlink" title="安装PHP73"></a>安装PHP73</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#首先安装 EPEL 源：</span></span><br><span class="line">yum install epel-release</span><br><span class="line"><span class="comment">#安装 REMI 源：</span></span><br><span class="line">yum install http://rpms.remirepo.net/enterprise/remi-release-7.rpm</span><br><span class="line"><span class="comment">#安装</span></span><br><span class="line">yum install -y php73 php73-php-pecl-apcu php73-php-intl php73-php-mbstring php73-php-xml php73-php-pecl-mysql</span><br><span class="line"><span class="comment">#启动</span></span><br><span class="line">systemctl restart php73-php-fpm</span><br><span class="line"><span class="comment">#开机启动</span></span><br><span class="line">systemctl <span class="built_in">enable</span> php73-php-fpm</span><br><span class="line"></span><br><span class="line"><span class="comment">#查看安装包</span></span><br><span class="line">[root@l-wiki01 ~]<span class="comment">#  rpm -qa | grep &#x27;php&#x27;</span></span><br><span class="line">php73-php-cli-7.3.24-1.el7.remi.x86_64</span><br><span class="line">php73-2.0-1.el7.remi.x86_64</span><br><span class="line">php73-php-mbstring-7.3.24-1.el7.remi.x86_64</span><br><span class="line">php73-php-gd-7.3.24-1.el7.remi.x86_64</span><br><span class="line">php73-php-pecl-crypto-0.3.1-5.el7.remi.x86_64</span><br><span class="line">oniguruma5php-6.9.5+rev1-4.el7.remi.x86_64</span><br><span class="line">php73-runtime-2.0-1.el7.remi.x86_64</span><br><span class="line">php73-php-common-7.3.24-1.el7.remi.x86_64</span><br><span class="line">php73-php-pdo-7.3.24-1.el7.remi.x86_64</span><br><span class="line">php73-php-pecl-mysql-1.0.0-0.20.20180226.647c933.el7.remi.x86_64</span><br><span class="line">php73-php-intl-7.3.24-1.el7.remi.x86_64</span><br><span class="line">php73-php-pecl-apcu-5.1.19-1.el7.remi.x86_64</span><br><span class="line">php73-php-pecl-mcrypt-1.0.3-1.el7.remi.x86_64</span><br><span class="line">php73-php-snmp-7.3.24-1.el7.remi.x86_64</span><br><span class="line">php73-php-bcmath-7.3.24-1.el7.remi.x86_64</span><br><span class="line">php73-php-pecl-geoip-1.1.1-6.el7.remi.x86_64</span><br><span class="line">php73-php-soap-7.3.24-1.el7.remi.x86_64</span><br><span class="line">php73-php-json-7.3.24-1.el7.remi.x86_64</span><br><span class="line">php73-php-mysqlnd-7.3.24-1.el7.remi.x86_64</span><br><span class="line">php73-php-xml-7.3.24-1.el7.remi.x86_64</span><br><span class="line">php73-php-recode-7.3.24-1.el7.remi.x86_64</span><br><span class="line">php73-php-opcache-7.3.24-1.el7.remi.x86_64</span><br><span class="line">php73-php-fpm-7.3.24-1.el7.remi.x86_64</span><br><span class="line"></span><br><span class="line">找到：php73-php-fpm-7.3.24-1.el7.remi.x86_64安装位置</span><br><span class="line">[root@l-wiki01 ~]<span class="comment"># rpm -ql php73-php-fpm-7.3.24-1.el7.remi.x86_64</span></span><br><span class="line">/etc/logrotate.d/php73-php-fpm</span><br><span class="line">/etc/opt/remi/php73/php-fpm.conf</span><br><span class="line">/etc/opt/remi/php73/php-fpm.d</span><br><span class="line">/etc/opt/remi/php73/php-fpm.d/www.conf</span><br><span class="line">/etc/opt/remi/php73/sysconfig/php-fpm</span><br><span class="line">/etc/systemd/system/php73-php-fpm.service.d</span><br><span class="line">/opt/remi/php73/root/usr/sbin/php-fpm</span><br><span class="line">/opt/remi/php73/root/usr/share/doc/php73-php-fpm-7.3.24</span><br><span class="line">/opt/remi/php73/root/usr/share/doc/php73-php-fpm-7.3.24/php-fpm.conf.default</span><br><span class="line">/opt/remi/php73/root/usr/share/doc/php73-php-fpm-7.3.24/www.conf.default</span><br><span class="line">/opt/remi/php73/root/usr/share/fpm</span><br><span class="line">/opt/remi/php73/root/usr/share/fpm/status.html</span><br><span class="line">/opt/remi/php73/root/usr/share/licenses/php73-php-fpm-7.3.24</span><br><span class="line">/opt/remi/php73/root/usr/share/licenses/php73-php-fpm-7.3.24/fpm_LICENSE</span><br><span class="line">/opt/remi/php73/root/usr/share/man/man8/php-fpm.8.gz</span><br><span class="line">/usr/lib/systemd/system/php73-php-fpm.service</span><br><span class="line">/var/opt/remi/php73/lib/php/opcache</span><br><span class="line">/var/opt/remi/php73/lib/php/session</span><br><span class="line">/var/opt/remi/php73/lib/php/wsdlcache</span><br><span class="line">/var/opt/remi/php73/<span class="built_in">log</span>/php-fpm</span><br><span class="line">/var/opt/remi/php73/run/php-fpm</span><br><span class="line"></span><br><span class="line">查找php.ini位置：</span><br><span class="line">[root@l-wiki01 ~]<span class="comment"># find /etc/opt/remi/php73 -name php.ini</span></span><br><span class="line">/etc/opt/remi/php73/php.ini</span><br><span class="line"></span><br><span class="line">编辑/etc/opt/remi/php73/php.ini替换换 ;cgi.fix_pathinfo=1 为 cgi.fix_pathinfo=0 快捷命令：</span><br><span class="line">sed -i <span class="string">&#x27;s/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/&#x27;</span> /etc/opt/remi/php73/php.ini</span><br><span class="line"></span><br><span class="line">重启php73-php-fpm</span><br><span class="line">systemctl restart php73-php-fpm</span><br><span class="line">更多操作：</span><br><span class="line">systemctl restart php73-php-fpm <span class="comment">#重启</span></span><br><span class="line">systemctl start php73-php-fpm <span class="comment">#启动</span></span><br><span class="line">systemctl stop php73-php-fpm <span class="comment">#关闭</span></span><br><span class="line">systemctl status php73-php-fpm <span class="comment">#检查状态</span></span><br><span class="line">查看 PHP</span><br><span class="line">验证一下是否安装成功：</span><br><span class="line">[root@l-wiki01 ~]<span class="comment"># php73 -v</span></span><br><span class="line">PHP 7.3.24 (cli) (built: Oct 27 2020 11:01:59) ( NTS )</span><br><span class="line">Copyright (c) 1997-2018 The PHP Group</span><br><span class="line">Zend Engine v3.3.24, Copyright (c) 1998-2018 Zend Technologies</span><br><span class="line">    with Zend OPcache v7.3.24, Copyright (c) 1999-2018, by Zend Technologies</span><br><span class="line">    </span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
@@ -1224,21 +1239,6 @@
       </tags>
   </entry>
   <entry>
-    <title>mediawiki lockdown权限配置</title>
-    <url>/sugw.github.io/2020/11/13/mediawiki%20lockdown%E6%9D%83%E9%99%90%E9%85%8D%E7%BD%AE/</url>
-    <content><![CDATA[<h2 id="禁止游客访问站点内容，需注册"><a href="#禁止游客访问站点内容，需注册" class="headerlink" title="禁止游客访问站点内容，需注册"></a>禁止游客访问站点内容，需注册</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">## 拒绝没注册用户浏览和编辑</span><br><span class="line">$wgGroupPermissions[&#39;*&#39;][&#39;edit&#39;] &#x3D; false;</span><br><span class="line">$wgGroupPermissions[&#39;*&#39;][&#39;read&#39;] &#x3D; false;</span><br><span class="line"></span><br><span class="line">## 设置游客可以看到的页面</span><br><span class="line">$wgWhitelistRead &#x3D; array (&quot;Main Page&quot;, &quot;MediaWiki:Common.css&quot;,&quot;MediaWiki:Common.js&quot;,&quot;Special:Userlogin&quot;,&quot;特殊:创建账户&quot;, &quot;Wikipedia:Help&quot;);</span><br></pre></td></tr></table></figure>
-
-<h2 id="安装lockdown插件"><a href="#安装lockdown插件" class="headerlink" title="安装lockdown插件"></a>安装lockdown插件</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#1.下载</span><br><span class="line"># 2.解压</span><br><span class="line"># 3. 放到extensions&#x2F;目录下</span><br><span class="line">extensions&#x2F;Lockdown&#x2F;</span><br><span class="line"># 4. 配置文件引入</span><br><span class="line">wfLoadExtension( &#39;Lockdown&#39; );</span><br><span class="line"># 5. LocalSettings.php创建名字空间</span><br><span class="line">$wgExtraNamespaces &#x3D;</span><br><span class="line">       array (104 &#x3D;&gt; &quot;OPS&quot;,</span><br><span class="line">             105 &#x3D;&gt; &quot;OPS_Talk&quot;);</span><br><span class="line"># 6. 只允许sysop用户访问</span><br><span class="line">$wgNamespacePermissionLockdown &#x3D; array_fill( 104, 105, [  &#39;*&#39; &#x3D;&gt; [ &#39;sysop&#39;  ] ] );</span><br><span class="line"></span><br><span class="line"># 7. 创建页面，把页面移动到ops名字空间</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <categories>
-        <category>wiki</category>
-      </categories>
-      <tags>
-        <tag>wiki</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>mediawiki悬浮目录</title>
     <url>/sugw.github.io/2020/11/13/mediawiki%E6%82%AC%E6%B5%AE%E7%9B%AE%E5%BD%95/</url>
     <content><![CDATA[<h2 id="MediaWiki-Common-css"><a href="#MediaWiki-Common-css" class="headerlink" title="MediaWiki:Common.css"></a>MediaWiki:Common.css</h2><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-id">#toc</span>&#123;</span><br><span class="line"> <span class="attribute">display</span>: block;</span><br><span class="line"> <span class="attribute">position</span>: fixed;</span><br><span class="line"> <span class="attribute">top</span>: <span class="number">100px</span>;</span><br><span class="line"> <span class="attribute">right</span>: <span class="number">0px</span>;</span><br><span class="line"> <span class="attribute">min-width</span>: <span class="number">100px</span>;</span><br><span class="line"> <span class="attribute">max-width</span>: <span class="number">350px</span>;</span><br><span class="line"> <span class="attribute">max-height</span>: <span class="number">20px</span>;</span><br><span class="line"> <span class="attribute">overflow-y</span>: scroll;</span><br><span class="line"> <span class="attribute">border</span>: <span class="number">1px</span> solid <span class="number">#aaa</span>;</span><br><span class="line"> <span class="attribute">border-radius</span>: <span class="number">0</span> <span class="number">0</span> <span class="number">1px</span> <span class="number">1px</span>;</span><br><span class="line"> <span class="attribute">-moz-border-radius</span>: <span class="number">0</span> <span class="number">0</span> <span class="number">1px</span> <span class="number">1px</span>;</span><br><span class="line"> <span class="attribute">background</span>: <span class="built_in">rgba</span>(<span class="number">249</span>,<span class="number">249</span>,<span class="number">249</span>,<span class="number">0.75</span>);</span><br><span class="line"> <span class="attribute">padding</span>: <span class="number">12px</span>;</span><br><span class="line"> <span class="attribute">box-shadow</span>: <span class="number">0</span> <span class="number">1px</span> <span class="number">8px</span> <span class="number">#000</span>;</span><br><span class="line"> <span class="attribute">-webkit-box-shadow</span>: <span class="number">0</span> <span class="number">1px</span> <span class="number">8px</span> <span class="number">#000</span>;</span><br><span class="line"> <span class="attribute">-moz-box-shadow</span>: <span class="number">0</span> <span class="number">1px</span> <span class="number">8px</span> <span class="number">#000</span>;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="selector-id">#toc</span><span class="selector-pseudo">:hover</span>&#123;</span><br><span class="line"> <span class="attribute">display</span>: block;</span><br><span class="line"> <span class="attribute">position</span>: fixed;</span><br><span class="line"> <span class="attribute">top</span>: <span class="number">100px</span>;</span><br><span class="line"> <span class="attribute">right</span>: <span class="number">0px</span>;</span><br><span class="line"> <span class="attribute">min-width</span>: <span class="number">100px</span>;</span><br><span class="line"> <span class="attribute">max-width</span>: <span class="number">350px</span>;</span><br><span class="line"> <span class="attribute">max-height</span>: <span class="number">500px</span>;</span><br><span class="line"> <span class="attribute">overflow-y</span>: scroll;</span><br><span class="line"> <span class="attribute">border</span>: <span class="number">1px</span> solid <span class="number">#aaa</span>;</span><br><span class="line"> <span class="attribute">border-radius</span>: <span class="number">0</span> <span class="number">0</span> <span class="number">1px</span> <span class="number">1px</span>;</span><br><span class="line"> <span class="attribute">-moz-border-radius</span>: <span class="number">0</span> <span class="number">0</span> <span class="number">1px</span> <span class="number">1px</span>;</span><br><span class="line"> <span class="attribute">background</span>: <span class="built_in">rgba</span>(<span class="number">249</span>,<span class="number">249</span>,<span class="number">249</span>,<span class="number">0.75</span>);</span><br><span class="line"> <span class="attribute">padding</span>: <span class="number">12px</span>;</span><br><span class="line"> <span class="attribute">box-shadow</span>: <span class="number">0</span> <span class="number">1px</span> <span class="number">8px</span> <span class="number">#000</span>;</span><br><span class="line"> <span class="attribute">-webkit-box-shadow</span>: <span class="number">0</span> <span class="number">1px</span> <span class="number">8px</span> <span class="number">#000</span>;</span><br><span class="line"> <span class="attribute">-moz-box-shadow</span>: <span class="number">0</span> <span class="number">1px</span> <span class="number">8px</span> <span class="number">#000</span>;</span><br><span class="line"> </span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="selector-tag">body</span> &#123; <span class="attribute">overflow-x</span>: hidden;&#125;</span><br></pre></td></tr></table></figure>
@@ -1250,6 +1250,24 @@
       <tags>
         <tag>wiki</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>mysql 删除表数据空间没有释放</title>
+    <url>/sugw.github.io/2021/01/06/mysql-delete/</url>
+    <content><![CDATA[<p>事件起因：</p>
+<p>今天运维人员找我，说我们的数据库磁盘空间满了。于是提供了一些删除表数据的sql给他，让他执行下。</p>
+<p>执行之后，查询数据库，表数据是不在了，但是问题来了。</p>
+<p>磁盘空间并没有释放，这是为啥咧？？？？</p>
+<p>于是乎，上网查找资料，功夫不负有心人，终于找到问题原因：</p>
+<h3 id="使用delete-加上-where条件的删除都不是真删除，在删除数据的时候，mysql并没有把数据文件删除，而是将数据文件的标识位删除，没有整理文件，因此不会彻底释放空间。-被删除的数据将会被保存在一个链接清单中，当有新数据写入的时候，mysql会利用这些已删除的空间再写入。删除操作会带来一些数据碎片，正是这些碎片在占用硬盘空间。"><a href="#使用delete-加上-where条件的删除都不是真删除，在删除数据的时候，mysql并没有把数据文件删除，而是将数据文件的标识位删除，没有整理文件，因此不会彻底释放空间。-被删除的数据将会被保存在一个链接清单中，当有新数据写入的时候，mysql会利用这些已删除的空间再写入。删除操作会带来一些数据碎片，正是这些碎片在占用硬盘空间。" class="headerlink" title="使用delete 加上 where条件的删除都不是真删除，在删除数据的时候，mysql并没有把数据文件删除，而是将数据文件的标识位删除，没有整理文件，因此不会彻底释放空间。 被删除的数据将会被保存在一个链接清单中，当有新数据写入的时候，mysql会利用这些已删除的空间再写入。删除操作会带来一些数据碎片，正是这些碎片在占用硬盘空间。"></a><strong>使用delete 加上 where条件的删除都不是真删除，在删除数据的时候，mysql并没有把数据文件删除，而是将数据文件的标识位删除，没有整理文件，因此不会彻底释放空间。</strong> <strong>被删除的数据将会被保存在一个链接清单中，当有新数据写入的时候，mysql会利用这些已删除的空间再写入。删除操作会带来一些数据碎片，正是这些碎片在占用硬盘空间。</strong></h3><p>解决方法：</p>
+<p>执行完delete语句的时候，再执行下：<strong>OPTIMIZE TABLE XXXTable(自己的表名)</strong></p>
+<p><strong>注意事项：</strong></p>
+<p><strong>执行OPTIMIZE TABLE的时候，会导致锁表，而且没有必要每次delete之后都执行，一个月定时清理下即可。另外，OPTIMIZE 操作会导致锁表，建议在访问量小的时候执行！</strong></p>
+<p>转载于：<a href="https://www.cnblogs.com/shawnloong/archive/2013/02/07/2908911.html">https://www.cnblogs.com/shawnloong/archive/2013/02/07/2908911.html</a></p>
+]]></content>
+      <categories>
+        <category>mysql 删除表数据空间没有释放</category>
+      </categories>
   </entry>
   <entry>
     <title>nginx 阻止IP访问实例</title>
