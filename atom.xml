@@ -1,42 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <title>一只小笨鸟</title>
+  <title>伟</title>
   
   
   <link href="https://sugw.github.io/sugw.github.io/atom.xml" rel="self"/>
   
   <link href="https://sugw.github.io/sugw.github.io/"/>
-  <updated>2021-01-07T03:10:01.550Z</updated>
+  <updated>2021-01-07T10:08:21.001Z</updated>
   <id>https://sugw.github.io/sugw.github.io/</id>
   
   <author>
-    <name>guowei su</name>
+    <name>伟</name>
     
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>测试文档</title>
-    <link href="https://sugw.github.io/sugw.github.io/2021/01/07/%E6%B5%8B%E8%AF%95%E6%96%87%E6%A1%A3/"/>
-    <id>https://sugw.github.io/sugw.github.io/2021/01/07/%E6%B5%8B%E8%AF%95%E6%96%87%E6%A1%A3/</id>
-    <published>2021-01-07T02:46:05.783Z</published>
-    <updated>2021-01-07T03:10:01.550Z</updated>
-    
-    
-    
-    
-    
-    <category term="测试" scheme="https://sugw.github.io/sugw.github.io/tags/%E6%B5%8B%E8%AF%95/"/>
-    
-  </entry>
-  
-  <entry>
     <title>mysql 删除表数据空间没有释放</title>
     <link href="https://sugw.github.io/sugw.github.io/2021/01/06/mysql-delete/"/>
     <id>https://sugw.github.io/sugw.github.io/2021/01/06/mysql-delete/</id>
     <published>2021-01-06T03:41:26.355Z</published>
-    <updated>2021-01-06T06:36:23.489Z</updated>
+    <updated>2021-01-07T10:08:21.001Z</updated>
     
     
     <summary type="html">&lt;p&gt;事件起因：&lt;/p&gt;
@@ -47,7 +32,7 @@
     
     
     
-    <category term="mysql 删除表数据空间没有释放" scheme="https://sugw.github.io/sugw.github.io/categories/mysql-%E5%88%A0%E9%99%A4%E8%A1%A8%E6%95%B0%E6%8D%AE%E7%A9%BA%E9%97%B4%E6%B2%A1%E6%9C%89%E9%87%8A%E6%94%BE/"/>
+    <category term="数据库" scheme="https://sugw.github.io/sugw.github.io/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
     
     
   </entry>
@@ -57,104 +42,13 @@
     <link href="https://sugw.github.io/sugw.github.io/2020/12/23/Jenkins%20pipeline%20%E5%A4%9A%E6%9C%8D%E5%8A%A1%E5%99%A8%EF%BC%8C%E5%A4%9A%E5%88%86%E6%94%AF%E5%8F%91%E7%89%88/"/>
     <id>https://sugw.github.io/sugw.github.io/2020/12/23/Jenkins%20pipeline%20%E5%A4%9A%E6%9C%8D%E5%8A%A1%E5%99%A8%EF%BC%8C%E5%A4%9A%E5%88%86%E6%94%AF%E5%8F%91%E7%89%88/</id>
     <published>2020-12-23T07:34:21.286Z</published>
-    <updated>2020-12-24T06:39:49.637Z</updated>
+    <updated>2021-01-07T10:25:20.718Z</updated>
     
     
-    <summary type="html">Jenkins pipeline 多服务器，多分支发版
-1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-20
-21
-22
-23
-24
-25
-26
-27
-28
-29
-30
-31
-32
-33
-34
-35
-36
-37
-38
-39
-40
-41
-42
-43
-44
-45
-46
-47
-48
-49
-50
-51
-52
-53
-54
-55
-56
-57
-58
-59
-60
-61
-62
-63
-64
-65
-66
-67
-68
-69
-70
-71
-72
-73
-74
-75
-76
-77
-78
-79
-80
-81
-82
-83
-84
-85
-86
-87
-88
-89
-90
-91
-92
-93
-94</summary>
+    <summary type="html">&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;hr&gt;
+&lt;p&gt;一个项目部署到多台服务器，通过jenkins自由风格转变成pipeline风格&lt;/p&gt;
+&lt;p&gt;发版效果：&lt;/p&gt;
+&lt;p&gt;![image-20210107182025504](Jenkins pipeline 多服务器，多分支发版/image-20210107182025504.png)&lt;/p&gt;</summary>
     
     
     
@@ -170,7 +64,7 @@
     <link href="https://sugw.github.io/sugw.github.io/2020/12/17/%E5%BC%80%E5%90%AFGTID%E7%9A%84%E6%83%85%E5%86%B5%E4%B8%8B%E5%AF%BC%E5%87%BA%E5%AF%BC%E5%85%A5%E5%BA%93%E7%9A%84%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9%20/"/>
     <id>https://sugw.github.io/sugw.github.io/2020/12/17/%E5%BC%80%E5%90%AFGTID%E7%9A%84%E6%83%85%E5%86%B5%E4%B8%8B%E5%AF%BC%E5%87%BA%E5%AF%BC%E5%85%A5%E5%BA%93%E7%9A%84%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9%20/</id>
     <published>2020-12-17T02:04:49.059Z</published>
-    <updated>2020-12-24T08:40:01.931Z</updated>
+    <updated>2021-01-07T10:11:01.576Z</updated>
     
     
     <summary type="html">&lt;blockquote&gt;
@@ -183,7 +77,7 @@
     
     
     
-    <category term="mysql" scheme="https://sugw.github.io/sugw.github.io/categories/mysql/"/>
+    <category term="数据库" scheme="https://sugw.github.io/sugw.github.io/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
     
     
     <category term="mysql" scheme="https://sugw.github.io/sugw.github.io/tags/mysql/"/>
@@ -195,7 +89,7 @@
     <link href="https://sugw.github.io/sugw.github.io/2020/12/08/Jenkins-pipeline%E7%9A%84%E5%88%9B%E5%BB%BA%E5%92%8C%E5%8F%82%E6%95%B0%E4%BC%A0%E9%80%92/"/>
     <id>https://sugw.github.io/sugw.github.io/2020/12/08/Jenkins-pipeline%E7%9A%84%E5%88%9B%E5%BB%BA%E5%92%8C%E5%8F%82%E6%95%B0%E4%BC%A0%E9%80%92/</id>
     <published>2020-12-08T09:00:19.996Z</published>
-    <updated>2020-12-08T09:00:58.833Z</updated>
+    <updated>2021-01-07T10:09:59.935Z</updated>
     
     
     <summary type="html">&lt;h2 id=&quot;一、单分支的pipeline&quot;&gt;&lt;a href=&quot;#一、单分支的pipeline&quot; class=&quot;headerlink&quot; title=&quot;一、单分支的pipeline&quot;&gt;&lt;/a&gt;&lt;strong&gt;一、单分支的pipeline&lt;/strong&gt;&lt;/h2&gt;&lt;p&gt;Pipline的特点是可以多节点运行，节点之间可以并行或者串行执行，从而实现编译-部署-部署的持续化构建和发布。&lt;/p&gt;
@@ -207,7 +101,7 @@
     
     
     
-    <category term="Jenkins+Gitlab+Ansible" scheme="https://sugw.github.io/sugw.github.io/categories/Jenkins-Gitlab-Ansible/"/>
+    <category term="Jenkins" scheme="https://sugw.github.io/sugw.github.io/categories/Jenkins/"/>
     
     
     <category term="自动部署" scheme="https://sugw.github.io/sugw.github.io/tags/%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2/"/>
@@ -219,7 +113,7 @@
     <link href="https://sugw.github.io/sugw.github.io/2020/12/01/datagrip/"/>
     <id>https://sugw.github.io/sugw.github.io/2020/12/01/datagrip/</id>
     <published>2020-12-01T08:13:10.440Z</published>
-    <updated>2020-12-01T08:13:11.312Z</updated>
+    <updated>2021-01-07T10:10:34.974Z</updated>
     
     
     <summary type="html">https://mp.weixin.qq.com/s/DTECLX-Y-9XJEScsA4boDw</summary>
@@ -238,7 +132,7 @@
     <link href="https://sugw.github.io/sugw.github.io/2020/11/27/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E5%85%AD)/"/>
     <id>https://sugw.github.io/sugw.github.io/2020/11/27/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E5%85%AD)/</id>
     <published>2020-11-27T02:03:01.705Z</published>
-    <updated>2020-12-07T06:24:45.466Z</updated>
+    <updated>2021-01-07T10:09:46.461Z</updated>
     
     
     <summary type="html">&lt;p&gt;&lt;strong&gt;Pipeline Job实现Nginix+MySQL+PHP+Wordpress实现自动化部署交付（Jenkins+Gitlab+Ansible自动化部署（五））&lt;/strong&gt;&lt;/p&gt;
@@ -264,7 +158,7 @@
     
     
     
-    <category term="Jenkins+Gitlab+Ansible" scheme="https://sugw.github.io/sugw.github.io/categories/Jenkins-Gitlab-Ansible/"/>
+    <category term="Jenkins" scheme="https://sugw.github.io/sugw.github.io/categories/Jenkins/"/>
     
     
     <category term="自动部署" scheme="https://sugw.github.io/sugw.github.io/tags/%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2/"/>
@@ -276,7 +170,7 @@
     <link href="https://sugw.github.io/sugw.github.io/2020/11/27/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%BA%94)/"/>
     <id>https://sugw.github.io/sugw.github.io/2020/11/27/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%BA%94)/</id>
     <published>2020-11-27T01:59:28.622Z</published>
-    <updated>2020-11-27T02:01:22.990Z</updated>
+    <updated>2021-01-07T10:09:30.609Z</updated>
     
     
     <summary type="html">&lt;p&gt;&lt;strong&gt;Freestyle Job实现静态网站部署交付（接Jenkins+Gitlab+Ansible自动化部署（四&lt;/strong&gt;&lt;/p&gt;
@@ -293,7 +187,7 @@
     
     
     
-    <category term="Jenkins+Gitlab+Ansible" scheme="https://sugw.github.io/sugw.github.io/categories/Jenkins-Gitlab-Ansible/"/>
+    <category term="Jenkins" scheme="https://sugw.github.io/sugw.github.io/categories/Jenkins/"/>
     
     
     <category term="自动部署" scheme="https://sugw.github.io/sugw.github.io/tags/%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2/"/>
@@ -305,7 +199,7 @@
     <link href="https://sugw.github.io/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E5%9B%9B)/"/>
     <id>https://sugw.github.io/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E5%9B%9B)/</id>
     <published>2020-11-26T11:08:52.453Z</published>
-    <updated>2020-11-27T01:56:59.283Z</updated>
+    <updated>2021-01-07T10:09:36.190Z</updated>
     
     
     <summary type="html">&lt;p&gt;&lt;strong&gt;Jenkins应用&lt;/strong&gt;&lt;/p&gt;
@@ -317,7 +211,7 @@
     
     
     
-    <category term="Jenkins+Gitlab+Ansible" scheme="https://sugw.github.io/sugw.github.io/categories/Jenkins-Gitlab-Ansible/"/>
+    <category term="Jenkins" scheme="https://sugw.github.io/sugw.github.io/categories/Jenkins/"/>
     
     
     <category term="自动部署" scheme="https://sugw.github.io/sugw.github.io/tags/%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2/"/>
@@ -329,7 +223,7 @@
     <link href="https://sugw.github.io/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%89)/"/>
     <id>https://sugw.github.io/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%89)/</id>
     <published>2020-11-26T10:54:18.246Z</published>
-    <updated>2020-12-01T10:41:19.853Z</updated>
+    <updated>2021-01-07T10:09:41.057Z</updated>
     
     
     <summary type="html">&lt;p&gt;接Jenkins+Gitlab+Ansible自动化部署（一）&lt;a href=&quot;https://www.cnblogs.com/zd520pyx1314/p/10210727.html&quot;&gt;https://www.cnblogs.com/zd520pyx1314/p/10210727.html&lt;/a&gt; 和（二）&lt;a href=&quot;https://www.cnblogs.com/zd520pyx1314/p/10213549.html&quot;&gt;https://www.cnblogs.com/zd520pyx1314/p/10213549.html &lt;/a&gt;&lt;/p&gt;
@@ -340,7 +234,7 @@
     
     
     
-    <category term="Jenkins+Gitlab+Ansible" scheme="https://sugw.github.io/sugw.github.io/categories/Jenkins-Gitlab-Ansible/"/>
+    <category term="Jenkins" scheme="https://sugw.github.io/sugw.github.io/categories/Jenkins/"/>
     
     
     <category term="自动部署" scheme="https://sugw.github.io/sugw.github.io/tags/%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2/"/>
@@ -352,7 +246,7 @@
     <link href="https://sugw.github.io/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%BA%8C)/"/>
     <id>https://sugw.github.io/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%BA%8C)/</id>
     <published>2020-11-26T10:47:07.196Z</published>
-    <updated>2020-12-07T02:30:05.671Z</updated>
+    <updated>2021-01-07T10:09:51.561Z</updated>
     
     
     <summary type="html">&lt;p&gt;接Jenkins+Gitlab+Ansbile自动化部署(一):&lt;/p&gt;
@@ -382,7 +276,7 @@
     
     
     
-    <category term="Jenkins+Gitlab+Ansible" scheme="https://sugw.github.io/sugw.github.io/categories/Jenkins-Gitlab-Ansible/"/>
+    <category term="Jenkins" scheme="https://sugw.github.io/sugw.github.io/categories/Jenkins/"/>
     
     
     <category term="自动部署" scheme="https://sugw.github.io/sugw.github.io/tags/%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2/"/>
@@ -394,7 +288,7 @@
     <link href="https://sugw.github.io/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/"/>
     <id>https://sugw.github.io/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/</id>
     <published>2020-11-26T10:33:50.167Z</published>
-    <updated>2020-11-30T02:54:01.770Z</updated>
+    <updated>2021-01-07T10:09:22.851Z</updated>
     
     
     <summary type="html">&lt;h2 id=&quot;首先准备实验环境&quot;&gt;&lt;a href=&quot;#首先准备实验环境&quot; class=&quot;headerlink&quot; title=&quot;首先准备实验环境&quot;&gt;&lt;/a&gt;首先准备实验环境&lt;/h2&gt;&lt;table&gt;
@@ -439,7 +333,7 @@
     
     
     
-    <category term="Jenkins+Gitlab+Ansible" scheme="https://sugw.github.io/sugw.github.io/categories/Jenkins-Gitlab-Ansible/"/>
+    <category term="Jenkins" scheme="https://sugw.github.io/sugw.github.io/categories/Jenkins/"/>
     
     
     <category term="自动部署" scheme="https://sugw.github.io/sugw.github.io/tags/%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2/"/>
@@ -698,7 +592,7 @@
     <link href="https://sugw.github.io/sugw.github.io/2020/11/19/PHP-FPM%20%E8%AE%BE%E7%BD%AE%E5%A4%9Apool%E3%80%81%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E9%87%8D%E5%86%99/"/>
     <id>https://sugw.github.io/sugw.github.io/2020/11/19/PHP-FPM%20%E8%AE%BE%E7%BD%AE%E5%A4%9Apool%E3%80%81%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E9%87%8D%E5%86%99/</id>
     <published>2020-11-19T10:00:00.543Z</published>
-    <updated>2020-11-19T10:02:12.268Z</updated>
+    <updated>2021-01-07T10:07:08.190Z</updated>
     
     
     <summary type="html">&lt;p&gt;&lt;strong&gt;重写配置文件&lt;/strong&gt;&lt;/p&gt;
@@ -712,7 +606,7 @@
     <category term="PHP" scheme="https://sugw.github.io/sugw.github.io/categories/PHP/"/>
     
     
-    <category term="优化" scheme="https://sugw.github.io/sugw.github.io/tags/%E4%BC%98%E5%8C%96/"/>
+    <category term="php" scheme="https://sugw.github.io/sugw.github.io/tags/php/"/>
     
   </entry>
   
@@ -721,7 +615,7 @@
     <link href="https://sugw.github.io/sugw.github.io/2020/11/19/PHP-php-fpm%E9%85%8D%E7%BD%AE%E4%BC%98%E5%8C%96/"/>
     <id>https://sugw.github.io/sugw.github.io/2020/11/19/PHP-php-fpm%E9%85%8D%E7%BD%AE%E4%BC%98%E5%8C%96/</id>
     <published>2020-11-19T09:53:18.262Z</published>
-    <updated>2020-11-20T07:35:07.765Z</updated>
+    <updated>2021-01-07T10:07:44.428Z</updated>
     
     
     <summary type="html">&lt;p&gt;前言:&lt;/p&gt;
@@ -791,7 +685,7 @@
     <link href="https://sugw.github.io/sugw.github.io/2020/11/18/DOClever-for-centos7%E5%AE%89%E8%A3%85/"/>
     <id>https://sugw.github.io/sugw.github.io/2020/11/18/DOClever-for-centos7%E5%AE%89%E8%A3%85/</id>
     <published>2020-11-18T07:48:51.183Z</published>
-    <updated>2020-11-18T08:01:02.612Z</updated>
+    <updated>2021-01-07T10:10:32.243Z</updated>
     
     
     <summary type="html">&lt;p&gt;#安装参考&lt;/p&gt;
@@ -806,6 +700,31 @@
     
     
     <category term="接口管理" scheme="https://sugw.github.io/sugw.github.io/tags/%E6%8E%A5%E5%8F%A3%E7%AE%A1%E7%90%86/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Mysqldump备份数据库时排除某些库</title>
+    <link href="https://sugw.github.io/sugw.github.io/2020/11/17/Mysqldump%E5%A4%87%E4%BB%BD%E6%95%B0%E6%8D%AE%E5%BA%93%E6%97%B6%E6%8E%92%E9%99%A4%E6%9F%90%E4%BA%9B%E5%BA%93/"/>
+    <id>https://sugw.github.io/sugw.github.io/2020/11/17/Mysqldump%E5%A4%87%E4%BB%BD%E6%95%B0%E6%8D%AE%E5%BA%93%E6%97%B6%E6%8E%92%E9%99%A4%E6%9F%90%E4%BA%9B%E5%BA%93/</id>
+    <published>2020-11-17T06:06:49.105Z</published>
+    <updated>2020-11-17T06:36:51.025Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;&lt;strong&gt;说明：&lt;/strong&gt;&lt;br&gt;使用mysqldump –all-databases会导出所有库。但如果做主从，从主库dump出数据时，我们是不需要也不想要information_schema 和 mysql 库的。数据库少的情况下还可以通过&lt;code&gt;/usr/local/mysql/bin/mysqldump -uroot -p --databases db1 db2 &amp;gt; db1db2.sql&lt;/code&gt; 这样再导出，但如果数据多，这样指定就很麻烦了。&lt;br&gt;mysql是支持 ignore-table 的，但是没有ignore-database，所以要导出除 information_schema和mysql库的其它所有库，难道就只能一个个指定database吗？&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;解决：&lt;/strong&gt;&lt;/p&gt;
+&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;# mysql -e &amp;quot;show databases;&amp;quot; -uroot -p| grep -Ev &amp;quot;Database|information_schema|mysql|test&amp;quot; | xargs mysqldump -uroot -p --databases &amp;gt; mysql_dump.sql&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+
+
+&lt;p&gt;&lt;strong&gt;附录：&lt;/strong&gt;&lt;br&gt;附录1：mysqldump: Got error: 1142: SELECT,LOCK TABL command denied to user ‘root’@’localhost’ for table ‘cond_instances’ when using LOCK TABLES&lt;br&gt;在mysql5.5中增加了performance_schema，当我们进行mysqldump的时候，会报如下错误信息：&lt;br&gt;mysqldump: Got error: 1142: SELECT,LOCK TABL command denied to user ‘root’@’localhost’ for table ‘cond_instances’ when using LOCK TABLES&lt;/p&gt;
+&lt;p&gt;我们可以在mysqldump中加上参数 –skip-lock-tables，如&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="数据库" scheme="https://sugw.github.io/sugw.github.io/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
+    
+    
+    <category term="mysql" scheme="https://sugw.github.io/sugw.github.io/tags/mysql/"/>
     
   </entry>
   
