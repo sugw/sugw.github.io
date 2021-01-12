@@ -1,20 +1,235 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <title>伟</title>
+  <title>苏国伟</title>
   
   
   <link href="https://sugw.github.io/sugw.github.io/atom.xml" rel="self"/>
   
   <link href="https://sugw.github.io/sugw.github.io/"/>
-  <updated>2021-01-07T10:08:21.001Z</updated>
+  <updated>2021-01-12T10:26:05.330Z</updated>
   <id>https://sugw.github.io/sugw.github.io/</id>
   
   <author>
-    <name>伟</name>
+    <name>苏国伟</name>
     
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>nginx location匹配优先级</title>
+    <link href="https://sugw.github.io/sugw.github.io/2021/01/12/nginx%20location%20%E5%8C%B9%E9%85%8D%E4%BC%98%E5%85%88%E7%BA%A7/"/>
+    <id>https://sugw.github.io/sugw.github.io/2021/01/12/nginx%20location%20%E5%8C%B9%E9%85%8D%E4%BC%98%E5%85%88%E7%BA%A7/</id>
+    <published>2021-01-12T10:25:15.530Z</published>
+    <updated>2021-01-12T10:26:05.330Z</updated>
+    
+    
+    <summary type="html">location 顺序优先级
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+
+
+1、表达式的几种形式
+~ 表示执行一个正则匹配，区分大小写
+
+~* 表示执行一个正则匹配，不区分大小写
+
+^~ 表示普通字符匹配。使用前缀匹配。如果匹配成功，则不再匹配其他location。
+
+= 进行普通字符精确匹配。也就是完全匹配。
+
+@ 它定义一个命名的 location，使用在内部定向时，例如 error_page, try_files
+
+2、表达式之间的优先级
+不同的表达式之间优先级不同，相同的表达式，匹配规则更长的优先级更高。
+
+= 的优先级</summary>
+    
+    
+    
+    
+    <category term="nginx" scheme="https://sugw.github.io/sugw.github.io/tags/nginx/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>nginx日志格式</title>
+    <link href="https://sugw.github.io/sugw.github.io/2021/01/12/nginx%E6%97%A5%E5%BF%97%E6%A0%BC%E5%BC%8F/"/>
+    <id>https://sugw.github.io/sugw.github.io/2021/01/12/nginx%E6%97%A5%E5%BF%97%E6%A0%BC%E5%BC%8F/</id>
+    <published>2021-01-12T10:19:39.722Z</published>
+    <updated>2021-01-12T10:27:55.571Z</updated>
+    
+    
+    <summary type="html">nginx json格式日志定义：
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+
+
+log_format json &#39;{ &quot;http_x_forwarded_for&quot;: &quot;$http_x_forwarded_for&quot;, &#39;
+                        &#39; &quot;remote_addr&quot;: &quot;$remote_addr&quot;, &#39;
+                        &#39;&quot;remote_user&quot;: &quot;$remote_user&quot;, &#39;
+                         &#39;&quot;http_user_agent&quot;: &quot;$http_user_</summary>
+    
+    
+    
+    <category term="日志" scheme="https://sugw.github.io/sugw.github.io/categories/%E6%97%A5%E5%BF%97/"/>
+    
+    
+    <category term="nginx" scheme="https://sugw.github.io/sugw.github.io/tags/nginx/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>nginx 日志切割</title>
+    <link href="https://sugw.github.io/sugw.github.io/2021/01/12/nginx%20%E6%97%A5%E5%BF%97%E5%88%87%E5%89%B2/"/>
+    <id>https://sugw.github.io/sugw.github.io/2021/01/12/nginx%20%E6%97%A5%E5%BF%97%E5%88%87%E5%89%B2/</id>
+    <published>2021-01-12T09:57:10.211Z</published>
+    <updated>2021-01-12T10:18:00.278Z</updated>
+    
+    
+    <summary type="html">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+
+
+#!/bin/bash
+declare logs_path=&quot;/workspace/logs/nginx&quot;;
+declare need_delete_path=${logs_path}/$(date -d &quot;21 days ago&quot; &quot;+%Y_%m_%d&quot;);
+declare yestoday_log_path=${logs_path}/$(date -d &quot;yesterday&quot; &quot;+%Y_%m_%d&quot;);
+rm -rf ${need_delete_path}
+rm -rf ${yestoday_log_path}
+mv ${logs_pat</summary>
+    
+    
+    
+    <category term="日志" scheme="https://sugw.github.io/sugw.github.io/categories/%E6%97%A5%E5%BF%97/"/>
+    
+    
+    <category term="nginx" scheme="https://sugw.github.io/sugw.github.io/tags/nginx/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>nginx 静态网站缓存</title>
+    <link href="https://sugw.github.io/sugw.github.io/2021/01/12/nginx%20%E9%9D%99%E6%80%81%E7%BD%91%E7%AB%99%E7%BC%93%E5%AD%98/"/>
+    <id>https://sugw.github.io/sugw.github.io/2021/01/12/nginx%20%E9%9D%99%E6%80%81%E7%BD%91%E7%AB%99%E7%BC%93%E5%AD%98/</id>
+    <published>2021-01-12T09:37:26.514Z</published>
+    <updated>2021-01-12T09:39:57.895Z</updated>
+    
+    
+    <summary type="html">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+
+
+location ~ .*\.(mp3|m4a|ogg|aac|wma|mp4|m4v|mpeg|webm|avi|swf|flv)$
+  {
+      expires      30d;
+  }
+
+  location ~ .*\.(gif|jpg|jpeg|png|bmp|webp|ico)$
+  {
+      expires      15d;
+      access_log off;
+  }
+
+  location ~ .*\.</summary>
+    
+    
+    
+    <category term="优化" scheme="https://sugw.github.io/sugw.github.io/categories/%E4%BC%98%E5%8C%96/"/>
+    
+    
+    <category term="nginx" scheme="https://sugw.github.io/sugw.github.io/tags/nginx/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Nginx优化详解</title>
+    <link href="https://sugw.github.io/sugw.github.io/2021/01/12/nginx%E4%BC%98%E5%8C%96/"/>
+    <id>https://sugw.github.io/sugw.github.io/2021/01/12/nginx%E4%BC%98%E5%8C%96/</id>
+    <published>2021-01-12T09:01:12.210Z</published>
+    <updated>2021-01-12T09:37:02.854Z</updated>
+    
+    
+    <summary type="html">&lt;h3 id=&quot;1、Nginx运行工作进程数量&quot;&gt;&lt;a href=&quot;#1、Nginx运行工作进程数量&quot; class=&quot;headerlink&quot; title=&quot;1、Nginx运行工作进程数量&quot;&gt;&lt;/a&gt;1、Nginx运行工作进程数量&lt;/h3&gt;&lt;p&gt;Nginx运行工作进程个数一般设置CPU的核心或者核心数x2。如果不了解cpu的核数，可以top命令之后按1看出来，也可以查看/proc/cpuinfo文件 grep ^processor /proc/cpuinfo | wc -l&lt;/p&gt;
+&lt;figure class=&quot;highlight angelscript&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;string&quot;&gt;[root@lx~]&lt;/span&gt;# vi/usr/local/nginx1&lt;span class=&quot;number&quot;&gt;.10&lt;/span&gt;/conf/nginx.conf&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;worker_processes &lt;span class=&quot;number&quot;&gt;4&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;string&quot;&gt;[root@lx~]&lt;/span&gt;# /usr/local/nginx1&lt;span class=&quot;number&quot;&gt;.10&lt;/span&gt;/sbin/nginx-s reload&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;string&quot;&gt;[root@lx~]&lt;/span&gt;# ps -aux | grep nginx |grep -v grep&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;root &lt;span class=&quot;number&quot;&gt;9834&lt;/span&gt; &lt;span class=&quot;number&quot;&gt;0.0&lt;/span&gt; &lt;span class=&quot;number&quot;&gt;0.0&lt;/span&gt; &lt;span class=&quot;number&quot;&gt;47556&lt;/span&gt; &lt;span class=&quot;number&quot;&gt;1948&lt;/span&gt; ?     Ss &lt;span class=&quot;number&quot;&gt;22&lt;/span&gt;:&lt;span class=&quot;number&quot;&gt;36&lt;/span&gt; &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;:&lt;span class=&quot;number&quot;&gt;00&lt;/span&gt; nginx: master processnginx&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;www &lt;span class=&quot;number&quot;&gt;10135&lt;/span&gt; &lt;span class=&quot;number&quot;&gt;0.0&lt;/span&gt; &lt;span class=&quot;number&quot;&gt;0.0&lt;/span&gt; &lt;span class=&quot;number&quot;&gt;50088&lt;/span&gt; &lt;span class=&quot;number&quot;&gt;2004&lt;/span&gt; ?       S   &lt;span class=&quot;number&quot;&gt;22&lt;/span&gt;:&lt;span class=&quot;number&quot;&gt;58&lt;/span&gt; &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;:&lt;span class=&quot;number&quot;&gt;00&lt;/span&gt; nginx: worker process&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;www &lt;span class=&quot;number&quot;&gt;10136&lt;/span&gt; &lt;span class=&quot;number&quot;&gt;0.0&lt;/span&gt; &lt;span class=&quot;number&quot;&gt;0.0&lt;/span&gt; &lt;span class=&quot;number&quot;&gt;50088&lt;/span&gt; &lt;span class=&quot;number&quot;&gt;2004&lt;/span&gt; ?       S   &lt;span class=&quot;number&quot;&gt;22&lt;/span&gt;:&lt;span class=&quot;number&quot;&gt;58&lt;/span&gt; &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;:&lt;span class=&quot;number&quot;&gt;00&lt;/span&gt; nginx: worker process&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;www &lt;span class=&quot;number&quot;&gt;10137&lt;/span&gt; &lt;span class=&quot;number&quot;&gt;0.0&lt;/span&gt; &lt;span class=&quot;number&quot;&gt;0.0&lt;/span&gt; &lt;span class=&quot;number&quot;&gt;50088&lt;/span&gt; &lt;span class=&quot;number&quot;&gt;2004&lt;/span&gt; ?       S   &lt;span class=&quot;number&quot;&gt;22&lt;/span&gt;:&lt;span class=&quot;number&quot;&gt;58&lt;/span&gt; &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;:&lt;span class=&quot;number&quot;&gt;00&lt;/span&gt; nginx: worker process&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;www &lt;span class=&quot;number&quot;&gt;10138&lt;/span&gt; &lt;span class=&quot;number&quot;&gt;0.0&lt;/span&gt; &lt;span class=&quot;number&quot;&gt;0.0&lt;/span&gt; &lt;span class=&quot;number&quot;&gt;50088&lt;/span&gt; &lt;span class=&quot;number&quot;&gt;2004&lt;/span&gt; ?       S   &lt;span class=&quot;number&quot;&gt;22&lt;/span&gt;:&lt;span class=&quot;number&quot;&gt;58&lt;/span&gt; &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;:&lt;span class=&quot;number&quot;&gt;00&lt;/span&gt; nginx: worker process&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+
+&lt;h3 id=&quot;2、Nginx运行CPU亲和力&quot;&gt;&lt;a href=&quot;#2、Nginx运行CPU亲和力&quot; class=&quot;headerlink&quot; title=&quot;2、Nginx运行CPU亲和力&quot;&gt;&lt;/a&gt;2、Nginx运行CPU亲和力&lt;/h3&gt;&lt;p&gt;比如4核配置：&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="优化" scheme="https://sugw.github.io/sugw.github.io/categories/%E4%BC%98%E5%8C%96/"/>
+    
+    
+    <category term="nginx" scheme="https://sugw.github.io/sugw.github.io/tags/nginx/"/>
+    
+  </entry>
   
   <entry>
     <title>mysql 删除表数据空间没有释放</title>
@@ -607,124 +822,6 @@
     
     
     <category term="php" scheme="https://sugw.github.io/sugw.github.io/tags/php/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>PHP-php-fpm配置优化</title>
-    <link href="https://sugw.github.io/sugw.github.io/2020/11/19/PHP-php-fpm%E9%85%8D%E7%BD%AE%E4%BC%98%E5%8C%96/"/>
-    <id>https://sugw.github.io/sugw.github.io/2020/11/19/PHP-php-fpm%E9%85%8D%E7%BD%AE%E4%BC%98%E5%8C%96/</id>
-    <published>2020-11-19T09:53:18.262Z</published>
-    <updated>2021-01-07T10:07:44.428Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;前言:&lt;/p&gt;
-&lt;p&gt;　　1.少安装PHP模块, 费内存&lt;/p&gt;
-&lt;p&gt;　　2.调高linux内核打开文件数量，可以使用这些命令(必须是root帐号)(我是修改/etc/rc.local，加入ulimit -SHn 51200的)&lt;/p&gt;
-&lt;figure class=&quot;highlight routeros&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;echo `ulimit -HSn 65536` &amp;gt;&amp;gt; /etc/profile&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;echo `ulimit -HSn 65536` &amp;gt;&amp;gt; /etc/rc.local&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;source /etc&lt;span class=&quot;built_in&quot;&gt;/profile &lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-
-&lt;p&gt;　　如果&lt;code&gt;ulimit -n&lt;/code&gt;数量依旧不多(即上面配置没生效)的话, 可以在 /etc/security/limits.conf 文件最后加上&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="PHP" scheme="https://sugw.github.io/sugw.github.io/categories/PHP/"/>
-    
-    
-    <category term="优化" scheme="https://sugw.github.io/sugw.github.io/tags/%E4%BC%98%E5%8C%96/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>ab压测工具</title>
-    <link href="https://sugw.github.io/sugw.github.io/2020/11/19/ab%E5%8E%8B%E6%B5%8B%E5%B7%A5%E5%85%B7/"/>
-    <id>https://sugw.github.io/sugw.github.io/2020/11/19/ab%E5%8E%8B%E6%B5%8B%E5%B7%A5%E5%85%B7/</id>
-    <published>2020-11-19T07:58:50.150Z</published>
-    <updated>2020-11-19T07:59:29.671Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;ab压测参数：&lt;/p&gt;
-&lt;figure class=&quot;highlight haml&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;22&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;23&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;24&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;-&lt;span class=&quot;ruby&quot;&gt;n 测试会话中所执行的请求个数,默认仅执行一个请求 &lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;ruby&quot;&gt;-c 一次产生的请求个数,即同一时间发出多少个请求,默认为一次一个 &lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;ruby&quot;&gt;-t 测试所进行的最大秒数,默认为无时间限制....其内部隐含值是[-n &lt;span class=&quot;number&quot;&gt;50000&lt;/span&gt;],它可以使对服务器的测试限制在一个固定的总时间以内 &lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;ruby&quot;&gt;-p 包含了需要POST的数据的文件 &lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;ruby&quot;&gt;-T POST数据所使用的Content-type头信息 &lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;ruby&quot;&gt;-v 设置显示信息的详细程度 &lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;ruby&quot;&gt;-w 以HTML表格的形式输出结果,默认是白色背景的两列宽度的一张表&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;ruby&quot;&gt;-i 以HTML表格的形式输出结果,默认是白色背景的两列宽度的一张表 &lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;ruby&quot;&gt;-x 设置&amp;lt;table&amp;gt;属性的字符串,此属性被填入&amp;lt;table 这里&amp;gt; &lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;ruby&quot;&gt;-y 设置&amp;lt;tr&amp;gt;属性的字符串 &lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;ruby&quot;&gt;-z 设置&amp;lt;td&amp;gt;属性的字符串 &lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;ruby&quot;&gt;-C 对请求附加一个Cookie行，其典型形式是name=value的参数对,此参数可以重复 &lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;ruby&quot;&gt;-H 对请求附加额外的头信息,此参数的典型形式是一个有效的头信息行,其中包含了以冒号分隔的字段和值的对(如&lt;span class=&quot;string&quot;&gt;&amp;quot;Accept-Encoding: zip/zop;8bit&amp;quot;&lt;/span&gt;) &lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;ruby&quot;&gt;-A HTTP验证,用冒号&lt;span class=&quot;symbol&quot;&gt;:&lt;/span&gt;分隔传递用户名及密码 &lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;ruby&quot;&gt;-P 无论服务器是否需要(即是否发送了&lt;span class=&quot;number&quot;&gt;401&lt;/span&gt;认证需求代码),此字符串都会被发送 &lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;ruby&quot;&gt;-X 对请求使用代理服务器 &lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;ruby&quot;&gt;-V 显示版本号并退出 &lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;ruby&quot;&gt;-k 启用HTTP KeepAlive功能,即在一个HTTP会话中执行多个请求,默认为不启用KeepAlive功能 &lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;ruby&quot;&gt;-d 不显示&lt;span class=&quot;string&quot;&gt;&amp;quot;percentage served within XX [ms] table&amp;quot;&lt;/span&gt;的消息(为以前的版本提供支持) &lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;ruby&quot;&gt;-S 不显示中值和标准背离值,且均值和中值为标准背离值的&lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;到&lt;span class=&quot;number&quot;&gt;2&lt;/span&gt;倍时,也不显示警告或出错信息,默认会显示最小值/均值/最大值等(为以前的版本提供支持) &lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;ruby&quot;&gt;-g 把所有测试结果写入一个&lt;span class=&quot;string&quot;&gt;&amp;#x27;gnuplot&amp;#x27;&lt;/span&gt;或者TSV(以Tab分隔的)文件 &lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;ruby&quot;&gt;-e 产生一个以逗号分隔的(CSV)文件,其中包含了处理每个相应百分比的请求所需要(从&lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;%到&lt;span class=&quot;number&quot;&gt;100&lt;/span&gt;%)的相应百分比的(以微妙为单位)时间 &lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;ruby&quot;&gt;-h 显示使用方法 &lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;ruby&quot;&gt;-k 发送keep-alive指令到服务器端&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-
-&lt;p&gt;ab压测命令：&lt;/p&gt;
-&lt;figure class=&quot;highlight apache&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;attribute&quot;&gt;ab&lt;/span&gt; -n &lt;span class=&quot;number&quot;&gt;10&lt;/span&gt; -s &lt;span class=&quot;number&quot;&gt;50000&lt;/span&gt; -k &lt;span class=&quot;string&quot;&gt;&amp;quot;http://127.0.0.1:9501/?uid=123&amp;quot;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-
-&lt;p&gt;ab压测结果:&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="测试" scheme="https://sugw.github.io/sugw.github.io/categories/%E6%B5%8B%E8%AF%95/"/>
-    
-    
-    <category term="测试" scheme="https://sugw.github.io/sugw.github.io/tags/%E6%B5%8B%E8%AF%95/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Nginx优化详解</title>
-    <link href="https://sugw.github.io/sugw.github.io/2020/11/19/Nginx%E4%BC%98%E5%8C%96%E8%AF%A6%E8%A7%A3/"/>
-    <id>https://sugw.github.io/sugw.github.io/2020/11/19/Nginx%E4%BC%98%E5%8C%96%E8%AF%A6%E8%A7%A3/</id>
-    <published>2020-11-19T03:31:16.539Z</published>
-    <updated>2020-11-19T08:03:22.316Z</updated>
-    
-    
-    <summary type="html">&lt;h2 id=&quot;一、一般来说nginx-配置文件中对优化比较有作用的为以下几项：&quot;&gt;&lt;a href=&quot;#一、一般来说nginx-配置文件中对优化比较有作用的为以下几项：&quot; class=&quot;headerlink&quot; title=&quot;一、一般来说nginx 配置文件中对优化比较有作用的为以下几项：&quot;&gt;&lt;/a&gt;&lt;strong&gt;一、一般来说nginx 配置文件中对优化比较有作用的为以下几项：&lt;/strong&gt;&lt;/h2&gt;&lt;h3 id=&quot;1-worker-processes-8&quot;&gt;&lt;a href=&quot;#1-worker-processes-8&quot; class=&quot;headerlink&quot; title=&quot;1. worker_processes 8;&quot;&gt;&lt;/a&gt;&lt;strong&gt;1. worker_processes 8;&lt;/strong&gt;&lt;/h3&gt;&lt;p&gt;​     nginx 进程数，建议按照cpu 数目来指定，一般为它的倍数 (如,2个四核的cpu计为8)。&lt;/p&gt;
-&lt;p&gt;   &lt;strong&gt;2. worker_cpu_affinity 00000001 00000010 00000100 00001000 00010000 00100000 01000000 10000000;&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;​     为每个进程分配cpu，上例中将8 个进程分配到8 个cpu，当然可以写多个，或者将一个进程分配到多个cpu。&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="优化" scheme="https://sugw.github.io/sugw.github.io/categories/%E4%BC%98%E5%8C%96/"/>
-    
-    
-    <category term="nginx" scheme="https://sugw.github.io/sugw.github.io/tags/nginx/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>DOClever for centos7安装</title>
-    <link href="https://sugw.github.io/sugw.github.io/2020/11/18/DOClever-for-centos7%E5%AE%89%E8%A3%85/"/>
-    <id>https://sugw.github.io/sugw.github.io/2020/11/18/DOClever-for-centos7%E5%AE%89%E8%A3%85/</id>
-    <published>2020-11-18T07:48:51.183Z</published>
-    <updated>2021-01-07T10:10:32.243Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;#安装参考&lt;/p&gt;
-&lt;p&gt;&lt;a href=&quot;https://github.com/sx1989827/DOClever/blob/master/README.md&quot;&gt;https://github.com/sx1989827/DOClever/blob/master/README.md&lt;/a&gt; &lt;/p&gt;
-&lt;h2 id=&quot;安装node&quot;&gt;&lt;a href=&quot;#安装node&quot; class=&quot;headerlink&quot; title=&quot;安装node&quot;&gt;&lt;/a&gt;安装node&lt;/h2&gt;&lt;figure class=&quot;highlight awk&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;wget https:&lt;span class=&quot;regexp&quot;&gt;//&lt;/span&gt;nodejs.org&lt;span class=&quot;regexp&quot;&gt;/dist/&lt;/span&gt;v8.&lt;span class=&quot;number&quot;&gt;11.1&lt;/span&gt;/node-v8.&lt;span class=&quot;number&quot;&gt;11.1&lt;/span&gt;-linux-x64.tar.xz&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;tar xvf node-v8.&lt;span class=&quot;number&quot;&gt;11.1&lt;/span&gt;-linux-x64.tar.xz&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;mv node-v8.&lt;span class=&quot;number&quot;&gt;11.1&lt;/span&gt;-linux-x64 nodev8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;ln -s &lt;span class=&quot;regexp&quot;&gt;/data/&lt;/span&gt;nodev8&lt;span class=&quot;regexp&quot;&gt;/bin/&lt;/span&gt;node &lt;span class=&quot;regexp&quot;&gt;/usr/&lt;/span&gt;local&lt;span class=&quot;regexp&quot;&gt;/bin/&lt;/span&gt;node&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;ln -s &lt;span class=&quot;regexp&quot;&gt;/data/&lt;/span&gt;nodev8&lt;span class=&quot;regexp&quot;&gt;/bin/&lt;/span&gt;npm &lt;span class=&quot;regexp&quot;&gt;/usr/&lt;/span&gt;local&lt;span class=&quot;regexp&quot;&gt;/bin/&lt;/span&gt;npm&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-
-&lt;h2 id=&quot;安装mongodb&quot;&gt;&lt;a href=&quot;#安装mongodb&quot; class=&quot;headerlink&quot; title=&quot;安装mongodb&quot;&gt;&lt;/a&gt;安装mongodb&lt;/h2&gt;</summary>
-    
-    
-    
-    <category term="接口管理" scheme="https://sugw.github.io/sugw.github.io/categories/%E6%8E%A5%E5%8F%A3%E7%AE%A1%E7%90%86/"/>
-    
-    
-    <category term="接口管理" scheme="https://sugw.github.io/sugw.github.io/tags/%E6%8E%A5%E5%8F%A3%E7%AE%A1%E7%90%86/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Mysqldump备份数据库时排除某些库</title>
-    <link href="https://sugw.github.io/sugw.github.io/2020/11/17/Mysqldump%E5%A4%87%E4%BB%BD%E6%95%B0%E6%8D%AE%E5%BA%93%E6%97%B6%E6%8E%92%E9%99%A4%E6%9F%90%E4%BA%9B%E5%BA%93/"/>
-    <id>https://sugw.github.io/sugw.github.io/2020/11/17/Mysqldump%E5%A4%87%E4%BB%BD%E6%95%B0%E6%8D%AE%E5%BA%93%E6%97%B6%E6%8E%92%E9%99%A4%E6%9F%90%E4%BA%9B%E5%BA%93/</id>
-    <published>2020-11-17T06:06:49.105Z</published>
-    <updated>2020-11-17T06:36:51.025Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;&lt;strong&gt;说明：&lt;/strong&gt;&lt;br&gt;使用mysqldump –all-databases会导出所有库。但如果做主从，从主库dump出数据时，我们是不需要也不想要information_schema 和 mysql 库的。数据库少的情况下还可以通过&lt;code&gt;/usr/local/mysql/bin/mysqldump -uroot -p --databases db1 db2 &amp;gt; db1db2.sql&lt;/code&gt; 这样再导出，但如果数据多，这样指定就很麻烦了。&lt;br&gt;mysql是支持 ignore-table 的，但是没有ignore-database，所以要导出除 information_schema和mysql库的其它所有库，难道就只能一个个指定database吗？&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;解决：&lt;/strong&gt;&lt;/p&gt;
-&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;# mysql -e &amp;quot;show databases;&amp;quot; -uroot -p| grep -Ev &amp;quot;Database|information_schema|mysql|test&amp;quot; | xargs mysqldump -uroot -p --databases &amp;gt; mysql_dump.sql&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-
-
-&lt;p&gt;&lt;strong&gt;附录：&lt;/strong&gt;&lt;br&gt;附录1：mysqldump: Got error: 1142: SELECT,LOCK TABL command denied to user ‘root’@’localhost’ for table ‘cond_instances’ when using LOCK TABLES&lt;br&gt;在mysql5.5中增加了performance_schema，当我们进行mysqldump的时候，会报如下错误信息：&lt;br&gt;mysqldump: Got error: 1142: SELECT,LOCK TABL command denied to user ‘root’@’localhost’ for table ‘cond_instances’ when using LOCK TABLES&lt;/p&gt;
-&lt;p&gt;我们可以在mysqldump中加上参数 –skip-lock-tables，如&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="数据库" scheme="https://sugw.github.io/sugw.github.io/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
-    
-    
-    <category term="mysql" scheme="https://sugw.github.io/sugw.github.io/tags/mysql/"/>
     
   </entry>
   
