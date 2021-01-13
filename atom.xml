@@ -6,7 +6,7 @@
   <link href="https://sugw.github.io/sugw.github.io/atom.xml" rel="self"/>
   
   <link href="https://sugw.github.io/sugw.github.io/"/>
-  <updated>2021-01-12T10:26:05.330Z</updated>
+  <updated>2021-01-13T07:37:11.400Z</updated>
   <id>https://sugw.github.io/sugw.github.io/</id>
   
   <author>
@@ -15,6 +15,27 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>l2tp+ppp+ipsec</title>
+    <link href="https://sugw.github.io/sugw.github.io/2021/01/13/l2tp+ppp+ipsec/"/>
+    <id>https://sugw.github.io/sugw.github.io/2021/01/13/l2tp+ppp+ipsec/</id>
+    <published>2021-01-13T07:19:02.041Z</published>
+    <updated>2021-01-13T07:37:11.400Z</updated>
+    
+    
+    <summary type="html">&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;hr&gt;
+&lt;p&gt;疫情期间，公司呼吁大家家里办公，家里办公需要连接vpn到公司内部网络，公司办公人员较多，环境较复杂，所以vpn需要支持mac、win、ios、Android系统&lt;/p&gt;
+&lt;h2 id=&quot;环境&quot;&gt;&lt;a href=&quot;#环境&quot; class=&quot;headerlink&quot; title=&quot;环境&quot;&gt;&lt;/a&gt;环境&lt;/h2&gt;&lt;hr&gt;</summary>
+    
+    
+    
+    <category term="实战" scheme="https://sugw.github.io/sugw.github.io/categories/%E5%AE%9E%E6%88%98/"/>
+    
+    
+    <category term="vpn" scheme="https://sugw.github.io/sugw.github.io/tags/vpn/"/>
+    
+  </entry>
   
   <entry>
     <title>nginx location匹配优先级</title>
@@ -799,29 +820,6 @@ location ~ .*\.(mp3|m4a|ogg|aac|wma|mp4|m4v|mpeg|webm|avi|swf|flv)$
     
     
     <category term="优化" scheme="https://sugw.github.io/sugw.github.io/tags/%E4%BC%98%E5%8C%96/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>PHP-FPM 设置多pool、配置文件重写</title>
-    <link href="https://sugw.github.io/sugw.github.io/2020/11/19/PHP-FPM%20%E8%AE%BE%E7%BD%AE%E5%A4%9Apool%E3%80%81%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E9%87%8D%E5%86%99/"/>
-    <id>https://sugw.github.io/sugw.github.io/2020/11/19/PHP-FPM%20%E8%AE%BE%E7%BD%AE%E5%A4%9Apool%E3%80%81%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E9%87%8D%E5%86%99/</id>
-    <published>2020-11-19T10:00:00.543Z</published>
-    <updated>2021-01-07T10:07:08.190Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;&lt;strong&gt;重写配置文件&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;1&lt;/strong&gt;、清空php配置文件&lt;/p&gt;
-&lt;p&gt;命令：&amp;gt; /usr/local/php/etc/php-fpm.conf&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;2&lt;/strong&gt;、重新写入php-fpm配置&lt;/p&gt;
-&lt;p&gt;命令：vim /usr/local/php/etc/php-fpm.conf&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="PHP" scheme="https://sugw.github.io/sugw.github.io/categories/PHP/"/>
-    
-    
-    <category term="php" scheme="https://sugw.github.io/sugw.github.io/tags/php/"/>
     
   </entry>
   
