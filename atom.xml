@@ -6,7 +6,7 @@
   <link href="https://sugw.github.io/sugw.github.io/atom.xml" rel="self"/>
   
   <link href="https://sugw.github.io/sugw.github.io/"/>
-  <updated>2021-01-13T07:37:11.400Z</updated>
+  <updated>2021-01-13T10:41:00.293Z</updated>
   <id>https://sugw.github.io/sugw.github.io/</id>
   
   <author>
@@ -15,6 +15,50 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>LVS NAT,DR,TUN三种负载原理</title>
+    <link href="https://sugw.github.io/sugw.github.io/2021/01/13/LVS%20NAT,DR,TUN%E4%B8%89%E7%A7%8D%E8%B4%9F%E8%BD%BD%E5%8E%9F%E7%90%86/"/>
+    <id>https://sugw.github.io/sugw.github.io/2021/01/13/LVS%20NAT,DR,TUN%E4%B8%89%E7%A7%8D%E8%B4%9F%E8%BD%BD%E5%8E%9F%E7%90%86/</id>
+    <published>2021-01-13T10:18:49.394Z</published>
+    <updated>2021-01-13T10:41:00.293Z</updated>
+    
+    
+    <summary type="html">&lt;h3 id=&quot;负载均衡简单介绍&quot;&gt;&lt;a href=&quot;#负载均衡简单介绍&quot; class=&quot;headerlink&quot; title=&quot;负载均衡简单介绍&quot;&gt;&lt;/a&gt;负载均衡简单介绍&lt;/h3&gt;&lt;p&gt;用通俗的话来说负载均衡，就是通过不同的调度机制将用户的请求分派到后端不同的服务器。缓解服务器的请求压力，实现负载均衡的方案有多种，下面简单说说了解的几种方式：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;DNS 负载：利用DNS的解析可以实现区域的性用户请求负载，这种负载方式是离用户最近的负载方案，请求还没有到达内部系统架构服务前就已经被分流了。&lt;/li&gt;
+&lt;li&gt;LVS ：就是本篇文件要整理的解决方案，LVS性能特别强，它是工作在linux系统内核的一个程序，LVS负载的特点是超强的分流功能，但它只能负载调度流量的去向，没有办法实现在业务层分流负载。&lt;/li&gt;
+&lt;li&gt;Haproxy：haproxy可以工作在ISO7层模型中的4层和7层，工作在4层时是基于IP的负载，这与LVS作用相同，工作在7层时是基于应用层的应用协议进行负载，可以根据分析报文内容并结合算法来选择后端服务&lt;/li&gt;
+&lt;li&gt;Nginx： nginx也是应用层负载均衡器，可以实现反向代理功能，nginx的特点是可以将请求按照业务类型进行向后端调度，对请求从业务功能上进行了负载调度。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&quot;lVS工作组成&quot;&gt;&lt;a href=&quot;#lVS工作组成&quot; class=&quot;headerlink&quot; title=&quot;lVS工作组成&quot;&gt;&lt;/a&gt;lVS工作组成&lt;/h3&gt;&lt;p&gt;LVS由两部分组成，包括ipvs和ipvsadm：&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="负载均衡" scheme="https://sugw.github.io/sugw.github.io/categories/%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/"/>
+    
+    
+    <category term="lvs" scheme="https://sugw.github.io/sugw.github.io/tags/lvs/"/>
+    
+  </entry>
+  
+  <entry>
+    <title></title>
+    <link href="https://sugw.github.io/sugw.github.io/2021/01/13/%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E7%AE%80%E5%8D%95%E4%BB%8B%E7%BB%8D/"/>
+    <id>https://sugw.github.io/sugw.github.io/2021/01/13/%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E7%AE%80%E5%8D%95%E4%BB%8B%E7%BB%8D/</id>
+    <published>2021-01-13T10:15:30.597Z</published>
+    <updated>2021-01-13T10:15:30.597Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;title: lvs原理详解&lt;/p&gt;
+&lt;p&gt;tags: lvs&lt;/p&gt;
+&lt;p&gt;Catecsges:&lt;/p&gt;
+&lt;h3 id=&quot;负载均衡简单介绍&quot;&gt;&lt;a href=&quot;#负载均衡简单介绍&quot; class=&quot;headerlink&quot; title=&quot;负载均衡简单介绍&quot;&gt;&lt;/a&gt;负载均衡简单介绍&lt;/h3&gt;&lt;p&gt;用通俗的话来说负载均衡，就是通过不同的调度机制将用户的请求分派到后端不同的服务器。缓解服务器的请求压力，实现负载均衡的方案有多种，下面简单说说了解的几种方式：&lt;/p&gt;</summary>
+    
+    
+    
+    
+  </entry>
   
   <entry>
     <title>l2tp+ppp+ipsec</title>
@@ -602,224 +646,6 @@ location ~ .*\.(mp3|m4a|ogg|aac|wma|mp4|m4v|mpeg|webm|avi|swf|flv)$
     
     
     <category term="prometheus" scheme="https://sugw.github.io/sugw.github.io/tags/prometheus/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>ansible定时任务和用户组模块使用</title>
-    <link href="https://sugw.github.io/sugw.github.io/2020/11/20/ansible%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1%E5%92%8C%E7%94%A8%E6%88%B7%E7%BB%84%E6%A8%A1%E5%9D%97%E4%BD%BF%E7%94%A8/"/>
-    <id>https://sugw.github.io/sugw.github.io/2020/11/20/ansible%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1%E5%92%8C%E7%94%A8%E6%88%B7%E7%BB%84%E6%A8%A1%E5%9D%97%E4%BD%BF%E7%94%A8/</id>
-    <published>2020-11-20T08:38:47.555Z</published>
-    <updated>2020-12-07T09:26:15.430Z</updated>
-    
-    
-    <summary type="html">&lt;h2 id=&quot;用户模块的使用&quot;&gt;&lt;a href=&quot;#用户模块的使用&quot; class=&quot;headerlink&quot; title=&quot;用户模块的使用&quot;&gt;&lt;/a&gt;用户模块的使用&lt;/h2&gt;&lt;p&gt;用户模块主要用来管理用户账号和用户的属性（对远程主机用户进行批量管理）。&lt;/p&gt;
-&lt;p&gt;用户模块依赖的指令为useradd，userdel，usermod&lt;/p&gt;
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;参数&lt;/th&gt;
-&lt;th&gt;必填&lt;/th&gt;
-&lt;th&gt;默认值&lt;/th&gt;
-&lt;th&gt;选项&lt;/th&gt;
-&lt;th&gt;说明&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;&lt;tr&gt;
-&lt;td&gt;Append&lt;/td&gt;
-&lt;td&gt;否&lt;/td&gt;
-&lt;td&gt;No&lt;/td&gt;
-&lt;td&gt;Yes/no&lt;/td&gt;
-&lt;td&gt;如果没有指定group，append设定为yes，那么会添加到用户同名组；append设定为no，那么会添加到user组。如果指定了group，那么都会添加在指定的group组&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;Comment&lt;/td&gt;
-&lt;td&gt;否&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;用户的备注信息&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;Force&lt;/td&gt;
-&lt;td&gt;否&lt;/td&gt;
-&lt;td&gt;No&lt;/td&gt;
-&lt;td&gt;Yes/no&lt;/td&gt;
-&lt;td&gt;当状态为absent的时候，相当于userdel -force&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;generate_ssh_key&lt;/td&gt;
-&lt;td&gt;否&lt;/td&gt;
-&lt;td&gt;No&lt;/td&gt;
-&lt;td&gt;Yes/no&lt;/td&gt;
-&lt;td&gt;是否生成秘钥&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;Group&lt;/td&gt;
-&lt;td&gt;否&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;可选的，设定用户的主组&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;Groups&lt;/td&gt;
-&lt;td&gt;否&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;用逗号分隔的组，当groups设定为空的时候，那么会移除除了主组的其他所有组&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;Home&lt;/td&gt;
-&lt;td&gt;否&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;可选的，设定为用户的home目录&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;Login_class&lt;/td&gt;
-&lt;td&gt;否&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;可选的，设定用户的登录类 FreeBSD, OpenBSD and NetBSD systems.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;Name&lt;/td&gt;
-&lt;td&gt;是&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;用户创建，移除，修改&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;Move_home&lt;/td&gt;
-&lt;td&gt;否&lt;/td&gt;
-&lt;td&gt;No&lt;/td&gt;
-&lt;td&gt;Yes/no&lt;/td&gt;
-&lt;td&gt;如果使用了选项home=设置为yes，那么会将用户家目录移到不存在的home目录中&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;Non_unique&lt;/td&gt;
-&lt;td&gt;否&lt;/td&gt;
-&lt;td&gt;No&lt;/td&gt;
-&lt;td&gt;Yes/no&lt;/td&gt;
-&lt;td&gt;可选的，当使用-u选项的时候，将用户的uid设置为non_unique&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;Password&lt;/td&gt;
-&lt;td&gt;否&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;设定用户的密码&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;Remove&lt;/td&gt;
-&lt;td&gt;否&lt;/td&gt;
-&lt;td&gt;No&lt;/td&gt;
-&lt;td&gt;Yes/no&lt;/td&gt;
-&lt;td&gt;当使用状态为state=absent的时候，差不多和userdel –remove（删除所有信息）&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;Shell&lt;/td&gt;
-&lt;td&gt;否&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;设定用户的shell&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;Ssh_key_bits&lt;/td&gt;
-&lt;td&gt;否&lt;/td&gt;
-&lt;td&gt;2048&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;设定秘钥的位数&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;Ssh_key_comments&lt;/td&gt;
-&lt;td&gt;否&lt;/td&gt;
-&lt;td&gt;￥HOSTHOME&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;Ssh key备注信息&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;Ssh_key_file&lt;/td&gt;
-&lt;td&gt;否&lt;/td&gt;
-&lt;td&gt;.sha/id_rsa&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;秘钥的文件名&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;ssh_key_passphrase&lt;/td&gt;
-&lt;td&gt;否&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;Ssh秘钥的密码&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;Ssh_key_type&lt;/td&gt;
-&lt;td&gt;否&lt;/td&gt;
-&lt;td&gt;Rsa&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;Ssh秘钥的类型&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;State&lt;/td&gt;
-&lt;td&gt;否&lt;/td&gt;
-&lt;td&gt;Present&lt;/td&gt;
-&lt;td&gt;PresentAbsent&lt;/td&gt;
-&lt;td&gt;新增删除&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;System&lt;/td&gt;
-&lt;td&gt;否&lt;/td&gt;
-&lt;td&gt;No&lt;/td&gt;
-&lt;td&gt;Yes/no&lt;/td&gt;
-&lt;td&gt;创建为系统账号，不会改变已经存在的用户&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;Uid&lt;/td&gt;
-&lt;td&gt;否&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;设定为用户的uid&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;Update_password&lt;/td&gt;
-&lt;td&gt;否&lt;/td&gt;
-&lt;td&gt;Always&lt;/td&gt;
-&lt;td&gt;AlwaysOn_create&lt;/td&gt;
-&lt;td&gt;Always当用户密码不同，会修改，是否需要修改密码&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;&lt;/table&gt;
-&lt;h3 id=&quot;添加用户&quot;&gt;&lt;a href=&quot;#添加用户&quot; class=&quot;headerlink&quot; title=&quot;添加用户&quot;&gt;&lt;/a&gt;添加用户&lt;/h3&gt;</summary>
-    
-    
-    
-    <category term="ansible" scheme="https://sugw.github.io/sugw.github.io/categories/ansible/"/>
-    
-    
-    <category term="ansible" scheme="https://sugw.github.io/sugw.github.io/tags/ansible/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>linux内核优化</title>
-    <link href="https://sugw.github.io/sugw.github.io/2020/11/20/linux%E5%86%85%E6%A0%B8%E4%BC%98%E5%8C%96/"/>
-    <id>https://sugw.github.io/sugw.github.io/2020/11/20/linux%E5%86%85%E6%A0%B8%E4%BC%98%E5%8C%96/</id>
-    <published>2020-11-20T07:36:05.082Z</published>
-    <updated>2020-11-20T08:14:21.669Z</updated>
-    
-    
-    <summary type="html">&lt;h3 id=&quot;一、配置国内源和epel&quot;&gt;&lt;a href=&quot;#一、配置国内源和epel&quot; class=&quot;headerlink&quot; title=&quot;一、配置国内源和epel&quot;&gt;&lt;/a&gt;一、配置国内源和epel&lt;/h3&gt;&lt;figure class=&quot;highlight awk&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;22&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;23&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;24&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;25&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;cd &lt;span class=&quot;regexp&quot;&gt;/etc/yum&lt;/span&gt;.repos.d/&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;mkdir repo_bak&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;mv *.repo repo_bak/&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;#基础源文件&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;wget -P &lt;span class=&quot;regexp&quot;&gt;/etc/yum&lt;/span&gt;.repos.d&lt;span class=&quot;regexp&quot;&gt;/ http:/&lt;/span&gt;&lt;span class=&quot;regexp&quot;&gt;/mirrors.aliyun.com/&lt;/span&gt;repo/Centos-&lt;span class=&quot;number&quot;&gt;7&lt;/span&gt;.repo&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;#epel源文件&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;wget -O &lt;span class=&quot;regexp&quot;&gt;/etc/yum&lt;/span&gt;.repos.d&lt;span class=&quot;regexp&quot;&gt;/epel-7.repo http:/&lt;/span&gt;&lt;span class=&quot;regexp&quot;&gt;/mirrors.aliyun.com/&lt;/span&gt;repo/epel-&lt;span class=&quot;number&quot;&gt;7&lt;/span&gt;.repo&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;#重新生成yum缓存&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;yum clean all&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;yum makecache&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;#同步时间&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;yum -y install ntp&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;regexp&quot;&gt;/usr/&lt;/span&gt;sbin/ntpdate ntp1.aliyun.com&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;echo &lt;span class=&quot;string&quot;&gt;&amp;quot;* 04 * * * /usr/sbin/ntpdate ntp1.aliyun.com &amp;gt;/dev/null 2&amp;gt;&amp;amp;1&amp;quot;&lt;/span&gt; &amp;gt;&amp;gt;&lt;span class=&quot;regexp&quot;&gt;/var/&lt;/span&gt;spool&lt;span class=&quot;regexp&quot;&gt;/cron/&lt;/span&gt;root&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;#禁用selinux&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;sed -i &lt;span class=&quot;string&quot;&gt;&amp;#x27;s/SELINUX=enforcing/SELINUX=disabled/&amp;#x27;&lt;/span&gt; &lt;span class=&quot;regexp&quot;&gt;/etc/&lt;/span&gt;selinux/config&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;setenforce &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;#set ssh&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;sed -i &lt;span class=&quot;string&quot;&gt;&amp;#x27;s/^GSSAPIAuthentication yes$/GSSAPIAuthentication no/&amp;#x27;&lt;/span&gt; &lt;span class=&quot;regexp&quot;&gt;/etc/&lt;/span&gt;ssh/sshd_config&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;sed -i &lt;span class=&quot;string&quot;&gt;&amp;#x27;s/#UseDNS yes/UseDNS no/&amp;#x27;&lt;/span&gt; &lt;span class=&quot;regexp&quot;&gt;/etc/&lt;/span&gt;ssh/sshd_config&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;systemctl  restart sshd.service&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-
-&lt;h3 id=&quot;二、安装基础依赖包&quot;&gt;&lt;a href=&quot;#二、安装基础依赖包&quot; class=&quot;headerlink&quot; title=&quot;二、安装基础依赖包&quot;&gt;&lt;/a&gt;二、安装基础依赖包&lt;/h3&gt;&lt;figure class=&quot;highlight routeros&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;yum install -y htop lrzsz nmap&lt;span class=&quot;built_in&quot;&gt; screen &lt;/span&gt;man expect \&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;gcc gcc-c++ autoconf automake bzip2-devel \&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;openssl-devel multitail kernel-devel \&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;pam-devel zlib-devel perl-devel tcp_wrappers-devel&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-
-
-
-&lt;h3 id=&quot;三、关闭selinux&quot;&gt;&lt;a href=&quot;#三、关闭selinux&quot; class=&quot;headerlink&quot; title=&quot;三、关闭selinux&quot;&gt;&lt;/a&gt;三、关闭selinux&lt;/h3&gt;</summary>
-    
-    
-    
-    <category term="Linux" scheme="https://sugw.github.io/sugw.github.io/categories/Linux/"/>
-    
-    
-    <category term="优化" scheme="https://sugw.github.io/sugw.github.io/tags/%E4%BC%98%E5%8C%96/"/>
     
   </entry>
   
