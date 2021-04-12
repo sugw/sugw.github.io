@@ -6,7 +6,7 @@
   <link href="https://sugw.github.io/sugw.github.io/atom.xml" rel="self"/>
   
   <link href="https://sugw.github.io/sugw.github.io/"/>
-  <updated>2021-01-13T10:41:00.293Z</updated>
+  <updated>2021-03-04T07:11:46.745Z</updated>
   <id>https://sugw.github.io/sugw.github.io/</id>
   
   <author>
@@ -15,6 +15,259 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title></title>
+    <link href="https://sugw.github.io/sugw.github.io/2021/03/04/yum-metadata-parser-1.1.4-10.el7.x86_64/"/>
+    <id>https://sugw.github.io/sugw.github.io/2021/03/04/yum-metadata-parser-1.1.4-10.el7.x86_64/</id>
+    <published>2021-03-04T07:11:46.744Z</published>
+    <updated>2021-03-04T07:11:46.745Z</updated>
+    
+    
+    <summary type="html">yum-metadata-parser-1.1.4-10.el7.x86_64
+
+yum-3.4.3-150.el7.centos.noarch
+yum-utils-1.1.31-40.el7.noarch
+yum-plugin-fastestmirror-1.1.31-40.el7.noarch
+yum-rhn-plugin-2.0.1-6.el7.noarch
+
+$releasever</summary>
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>iowait 过高问题的查找及解决linux</title>
+    <link href="https://sugw.github.io/sugw.github.io/2021/02/25/title%20Linux%20%E4%B9%8B%E7%A3%81%E7%9B%98IO%E6%8E%92%E6%9F%A5/"/>
+    <id>https://sugw.github.io/sugw.github.io/2021/02/25/title%20Linux%20%E4%B9%8B%E7%A3%81%E7%9B%98IO%E6%8E%92%E6%9F%A5/</id>
+    <published>2021-02-25T10:10:37.396Z</published>
+    <updated>2021-02-25T10:16:01.489Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;参考链接：&lt;a href=&quot;https://linux.cn/article-10815-1.html&quot;&gt;https://linux.cn/article-10815-1.html&lt;/a&gt;&lt;/p&gt;
+&lt;h1 id=&quot;iotop命令&quot;&gt;&lt;a href=&quot;#iotop命令&quot; class=&quot;headerlink&quot; title=&quot;iotop命令&quot;&gt;&lt;/a&gt;iotop命令&lt;/h1&gt;&lt;figure class=&quot;highlight angelscript&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;22&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;23&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;24&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;25&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;26&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;27&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;28&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;29&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;30&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;31&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;32&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;33&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;34&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;35&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;36&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;37&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;38&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;39&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;40&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;41&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;、iotop命令&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;iotop命令是一个用来监视磁盘I/O使用状况的top类工具。iotop具有与top相似的UI，其中包括PID、用户、I/O、进程等相关信息。Linux下的IO统计工具如iostat，nmon等大多数是只能统计到per设备的读写情况，如果你想知道每个进程是如何使用IO的就比较麻烦，使用iotop命令可以很方便的查看。&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;iotop使用Python语言编写而成，要求Python2&lt;span class=&quot;number&quot;&gt;.5&lt;/span&gt;（及以上版本）和Linux kernel2&lt;span class=&quot;number&quot;&gt;.6&lt;/span&gt;&lt;span class=&quot;number&quot;&gt;.20&lt;/span&gt;（及以上版本）。iotop提供有源代码及rpm包，可从其官方主页下载。&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;number&quot;&gt;2&lt;/span&gt;、安装&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;# Ubuntu系统&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;apt-&lt;span class=&quot;keyword&quot;&gt;get&lt;/span&gt; install iotop&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;或&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;# CentOS系统&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;yum install iotop&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;编译安装&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;number&quot;&gt;1&lt;/span&gt; wget http:&lt;span class=&quot;comment&quot;&gt;//guichaz.free.fr/iotop/files/iotop-0.4.4.tar.gz&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;number&quot;&gt;2&lt;/span&gt; tar zxf iotop&lt;span class=&quot;number&quot;&gt;-0.4&lt;/span&gt;&lt;span class=&quot;number&quot;&gt;.4&lt;/span&gt;.tar.gz&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;number&quot;&gt;3&lt;/span&gt; python setup.py build&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;number&quot;&gt;4&lt;/span&gt; python setup.py install&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;number&quot;&gt;3&lt;/span&gt;、语法&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;iotop （选项）&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;number&quot;&gt;4&lt;/span&gt;、选项&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;-o：只显示有io操作的进程 &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;-b：批量显示，无交互，主要用作记录到文件。 &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;-n NUM：显示NUM次，主要用于非交互式模式。 &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;-d SEC：间隔SEC秒显示一次。 &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;-p PID：监控的进程pid。 &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;-u USER：监控的进程用户。&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;number&quot;&gt;5&lt;/span&gt;、iotop常用快捷键&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;左右箭头：改变排序方式，默认是按IO排序。&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;r：改变排序顺序。 &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;o：只显示有IO输出的进程。 &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;p：进程/线程的显示方式的切换。 &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;a：显示累积使用量。 &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;q：退出。&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+
+&lt;h2 id=&quot;一、iostat和iowait详细解说-查看磁盘瓶颈&quot;&gt;&lt;a href=&quot;#一、iostat和iowait详细解说-查看磁盘瓶颈&quot; class=&quot;headerlink&quot; title=&quot;一、iostat和iowait详细解说-查看磁盘瓶颈&quot;&gt;&lt;/a&gt;一、iostat和iowait详细解说-查看磁盘瓶颈&lt;/h2&gt;&lt;h3 id=&quot;一、iostat基础&quot;&gt;&lt;a href=&quot;#一、iostat基础&quot; class=&quot;headerlink&quot; title=&quot;一、iostat基础&quot;&gt;&lt;/a&gt;一、iostat基础&lt;/h3&gt;</summary>
+    
+    
+    
+    
+    <category term="笔记" scheme="https://sugw.github.io/sugw.github.io/tags/%E7%AC%94%E8%AE%B0/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>linux查看硬件信息</title>
+    <link href="https://sugw.github.io/sugw.github.io/2021/02/25/Linux%E6%9F%A5%E7%9C%8B%E7%A1%AC%E4%BB%B6%E4%BF%A1%E6%81%AF%E5%91%BD%E4%BB%A4/"/>
+    <id>https://sugw.github.io/sugw.github.io/2021/02/25/Linux%E6%9F%A5%E7%9C%8B%E7%A1%AC%E4%BB%B6%E4%BF%A1%E6%81%AF%E5%91%BD%E4%BB%A4/</id>
+    <published>2021-02-25T08:01:16.313Z</published>
+    <updated>2021-02-26T02:04:12.157Z</updated>
+    
+    
+    <summary type="html">&lt;h3 id=&quot;服务器型号&quot;&gt;&lt;a href=&quot;#服务器型号&quot; class=&quot;headerlink&quot; title=&quot;服务器型号&quot;&gt;&lt;/a&gt;服务器型号&lt;/h3&gt;&lt;figure class=&quot;highlight autoit&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;[root&lt;span class=&quot;symbol&quot;&gt;@k80&lt;/span&gt; ~]&lt;span class=&quot;meta&quot;&gt;# dmidecode|grep &lt;span class=&quot;string&quot;&gt;&amp;quot;System Information&amp;quot;&lt;/span&gt; -A9|egrep  &lt;span class=&quot;string&quot;&gt;&amp;quot;Manufacturer|Product&amp;quot;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    Manufacturer: Sugon&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    Product Name: W580-G20123&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+
+&lt;h3 id=&quot;操作系统&quot;&gt;&lt;a href=&quot;#操作系统&quot; class=&quot;headerlink&quot; title=&quot;操作系统&quot;&gt;&lt;/a&gt;操作系统&lt;/h3&gt;&lt;p&gt;查看当前操作系统发行版信息&lt;/p&gt;
+&lt;figure class=&quot;highlight angelscript&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;string&quot;&gt;[root@k80 ~]&lt;/span&gt;# cat /etc/redhat-release&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;CentOS Linux release &lt;span class=&quot;number&quot;&gt;7.3&lt;/span&gt;&lt;span class=&quot;number&quot;&gt;.1611&lt;/span&gt; (Core)&lt;span class=&quot;number&quot;&gt;12&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;</summary>
+    
+    
+    
+    
+    <category term="笔记" scheme="https://sugw.github.io/sugw.github.io/tags/%E7%AC%94%E8%AE%B0/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>markdown语法绘制常用图实例</title>
+    <link href="https://sugw.github.io/sugw.github.io/2021/02/22/markdown%E8%AF%AD%E6%B3%95%E7%BB%98%E5%88%B6%E5%B8%B8%E7%94%A8%E5%9B%BE%E5%AE%9E%E4%BE%8B/"/>
+    <id>https://sugw.github.io/sugw.github.io/2021/02/22/markdown%E8%AF%AD%E6%B3%95%E7%BB%98%E5%88%B6%E5%B8%B8%E7%94%A8%E5%9B%BE%E5%AE%9E%E4%BE%8B/</id>
+    <published>2021-02-22T06:36:08.684Z</published>
+    <updated>2021-02-25T00:54:49.024Z</updated>
+    
+    
+    <summary type="html">&lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;p&gt;经常要绘制流程图、时序图来做一些讲解和演示&lt;br&gt;但是绘制简单的图使用比较专业的工具略显麻烦 而且经常需要调整样式&lt;br&gt;看到markdown 有插件也支持绘图 干脆记录一下做个笔记&lt;/p&gt;
+&lt;h3 id=&quot;安装识别绘图插件&quot;&gt;&lt;a href=&quot;#安装识别绘图插件&quot; class=&quot;headerlink&quot; title=&quot;安装识别绘图插件&quot;&gt;&lt;/a&gt;安装识别绘图插件&lt;/h3&gt;&lt;blockquote&gt;
+&lt;p&gt;使用mermaid来进行绘制 官方文档:&lt;a href=&quot;https://mermaid-js.github.io/mermaid/#/&quot;&gt;https://mermaid-js.github.io/mermaid/#/&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;mermaid支持 流程图、序列图、类图、状态图、实体关系图、用户旅程图、甘特图、指令图、饼图等 具体的查看官方文档&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="笔记" scheme="https://sugw.github.io/sugw.github.io/categories/%E7%AC%94%E8%AE%B0/"/>
+    
+    
+    <category term="笔记" scheme="https://sugw.github.io/sugw.github.io/tags/%E7%AC%94%E8%AE%B0/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Mysql库CPU跑满处理</title>
+    <link href="https://sugw.github.io/sugw.github.io/2021/02/04/Mysql%E5%BA%93CPU%E8%B7%91%E6%BB%A1%E5%A4%84%E7%90%86/"/>
+    <id>https://sugw.github.io/sugw.github.io/2021/02/04/Mysql%E5%BA%93CPU%E8%B7%91%E6%BB%A1%E5%A4%84%E7%90%86/</id>
+    <published>2021-02-04T05:50:34.681Z</published>
+    <updated>2021-02-04T06:50:30.049Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;起因：&lt;/p&gt;
+&lt;p&gt;​      新业务，数据在测试库跑数据,然后把测试跑的数据放到正式环境数据库上，因测试数据库表没有建立联合索引，所以引发线上库慢查询+阻塞语句导致mysql数据库跑满cpu直接挂掉&lt;/p&gt;
+&lt;p&gt;解决：&lt;/p&gt;
+&lt;p&gt;​         1.关掉业务访问数据库的连接&lt;/p&gt;
+&lt;ol start=&quot;2&quot;&gt;
+&lt;li&gt;&lt;p&gt;批量关闭阻塞语句&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;查询到阻塞的语句&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;22&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;23&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;24&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;25&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;26&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;27&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;28&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;29&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;30&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;31&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;32&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;33&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;34&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;35&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;36&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;37&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;38&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;39&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;40&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;41&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;42&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;SELECT&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;p2.&amp;#96;HOST&amp;#96; 被阻塞方host,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;p2.&amp;#96;USER&amp;#96; 被阻塞方用户,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;r.trx_id 被阻塞方事务id,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        r.trx_mysql_thread_id 被阻塞方线程号,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        TIMESTAMPDIFF(&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            SECOND,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            r.trx_wait_started,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            CURRENT_TIMESTAMP&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        ) 等待时间,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        r.trx_query 被阻塞的查询,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        l.lock_table 阻塞方锁住的表,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        m.&amp;#96;lock_mode&amp;#96; 被阻塞方的锁模式,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        m.&amp;#96;lock_type&amp;#96;  &amp;quot;被阻塞方的锁类型(表锁还是行锁)&amp;quot;,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        m.&amp;#96;lock_index&amp;#96; 被阻塞方锁住的索引,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        m.&amp;#96;lock_space&amp;#96; 被阻塞方锁对象的space_id,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        m.lock_page 被阻塞方事务锁定页的数量,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        m.lock_rec 被阻塞方事务锁定行的数量,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        m.lock_data  被阻塞方事务锁定记录的主键值,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        p.&amp;#96;HOST&amp;#96; 阻塞方主机,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        p.&amp;#96;USER&amp;#96; 阻塞方用户,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        b.trx_id 阻塞方事务id,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        b.trx_mysql_thread_id 阻塞方线程号,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        b.trx_query 阻塞方查询,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        l.&amp;#96;lock_mode&amp;#96; 阻塞方的锁模式,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        l.&amp;#96;lock_type&amp;#96; &amp;quot;阻塞方的锁类型(表锁还是行锁)&amp;quot;,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        l.&amp;#96;lock_index&amp;#96; 阻塞方锁住的索引,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        l.&amp;#96;lock_space&amp;#96; 阻塞方锁对象的space_id,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        l.lock_page 阻塞方事务锁定页的数量,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        l.lock_rec 阻塞方事务锁定行的数量,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        l.lock_data 阻塞方事务锁定记录的主键值,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;      IF (p.COMMAND &amp;#x3D; &amp;#39;Sleep&amp;#39;, CONCAT(p.TIME,&amp;#39; 秒&amp;#39;), 0) 阻塞方事务空闲的时间&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    FROM&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        information_schema.INNODB_LOCK_WAITS w&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    INNER JOIN information_schema.INNODB_TRX b ON b.trx_id &amp;#x3D; w.blocking_trx_id&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    INNER JOIN information_schema.INNODB_TRX r ON r.trx_id &amp;#x3D; w.requesting_trx_id&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    INNER JOIN information_schema.INNODB_LOCKS l ON w.blocking_lock_id &amp;#x3D; l.lock_id  AND l.&amp;#96;lock_trx_id&amp;#96;&amp;#x3D;b.&amp;#96;trx_id&amp;#96;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;      INNER JOIN information_schema.INNODB_LOCKS m ON m.&amp;#96;lock_id&amp;#96;&amp;#x3D;w.&amp;#96;requested_lock_id&amp;#96; AND m.&amp;#96;lock_trx_id&amp;#96;&amp;#x3D;r.&amp;#96;trx_id&amp;#96;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    INNER JOIN information_schema. PROCESSLIST p ON p.ID &amp;#x3D; b.trx_mysql_thread_id&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt; INNER JOIN information_schema. PROCESSLIST p2 ON p2.ID &amp;#x3D; r.trx_mysql_thread_id&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    ORDER BY&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        等待时间 DESC;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+
+
+
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ol&gt;</summary>
+    
+    
+    
+    <category term="实践" scheme="https://sugw.github.io/sugw.github.io/categories/%E5%AE%9E%E8%B7%B5/"/>
+    
+    
+    <category term="mysql" scheme="https://sugw.github.io/sugw.github.io/tags/mysql/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Nginx内置变量详解</title>
+    <link href="https://sugw.github.io/sugw.github.io/2021/01/27/nginx%E5%86%85%E7%BD%AE%E5%8F%98%E9%87%8F%E8%AF%A6%E8%A7%A3/"/>
+    <id>https://sugw.github.io/sugw.github.io/2021/01/27/nginx%E5%86%85%E7%BD%AE%E5%8F%98%E9%87%8F%E8%AF%A6%E8%A7%A3/</id>
+    <published>2021-01-27T10:30:13.267Z</published>
+    <updated>2021-01-27T10:31:56.054Z</updated>
+    
+    
+    <summary type="html">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+
+
+$args                    #请求中的参数值
+$query_string            #同 $args
+$arg_NAME                #GET请求中NAME的值
+$is_args            </summary>
+    
+    
+    
+    <category term="笔记" scheme="https://sugw.github.io/sugw.github.io/categories/%E7%AC%94%E8%AE%B0/"/>
+    
+    
+    <category term="nginx" scheme="https://sugw.github.io/sugw.github.io/tags/nginx/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Nginx限流（限制并发配置）</title>
+    <link href="https://sugw.github.io/sugw.github.io/2021/01/27/nginx%E9%99%90%E6%B5%81%EF%BC%88%E9%99%90%E5%88%B6%E5%B9%B6%E5%8F%91%E9%85%8D%E7%BD%AE%EF%BC%89/"/>
+    <id>https://sugw.github.io/sugw.github.io/2021/01/27/nginx%E9%99%90%E6%B5%81%EF%BC%88%E9%99%90%E5%88%B6%E5%B9%B6%E5%8F%91%E9%85%8D%E7%BD%AE%EF%BC%89/</id>
+    <published>2021-01-27T01:53:52.114Z</published>
+    <updated>2021-01-27T06:57:44.860Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;系统设计时一般会预估负载，当系统暴露在公网中时，恶意攻击或正常突发流量等都可能导致系统被压垮，而限流就是保护措施之一。限流即控制流量，本文将记录 Nginx 的二种限流设置。&lt;/p&gt;
+&lt;h2 id=&quot;生活中的-“限流”？&quot;&gt;&lt;a href=&quot;#生活中的-“限流”？&quot; class=&quot;headerlink&quot; title=&quot;生活中的 “限流”？&quot;&gt;&lt;/a&gt;生活中的 “限流”？&lt;/h2&gt;&lt;p&gt;限流并非新鲜事，在生活中亦无处不在，下面例举一二：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;博物馆：限制每天参观总人数以保护文物&lt;/li&gt;
+&lt;li&gt;高铁安检：有若干安检口，旅客依次排队，工作人员根据安检快慢决定是否放人进去。遇到节假日，可以增加安检口来提高处理能力(&lt;strong&gt;横向拓展&lt;/strong&gt;)，同时增加排队等待区长度(&lt;strong&gt;缓存待处理任务&lt;/strong&gt;)。&lt;/li&gt;
+&lt;li&gt;办理银行业务：所有人先领号，各窗口叫号处理。每个窗口处理速度根据客户具体业务而定，所有人排队等待叫号即可。若快下班时，告知客户明日再来(&lt;strong&gt;拒绝流量&lt;/strong&gt;)。&lt;/li&gt;
+&lt;li&gt;水坝泄洪：水坝可以通过闸门控制泄洪速度(&lt;strong&gt;控制处理速度&lt;/strong&gt;)。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;以上”限流”例子，可以让服务提供者稳定的服务客户。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="笔记" scheme="https://sugw.github.io/sugw.github.io/categories/%E7%AC%94%E8%AE%B0/"/>
+    
+    
+    <category term="nginx" scheme="https://sugw.github.io/sugw.github.io/tags/nginx/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Dockerfile ADD和COPY的区别</title>
+    <link href="https://sugw.github.io/sugw.github.io/2021/01/25/Dockerfile%20ADD%20%E5%92%8C%20COPY%20%E7%9A%84%E5%8C%BA%E5%88%AB/"/>
+    <id>https://sugw.github.io/sugw.github.io/2021/01/25/Dockerfile%20ADD%20%E5%92%8C%20COPY%20%E7%9A%84%E5%8C%BA%E5%88%AB/</id>
+    <published>2021-01-25T02:51:20.948Z</published>
+    <updated>2021-01-25T02:56:44.013Z</updated>
+    
+    
+    <summary type="html">&lt;h1 id=&quot;Dockerfile-ADD-和-COPY-的区别&quot;&gt;&lt;a href=&quot;#Dockerfile-ADD-和-COPY-的区别&quot; class=&quot;headerlink&quot; title=&quot;Dockerfile ADD 和 COPY 的区别&quot;&gt;&lt;/a&gt;Dockerfile ADD 和 COPY 的区别&lt;/h1&gt;&lt;p&gt;&lt;strong&gt;1、COPY命令&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;COPY命令用于将于Dockerfile所在目录中的文件在镜像构建阶段从宿主机拷贝到镜像中，对于文件而言可以直接将文件复制到镜像中，代码如下：&lt;/p&gt;
+&lt;figure class=&quot;highlight dockerfile&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;FROM&lt;/span&gt; frolvlad/alpine-java:jre8-slim&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;MAINTAINER&lt;/span&gt; oas.cloud&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;ARG&lt;/span&gt; JAR_FILE&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;COPY&lt;/span&gt;&lt;span class=&quot;bash&quot;&gt; &lt;span class=&quot;variable&quot;&gt;$&amp;#123;JAR_FILE&amp;#125;&lt;/span&gt; /usr/&lt;span class=&quot;built_in&quot;&gt;local&lt;/span&gt;/oas/&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;WORKDIR&lt;/span&gt;&lt;span class=&quot;bash&quot;&gt; /usr/&lt;span class=&quot;built_in&quot;&gt;local&lt;/span&gt;/oas/&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+
+&lt;p&gt;对于目录而言，该命令只复制目录中的内容而不包含目录自身，代码如下：&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="笔记" scheme="https://sugw.github.io/sugw.github.io/categories/%E7%AC%94%E8%AE%B0/"/>
+    
+    
+    <category term="docker" scheme="https://sugw.github.io/sugw.github.io/tags/docker/"/>
+    
+  </entry>
   
   <entry>
     <title>LVS NAT,DR,TUN三种负载原理</title>
@@ -318,6 +571,27 @@ location ~ .*\.(mp3|m4a|ogg|aac|wma|mp4|m4v|mpeg|webm|avi|swf|flv)$
   </entry>
   
   <entry>
+    <title>mysql查看锁和解除锁</title>
+    <link href="https://sugw.github.io/sugw.github.io/2021/01/06/mysql-%E6%9F%A5%E7%9C%8B%E9%94%81%E5%92%8C%E8%A7%A3%E9%99%A4%E9%94%81/"/>
+    <id>https://sugw.github.io/sugw.github.io/2021/01/06/mysql-%E6%9F%A5%E7%9C%8B%E9%94%81%E5%92%8C%E8%A7%A3%E9%99%A4%E9%94%81/</id>
+    <published>2021-01-06T03:41:26.355Z</published>
+    <updated>2021-03-29T09:38:30.466Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;解除正在死锁的状态有两种方法：&lt;/p&gt;
+&lt;p&gt;第一种：&lt;/p&gt;
+&lt;p&gt;1.查询是否锁表&lt;/p&gt;
+&lt;p&gt;show OPEN TABLES where In_use &amp;gt; 0;&lt;/p&gt;
+&lt;p&gt;2.查询进程（如果您有SUPER权限，您可以看到所有线程。否则，您只能看到您自己的线程）&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="数据库" scheme="https://sugw.github.io/sugw.github.io/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
+    
+    
+  </entry>
+  
+  <entry>
     <title>Jenkins pipeline 多服务器，多分支发版</title>
     <link href="https://sugw.github.io/sugw.github.io/2020/12/23/Jenkins%20pipeline%20%E5%A4%9A%E6%9C%8D%E5%8A%A1%E5%99%A8%EF%BC%8C%E5%A4%9A%E5%88%86%E6%94%AF%E5%8F%91%E7%89%88/"/>
     <id>https://sugw.github.io/sugw.github.io/2020/12/23/Jenkins%20pipeline%20%E5%A4%9A%E6%9C%8D%E5%8A%A1%E5%99%A8%EF%BC%8C%E5%A4%9A%E5%88%86%E6%94%AF%E5%8F%91%E7%89%88/</id>
@@ -361,291 +635,6 @@ location ~ .*\.(mp3|m4a|ogg|aac|wma|mp4|m4v|mpeg|webm|avi|swf|flv)$
     
     
     <category term="mysql" scheme="https://sugw.github.io/sugw.github.io/tags/mysql/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Jenkins-pipeline的创建和参数传递</title>
-    <link href="https://sugw.github.io/sugw.github.io/2020/12/08/Jenkins-pipeline%E7%9A%84%E5%88%9B%E5%BB%BA%E5%92%8C%E5%8F%82%E6%95%B0%E4%BC%A0%E9%80%92/"/>
-    <id>https://sugw.github.io/sugw.github.io/2020/12/08/Jenkins-pipeline%E7%9A%84%E5%88%9B%E5%BB%BA%E5%92%8C%E5%8F%82%E6%95%B0%E4%BC%A0%E9%80%92/</id>
-    <published>2020-12-08T09:00:19.996Z</published>
-    <updated>2021-01-07T10:09:59.935Z</updated>
-    
-    
-    <summary type="html">&lt;h2 id=&quot;一、单分支的pipeline&quot;&gt;&lt;a href=&quot;#一、单分支的pipeline&quot; class=&quot;headerlink&quot; title=&quot;一、单分支的pipeline&quot;&gt;&lt;/a&gt;&lt;strong&gt;一、单分支的pipeline&lt;/strong&gt;&lt;/h2&gt;&lt;p&gt;Pipline的特点是可以多节点运行，节点之间可以并行或者串行执行，从而实现编译-部署-部署的持续化构建和发布。&lt;/p&gt;
-&lt;p&gt;与自由风格不同的是，我们可以通过编写功能强大的Jenkinsfile脚本，来实现我们所需要的功能，比如：执行shell，执行bat，重试，等待，并行/串行，发邮件，触发其他工程。难点在于需要遵循一定的Groovy语法。有一定的学习成本。&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;&lt;h4 id=&quot;job的创建&quot;&gt;&lt;a href=&quot;#job的创建&quot; class=&quot;headerlink&quot; title=&quot;job的创建&quot;&gt;&lt;/a&gt;job的创建&lt;/h4&gt;&lt;/li&gt;
-&lt;/ol&gt;
-&lt;img src=&quot;/sugw.github.io/2020/12/08/Jenkins-pipeline%E7%9A%84%E5%88%9B%E5%BB%BA%E5%92%8C%E5%8F%82%E6%95%B0%E4%BC%A0%E9%80%92/up-d0c14a7f65815132bf26825168817ae9188.png&quot; class title=&quot;img&quot;&gt;</summary>
-    
-    
-    
-    <category term="Jenkins" scheme="https://sugw.github.io/sugw.github.io/categories/Jenkins/"/>
-    
-    
-    <category term="自动部署" scheme="https://sugw.github.io/sugw.github.io/tags/%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>datagrip</title>
-    <link href="https://sugw.github.io/sugw.github.io/2020/12/01/datagrip/"/>
-    <id>https://sugw.github.io/sugw.github.io/2020/12/01/datagrip/</id>
-    <published>2020-12-01T08:13:10.440Z</published>
-    <updated>2021-01-07T10:10:34.974Z</updated>
-    
-    
-    <summary type="html">https://mp.weixin.qq.com/s/DTECLX-Y-9XJEScsA4boDw</summary>
-    
-    
-    
-    <category term="激活" scheme="https://sugw.github.io/sugw.github.io/categories/%E6%BF%80%E6%B4%BB/"/>
-    
-    
-    <category term="激活" scheme="https://sugw.github.io/sugw.github.io/tags/%E6%BF%80%E6%B4%BB/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Jenkins+Gitlab+Ansible自动化部署(六)</title>
-    <link href="https://sugw.github.io/sugw.github.io/2020/11/27/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E5%85%AD)/"/>
-    <id>https://sugw.github.io/sugw.github.io/2020/11/27/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E5%85%AD)/</id>
-    <published>2020-11-27T02:03:01.705Z</published>
-    <updated>2021-01-07T10:09:46.461Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;&lt;strong&gt;Pipeline Job实现Nginix+MySQL+PHP+Wordpress实现自动化部署交付（Jenkins+Gitlab+Ansible自动化部署（五））&lt;/strong&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;环境准备&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;编写ansible playbook脚本实现Wordpress远程部署&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;将wordpress源码与playbook部署脚本提交到gitlab仓库&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;编写pipeline job脚本实现Jenkins流水线持续交付流程&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;Jenkins集成Ansible与gitlab实现wordpress的自动化部署&lt;/p&gt;
-&lt;p&gt;验证环境&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;登录Jenkins主机&lt;/p&gt;
-&lt;figure class=&quot;highlight angelscript&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;symbol&quot;&gt;xueji@&lt;/span&gt;xueji MINGW64 ~&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;$ ssh &lt;span class=&quot;symbol&quot;&gt;root@&lt;/span&gt;jenkins.example.com&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Last login: Thu Jan &lt;span class=&quot;number&quot;&gt;10&lt;/span&gt; &lt;span class=&quot;number&quot;&gt;11&lt;/span&gt;:&lt;span class=&quot;number&quot;&gt;41&lt;/span&gt;:&lt;span class=&quot;number&quot;&gt;49&lt;/span&gt; &lt;span class=&quot;number&quot;&gt;2019&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;number&quot;&gt;192.168&lt;/span&gt;&lt;span class=&quot;number&quot;&gt;.244&lt;/span&gt;&lt;span class=&quot;number&quot;&gt;.1&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;string&quot;&gt;[root@jenkins ~]&lt;/span&gt;# su - deploy&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Last login: Wed Jan  &lt;span class=&quot;number&quot;&gt;9&lt;/span&gt; &lt;span class=&quot;number&quot;&gt;20&lt;/span&gt;:&lt;span class=&quot;number&quot;&gt;24&lt;/span&gt;:&lt;span class=&quot;number&quot;&gt;43&lt;/span&gt; CST &lt;span class=&quot;number&quot;&gt;2019&lt;/span&gt; on pts/&lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;string&quot;&gt;[deploy@jenkins ~]&lt;/span&gt;$ source /home/deploy/.py3-a2&lt;span class=&quot;number&quot;&gt;.5&lt;/span&gt;-env/bin/activate           (.py3-a2&lt;span class=&quot;number&quot;&gt;.5&lt;/span&gt;-env) [&lt;span class=&quot;symbol&quot;&gt;deploy@&lt;/span&gt;jenkins ~]$ source /home/deploy/.py3-a2&lt;span class=&quot;number&quot;&gt;.5&lt;/span&gt;-env/ansible/hacking/env-setup -q&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;(.py3-a2&lt;span class=&quot;number&quot;&gt;.5&lt;/span&gt;-env) [&lt;span class=&quot;symbol&quot;&gt;deploy@&lt;/span&gt;jenkins ~]$ ansible-playbook --version&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;ansible-playbook &lt;span class=&quot;number&quot;&gt;2.5&lt;/span&gt;&lt;span class=&quot;number&quot;&gt;.14&lt;/span&gt; (stable&lt;span class=&quot;number&quot;&gt;-2.5&lt;/span&gt; c748512c4c) last updated &lt;span class=&quot;number&quot;&gt;2019&lt;/span&gt;/&lt;span class=&quot;number&quot;&gt;01&lt;/span&gt;/&lt;span class=&quot;number&quot;&gt;09&lt;/span&gt; &lt;span class=&quot;number&quot;&gt;20&lt;/span&gt;:&lt;span class=&quot;number&quot;&gt;03&lt;/span&gt;:&lt;span class=&quot;number&quot;&gt;39&lt;/span&gt; (GMT +&lt;span class=&quot;number&quot;&gt;800&lt;/span&gt;)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  config file = None&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  configured module search path = [&lt;span class=&quot;string&quot;&gt;&amp;#x27;/home/deploy/.ansible/plugins/modules&amp;#x27;&lt;/span&gt;, &lt;span class=&quot;string&quot;&gt;&amp;#x27;/usr/share/ansible/plugins/modules&amp;#x27;&lt;/span&gt;]&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  ansible python module location = /home/deploy/.py3-a2&lt;span class=&quot;number&quot;&gt;.5&lt;/span&gt;-env/ansible/lib/ansible&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  executable location = /home/deploy/.py3-a2&lt;span class=&quot;number&quot;&gt;.5&lt;/span&gt;-env/ansible/bin/ansible-playbook&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  python version = &lt;span class=&quot;number&quot;&gt;3.6&lt;/span&gt;&lt;span class=&quot;number&quot;&gt;.8&lt;/span&gt; (&lt;span class=&quot;keyword&quot;&gt;default&lt;/span&gt;, Jan  &lt;span class=&quot;number&quot;&gt;9&lt;/span&gt; &lt;span class=&quot;number&quot;&gt;2019&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;19&lt;/span&gt;:&lt;span class=&quot;number&quot;&gt;44&lt;/span&gt;:&lt;span class=&quot;number&quot;&gt;42&lt;/span&gt;) [GCC &lt;span class=&quot;number&quot;&gt;4.8&lt;/span&gt;&lt;span class=&quot;number&quot;&gt;.5&lt;/span&gt; &lt;span class=&quot;number&quot;&gt;20150623&lt;/span&gt; (Red Hat &lt;span class=&quot;number&quot;&gt;4.8&lt;/span&gt;&lt;span class=&quot;number&quot;&gt;.5&lt;/span&gt;&lt;span class=&quot;number&quot;&gt;-36&lt;/span&gt;)]&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;(.py3-a2&lt;span class=&quot;number&quot;&gt;.5&lt;/span&gt;-env) [&lt;span class=&quot;symbol&quot;&gt;deploy@&lt;/span&gt;jenkins ~]$ ssh &lt;span class=&quot;symbol&quot;&gt;root@&lt;/span&gt;test.example.com&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Last login: Thu Jan &lt;span class=&quot;number&quot;&gt;10&lt;/span&gt; &lt;span class=&quot;number&quot;&gt;13&lt;/span&gt;:&lt;span class=&quot;number&quot;&gt;04&lt;/span&gt;:&lt;span class=&quot;number&quot;&gt;32&lt;/span&gt; &lt;span class=&quot;number&quot;&gt;2019&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;number&quot;&gt;192.168&lt;/span&gt;&lt;span class=&quot;number&quot;&gt;.244&lt;/span&gt;&lt;span class=&quot;number&quot;&gt;.131&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;string&quot;&gt;[root@test ~]&lt;/span&gt;# hostname&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;test.example.com&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-
-
-
-&lt;p&gt;登录Jenkins web管理页&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="Jenkins" scheme="https://sugw.github.io/sugw.github.io/categories/Jenkins/"/>
-    
-    
-    <category term="自动部署" scheme="https://sugw.github.io/sugw.github.io/tags/%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Jenkins+Gitlab+Ansible自动化部署(五)</title>
-    <link href="https://sugw.github.io/sugw.github.io/2020/11/27/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%BA%94)/"/>
-    <id>https://sugw.github.io/sugw.github.io/2020/11/27/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%BA%94)/</id>
-    <published>2020-11-27T01:59:28.622Z</published>
-    <updated>2021-01-07T10:09:30.609Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;&lt;strong&gt;Freestyle Job实现静态网站部署交付（接Jenkins+Gitlab+Ansible自动化部署（四&lt;/strong&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;环境构建&lt;/li&gt;
-&lt;li&gt;编写ansible playbook脚本实现静态网页远程部署&lt;/li&gt;
-&lt;li&gt;将playbook部署脚本提交到GitLab仓库&lt;/li&gt;
-&lt;li&gt;构建Freestyle Job任务框架&lt;/li&gt;
-&lt;li&gt;Jenkins集成Ansible与Gitlab实现静态网页的自动化部署&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;首先确定自己的环境已经准备完毕。&lt;/p&gt;
-&lt;p&gt;登录gitlab查看&lt;/p&gt;
-&lt;img src=&quot;/sugw.github.io/2020/11/27/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%BA%94)/804543-20190110114757705-2039134505.png&quot; class title=&quot;img&quot;&gt;</summary>
-    
-    
-    
-    <category term="Jenkins" scheme="https://sugw.github.io/sugw.github.io/categories/Jenkins/"/>
-    
-    
-    <category term="自动部署" scheme="https://sugw.github.io/sugw.github.io/tags/%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Jenkins+Gitlab+Ansible自动化部署(四)</title>
-    <link href="https://sugw.github.io/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E5%9B%9B)/"/>
-    <id>https://sugw.github.io/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E5%9B%9B)/</id>
-    <published>2020-11-26T11:08:52.453Z</published>
-    <updated>2021-01-07T10:09:36.190Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;&lt;strong&gt;Jenkins应用&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;Jenkins Linux Shell集成&lt;/p&gt;
-&lt;p&gt;登录Jenkins web管理页，点击新建任务&lt;/p&gt;
-&lt;img src=&quot;/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E5%9B%9B)/804543-20190109151723046-524146976-20201127095232069.png&quot; class title=&quot;img&quot;&gt;
-
-&lt;p&gt;添加描述信息&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="Jenkins" scheme="https://sugw.github.io/sugw.github.io/categories/Jenkins/"/>
-    
-    
-    <category term="自动部署" scheme="https://sugw.github.io/sugw.github.io/tags/%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Jenkins+Gitlab+Ansible自动化部署(三)</title>
-    <link href="https://sugw.github.io/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%89)/"/>
-    <id>https://sugw.github.io/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%89)/</id>
-    <published>2020-11-26T10:54:18.246Z</published>
-    <updated>2021-01-07T10:09:41.057Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;接Jenkins+Gitlab+Ansible自动化部署（一）&lt;a href=&quot;https://www.cnblogs.com/zd520pyx1314/p/10210727.html&quot;&gt;https://www.cnblogs.com/zd520pyx1314/p/10210727.html&lt;/a&gt; 和（二）&lt;a href=&quot;https://www.cnblogs.com/zd520pyx1314/p/10213549.html&quot;&gt;https://www.cnblogs.com/zd520pyx1314/p/10213549.html &lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;Jenkins是一个开源持续集成工具，提供了软甲你开发的持续集成服务，支持主流软件配置管理，配合实现软件配置管理，持续集成功能。是主流的运维开发平台，兼容所有主流开发环境，插件市场可与海量业内主流开发工具实现集成，Job为配置单位与日志管理，使运维与开发人员能协同工作。丰富的权限管理划分不同Job不同角色；强大的负载均衡功能，保证我们项目的可靠性。&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Jenkins的安装、配置与管理&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;添加Jenkins yum仓库&lt;/p&gt;
-&lt;figure class=&quot;highlight awk&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;官网地址&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;https:&lt;span class=&quot;regexp&quot;&gt;//&lt;/span&gt;pkg.jenkins.io&lt;span class=&quot;regexp&quot;&gt;/redhat-stable/&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;</summary>
-    
-    
-    
-    <category term="Jenkins" scheme="https://sugw.github.io/sugw.github.io/categories/Jenkins/"/>
-    
-    
-    <category term="自动部署" scheme="https://sugw.github.io/sugw.github.io/tags/%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Jenkins+Gitlab+Ansible自动化部署(二)</title>
-    <link href="https://sugw.github.io/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%BA%8C)/"/>
-    <id>https://sugw.github.io/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%BA%8C)/</id>
-    <published>2020-11-26T10:47:07.196Z</published>
-    <updated>2021-01-07T10:09:51.561Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;接Jenkins+Gitlab+Ansbile自动化部署(一):&lt;/p&gt;
-&lt;p&gt;&lt;a href=&quot;https://sugw.github.io/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/&quot;&gt;https://sugw.github.io/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;Ansible的配置与部署&lt;/p&gt;
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;工具名称&lt;/th&gt;
-&lt;th&gt;介绍&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;&lt;tr&gt;
-&lt;td&gt;Chef&lt;/td&gt;
-&lt;td&gt;采用Ruby编写，C/S架构，配置需要Git依赖，Recipe脚本编写规范，需要良好的编程经验。&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;Ansible&lt;/td&gt;
-&lt;td&gt;采用Python编写，无Client，模块化配置管理，Playbook脚本编写规范，易于上手，适合中小规模快速部署。&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;Saltstack&lt;/td&gt;
-&lt;td&gt;采用Python编写，C/S架构，模块化配置管理，YAML脚本编写规范，内置异步文件服务器可以为客户端文件加快服务速度，适合大规模集群部署，但是需要安装客户端。&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;&lt;/table&gt;
-&lt;p&gt;Ansible的优势和应用场景&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="Jenkins" scheme="https://sugw.github.io/sugw.github.io/categories/Jenkins/"/>
-    
-    
-    <category term="自动部署" scheme="https://sugw.github.io/sugw.github.io/tags/%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Jenkins+Gitlab+Ansible自动化部署(一)</title>
-    <link href="https://sugw.github.io/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/"/>
-    <id>https://sugw.github.io/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/</id>
-    <published>2020-11-26T10:33:50.167Z</published>
-    <updated>2021-01-07T10:09:22.851Z</updated>
-    
-    
-    <summary type="html">&lt;h2 id=&quot;首先准备实验环境&quot;&gt;&lt;a href=&quot;#首先准备实验环境&quot; class=&quot;headerlink&quot; title=&quot;首先准备实验环境&quot;&gt;&lt;/a&gt;首先准备实验环境&lt;/h2&gt;&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;虚拟机&lt;/th&gt;
-&lt;th&gt;主机名&lt;/th&gt;
-&lt;th&gt;IP地址&lt;/th&gt;
-&lt;th&gt;服务&lt;/th&gt;
-&lt;th&gt;系统版本&lt;/th&gt;
-&lt;th&gt;内核版本&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;&lt;tr&gt;
-&lt;td&gt;Vmware Workstation 14&lt;/td&gt;
-&lt;td&gt;gitlab.example.com&lt;/td&gt;
-&lt;td&gt;20.10.1.249&lt;/td&gt;
-&lt;td&gt;gitlab&lt;/td&gt;
-&lt;td&gt;CentOS Linux release 7.5.1804 (Core)&lt;/td&gt;
-&lt;td&gt;3.10.0-862.el7.x86_64&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;jenkins.example.com&lt;/td&gt;
-&lt;td&gt;192.168.244.131&lt;/td&gt;
-&lt;td&gt;jenkis&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;ansible.example.com&lt;/td&gt;
-&lt;td&gt;192.168.244.132&lt;/td&gt;
-&lt;td&gt;asible&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;&lt;/table&gt;
-&lt;h2 id=&quot;hosts解析&quot;&gt;&lt;a href=&quot;#hosts解析&quot; class=&quot;headerlink&quot; title=&quot;hosts解析&quot;&gt;&lt;/a&gt;hosts解析&lt;/h2&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;20.10.1.249 gitlab.example.com&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;192.168.244.131 jenkins.example.com&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;192.168.244.132 ansible.example.com&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-
-&lt;h2 id=&quot;关闭防火墙和selinux&quot;&gt;&lt;a href=&quot;#关闭防火墙和selinux&quot; class=&quot;headerlink&quot; title=&quot;关闭防火墙和selinux&quot;&gt;&lt;/a&gt;关闭防火墙和selinux&lt;/h2&gt;</summary>
-    
-    
-    
-    <category term="Jenkins" scheme="https://sugw.github.io/sugw.github.io/categories/Jenkins/"/>
-    
-    
-    <category term="自动部署" scheme="https://sugw.github.io/sugw.github.io/tags/%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Prometheus-pushgateway</title>
-    <link href="https://sugw.github.io/sugw.github.io/2020/11/23/prometheus-pushgateway/"/>
-    <id>https://sugw.github.io/sugw.github.io/2020/11/23/prometheus-pushgateway/</id>
-    <published>2020-11-23T10:09:28.267Z</published>
-    <updated>2020-11-24T06:47:30.676Z</updated>
-    
-    
-    <summary type="html">&lt;h1 id=&quot;一、Pushgateway-简介&quot;&gt;&lt;a href=&quot;#一、Pushgateway-简介&quot; class=&quot;headerlink&quot; title=&quot;一、Pushgateway 简介&quot;&gt;&lt;/a&gt;一、Pushgateway 简介&lt;/h1&gt;&lt;p&gt;&lt;a href=&quot;https://github.com/prometheus/pushgateway&quot;&gt;Pushgateway&lt;/a&gt; 是 Prometheus 生态中一个重要工具，使用它的原因主要是：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Prometheus 采用 pull 模式，可能由于不在一个子网或者防火墙原因，导致 Prometheus 无法直接拉取各个 target 数据。&lt;/li&gt;
-&lt;li&gt;在监控业务数据的时候，需要将不同数据汇总, 由 Prometheus 统一收集。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;由于以上原因，不得不使用 pushgateway，但在使用之前，有必要了解一下它的一些弊端：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;将多个节点数据汇总到 pushgateway, 如果 pushgateway 挂了，受影响比多个 target 大。&lt;/li&gt;
-&lt;li&gt;Prometheus 拉取状态 &lt;code&gt;up&lt;/code&gt; 只针对 pushgateway, 无法做到对每个节点有效。&lt;/li&gt;
-&lt;li&gt;Pushgateway 可以持久化推送给它的所有监控数据。&lt;/li&gt;
-&lt;/ul&gt;</summary>
-    
-    
-    
-    <category term="监控" scheme="https://sugw.github.io/sugw.github.io/categories/%E7%9B%91%E6%8E%A7/"/>
-    
-    
-    <category term="prometheus" scheme="https://sugw.github.io/sugw.github.io/tags/prometheus/"/>
     
   </entry>
   
