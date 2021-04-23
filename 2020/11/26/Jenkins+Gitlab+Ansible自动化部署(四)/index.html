@@ -1,0 +1,811 @@
+<!--动态线条背景-->
+<script type="text/javascript"
+color="220,220,220" opacity='0.7' zIndex="-2" count="200" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js">
+</script>
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><!-- hexo injector head_begin start --><link href="https://cdn.jsdelivr.net/npm/hexo-widget-tree@0.0.5/css/index.css" rel="stylesheet"/><!-- hexo injector head_begin end -->
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/sugw.github.io/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/sugw.github.io/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/sugw.github.io/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/sugw.github.io/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/sugw.github.io/css/main.css">
+
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.14.0/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"sugw.github.io","root":"/sugw.github.io/","scheme":"Gemini","version":"8.0.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
+  </script>
+
+  <meta name="description" content="Jenkins应用 Jenkins Linux Shell集成 登录Jenkins web管理页，点击新建任务   添加描述信息">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Jenkins+Gitlab+Ansible自动化部署(四)">
+<meta property="og:url" content="https://sugw.github.io/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E5%9B%9B)/index.html">
+<meta property="og:site_name" content="苏国伟">
+<meta property="og:description" content="Jenkins应用 Jenkins Linux Shell集成 登录Jenkins web管理页，点击新建任务   添加描述信息">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://sugw.github.io/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E5%9B%9B)/804543-20190109151723046-524146976-20201127095232069.png">
+<meta property="og:image" content="https://sugw.github.io/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E5%9B%9B)/804543-20190109151824593-1161146941-20201127095231859.png">
+<meta property="og:image" content="https://sugw.github.io/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E5%9B%9B)/804543-20190109151858012-1214119596-20201127095231676.png">
+<meta property="og:image" content="https://sugw.github.io/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E5%9B%9B)/804543-20190109152040887-2048586029-20201127095232008.png">
+<meta property="og:image" content="https://sugw.github.io/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E5%9B%9B)/804543-20190109153842155-2075650169-20201127095231946.png">
+<meta property="og:image" content="https://sugw.github.io/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E5%9B%9B)/804543-20190109154042627-129308152-20201127095231940.png">
+<meta property="og:image" content="https://sugw.github.io/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E5%9B%9B)/804543-20190109155131087-890865953-20201127095232222.png">
+<meta property="og:image" content="https://sugw.github.io/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E5%9B%9B)/804543-20190109155404456-420065666-20201127095232301.png">
+<meta property="og:image" content="https://sugw.github.io/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E5%9B%9B)/804543-20190109163623111-1109999465-20201127095232289.png">
+<meta property="og:image" content="https://sugw.github.io/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E5%9B%9B)/804543-20190109163915438-500405355-20201127095232386.png">
+<meta property="og:image" content="https://sugw.github.io/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E5%9B%9B)/804543-20190109164541615-708856621-20201127095232478.png">
+<meta property="og:image" content="https://sugw.github.io/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E5%9B%9B)/804543-20190109164637907-1104298296-20201127095232461.png">
+<meta property="og:image" content="https://sugw.github.io/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E5%9B%9B)/804543-20190109164720097-767872863-20201127095232519.png">
+<meta property="og:image" content="https://sugw.github.io/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E5%9B%9B)/804543-20190109165658126-635979322-20201127095232612.png">
+<meta property="og:image" content="https://sugw.github.io/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E5%9B%9B)/804543-20190109165741713-178101175-20201127095232561.png">
+<meta property="og:image" content="https://sugw.github.io/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E5%9B%9B)/804543-20190109192205777-396732044-20201127095232627.png">
+<meta property="og:image" content="https://sugw.github.io/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E5%9B%9B)/804543-20190109192057780-559306233-20201127095232785.png">
+<meta property="og:image" content="https://sugw.github.io/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E5%9B%9B)/804543-20190109171745487-1863116514-20201127095232814.png">
+<meta property="og:image" content="https://sugw.github.io/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E5%9B%9B)/804543-20190109171833932-2138348804-20201127095232881.png">
+<meta property="og:image" content="https://sugw.github.io/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E5%9B%9B)/804543-20190109171954411-440162308-20201127095232795.png">
+<meta property="og:image" content="https://sugw.github.io/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E5%9B%9B)/804543-20190109172647579-2007679914-20201127095232898.png">
+<meta property="og:image" content="https://sugw.github.io/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E5%9B%9B)/804543-20190109172823526-350650902-20201127095232986.png">
+<meta property="og:image" content="https://sugw.github.io/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E5%9B%9B)/804543-20190109173140430-1450915196-20201127095233046.png">
+<meta property="og:image" content="https://sugw.github.io/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E5%9B%9B)/804543-20190109192337953-1505758240-20201127095233087.png">
+<meta property="og:image" content="https://sugw.github.io/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E5%9B%9B)/804543-20190109202822525-464652266-20201127095233123.png">
+<meta property="og:image" content="https://sugw.github.io/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E5%9B%9B)/804543-20190109202940751-1626799640-20201127095233272.png">
+<meta property="og:image" content="https://sugw.github.io/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E5%9B%9B)/804543-20190109203014667-206268133-20201127095233045.png">
+<meta property="og:image" content="https://sugw.github.io/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E5%9B%9B)/804543-20190109203212938-471059166-20201127095233307.png">
+<meta property="og:image" content="https://sugw.github.io/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E5%9B%9B)/804543-20190109173345826-1534145406-20201127095233364.png">
+<meta property="article:published_time" content="2020-11-26T11:08:52.453Z">
+<meta property="article:modified_time" content="2021-01-07T10:09:36.190Z">
+<meta property="article:author" content="苏国伟">
+<meta property="article:tag" content="自动部署">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://sugw.github.io/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E5%9B%9B)/804543-20190109151723046-524146976-20201127095232069.png">
+
+
+<link rel="canonical" href="https://sugw.github.io/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E5%9B%9B)/">
+
+
+<script data-pjax class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Jenkins+Gitlab+Ansible自动化部署(四) | 苏国伟</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/sugw.github.io/atom.xml" title="苏国伟" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/sugw.github.io/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">苏国伟</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-首页">
+
+    <a href="/sugw.github.io/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-作者">
+
+    <a href="/sugw.github.io/about/" rel="section"><i class="fa fa-user fa-fw"></i>作者</a>
+
+  </li>
+        <li class="menu-item menu-item-标签">
+
+    <a href="/sugw.github.io/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-分类">
+
+    <a href="/sugw.github.io/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-归档">
+
+    <a href="/sugw.github.io/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-overview-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <section class="post-toc-wrap sidebar-panel">
+      </section>
+      <!--/noindex-->
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="苏国伟"
+      src="/sugw.github.io/images/291603183698.jpg">
+  <p class="site-author-name" itemprop="name">苏国伟</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/sugw.github.io/archives">
+          <span class="site-state-item-count">47</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/sugw.github.io/categories/">
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/sugw.github.io/tags/">
+        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </section>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+      
+
+      
+  
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://sugw.github.io/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E5%9B%9B)/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/sugw.github.io/images/291603183698.jpg">
+      <meta itemprop="name" content="苏国伟">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="苏国伟">
+    </span>
+
+    
+    
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Jenkins+Gitlab+Ansible自动化部署(四)
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2020-11-26 19:08:52" itemprop="dateCreated datePublished" datetime="2020-11-26T19:08:52+08:00">2020-11-26</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-01-07 18:09:36" itemprop="dateModified" datetime="2021-01-07T18:09:36+08:00">2021-01-07</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/sugw.github.io/categories/Jenkins/" itemprop="url" rel="index"><span itemprop="name">Jenkins</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E5%9B%9B)/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E5%9B%9B)/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>25k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>23 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p><strong>Jenkins应用</strong></p>
+<p>Jenkins Linux Shell集成</p>
+<p>登录Jenkins web管理页，点击新建任务</p>
+<img src="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E5%9B%9B)/804543-20190109151723046-524146976-20201127095232069.png" class title="img">
+
+<p>添加描述信息</p>
+<img src="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E5%9B%9B)/804543-20190109151824593-1161146941-20201127095231859.png" class title="img">
+
+
+
+<p>添加构建执行shell</p>
+<img src="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E5%9B%9B)/804543-20190109151858012-1214119596-20201127095231676.png" class title="img">
+
+<p>在执行shell输入框内输入</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/bin/sh</span></span><br><span class="line"></span><br><span class="line"><span class="attribute">user</span>=`whoami`</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [ <span class="variable">$user</span> == <span class="string">&#x27;deploy&#x27;</span> ]</span><br><span class="line">then</span><br><span class="line">    echo <span class="string">&quot;Hello, my name is <span class="variable">$user</span>&quot;</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">    echo <span class="string">&quot;Sorry, I am not <span class="variable">$user</span>&quot;</span></span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line">ip addr</span><br><span class="line"></span><br><span class="line">cat /etc/system-release</span><br><span class="line"></span><br><span class="line">free -m</span><br><span class="line"></span><br><span class="line">df -h</span><br><span class="line"></span><br><span class="line"><span class="attribute">py_cmd</span>=`which python`</span><br><span class="line"></span><br><span class="line"><span class="variable">$py_cmd</span> --version</span><br></pre></td></tr></table></figure>
+
+<img src="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E5%9B%9B)/804543-20190109152040887-2048586029-20201127095232008.png" class title="img">
+
+<p> 点击查看输出信息</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">Started by user admin</span><br><span class="line">Building <span class="keyword">in</span> workspace /var/lib/jenkins/workspace/shell-freestyle-job</span><br><span class="line"><span class="string">[shell-freestyle-job]</span> $ /bin/sh /tmp/jenkins3318863497197478868.sh</span><br><span class="line">Hello, my name <span class="keyword">is</span> deploy</span><br><span class="line"><span class="number">1</span>: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu <span class="number">65536</span> qdisc noqueue state UNKNOWN group <span class="keyword">default</span> qlen <span class="number">1000</span></span><br><span class="line">    link/loopback <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span> brd <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span></span><br><span class="line">    inet <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>/<span class="number">8</span> scope host lo</span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line">    inet6 ::<span class="number">1</span>/<span class="number">128</span> scope host </span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line"><span class="number">2</span>: ens33: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu <span class="number">1500</span> qdisc pfifo_fast state UP group <span class="keyword">default</span> qlen <span class="number">1000</span></span><br><span class="line">    link/ether <span class="number">00</span>:<span class="number">0</span>c:<span class="number">29</span>:<span class="number">23</span>:<span class="number">04</span>:a4 brd ff:ff:ff:ff:ff:ff</span><br><span class="line">    inet <span class="number">192.168</span><span class="number">.244</span><span class="number">.131</span>/<span class="number">24</span> brd <span class="number">192.168</span><span class="number">.244</span><span class="number">.255</span> scope global noprefixroute ens33</span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line">    inet6 fe80::<span class="number">6</span>c1f:<span class="number">4</span>afc:<span class="number">8</span>c42:<span class="number">2</span>ef7/<span class="number">64</span> scope link noprefixroute </span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line"><span class="number">3</span>: ens34: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu <span class="number">1500</span> qdisc pfifo_fast state UP group <span class="keyword">default</span> qlen <span class="number">1000</span></span><br><span class="line">    link/ether <span class="number">00</span>:<span class="number">0</span>c:<span class="number">29</span>:<span class="number">23</span>:<span class="number">04</span>:ae brd ff:ff:ff:ff:ff:ff</span><br><span class="line"><span class="number">4</span>: virbr0: &lt;NO-CARRIER,BROADCAST,MULTICAST,UP&gt; mtu <span class="number">1500</span> qdisc noqueue state DOWN group <span class="keyword">default</span> qlen <span class="number">1000</span></span><br><span class="line">    link/ether <span class="number">52</span>:<span class="number">54</span>:<span class="number">00</span>:d5:<span class="number">9</span>c:dd brd ff:ff:ff:ff:ff:ff</span><br><span class="line">    inet <span class="number">192.168</span><span class="number">.122</span><span class="number">.1</span>/<span class="number">24</span> brd <span class="number">192.168</span><span class="number">.122</span><span class="number">.255</span> scope global virbr0</span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line"><span class="number">5</span>: virbr0-nic: &lt;BROADCAST,MULTICAST&gt; mtu <span class="number">1500</span> qdisc pfifo_fast master virbr0 state DOWN group <span class="keyword">default</span> qlen <span class="number">1000</span></span><br><span class="line">    link/ether <span class="number">52</span>:<span class="number">54</span>:<span class="number">00</span>:d5:<span class="number">9</span>c:dd brd ff:ff:ff:ff:ff:ff</span><br><span class="line">CentOS Linux release <span class="number">7.5</span><span class="number">.1804</span> (Core) </span><br><span class="line">              total        used        free      <span class="keyword">shared</span>  buff/cache   available</span><br><span class="line">Mem:           <span class="number">1982</span>        <span class="number">1032</span>         <span class="number">377</span>          <span class="number">10</span>         <span class="number">571</span>         <span class="number">707</span></span><br><span class="line">Swap:          <span class="number">2047</span>           <span class="number">0</span>        <span class="number">2047</span></span><br><span class="line">Filesystem               Size  Used Avail Use% Mounted on</span><br><span class="line">/dev/mapper/centos-root   <span class="number">18</span>G  <span class="number">4.6</span>G   <span class="number">13</span>G  <span class="number">26</span>% /</span><br><span class="line">devtmpfs                 <span class="number">975</span>M     <span class="number">0</span>  <span class="number">975</span>M   <span class="number">0</span>% /dev</span><br><span class="line">tmpfs                    <span class="number">992</span>M     <span class="number">0</span>  <span class="number">992</span>M   <span class="number">0</span>% /dev/shm</span><br><span class="line">tmpfs                    <span class="number">992</span>M   <span class="number">11</span>M  <span class="number">982</span>M   <span class="number">2</span>% /run</span><br><span class="line">tmpfs                    <span class="number">992</span>M     <span class="number">0</span>  <span class="number">992</span>M   <span class="number">0</span>% /sys/fs/cgroup</span><br><span class="line">/dev/sr0                 <span class="number">8.8</span>G  <span class="number">8.8</span>G     <span class="number">0</span> <span class="number">100</span>% /media/cdrom</span><br><span class="line">/dev/sda1                <span class="number">497</span>M  <span class="number">150</span>M  <span class="number">347</span>M  <span class="number">31</span>% /boot</span><br><span class="line">tmpfs                    <span class="number">199</span>M   <span class="number">12</span>K  <span class="number">199</span>M   <span class="number">1</span>% /run/user/<span class="number">42</span></span><br><span class="line">tmpfs                    <span class="number">199</span>M     <span class="number">0</span>  <span class="number">199</span>M   <span class="number">0</span>% /run/user/<span class="number">0</span></span><br><span class="line">Python <span class="number">2.7</span><span class="number">.5</span></span><br><span class="line">Finished: SUCCESS</span><br></pre></td></tr></table></figure>
+
+<p>Jenkins 参数集成</p>
+<p>仍然登录到Jenkins web管理页，点击新建任务。</p>
+<img src="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E5%9B%9B)/804543-20190109153842155-2075650169-20201127095231946.png" class title="img">
+
+<p>添加描述信息</p>
+<img src="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E5%9B%9B)/804543-20190109154042627-129308152-20201127095231940.png" class title="img">
+
+
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/sh</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;Current deploy environment is <span class="variable">$deploy_env</span>&quot;</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;The build is <span class="variable">$version</span>&quot;</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;The paasword is <span class="variable">$pass</span>&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> <span class="variable">$bool</span></span><br><span class="line"><span class="keyword">then</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;Request is approved&quot;</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;Request is rejected&quot;</span></span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure>
+
+<p>点击“Build with Parameters”后如下图所示</p>
+<img src="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E5%9B%9B)/804543-20190109155131087-890865953-20201127095232222.png" class title="img">
+
+<img src="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E5%9B%9B)/804543-20190109155404456-420065666-20201127095232301.png" class title="img">
+
+<p>查看输出信息</p>
+<figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Started by user admin</span><br><span class="line">Building in workspace /var/<span class="class"><span class="keyword">lib</span>/<span class="title">jenkins</span>/<span class="title">workspace</span>/<span class="title">parameter</span>-<span class="title">freestyle</span>-<span class="title">job</span></span></span><br><span class="line">[parameter-freestyle-job] $ /bin/sh /tmp/jenkins459467524349987986.sh</span><br><span class="line">Current deploy environment is dev</span><br><span class="line">The build is <span class="number">1.0</span>.<span class="number">1</span></span><br><span class="line">The paasword is <span class="number">123456</span></span><br><span class="line">Request is approved</span><br><span class="line"><span class="symbol">Finished:</span> SUCCESS</span><br></pre></td></tr></table></figure>
+
+<p>Jenkins Git集成</p>
+<p>首先还是登录Jenkins web管理页，点击“New 任务”</p>
+<img src="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E5%9B%9B)/804543-20190109163623111-1109999465-20201127095232289.png" class title="img">
+
+<p>添加描述信息</p>
+<img src="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E5%9B%9B)/804543-20190109163915438-500405355-20201127095232386.png" class title="img">
+
+<p>返回到gitlab新建一个ansible-playbook.repo工程（新建过程略），只有一个ansible-playbook.txt空文件</p>
+<img src="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E5%9B%9B)/804543-20190109164541615-708856621-20201127095232478.png" class title="img">
+
+<p>复制ansible-playbook.repo仓库地址，粘贴至下图</p>
+<img src="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E5%9B%9B)/804543-20190109164637907-1104298296-20201127095232461.png" class title="img">
+
+<p>点击“立即构建”</p>
+<img src="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E5%9B%9B)/804543-20190109164720097-767872863-20201127095232519.png" class title="img">
+
+<p>查看输出信息</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">Started by user admin</span><br><span class="line">Building <span class="keyword">in</span> workspace <span class="regexp">/var/</span>lib<span class="regexp">/jenkins/</span>workspace/git-freestyle-job</span><br><span class="line">Cloning the remote Git repository</span><br><span class="line">Cloning repository https:<span class="regexp">//gi</span>tlab.example.com<span class="regexp">/root/</span>ansible-playbook-repo.git</span><br><span class="line"> &gt; git init <span class="regexp">/var/</span>lib<span class="regexp">/jenkins/</span>workspace/git-freestyle-job <span class="comment"># timeout=10</span></span><br><span class="line">Fetching upstream changes from https:<span class="regexp">//gi</span>tlab.example.com<span class="regexp">/root/</span>ansible-playbook-repo.git</span><br><span class="line"> &gt; git --version <span class="comment"># timeout=10</span></span><br><span class="line">using GIT_ASKPASS to set credentials </span><br><span class="line"> &gt; git fetch --tags --progress https:<span class="regexp">//gi</span>tlab.example.com<span class="regexp">/root/</span>ansible-playbook-repo.git +refs<span class="regexp">/heads/</span>*:refs<span class="regexp">/remotes/</span>origin/*</span><br><span class="line"> &gt; git config remote.origin.url https:<span class="regexp">//gi</span>tlab.example.com<span class="regexp">/root/</span>ansible-playbook-repo.git <span class="comment"># timeout=10</span></span><br><span class="line"> &gt; git config --add remote.origin.fetch +refs<span class="regexp">/heads/</span>*:refs<span class="regexp">/remotes/</span>origin/* <span class="comment"># timeout=10</span></span><br><span class="line"> &gt; git config remote.origin.url https:<span class="regexp">//gi</span>tlab.example.com<span class="regexp">/root/</span>ansible-playbook-repo.git <span class="comment"># timeout=10</span></span><br><span class="line">Fetching upstream changes from https:<span class="regexp">//gi</span>tlab.example.com<span class="regexp">/root/</span>ansible-playbook-repo.git</span><br><span class="line">using GIT_ASKPASS to set credentials </span><br><span class="line"> &gt; git fetch --tags --progress https:<span class="regexp">//gi</span>tlab.example.com<span class="regexp">/root/</span>ansible-playbook-repo.git +refs<span class="regexp">/heads/</span>*:refs<span class="regexp">/remotes/</span>origin/*</span><br><span class="line"> &gt; git rev-parse refs<span class="regexp">/remotes/</span>origin/master^&#123;commit&#125; <span class="comment"># timeout=10</span></span><br><span class="line"> &gt; git rev-parse refs<span class="regexp">/remotes/</span>origin<span class="regexp">/origin/m</span>aster^&#123;commit&#125; <span class="comment"># timeout=10</span></span><br><span class="line">Checking out Revision eb4736cb66dd954b1f45b1d38f789c84aaedb078 (refs<span class="regexp">/remotes/</span>origin/master)</span><br><span class="line"> &gt; git config core.sparsecheckout <span class="comment"># timeout=10</span></span><br><span class="line"> &gt; git checkout -f eb4736cb66dd954b1f45b1d38f789c84aaedb078</span><br><span class="line">Commit message: <span class="string">&quot;First comm&quot;</span></span><br><span class="line">First time build. Skipping changelog.</span><br><span class="line">Finished: SUCCESS</span><br></pre></td></tr></table></figure>
+
+<p>Jenkins maven集成</p>
+<p>打开maven官网：<a href="https://maven.apache.org/download.cgi">https://maven.apache.org/download.cgi</a></p>
+<p>复制最新maven的软件包链接</p>
+<p><a href="http://mirrors.shu.edu.cn/apache/maven/maven-3/3.6.0/binaries/apache-maven-3.6.0-bin.tar.gz">http://mirrors.shu.edu.cn/apache/maven/maven-3/3.6.0/binaries/apache-maven-3.6.0-bin.tar.gz</a></p>
+<p>安装maven</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">[root@jenkins ~]</span># wget http:<span class="comment">//mirrors.shu.edu.cn/apache/maven/maven-3/3.6.0/binaries/apache-maven-3.6.0-bin.tar.gz</span></span><br><span class="line"><span class="string">[root@jenkins ~]</span># tar -xf apache-maven<span class="number">-3.6</span><span class="number">.0</span>-bin.tar.gz -C /opt/</span><br><span class="line"><span class="string">[root@jenkins ~]</span># ls /opt/</span><br><span class="line">apache-maven<span class="number">-3.6</span><span class="number">.0</span>  rh</span><br><span class="line"><span class="string">[root@jenkins ~]</span># cd /opt/apache-maven<span class="number">-3.6</span><span class="number">.0</span>/bin/</span><br><span class="line"><span class="string">[root@jenkins bin]</span># ./mvn --version</span><br><span class="line">Apache Maven <span class="number">3.6</span><span class="number">.0</span> (<span class="number">97</span>c98ec64a1fdfee7767ce5ffb20918da4f719f3; <span class="number">2018</span><span class="number">-10</span><span class="number">-25</span>T02:<span class="number">41</span>:<span class="number">47</span>+<span class="number">08</span>:<span class="number">00</span>)</span><br><span class="line">Maven home: /opt/apache-maven<span class="number">-3.6</span><span class="number">.0</span></span><br><span class="line">Java version: <span class="number">1.8</span><span class="number">.0</span>_191, vendor: Oracle Corporation, runtime: /usr/lib/jvm/java<span class="number">-1.8</span><span class="number">.0</span>-openjdk<span class="number">-1.8</span><span class="number">.0</span><span class="number">.191</span>.b12<span class="number">-1.</span>el7_6.x86_64/jre</span><br><span class="line">Default locale: en_US, platform encoding: UTF<span class="number">-8</span></span><br><span class="line">OS name: <span class="string">&quot;linux&quot;</span>, version: <span class="string">&quot;3.10.0-862.el7.x86_64&quot;</span>, arch: <span class="string">&quot;amd64&quot;</span>, family: <span class="string">&quot;unix&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>回到Jenkins web管理页，点击“New 任务”</p>
+<img src="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E5%9B%9B)/804543-20190109165658126-635979322-20201127095232612.png" class title="img">
+
+<p>添加描述信息</p>
+<img src="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E5%9B%9B)/804543-20190109165741713-178101175-20201127095232561.png" class title="img">
+
+<p>回到gitlab主页</p>
+<p> 新建一个空的Java-war-dev工程，复制其仓库地址；</p>
+<p>然后切到windows git bash命令行，上传本地代码到刚才新建的Java-war-dev仓库中：</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line">xueji@xueji MINGW64 ~<span class="regexp">/Desktop/</span>repo</span><br><span class="line">$ pwd</span><br><span class="line"><span class="regexp">/c/</span>Users<span class="regexp">/xueji/</span>Desktop/repo</span><br><span class="line"></span><br><span class="line">xueji@xueji MINGW64 ~<span class="regexp">/Desktop/</span>repo</span><br><span class="line">$ ls</span><br><span class="line">Java-war-dev/</span><br><span class="line">xueji@xueji MINGW64 ~<span class="regexp">/Desktop/</span>repo</span><br><span class="line">$ git config --global user.name <span class="string">&quot;root&quot;</span></span><br><span class="line"></span><br><span class="line">xueji@xueji MINGW64 ~<span class="regexp">/Desktop/</span>repo</span><br><span class="line">$ git config --global user.email <span class="string">&quot;root@example.com&quot;</span></span><br><span class="line"></span><br><span class="line">xueji@xueji MINGW64 ~<span class="regexp">/Desktop/</span>repo</span><br><span class="line">$ git init</span><br><span class="line">Initialized empty Git repository <span class="keyword">in</span> C:<span class="regexp">/Users/</span>xueji<span class="regexp">/Desktop/</span>repo<span class="regexp">/.git/</span></span><br><span class="line"></span><br><span class="line">xueji@xueji MINGW64 ~<span class="regexp">/Desktop/</span>repo (master)</span><br><span class="line">$ git remote add origin https:<span class="regexp">//gi</span>tlab.example.com<span class="regexp">/root/</span>java-war-dev.git</span><br><span class="line"></span><br><span class="line">xueji@xueji MINGW64 ~<span class="regexp">/Desktop/</span>repo (master)</span><br><span class="line">$ git add .</span><br><span class="line">warning: LF will be replaced by CRLF <span class="keyword">in</span> Java-war-dev/pom.xml.</span><br><span class="line">The file will have its original line endings <span class="keyword">in</span> your working directory</span><br><span class="line">warning: LF will be replaced by CRLF <span class="keyword">in</span> Java-war-dev<span class="regexp">/src/m</span>ain<span class="regexp">/webapp/</span>WEB-INF/web.xml.</span><br><span class="line">The file will have its original line endings <span class="keyword">in</span> your working directory</span><br><span class="line">warning: LF will be replaced by CRLF <span class="keyword">in</span> Java-war-dev<span class="regexp">/src/m</span>ain<span class="regexp">/webapp/i</span>ndex.jsp.</span><br><span class="line">The file will have its original line endings <span class="keyword">in</span> your working directory</span><br><span class="line"></span><br><span class="line">xueji@xueji MINGW64 ~<span class="regexp">/Desktop/</span>repo (master)</span><br><span class="line">$ git commit -m<span class="string">&quot;first commit&quot;</span></span><br><span class="line">[master (root-commit) aa3c70c] first commit</span><br><span class="line"> <span class="number">7</span> files changed, <span class="number">58</span> insertions(+)</span><br><span class="line"> create mode <span class="number">100644</span> Java-war-dev/.DS_Store</span><br><span class="line"> create mode <span class="number">100644</span> Java-war-dev/pom.xml</span><br><span class="line"> create mode <span class="number">100644</span> Java-war-dev<span class="regexp">/src/</span>.DS_Store</span><br><span class="line"> create mode <span class="number">100644</span> Java-war-dev<span class="regexp">/src/m</span>ain/.DS_Store</span><br><span class="line"> create mode <span class="number">100644</span> Java-war-dev<span class="regexp">/src/m</span>ain<span class="regexp">/webapp/</span>.DS_Store</span><br><span class="line"> create mode <span class="number">100644</span> Java-war-dev<span class="regexp">/src/m</span>ain<span class="regexp">/webapp/</span>WEB-INF/web.xml</span><br><span class="line"> create mode <span class="number">100644</span> Java-war-dev<span class="regexp">/src/m</span>ain<span class="regexp">/webapp/i</span>ndex.jsp</span><br><span class="line"></span><br><span class="line">xueji@xueji MINGW64 ~<span class="regexp">/Desktop/</span>repo (master)</span><br><span class="line">$ git -c http.sslVerify=false push origin master</span><br><span class="line">Enumerating objects: <span class="number">14</span>, done.</span><br><span class="line">Counting objects: <span class="number">100</span>% (<span class="number">14</span>/<span class="number">14</span>), done.</span><br><span class="line">Delta compression using up to <span class="number">4</span> threads</span><br><span class="line">Compressing objects: <span class="number">100</span>% (<span class="number">12</span>/<span class="number">12</span>), done.</span><br><span class="line">Writing objects: <span class="number">100</span>% (<span class="number">14</span><span class="regexp">/14), 2.13 KiB | 726.00 KiB/</span>s, done.</span><br><span class="line">Total <span class="number">14</span> (delta <span class="number">3</span>), reused <span class="number">0</span> (delta <span class="number">0</span>)</span><br><span class="line">To https:<span class="regexp">//gi</span>tlab.example.com<span class="regexp">/root/</span>java-war-dev.git</span><br><span class="line"> * [new branch]      master -&gt; master</span><br></pre></td></tr></table></figure>
+
+<p>查看gitlab上已经上传成功，复制Java-war-dev仓库地址；</p>
+<img src="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E5%9B%9B)/804543-20190109192205777-396732044-20201127095232627.png" class title="img">
+
+
+
+<p>再次回到Jenkins刚才创建的maven-freestyle-job中，将复制的仓库地址粘贴过来；</p>
+<img src="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E5%9B%9B)/804543-20190109192057780-559306233-20201127095232785.png" class title="img">
+
+<p> 接着添加构建步骤</p>
+<img src="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E5%9B%9B)/804543-20190109171745487-1863116514-20201127095232814.png" class title="img">
+
+<img src="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E5%9B%9B)/804543-20190109171833932-2138348804-20201127095232881.png" class title="img">
+
+<p>返回到Jenkins系统管理设置jdk和maven路径</p>
+<img src="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E5%9B%9B)/804543-20190109171954411-440162308-20201127095232795.png" class title="img">
+
+
+
+<img src="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E5%9B%9B)/804543-20190109172647579-2007679914-20201127095232898.png" class title="img">
+
+<img src="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E5%9B%9B)/804543-20190109172823526-350650902-20201127095232986.png" class title="img">
+
+<p>点击“Apply”,最后点击“Save”</p>
+<p>回到Jenkins mavent-freestyle-job配置页；</p>
+<img src="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E5%9B%9B)/804543-20190109173140430-1450915196-20201127095233046.png" class title="img">
+
+<img src="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E5%9B%9B)/804543-20190109192337953-1505758240-20201127095233087.png" class title="img">
+
+<p>试了好多次，中间错误过程及错误信息在本文结尾列出，针对我的环境，我猜测的是路径错误导致的，因为重新设置了路径之后，第16次构建，也就是上述构建成功的截图就是我重新建了一个Java-war-dev工程，直接在工程下面就是src目录，之前的错误因为我的目录结构是Java-war-dev工程下还有一个Java-war-dev文件夹，导致一直报错，在晚上转了一大圈，也没解决，最后我尝试新建了一个工程，重新配置了一下，构建成功！</p>
+<p>查看输出信息</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line">Started by user admin</span><br><span class="line">Building <span class="keyword">in</span> workspace /var/lib/jenkins/workspace/maven-freestyle-job</span><br><span class="line"> &gt; git rev-parse --<span class="keyword">is</span>-inside-work-tree # timeout=<span class="number">10</span></span><br><span class="line">Fetching changes <span class="keyword">from</span> the remote Git repository</span><br><span class="line"> &gt; git config remote.origin.url https:<span class="comment">//gitlab.example.com/root/Java-war-dev.git # timeout=10</span></span><br><span class="line">Fetching upstream changes <span class="keyword">from</span> https:<span class="comment">//gitlab.example.com/root/Java-war-dev.git</span></span><br><span class="line"> &gt; git --version # timeout=<span class="number">10</span></span><br><span class="line">using GIT_ASKPASS to <span class="keyword">set</span> credentials </span><br><span class="line"> &gt; git fetch --tags --progress https:<span class="comment">//gitlab.example.com/root/Java-war-dev.git +refs/heads/*:refs/remotes/origin/*</span></span><br><span class="line"> &gt; git rev-parse <span class="built_in">ref</span>s/remotes/origin/master^&#123;commit&#125; # timeout=<span class="number">10</span></span><br><span class="line"> &gt; git rev-parse <span class="built_in">ref</span>s/remotes/origin/origin/master^&#123;commit&#125; # timeout=<span class="number">10</span></span><br><span class="line">Checking <span class="keyword">out</span> Revision <span class="number">87</span>d659a9d8706b67e70a89fe7c9d5359d8fd72f5 (<span class="built_in">ref</span>s/remotes/origin/master)</span><br><span class="line"> &gt; git config core.sparsecheckout # timeout=<span class="number">10</span></span><br><span class="line"> &gt; git checkout -f <span class="number">87</span>d659a9d8706b67e70a89fe7c9d5359d8fd72f5</span><br><span class="line">Commit message: <span class="string">&quot;master-1.0.0&quot;</span></span><br><span class="line">First time build. Skipping changelog.</span><br><span class="line"><span class="string">[maven-freestyle-job]</span> $ /opt/apache-maven<span class="number">-3.6</span><span class="number">.0</span>/bin/mvn package</span><br><span class="line"><span class="string">[INFO]</span> Scanning <span class="keyword">for</span> projects...</span><br><span class="line"><span class="string">[INFO]</span> </span><br><span class="line"><span class="string">[INFO]</span> -------------------&lt; com.jenkins.demo:Java-war-dev &gt;--------------------</span><br><span class="line"><span class="string">[INFO]</span> Building Java-war-dev Maven Webapp <span class="number">1.0</span><span class="number">.15</span>-SNAPSHOT</span><br><span class="line"><span class="string">[INFO]</span> --------------------------------[ war ]---------------------------------</span><br><span class="line"><span class="string">[INFO]</span> </span><br><span class="line"><span class="string">[INFO]</span> --- maven-resources-plugin:<span class="number">2.6</span>:resources (<span class="keyword">default</span>-resources) @ Java-war-dev ---</span><br><span class="line"><span class="string">[WARNING]</span> Using platform encoding (UTF<span class="number">-8</span> actually) to copy filtered resources, i.e. build <span class="keyword">is</span> platform dependent!</span><br><span class="line"><span class="string">[INFO]</span> skip non existing resourceDirectory /var/lib/jenkins/workspace/maven-freestyle-job/src/main/resources</span><br><span class="line"><span class="string">[INFO]</span> </span><br><span class="line"><span class="string">[INFO]</span> --- maven-compiler-plugin:<span class="number">3.1</span>:compile (<span class="keyword">default</span>-compile) @ Java-war-dev ---</span><br><span class="line"><span class="string">[INFO]</span> No sources to compile</span><br><span class="line"><span class="string">[INFO]</span> </span><br><span class="line"><span class="string">[INFO]</span> --- maven-resources-plugin:<span class="number">2.6</span>:testResources (<span class="keyword">default</span>-testResources) @ Java-war-dev ---</span><br><span class="line"><span class="string">[WARNING]</span> Using platform encoding (UTF<span class="number">-8</span> actually) to copy filtered resources, i.e. build <span class="keyword">is</span> platform dependent!</span><br><span class="line"><span class="string">[INFO]</span> skip non existing resourceDirectory /var/lib/jenkins/workspace/maven-freestyle-job/src/test/resources</span><br><span class="line"><span class="string">[INFO]</span> </span><br><span class="line"><span class="string">[INFO]</span> --- maven-compiler-plugin:<span class="number">3.1</span>:testCompile (<span class="keyword">default</span>-testCompile) @ Java-war-dev ---</span><br><span class="line"><span class="string">[INFO]</span> No sources to compile</span><br><span class="line"><span class="string">[INFO]</span> </span><br><span class="line"><span class="string">[INFO]</span> --- maven-surefire-plugin:<span class="number">2.12</span><span class="number">.4</span>:test (<span class="keyword">default</span>-test) @ Java-war-dev ---</span><br><span class="line"><span class="string">[INFO]</span> No tests to run.</span><br><span class="line"><span class="string">[INFO]</span> </span><br><span class="line"><span class="string">[INFO]</span> --- maven-war-plugin:<span class="number">2.2</span>:war (<span class="keyword">default</span>-war) @ Java-war-dev ---</span><br><span class="line"><span class="string">[INFO]</span> Packaging webapp</span><br><span class="line"><span class="string">[INFO]</span> Assembling webapp [Java-war-dev] <span class="keyword">in</span> [/var/lib/jenkins/workspace/maven-freestyle-job/target/Java-war-dev]</span><br><span class="line"><span class="string">[INFO]</span> Processing war project</span><br><span class="line"><span class="string">[INFO]</span> Copying webapp resources [/var/lib/jenkins/workspace/maven-freestyle-job/src/main/webapp]</span><br><span class="line"><span class="string">[INFO]</span> Webapp assembled <span class="keyword">in</span> [<span class="number">21</span> msecs]</span><br><span class="line"><span class="string">[INFO]</span> Building war: /var/lib/jenkins/workspace/maven-freestyle-job/target/Java-war-dev.war</span><br><span class="line"><span class="string">[INFO]</span> WEB-INF/web.xml already added, skipping</span><br><span class="line"><span class="string">[INFO]</span> ------------------------------------------------------------------------</span><br><span class="line"><span class="string">[INFO]</span> BUILD SUCCESS</span><br><span class="line"><span class="string">[INFO]</span> ------------------------------------------------------------------------</span><br><span class="line"><span class="string">[INFO]</span> Total time:  <span class="number">1.341</span> s</span><br><span class="line"><span class="string">[INFO]</span> Finished at: <span class="number">2019</span><span class="number">-01</span><span class="number">-09</span>T19:<span class="number">22</span>:<span class="number">35</span>+<span class="number">08</span>:<span class="number">00</span></span><br><span class="line"><span class="string">[INFO]</span> ------------------------------------------------------------------------</span><br><span class="line">Finished: SUCCESS</span><br></pre></td></tr></table></figure>
+
+<p><strong>Jenkins Ansible集成演示</strong></p>
+<p>需要同anible主机上的配置ansible2.5+python 3.6虚拟环境一致，</p>
+<p>配置Ansible2.5+python3.6</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">[root@jenkins Python-<span class="number">3.6</span>.<span class="number">8</span>]# yum install -y openssl* gcc zlib*</span><br><span class="line">[root@jenkins ~]# wget https:<span class="comment">//www.python.org/ftp/python/3.6.8/Python-3.6.8.tar.xz</span></span><br><span class="line">[root@jenkins ~]# tar -xf Python-<span class="number">3.6</span>.<span class="number">8</span>.tar.xz -C <span class="regexp">/usr/</span>local<span class="regexp">/src/</span></span><br><span class="line">[root@jenkins ~]# cd <span class="regexp">/usr/</span>local<span class="regexp">/src/</span>Python-<span class="number">3.6</span>.<span class="number">8</span>/</span><br><span class="line">[root@jenkins Python-<span class="number">3.6</span>.<span class="number">8</span>]# .<span class="regexp">/configure --prefix=/u</span>sr<span class="regexp">/local/</span> --with-ensurepip=install --enable-shared LDFLAGS=<span class="string">&quot;-Wl,-rpath /usr/local/lib&quot;</span></span><br><span class="line">[root@jenkins Python-<span class="number">3.6</span>.<span class="number">8</span>]# make &amp;&amp; echo $? &amp;&amp; sleep <span class="number">3</span> &amp;&amp; make altinstall &amp;&amp; echo $?</span><br><span class="line">[root@jenkins Python-<span class="number">3.6</span>.<span class="number">8</span>]# whereis pip3.<span class="number">6</span></span><br><span class="line">pip3: <span class="regexp">/usr/</span>local<span class="regexp">/bin/</span>pip3.<span class="number">6</span></span><br><span class="line">[root@jenkins Python-<span class="number">3.6</span>.<span class="number">8</span>]# whereis pip</span><br><span class="line">pip: <span class="regexp">/usr/</span>local<span class="regexp">/bin/</span>pip3.<span class="number">6</span></span><br><span class="line">[root@jenkins Python-<span class="number">3.6</span>.<span class="number">8</span>]# ln -s <span class="regexp">/usr/</span>local<span class="regexp">/bin/</span>pip3.<span class="number">6</span> <span class="regexp">/usr/</span>local<span class="regexp">/bin/</span>pip</span><br><span class="line">[root@jenkins ~]# pip install virtualenv</span><br><span class="line">[root@jenkins ~]# su - deploy</span><br><span class="line">[deploy@jenkins ~]$ virtualenv -p <span class="regexp">/usr/</span>local<span class="regexp">/bin/</span>python3.<span class="number">6</span> .py3-a2.<span class="number">5</span>-env</span><br><span class="line">Already using interpreter <span class="regexp">/usr/</span>local<span class="regexp">/bin/</span>python3.<span class="number">6</span></span><br><span class="line">Using base prefix <span class="string">&#x27;/usr/local&#x27;</span></span><br><span class="line"><span class="keyword">New</span> python executable in <span class="regexp">/home/</span>deploy<span class="regexp">/.py3-a2.5-env/</span>bin/python3.<span class="number">6</span></span><br><span class="line">Also creating executable in <span class="regexp">/home/</span>deploy<span class="regexp">/.py3-a2.5-env/</span>bin/python</span><br><span class="line">Installing setuptools, pip, wheel...</span><br><span class="line">done.</span><br><span class="line">[deploy@jenkins ~]$ cd <span class="regexp">/home/</span>deploy<span class="regexp">/.py3-a2.5-env/</span></span><br><span class="line">[deploy@jenkins .py3-a2.<span class="number">5</span>-env]$ <span class="keyword">source</span> <span class="regexp">/home/</span>deploy<span class="regexp">/.py3-a2.5-env/</span>bin/activate</span><br><span class="line">(.py3-a2.<span class="number">5</span>-env) [deploy@jenkins .py3-a2.<span class="number">5</span>-env]$ pip install paramiko PyYAML jinja2</span><br><span class="line"> (.py3-a2.<span class="number">5</span>-env) [deploy@jenkins .py3-a2.<span class="number">5</span>-env]$git clone https:<span class="comment">//github.com/ansible/ansible.git</span></span><br><span class="line">(.py3-a2.<span class="number">5</span>-env) [deploy@jenkins .py3-a2.<span class="number">5</span>-env]$ cd ansible/</span><br><span class="line">(.py3-a2.<span class="number">5</span>-env) [deploy@jenkins ansible]$ pwd</span><br><span class="line"><span class="regexp">/home/</span>deploy<span class="regexp">/.py3-a2.5-env/</span>ansible</span><br><span class="line">(.py3-a2.<span class="number">5</span>-env) [deploy@jenkins ansible]$ git checkout stable-<span class="number">2.5</span></span><br><span class="line">Branch stable-<span class="number">2.5</span> set up to track remote branch stable-<span class="number">2.5</span> <span class="keyword">from</span> origin.</span><br><span class="line">Switched to a <span class="keyword">new</span> branch <span class="string">&#x27;stable-2.5&#x27;</span></span><br><span class="line">(.py3-a2.<span class="number">5</span>-env) [deploy@jenkins ansible]$ <span class="keyword">source</span> <span class="regexp">/home/</span>deploy<span class="regexp">/.py3-a2.5-env/</span>ansible<span class="regexp">/hacking/</span>env-setup -q</span><br><span class="line">(.py3-a2.<span class="number">5</span>-env) [deploy@jenkins ansible]$ ansible --version</span><br><span class="line">ansible <span class="number">2.5</span>.<span class="number">14</span> (stable-<span class="number">2.5</span> c748512c4c) last updated <span class="number">2019</span><span class="regexp">/01/</span><span class="number">09</span> <span class="number">20</span>:<span class="number">03</span>:<span class="number">39</span> (GMT +<span class="number">800</span>)</span><br><span class="line">  config <span class="keyword">file</span> = None</span><br><span class="line">  configured module search path = [<span class="string">&#x27;/home/deploy/.ansible/plugins/modules&#x27;</span>, <span class="string">&#x27;/usr/share/ansible/plugins/modules&#x27;</span>]</span><br><span class="line">  ansible python module location = <span class="regexp">/home/</span>deploy<span class="regexp">/.py3-a2.5-env/</span>ansible<span class="regexp">/lib/</span>ansible</span><br><span class="line">  executable location = <span class="regexp">/home/</span>deploy<span class="regexp">/.py3-a2.5-env/</span>ansible<span class="regexp">/bin/</span>ansible</span><br><span class="line">  python version = <span class="number">3.6</span>.<span class="number">8</span> (<span class="keyword">default</span>, Jan  <span class="number">9</span> <span class="number">2019</span>, <span class="number">19</span>:<span class="number">44</span>:<span class="number">42</span>) [GCC <span class="number">4.8</span>.<span class="number">5</span> <span class="number">20150623</span> (Red Hat <span class="number">4.8</span>.<span class="number">5</span>-<span class="number">36</span>)]</span><br></pre></td></tr></table></figure>
+
+<p>配置jenkins.example.com主机到test.example.com主机的ssh免秘钥认证</p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">(.py3-a2<span class="number">.5</span>-env) [deploy@jenkins ~]$ ssh-keygen</span><br><span class="line">Generating public/private rsa key pair.</span><br><span class="line">Enter <span class="built_in">file</span> <span class="keyword">in</span> which <span class="keyword">to</span> save <span class="keyword">the</span> key (/home/deploy/.ssh/id_rsa):</span><br><span class="line">Enter passphrase (empty <span class="keyword">for</span> no passphrase):</span><br><span class="line">Enter same passphrase again:</span><br><span class="line">Your identification has been saved <span class="keyword">in</span> /home/deploy/.ssh/id_rsa.</span><br><span class="line">Your public key has been saved <span class="keyword">in</span> /home/deploy/.ssh/id_rsa.pub.</span><br><span class="line">The key fingerprint <span class="keyword">is</span>:</span><br><span class="line">SHA256:cXo/fOrw7FhywXZvsRmHUBkMPvuY2C3wdMIFTgeaZ1Q deploy@jenkins.example.com</span><br><span class="line">The key&#x27;s randomart image <span class="keyword">is</span>:</span><br><span class="line">+<span class="comment">---[RSA 2048]----+</span></span><br><span class="line">|            *=Eo |</span><br><span class="line">|           B +o  |</span><br><span class="line">|        . + B .  |</span><br><span class="line">|         + = = . |</span><br><span class="line">|        S o O +o.|</span><br><span class="line">|         . X X .*|</span><br><span class="line">|          + % +oo|</span><br><span class="line">|           O = . |</span><br><span class="line">|          .o*    |</span><br><span class="line">+<span class="comment">----[SHA256]-----+</span></span><br><span class="line">(.py3-a2<span class="number">.5</span>-env) [deploy@jenkins ~]$ ssh-<span class="keyword">copy</span>-<span class="built_in">id</span> root@test.example.com</span><br><span class="line">/bin/ssh-<span class="keyword">copy</span>-<span class="built_in">id</span>: INFO: Source <span class="keyword">of</span> key(s) <span class="keyword">to</span> be installed: <span class="string">&quot;/home/deploy/.ssh/id_rsa.pub&quot;</span></span><br><span class="line">/bin/ssh-<span class="keyword">copy</span>-<span class="built_in">id</span>: INFO: attempting <span class="keyword">to</span> <span class="built_in">log</span> <span class="keyword">in</span> <span class="keyword">with</span> <span class="keyword">the</span> new key(s), <span class="keyword">to</span> filter out any <span class="keyword">that</span> are already installed</span><br><span class="line">/bin/ssh-<span class="keyword">copy</span>-<span class="built_in">id</span>: INFO: <span class="number">1</span> key(s) remain <span class="keyword">to</span> be installed <span class="comment">-- if you are prompted now it is to install the new keys</span></span><br><span class="line">root@test.example.com&#x27;s password:</span><br><span class="line"></span><br><span class="line">Number <span class="keyword">of</span> key(s) added: <span class="number">1</span></span><br><span class="line"></span><br><span class="line">Now <span class="keyword">try</span> logging <span class="keyword">into</span> <span class="keyword">the</span> machine, <span class="keyword">with</span>:   <span class="string">&quot;ssh &#x27;root@test.example.com&#x27;&quot;</span></span><br><span class="line"><span class="keyword">and</span> check <span class="keyword">to</span> make sure <span class="keyword">that</span> only <span class="keyword">the</span> key(s) you wanted were added.</span><br><span class="line"></span><br><span class="line">(.py3-a2<span class="number">.5</span>-env) [deploy@jenkins ~]$ ssh root@test.example.com</span><br><span class="line">Last login: Wed Jan  <span class="number">9</span> <span class="number">20</span>:<span class="number">20</span>:<span class="number">16</span> <span class="number">2019</span> <span class="keyword">from</span> <span class="number">192.168</span><span class="number">.244</span><span class="number">.131</span></span><br><span class="line">[root@test ~]<span class="comment"># hostname</span></span><br><span class="line">test.example.com</span><br></pre></td></tr></table></figure>
+
+<p>配置ansible</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[deploy<span class="variable">@jenkins</span> ~]<span class="variable">$ </span>pwd</span><br><span class="line">/home/deploy</span><br><span class="line">[deploy<span class="variable">@jenkins</span> ~]<span class="variable">$ </span>cat testservers</span><br><span class="line">[testserver]</span><br><span class="line">test.example.com  ansible_user=root</span><br></pre></td></tr></table></figure>
+
+
+
+<p>登录到jenkins web管理页，点击“New 任务”</p>
+<img src="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E5%9B%9B)/804543-20190109202822525-464652266-20201127095233123.png" class title="img">
+
+<p>添加描述信息</p>
+<img src="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E5%9B%9B)/804543-20190109202940751-1626799640-20201127095233272.png" class title="img">
+
+<img src="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E5%9B%9B)/804543-20190109203014667-206268133-20201127095233045.png" class title="img">
+
+
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/sh</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">set</span> +x</span><br><span class="line"><span class="built_in">source</span> /home/deploy/.py3-a2.5-env/bin/activate</span><br><span class="line"><span class="built_in">source</span> /home/deploy/.py3-a2.5-env/ansible/hacking/env-setup -q</span><br><span class="line"></span><br><span class="line"><span class="built_in">cd</span> /home/deploy</span><br><span class="line">ansible --version</span><br><span class="line">ansible-playbook --version</span><br><span class="line"></span><br><span class="line">cat testservers</span><br><span class="line"></span><br><span class="line">ansible -i testservers testserver -m <span class="built_in">command</span> -a <span class="string">&quot;ip addr&quot;</span></span><br><span class="line"><span class="built_in">set</span> -x</span><br></pre></td></tr></table></figure>
+
+<img src="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E5%9B%9B)/804543-20190109203212938-471059166-20201127095233307.png" class title="img">
+
+<p>查看输出信息</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">Started by user admin</span><br><span class="line">Building <span class="keyword">in</span> workspace /var/lib/jenkins/workspace/ansible-freestyle-job</span><br><span class="line"><span class="string">[ansible-freestyle-job]</span> $ /bin/sh /tmp/jenkins7988516678097340995.sh</span><br><span class="line">ansible <span class="number">2.5</span><span class="number">.14</span> (stable<span class="number">-2.5</span> c748512c4c) last updated <span class="number">2019</span>/<span class="number">01</span>/<span class="number">09</span> <span class="number">20</span>:<span class="number">03</span>:<span class="number">39</span> (GMT +<span class="number">800</span>)</span><br><span class="line">  config file = None</span><br><span class="line">  configured module search path = [<span class="string">&#x27;/home/deploy/.ansible/plugins/modules&#x27;</span>, <span class="string">&#x27;/usr/share/ansible/plugins/modules&#x27;</span>]</span><br><span class="line">  ansible python module location = /home/deploy/.py3-a2<span class="number">.5</span>-env/ansible/lib/ansible</span><br><span class="line">  executable location = /home/deploy/.py3-a2<span class="number">.5</span>-env/ansible/bin/ansible</span><br><span class="line">  python version = <span class="number">3.6</span><span class="number">.8</span> (<span class="keyword">default</span>, Jan  <span class="number">9</span> <span class="number">2019</span>, <span class="number">19</span>:<span class="number">44</span>:<span class="number">42</span>) [GCC <span class="number">4.8</span><span class="number">.5</span> <span class="number">20150623</span> (Red Hat <span class="number">4.8</span><span class="number">.5</span><span class="number">-36</span>)]</span><br><span class="line">ansible-playbook <span class="number">2.5</span><span class="number">.14</span> (stable<span class="number">-2.5</span> c748512c4c) last updated <span class="number">2019</span>/<span class="number">01</span>/<span class="number">09</span> <span class="number">20</span>:<span class="number">03</span>:<span class="number">39</span> (GMT +<span class="number">800</span>)</span><br><span class="line">  config file = None</span><br><span class="line">  configured module search path = [<span class="string">&#x27;/home/deploy/.ansible/plugins/modules&#x27;</span>, <span class="string">&#x27;/usr/share/ansible/plugins/modules&#x27;</span>]</span><br><span class="line">  ansible python module location = /home/deploy/.py3-a2<span class="number">.5</span>-env/ansible/lib/ansible</span><br><span class="line">  executable location = /home/deploy/.py3-a2<span class="number">.5</span>-env/ansible/bin/ansible-playbook</span><br><span class="line">  python version = <span class="number">3.6</span><span class="number">.8</span> (<span class="keyword">default</span>, Jan  <span class="number">9</span> <span class="number">2019</span>, <span class="number">19</span>:<span class="number">44</span>:<span class="number">42</span>) [GCC <span class="number">4.8</span><span class="number">.5</span> <span class="number">20150623</span> (Red Hat <span class="number">4.8</span><span class="number">.5</span><span class="number">-36</span>)]</span><br><span class="line"><span class="string">[testserver]</span></span><br><span class="line">test.example.com  ansible_user=root</span><br><span class="line"></span><br><span class="line">test.example.com | SUCCESS | rc=<span class="number">0</span> &gt;&gt;</span><br><span class="line"><span class="number">1</span>: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu <span class="number">65536</span> qdisc noqueue state UNKNOWN group <span class="keyword">default</span> qlen <span class="number">1000</span></span><br><span class="line">    link/loopback <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span> brd <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span></span><br><span class="line">    inet <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>/<span class="number">8</span> scope host lo</span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line">    inet6 ::<span class="number">1</span>/<span class="number">128</span> scope host </span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line"><span class="number">2</span>: ens33: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu <span class="number">1500</span> qdisc pfifo_fast state UP group <span class="keyword">default</span> qlen <span class="number">1000</span></span><br><span class="line">    link/ether <span class="number">00</span>:<span class="number">0</span>c:<span class="number">29</span>:<span class="number">61</span>:aa:<span class="number">73</span> brd ff:ff:ff:ff:ff:ff</span><br><span class="line">    inet <span class="number">192.168</span><span class="number">.244</span><span class="number">.133</span>/<span class="number">24</span> brd <span class="number">192.168</span><span class="number">.244</span><span class="number">.255</span> scope global noprefixroute ens33</span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line">    inet6 fe80::<span class="number">7395</span>:<span class="number">7e45</span>:e2e6:ec36/<span class="number">64</span> scope link noprefixroute </span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line"><span class="number">3</span>: ens34: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu <span class="number">1500</span> qdisc pfifo_fast state UP group <span class="keyword">default</span> qlen <span class="number">1000</span></span><br><span class="line">    link/ether <span class="number">00</span>:<span class="number">0</span>c:<span class="number">29</span>:<span class="number">61</span>:aa:<span class="number">7</span>d brd ff:ff:ff:ff:ff:ff</span><br><span class="line">    inet <span class="number">192.168</span><span class="number">.182</span><span class="number">.134</span>/<span class="number">24</span> brd <span class="number">192.168</span><span class="number">.182</span><span class="number">.255</span> scope global noprefixroute dynamic ens34</span><br><span class="line">       valid_lft <span class="number">1477</span>sec preferred_lft <span class="number">1477</span>sec</span><br><span class="line">    inet6 fe80::<span class="number">196</span>:adf0:e929:d612/<span class="number">64</span> scope link noprefixroute </span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line">Finished: SUCCESS</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<p>下面错误信息就是上述构建jenkins maven集成时报错信息（可以随便看看）： </p>
+<img src="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E5%9B%9B)/804543-20190109173345826-1534145406-20201127095233364.png" class title="img">
+
+<p>构建失败，查看错误输出信息</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">Started by user admin</span><br><span class="line">Building <span class="keyword">in</span> workspace <span class="regexp">/var/</span>lib<span class="regexp">/jenkins/</span>workspace/maven-freestyle-job</span><br><span class="line">Cloning the remote Git repository</span><br><span class="line">Cloning repository https:<span class="regexp">//gi</span>tlab.example.com<span class="regexp">/root/</span>java-war-dev.git</span><br><span class="line"> &gt; git init <span class="regexp">/var/</span>lib<span class="regexp">/jenkins/</span>workspace/maven-freestyle-job <span class="comment"># timeout=10</span></span><br><span class="line">Fetching upstream changes from https:<span class="regexp">//gi</span>tlab.example.com<span class="regexp">/root/</span>java-war-dev.git</span><br><span class="line"> &gt; git --version <span class="comment"># timeout=10</span></span><br><span class="line">using GIT_ASKPASS to set credentials </span><br><span class="line"> &gt; git fetch --tags --progress https:<span class="regexp">//gi</span>tlab.example.com<span class="regexp">/root/</span>java-war-dev.git +refs<span class="regexp">/heads/</span>*:refs<span class="regexp">/remotes/</span>origin/*</span><br><span class="line"> &gt; git config remote.origin.url https:<span class="regexp">//gi</span>tlab.example.com<span class="regexp">/root/</span>java-war-dev.git <span class="comment"># timeout=10</span></span><br><span class="line"> &gt; git config --add remote.origin.fetch +refs<span class="regexp">/heads/</span>*:refs<span class="regexp">/remotes/</span>origin/* <span class="comment"># timeout=10</span></span><br><span class="line"> &gt; git config remote.origin.url https:<span class="regexp">//gi</span>tlab.example.com<span class="regexp">/root/</span>java-war-dev.git <span class="comment"># timeout=10</span></span><br><span class="line">Fetching upstream changes from https:<span class="regexp">//gi</span>tlab.example.com<span class="regexp">/root/</span>java-war-dev.git</span><br><span class="line">using GIT_ASKPASS to set credentials </span><br><span class="line"> &gt; git fetch --tags --progress https:<span class="regexp">//gi</span>tlab.example.com<span class="regexp">/root/</span>java-war-dev.git +refs<span class="regexp">/heads/</span>*:refs<span class="regexp">/remotes/</span>origin/*</span><br><span class="line"> &gt; git rev-parse refs<span class="regexp">/remotes/</span>origin/master^&#123;commit&#125; <span class="comment"># timeout=10</span></span><br><span class="line"> &gt; git rev-parse refs<span class="regexp">/remotes/</span>origin<span class="regexp">/origin/m</span>aster^&#123;commit&#125; <span class="comment"># timeout=10</span></span><br><span class="line">Checking out Revision aa3c70c49a68bfc91b4fe65c38be0b4b15461a63 (refs<span class="regexp">/remotes/</span>origin/master)</span><br><span class="line"> &gt; git config core.sparsecheckout <span class="comment"># timeout=10</span></span><br><span class="line"> &gt; git checkout -f aa3c70c49a68bfc91b4fe65c38be0b4b15461a63</span><br><span class="line">Commit message: <span class="string">&quot;first commit&quot;</span></span><br><span class="line">First time build. Skipping changelog.</span><br><span class="line">[maven-freestyle-job] $ <span class="regexp">/opt/</span>apache-maven-<span class="number">3.6</span>.<span class="number">0</span><span class="regexp">/bin/m</span>vn package</span><br><span class="line">The JAVA_HOME environment variable is not defined correctly</span><br><span class="line">This environment variable is needed to run this program</span><br><span class="line">NB: JAVA_HOME should point to a JDK not a JRE</span><br><span class="line">Build step <span class="string">&#x27;Invoke top-level Maven targets&#x27;</span> marked build as failure</span><br><span class="line">Finished: FAILURE</span><br></pre></td></tr></table></figure>
+
+<p>由报错信息可以看出，jdk环境设置有问题</p>
+<p>以下报错信息目前没有解决掉，如果有热心同学知道解决办法的欢迎评论区指教^_^ ~,针对以上问题，我是删掉重新构建了一遍，包括全局凭据也是删掉重新创建了一个一样的，然后再次执行的时候就没有报错。</p>
+<p>但是经反复确认，jdk路径没有错，接着有重新构建，提示以下内容</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">Started by user admin</span><br><span class="line">Building <span class="keyword">in</span> workspace <span class="regexp">/var/</span>lib<span class="regexp">/jenkins/</span>workspace/maven-freestyle-job</span><br><span class="line"> &gt; git rev-parse --is-inside-work-tree <span class="comment"># timeout=10</span></span><br><span class="line">Fetching changes from the remote Git repository</span><br><span class="line"> &gt; git config remote.origin.url https:<span class="regexp">//gi</span>tlab.example.com<span class="regexp">/root/</span>java-war-dev.git <span class="comment"># timeout=10</span></span><br><span class="line">Fetching upstream changes from https:<span class="regexp">//gi</span>tlab.example.com<span class="regexp">/root/</span>java-war-dev.git</span><br><span class="line"> &gt; git --version <span class="comment"># timeout=10</span></span><br><span class="line">using GIT_ASKPASS to set credentials </span><br><span class="line"> &gt; git fetch --tags --progress https:<span class="regexp">//gi</span>tlab.example.com<span class="regexp">/root/</span>java-war-dev.git +refs<span class="regexp">/heads/</span>*:refs<span class="regexp">/remotes/</span>origin/*</span><br><span class="line"> &gt; git rev-parse refs<span class="regexp">/remotes/</span>origin/master^&#123;commit&#125; <span class="comment"># timeout=10</span></span><br><span class="line"> &gt; git rev-parse refs<span class="regexp">/remotes/</span>origin<span class="regexp">/origin/m</span>aster^&#123;commit&#125; <span class="comment"># timeout=10</span></span><br><span class="line">Checking out Revision aa3c70c49a68bfc91b4fe65c38be0b4b15461a63 (refs<span class="regexp">/remotes/</span>origin/master)</span><br><span class="line"> &gt; git config core.sparsecheckout <span class="comment"># timeout=10</span></span><br><span class="line"> &gt; git checkout -f aa3c70c49a68bfc91b4fe65c38be0b4b15461a63</span><br><span class="line">Commit message: <span class="string">&quot;first commit&quot;</span></span><br><span class="line"> &gt; git rev-list --no-walk aa3c70c49a68bfc91b4fe65c38be0b4b15461a63 <span class="comment"># timeout=10</span></span><br><span class="line">[maven-freestyle-job] $ <span class="regexp">/opt/</span>apache-maven-<span class="number">3.6</span>.<span class="number">0</span><span class="regexp">/bin/m</span>vn package</span><br><span class="line">[INFO] Scanning <span class="keyword">for</span> projects...</span><br><span class="line">[INFO] ------------------------------------------------------------------------</span><br><span class="line">[INFO] BUILD FAILURE</span><br><span class="line">[INFO] ------------------------------------------------------------------------</span><br><span class="line">[INFO] Total time:  <span class="number">0.112</span> s</span><br><span class="line">[INFO] Finished at: <span class="number">2019</span>-<span class="number">01</span>-<span class="number">09</span>T17:<span class="number">46</span>:<span class="number">04</span>+<span class="number">08</span>:<span class="number">00</span></span><br><span class="line">[INFO] ------------------------------------------------------------------------</span><br><span class="line">[ERROR] The goal you specified requires a project to execute but there is no POM <span class="keyword">in</span> this directory (<span class="regexp">/var/</span>lib<span class="regexp">/jenkins/</span>workspace/maven-freestyle-job). Please verify you invoked Maven from the correct directory. -&gt; [Help <span class="number">1</span>]</span><br><span class="line">[ERROR] </span><br><span class="line">[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.</span><br><span class="line">[ERROR] Re-run Maven using the -X switch to enable full debug logging.</span><br><span class="line">[ERROR] </span><br><span class="line">[ERROR] For more information about the errors and possible solutions, please read the following articles:</span><br><span class="line">[ERROR] [Help <span class="number">1</span>] http:<span class="regexp">//</span>cwiki.apache.org<span class="regexp">/confluence/</span>display<span class="regexp">/MAVEN/</span>MissingProjectException</span><br><span class="line">Build step <span class="string">&#x27;Invoke top-level Maven targets&#x27;</span> marked build as failure</span><br><span class="line">Finished: FAILURE</span><br></pre></td></tr></table></figure>
+
+<p>然后进行如下操作</p>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[root@<span class="keyword">jenkins </span>~]<span class="comment"># cd /var/lib/jenkins/workspace/maven-freestyle-job</span></span><br><span class="line">[root@<span class="keyword">jenkins </span>maven-freestyle-<span class="keyword">job]# </span>ls</span><br><span class="line"><span class="keyword">Java-war-dev</span></span><br><span class="line"><span class="keyword">[root@jenkins </span>maven-freestyle-<span class="keyword">job]# </span>ls <span class="keyword">Java-war-dev/</span></span><br><span class="line"><span class="keyword">pom.xml </span> src</span><br><span class="line">[root@<span class="keyword">jenkins </span>maven-freestyle-<span class="keyword">job]# </span>mv <span class="keyword">Java-war-dev/pom.xml </span>.</span><br><span class="line">[root@<span class="keyword">jenkins </span>maven-freestyle-<span class="keyword">job]# </span>ls</span><br><span class="line"><span class="keyword">Java-war-dev </span> pom.xml</span><br></pre></td></tr></table></figure>
+
+<p>再次执行构建操作，还是报错</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">........</span><br><span class="line">[INFO] Building war: /var/lib/jenkins/workspace/maven-freestyle-job/target/Java-war-dev.war</span><br><span class="line">[INFO] <span class="comment">------------------------------------------------------------------------</span></span><br><span class="line">[INFO] BUILD FAILURE</span><br><span class="line">[INFO] <span class="comment">------------------------------------------------------------------------</span></span><br><span class="line">[INFO] Total time:  01:36 min</span><br><span class="line">[INFO] Finished at: 2019-01-09T18:04:52+08:00</span><br><span class="line">[INFO] <span class="comment">------------------------------------------------------------------------</span></span><br><span class="line">[ERROR] Failed to <span class="keyword">execute</span> goal </span><br><span class="line">org.apache.maven.plugins:maven-war-<span class="keyword">plugin</span>:<span class="number">2.2</span>:war (<span class="keyword">default</span>-war) <span class="keyword">on</span> <span class="keyword">project</span> <span class="keyword">Java</span>-war-dev: <span class="keyword">Error</span> assembling WAR: webxml <span class="keyword">attribute</span> <span class="keyword">is</span> <span class="keyword">required</span> (<span class="keyword">or</span> pre-existing WEB-INF/web.xml <span class="keyword">if</span> executing <span class="keyword">in</span> <span class="keyword">update</span> <span class="keyword">mode</span>) -&gt; [<span class="keyword">Help</span> <span class="number">1</span>]</span><br><span class="line">[<span class="keyword">ERROR</span>] </span><br><span class="line">[<span class="keyword">ERROR</span>] <span class="keyword">To</span> see the <span class="keyword">full</span> stack <span class="keyword">trace</span> <span class="keyword">of</span> the <span class="keyword">errors</span>, re-run Maven <span class="keyword">with</span> the -e switch.</span><br><span class="line">[<span class="keyword">ERROR</span>] Re-run Maven <span class="keyword">using</span> the -X <span class="keyword">switch</span> <span class="keyword">to</span> <span class="keyword">enable</span> <span class="keyword">full</span> debug logging.</span><br><span class="line">[<span class="keyword">ERROR</span>] </span><br><span class="line">[<span class="keyword">ERROR</span>] <span class="keyword">For</span> more information about the <span class="keyword">errors</span> <span class="keyword">and</span> possible solutions, please <span class="keyword">read</span> the <span class="keyword">following</span> articles:</span><br><span class="line">[<span class="keyword">ERROR</span>] [<span class="keyword">Help</span> <span class="number">1</span>] <span class="keyword">http</span>://cwiki.apache.org/confluence/display/MAVEN/MojoExecutionException</span><br><span class="line"></span><br><span class="line"><span class="keyword">Build</span> step <span class="string">&#x27;Invoke top-level Maven targets&#x27;</span> marked <span class="keyword">build</span> <span class="keyword">as</span> <span class="keyword">failure</span></span><br><span class="line">Finished: <span class="keyword">FAILURE</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>改了pom.xml文件之后</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>maven-release-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">version</span>&gt;</span>3.6<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">webXml</span>&gt;</span>WebRoot\WEB-INF\web.xml<span class="tag">&lt;/<span class="name">webXml</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">warSourceDirectory</span>&gt;</span>WebRoot<span class="tag">&lt;/<span class="name">warSourceDirectory</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--autoVersionSubmodules&gt;true&lt;/autoVersionSubmodules--&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>仍然报错</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">[INFO] Building war: /var/lib/jenkins/workspace/maven-freestyle-job/target/Java-war-dev.war</span><br><span class="line">[INFO] <span class="comment">------------------------------------------------------------------------</span></span><br><span class="line">[INFO] BUILD FAILURE</span><br><span class="line">[INFO] <span class="comment">------------------------------------------------------------------------</span></span><br><span class="line">[INFO] Total time:  0.995 s</span><br><span class="line">[INFO] Finished at: 2019-01-09T18:23:24+08:00</span><br><span class="line">[INFO] <span class="comment">------------------------------------------------------------------------</span></span><br><span class="line">[ERROR] Failed to <span class="keyword">execute</span> goal org.apache.maven.plugins:maven-war-<span class="keyword">plugin</span>:<span class="number">2.2</span>:war (<span class="keyword">default</span>-war) <span class="keyword">on</span> <span class="keyword">project</span> <span class="keyword">Java</span>-war-dev: <span class="keyword">Error</span> assembling WAR: webxml <span class="keyword">attribute</span> <span class="keyword">is</span> <span class="keyword">required</span> (<span class="keyword">or</span> pre-existing WEB-INF/web.xml <span class="keyword">if</span> executing <span class="keyword">in</span> <span class="keyword">update</span> <span class="keyword">mode</span>) -&gt; [<span class="keyword">Help</span> <span class="number">1</span>]</span><br><span class="line">[<span class="keyword">ERROR</span>] </span><br><span class="line">[<span class="keyword">ERROR</span>] <span class="keyword">To</span> see the <span class="keyword">full</span> stack <span class="keyword">trace</span> <span class="keyword">of</span> the <span class="keyword">errors</span>, re-run Maven <span class="keyword">with</span> the -e switch.</span><br><span class="line">[<span class="keyword">ERROR</span>] Re-run Maven <span class="keyword">using</span> the -X <span class="keyword">switch</span> <span class="keyword">to</span> <span class="keyword">enable</span> <span class="keyword">full</span> debug logging.</span><br><span class="line">[<span class="keyword">ERROR</span>] </span><br><span class="line">[<span class="keyword">ERROR</span>] <span class="keyword">For</span> more information about the <span class="keyword">errors</span> <span class="keyword">and</span> possible solutions, please <span class="keyword">read</span> the <span class="keyword">following</span> articles:</span><br><span class="line">[<span class="keyword">ERROR</span>] [<span class="keyword">Help</span> <span class="number">1</span>] <span class="keyword">http</span>://cwiki.apache.org/confluence/display/MAVEN/MojoExecutionException</span><br><span class="line"><span class="keyword">Build</span> step <span class="string">&#x27;Invoke top-level Maven targets&#x27;</span> marked <span class="keyword">build</span> <span class="keyword">as</span> <span class="keyword">failure</span></span><br><span class="line">Finished: <span class="keyword">FAILURE</span></span><br></pre></td></tr></table></figure>
+
+<p>再次更改pom.xml</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">version</span>&gt;</span>3.6<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">               <span class="tag">&lt;<span class="name">webResources</span>&gt;</span></span><br><span class="line">                   <span class="tag">&lt;<span class="name">resource</span>&gt;</span></span><br><span class="line">                       <span class="tag">&lt;<span class="name">directory</span>&gt;</span>web<span class="tag">&lt;/<span class="name">directory</span>&gt;</span></span><br><span class="line">                   <span class="tag">&lt;/<span class="name">resource</span>&gt;</span></span><br><span class="line">               <span class="tag">&lt;/<span class="name">webResources</span>&gt;</span></span><br><span class="line">               <span class="comment">&lt;!--webXml&gt;WebRoot\WEB-INF\web.xml&lt;/webXml&gt;</span></span><br><span class="line"><span class="comment">               &lt;warSourceDirectory&gt;WebRoot&lt;/warSourceDirectory--&gt;</span></span><br><span class="line">               <span class="comment">&lt;!--autoVersionSubmodules&gt;true&lt;/autoVersionSubmodules--&gt;</span></span><br><span class="line">           <span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>仍然报错</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">[INFO] Building war: /var/lib/jenkins/workspace/maven-freestyle-job/target/Java-war-dev.war</span><br><span class="line">[INFO] <span class="comment">------------------------------------------------------------------------</span></span><br><span class="line">[INFO] BUILD FAILURE</span><br><span class="line">[INFO] <span class="comment">------------------------------------------------------------------------</span></span><br><span class="line">[INFO] Total time:  0.982 s</span><br><span class="line">[INFO] Finished at: 2019-01-09T18:26:38+08:00</span><br><span class="line">[INFO] <span class="comment">------------------------------------------------------------------------</span></span><br><span class="line">[ERROR] Failed to <span class="keyword">execute</span> goal org.apache.maven.plugins:maven-war-<span class="keyword">plugin</span>:<span class="number">2.2</span>:war (<span class="keyword">default</span>-war) <span class="keyword">on</span> <span class="keyword">project</span> <span class="keyword">Java</span>-war-dev: <span class="keyword">Error</span> assembling WAR: webxml <span class="keyword">attribute</span> <span class="keyword">is</span> <span class="keyword">required</span> (<span class="keyword">or</span> pre-existing WEB-INF/web.xml <span class="keyword">if</span> executing <span class="keyword">in</span> <span class="keyword">update</span> <span class="keyword">mode</span>) -&gt; [<span class="keyword">Help</span> <span class="number">1</span>]</span><br><span class="line">[<span class="keyword">ERROR</span>] </span><br><span class="line">[<span class="keyword">ERROR</span>] <span class="keyword">To</span> see the <span class="keyword">full</span> stack <span class="keyword">trace</span> <span class="keyword">of</span> the <span class="keyword">errors</span>, re-run Maven <span class="keyword">with</span> the -e switch.</span><br><span class="line">[<span class="keyword">ERROR</span>] Re-run Maven <span class="keyword">using</span> the -X <span class="keyword">switch</span> <span class="keyword">to</span> <span class="keyword">enable</span> <span class="keyword">full</span> debug logging.</span><br><span class="line">[<span class="keyword">ERROR</span>] </span><br><span class="line">[<span class="keyword">ERROR</span>] <span class="keyword">For</span> more information about the <span class="keyword">errors</span> <span class="keyword">and</span> possible solutions, please <span class="keyword">read</span> the <span class="keyword">following</span> articles:</span><br><span class="line">[<span class="keyword">ERROR</span>] [<span class="keyword">Help</span> <span class="number">1</span>] <span class="keyword">http</span>://cwiki.apache.org/confluence/display/MAVEN/MojoExecutionException</span><br><span class="line"><span class="keyword">Build</span> step <span class="string">&#x27;Invoke top-level Maven targets&#x27;</span> marked <span class="keyword">build</span> <span class="keyword">as</span> <span class="keyword">failure</span></span><br><span class="line">Finished: <span class="keyword">FAILURE</span></span><br></pre></td></tr></table></figure>
+
+<p>然而网友说的这些并不能解决问题。</p>
+
+    </div>
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+  <div class="followme">
+    <span>欢迎关注我的其它发布渠道</span>
+
+    <div class="social-list">
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="/atom.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
+
+            <span class="label">RSS</span>
+          </a>
+        </div>
+    </div>
+  </div>
+
+          <div class="post-tags">
+              <a href="/sugw.github.io/tags/%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2/" rel="tag"># 自动部署</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%89)/" rel="prev" title="Jenkins+Gitlab+Ansible自动化部署(三)">
+                  <i class="fa fa-chevron-left"></i> Jenkins+Gitlab+Ansible自动化部署(三)
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/sugw.github.io/2020/11/27/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%BA%94)/" rel="next" title="Jenkins+Gitlab+Ansible自动化部署(五)">
+                  Jenkins+Gitlab+Ansible自动化部署(五) <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+  
+  
+  
+
+
+
+      
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      
+
+      
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">苏国伟</span>
+</div>
+
+<div>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span id="busuanzi_container_site_pv" style='display:none'>
+    本站总访问量 <span id="busuanzi_value_site_pv"></span> 次
+    <span class="post-meta-divider">|</span>
+</span>
+<span id="busuanzi_container_site_uv" style='display:none'>
+    有<span id="busuanzi_value_site_uv"></span>人看过我的博客啦
+</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">303k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">4:35</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+
+
+    </div>
+  </footer>
+
+  
+  <script size="300" alpha="0.6" zIndex="-1" src="//cdn.jsdelivr.net/npm/ribbon.js@1.0.2/dist/ribbon.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/animejs@3.2.0/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/@next-theme/pjax@0.4.0/pjax.min.js"></script>
+<script src="/sugw.github.io/js/utils.js"></script><script src="/sugw.github.io/js/motion.js"></script><script src="/sugw.github.io/js/next-boot.js"></script>
+  <script>
+var pjax = new Pjax({
+  selectors: [
+    'head title',
+    '.page-configurations',
+    '.main-inner',
+    '.post-toc-wrap',
+    '.languages',
+    '.pjax'
+  ],
+  analytics: false,
+  cacheBust: false,
+  scrollRestoration: false,
+  scrollTo: !CONFIG.bookmark.enable
+});
+
+document.addEventListener('pjax:success', () => {
+  pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+  NexT.boot.refresh();
+  // Define Motion Sequence & Bootstrap Motion.
+  if (CONFIG.motion.enable) {
+    NexT.motion.integrator
+      .init()
+      .add(NexT.motion.middleWares.subMenu)
+      .add(NexT.motion.middleWares.postList)
+      .bootstrap();
+  }
+  const hasTOC = document.querySelector('.post-toc');
+  document.querySelector('.sidebar-inner').classList.toggle('sidebar-nav-active', hasTOC);
+  document.querySelector(hasTOC ? '.sidebar-nav-toc' : '.sidebar-nav-overview').click();
+  NexT.utils.updateSidebarPosition();
+});
+</script>
+
+
+  
+
+
+
+
+  <script src="/sugw.github.io/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+
+
+
+    <div class="pjax">
+  
+
+  
+<script>
+NexT.utils.loadComments('#valine-comments', () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', () => {
+    new Valine(Object.assign({
+      el  : '#valine-comments',
+      path: "/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E5%9B%9B)/",
+    }, {"enable":true,"appId":"Rvi5XTbIGoBGqGhM3SdPXNnc-gzGzoHsz","appKey":"tsLwTwnG13sIxCOXRrDVxPqW","placeholder":"Just go go","avatar":"mm","meta":["nick","mail","link"],"pageSize":10,"lang":null,"visitor":false,"comment_count":true,"recordIP":false,"serverURLs":null,"enableQQ":false,"requiredFields":[]}
+    ));
+  }, window.Valine);
+});
+</script>
+
+    </div>
+<!-- hexo injector body_end start --><script src="https://cdn.jsdelivr.net/npm/hexo-widget-tree@0.0.5/js/index.js"></script><div id="widget-tree">
+      <ul><li class="tree-list-item"><i class="toggle-post-icon gg-folder-add"></i><a class="tree-list-link" href="/sugw.github.io/categories/Jenkins/">Jenkins</a><ul class="tree-list-children"><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2020/12/23/Jenkins%20pipeline%20%E5%A4%9A%E6%9C%8D%E5%8A%A1%E5%99%A8%EF%BC%8C%E5%A4%9A%E5%88%86%E6%94%AF%E5%8F%91%E7%89%88/" title="Jenkins pipeline 多服务器，多分支发版"><i class="post-icon gg-file-document"></i>Jenkins pipeline 多服务器，多分支发版</a></li><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%89)/" title="Jenkins+Gitlab+Ansible自动化部署(三)"><i class="post-icon gg-file-document"></i>Jenkins+Gitlab+Ansible自动化部署(三)</a></li><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2020/11/27/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%BA%94)/" title="Jenkins+Gitlab+Ansible自动化部署(五)"><i class="post-icon gg-file-document"></i>Jenkins+Gitlab+Ansible自动化部署(五)</a></li><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2020/12/08/Jenkins-pipeline%E7%9A%84%E5%88%9B%E5%BB%BA%E5%92%8C%E5%8F%82%E6%95%B0%E4%BC%A0%E9%80%92/" title="Jenkins-pipeline的创建和参数传递"><i class="post-icon gg-file-document"></i>Jenkins-pipeline的创建和参数传递</a></li><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E5%9B%9B)/" title="Jenkins+Gitlab+Ansible自动化部署(四)"><i class="post-icon gg-file-document"></i>Jenkins+Gitlab+Ansible自动化部署(四)</a></li><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/" title="Jenkins+Gitlab+Ansible自动化部署(一)"><i class="post-icon gg-file-document"></i>Jenkins+Gitlab+Ansible自动化部署(一)</a></li><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%BA%8C)/" title="Jenkins+Gitlab+Ansible自动化部署(二)"><i class="post-icon gg-file-document"></i>Jenkins+Gitlab+Ansible自动化部署(二)</a></li><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2020/11/27/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E5%85%AD)/" title="Jenkins+Gitlab+Ansible自动化部署(六)"><i class="post-icon gg-file-document"></i>Jenkins+Gitlab+Ansible自动化部署(六)</a></li></ul></li><li class="tree-list-item"><i class="toggle-post-icon gg-folder-add"></i><a class="tree-list-link" href="/sugw.github.io/categories/Linux/">Linux</a><ul class="tree-list-children"><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2020/10/28/Firewalld/" title="Firewalld"><i class="post-icon gg-file-document"></i>Firewalld</a></li><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2020/10/28/centos6.8%20%E5%AE%89%E8%A3%85supervisor/" title="centos6.8 安装supervisor"><i class="post-icon gg-file-document"></i>centos6.8 安装supervisor</a></li><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2020/10/21/linux%20%E7%A3%81%E7%9B%98%E6%BB%A1/" title="linux 磁盘"><i class="post-icon gg-file-document"></i>linux 磁盘</a></li><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2020/11/20/linux%E5%86%85%E6%A0%B8%E4%BC%98%E5%8C%96/" title="linux内核优化"><i class="post-icon gg-file-document"></i>linux内核优化</a></li></ul></li><li class="tree-list-item"><i class="toggle-post-icon gg-folder-add"></i><a class="tree-list-link" href="/sugw.github.io/categories/Mac/">Mac</a><ul class="tree-list-children"><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2020/10/26/mac%20for%20supervisor/" title="Mac start hexo for supervisor"><i class="post-icon gg-file-document"></i>Mac start hexo for supervisor</a></li></ul></li><li class="tree-list-item"><i class="toggle-post-icon gg-folder-add"></i><a class="tree-list-link" href="/sugw.github.io/categories/PHP/">PHP</a><ul class="tree-list-children"><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2020/11/19/PHP-FPM%20%E8%AE%BE%E7%BD%AE%E5%A4%9Apool%E3%80%81%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E9%87%8D%E5%86%99/" title="PHP-FPM 设置多pool、配置文件重写"><i class="post-icon gg-file-document"></i>PHP-FPM 设置多pool、配置文件重写</a></li></ul></li><li class="tree-list-item"><i class="toggle-post-icon gg-folder-add"></i><a class="tree-list-link" href="/sugw.github.io/categories/ansible/">ansible</a><ul class="tree-list-children"><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2020/11/20/ansible%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1%E5%92%8C%E7%94%A8%E6%88%B7%E7%BB%84%E6%A8%A1%E5%9D%97%E4%BD%BF%E7%94%A8/" title="ansible定时任务和用户组模块使用"><i class="post-icon gg-file-document"></i>ansible定时任务和用户组模块使用</a></li></ul></li><li class="tree-list-item"><i class="toggle-post-icon gg-folder-add"></i><a class="tree-list-link" href="/sugw.github.io/categories/wiki/">wiki</a><ul class="tree-list-children"><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2020/11/13/mediawiki%E5%AE%89%E8%A3%85/" title="mediawiki安装"><i class="post-icon gg-file-document"></i>mediawiki安装</a></li><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2020/11/13/mediawiki%20lockdown%E6%9D%83%E9%99%90%E9%85%8D%E7%BD%AE/" title="mediawiki lockdown权限配置"><i class="post-icon gg-file-document"></i>mediawiki lockdown权限配置</a></li><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2020/11/13/mediawiki%E6%82%AC%E6%B5%AE%E7%9B%AE%E5%BD%95/" title="mediawiki悬浮目录"><i class="post-icon gg-file-document"></i>mediawiki悬浮目录</a></li></ul></li><li class="tree-list-item"><i class="toggle-post-icon gg-folder-add"></i><a class="tree-list-link" href="/sugw.github.io/categories/%E4%BC%98%E5%8C%96/">优化</a><ul class="tree-list-children"><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2021/01/12/nginx%20%E9%9D%99%E6%80%81%E7%BD%91%E7%AB%99%E7%BC%93%E5%AD%98/" title="nginx 静态网站缓存"><i class="post-icon gg-file-document"></i>nginx 静态网站缓存</a></li><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2020/11/19/PHP-php-fpm%E9%85%8D%E7%BD%AE%E4%BC%98%E5%8C%96/" title="PHP-php-fpm配置优化"><i class="post-icon gg-file-document"></i>PHP-php-fpm配置优化</a></li><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2021/01/12/nginx%E4%BC%98%E5%8C%96/" title="Nginx优化详解"><i class="post-icon gg-file-document"></i>Nginx优化详解</a></li></ul></li><li class="tree-list-item"><i class="toggle-post-icon gg-folder-add"></i><a class="tree-list-link" href="/sugw.github.io/categories/%E5%AE%89%E8%A3%85/">安装</a><ul class="tree-list-children"><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2020/11/03/Centos67%20%E5%AE%89%E8%A3%85PHP7.3%E6%95%99%E7%A8%8B/" title="Centos6/7 安装PHP7.3教程"><i class="post-icon gg-file-document"></i>Centos6/7 安装PHP7.3教程</a></li></ul></li><li class="tree-list-item"><i class="toggle-post-icon gg-folder-add"></i><a class="tree-list-link" href="/sugw.github.io/categories/%E5%AE%9E%E6%88%98/">实战</a><ul class="tree-list-children"><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2021/01/13/l2tp+ppp+ipsec/" title="l2tp+ppp+ipsec"><i class="post-icon gg-file-document"></i>l2tp+ppp+ipsec</a></li></ul></li><li class="tree-list-item"><i class="toggle-post-icon gg-folder-add"></i><a class="tree-list-link" href="/sugw.github.io/categories/%E5%AE%9E%E8%B7%B5/">实践</a><ul class="tree-list-children"><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2021/02/04/Mysql%E5%BA%93CPU%E8%B7%91%E6%BB%A1%E5%A4%84%E7%90%86/" title="Mysql库CPU跑满处理"><i class="post-icon gg-file-document"></i>Mysql库CPU跑满处理</a></li></ul></li><li class="tree-list-item"><i class="toggle-post-icon gg-folder-add"></i><a class="tree-list-link" href="/sugw.github.io/categories/%E6%8E%A5%E5%8F%A3%E7%AE%A1%E7%90%86/">接口管理</a><ul class="tree-list-children"><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2020/11/18/DOClever-for-centos7%E5%AE%89%E8%A3%85/" title="DOClever for centos7安装"><i class="post-icon gg-file-document"></i>DOClever for centos7安装</a></li></ul></li><li class="tree-list-item"><i class="toggle-post-icon gg-folder-add"></i><a class="tree-list-link" href="/sugw.github.io/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a><ul class="tree-list-children"><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2020/10/27/Mysql%20%E5%BA%93%E6%9F%A5%E8%AF%A2%E5%A4%A7%E5%B0%8F/" title="Mysql数据库查询大小"><i class="post-icon gg-file-document"></i>Mysql数据库查询大小</a></li><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2020/11/17/Mysqldump%E5%A4%87%E4%BB%BD%E6%95%B0%E6%8D%AE%E5%BA%93%E6%97%B6%E6%8E%92%E9%99%A4%E6%9F%90%E4%BA%9B%E5%BA%93/" title="Mysqldump备份数据库时排除某些库"><i class="post-icon gg-file-document"></i>Mysqldump备份数据库时排除某些库</a></li><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2020/10/27/Mysql%20%E6%89%B9%E9%87%8F%E5%88%A0%E9%99%A4%E8%A1%A8/" title="Mysql 批量删除表"><i class="post-icon gg-file-document"></i>Mysql 批量删除表</a></li><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2021/01/06/mysql-delete/" title="mysql 删除表数据空间没有释放"><i class="post-icon gg-file-document"></i>mysql 删除表数据空间没有释放</a></li><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2021/01/06/mysql-%E6%9F%A5%E7%9C%8B%E9%94%81%E5%92%8C%E8%A7%A3%E9%99%A4%E9%94%81/" title="mysql查看锁和解除锁"><i class="post-icon gg-file-document"></i>mysql查看锁和解除锁</a></li><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2020/12/17/%E5%BC%80%E5%90%AFGTID%E7%9A%84%E6%83%85%E5%86%B5%E4%B8%8B%E5%AF%BC%E5%87%BA%E5%AF%BC%E5%85%A5%E5%BA%93%E7%9A%84%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9%20/" title="开启GTID的情况下导出导入库的注意事项"><i class="post-icon gg-file-document"></i>开启GTID的情况下导出导入库的注意事项</a></li></ul></li><li class="tree-list-item"><i class="toggle-post-icon gg-folder-add"></i><a class="tree-list-link" href="/sugw.github.io/categories/%E6%97%A5%E5%BF%97/">日志</a><ul class="tree-list-children"><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2021/01/12/nginx%20%E6%97%A5%E5%BF%97%E5%88%87%E5%89%B2/" title="nginx 日志切割"><i class="post-icon gg-file-document"></i>nginx 日志切割</a></li><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2021/01/12/nginx%E6%97%A5%E5%BF%97%E6%A0%BC%E5%BC%8F/" title="nginx日志格式"><i class="post-icon gg-file-document"></i>nginx日志格式</a></li></ul></li><li class="tree-list-item"><i class="toggle-post-icon gg-folder-add"></i><a class="tree-list-link" href="/sugw.github.io/categories/%E6%B5%8B%E8%AF%95/">测试</a><ul class="tree-list-children"><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2020/11/19/ab%E5%8E%8B%E6%B5%8B%E5%B7%A5%E5%85%B7/" title="ab压测工具"><i class="post-icon gg-file-document"></i>ab压测工具</a></li></ul></li><li class="tree-list-item"><i class="toggle-post-icon gg-folder-add"></i><a class="tree-list-link" href="/sugw.github.io/categories/%E6%BF%80%E6%B4%BB/">激活</a><ul class="tree-list-children"><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2020/12/01/datagrip/" title="datagrip"><i class="post-icon gg-file-document"></i>datagrip</a></li></ul></li><li class="tree-list-item"><i class="toggle-post-icon gg-folder-add"></i><a class="tree-list-link" href="/sugw.github.io/categories/%E7%9B%91%E6%8E%A7/">监控</a><ul class="tree-list-children"><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2020/10/26/Prometheus%E7%9B%91%E6%8E%A7node_exporter%E7%9A%84%E5%91%8A%E8%AD%A6%E8%A7%84%E5%88%99/" title="Prometheus监控node_exporter的告警规则"><i class="post-icon gg-file-document"></i>Prometheus监控node_exporter的告警规则</a></li><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2020/11/23/prometheus-pushgateway/" title="Prometheus-pushgateway"><i class="post-icon gg-file-document"></i>Prometheus-pushgateway</a></li></ul></li><li class="tree-list-item"><i class="toggle-post-icon gg-folder-add"></i><a class="tree-list-link" href="/sugw.github.io/categories/%E7%AC%94%E8%AE%B0/">笔记</a><ul class="tree-list-children"><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2021/01/25/Dockerfile%20ADD%20%E5%92%8C%20COPY%20%E7%9A%84%E5%8C%BA%E5%88%AB/" title="Dockerfile ADD和COPY的区别"><i class="post-icon gg-file-document"></i>Dockerfile ADD和COPY的区别</a></li><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2021/02/22/markdown%E8%AF%AD%E6%B3%95%E7%BB%98%E5%88%B6%E5%B8%B8%E7%94%A8%E5%9B%BE%E5%AE%9E%E4%BE%8B/" title="markdown语法绘制常用图实例"><i class="post-icon gg-file-document"></i>markdown语法绘制常用图实例</a></li><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2021/01/27/nginx%E5%86%85%E7%BD%AE%E5%8F%98%E9%87%8F%E8%AF%A6%E8%A7%A3/" title="Nginx内置变量详解"><i class="post-icon gg-file-document"></i>Nginx内置变量详解</a></li><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2021/01/27/nginx%E9%99%90%E6%B5%81%EF%BC%88%E9%99%90%E5%88%B6%E5%B9%B6%E5%8F%91%E9%85%8D%E7%BD%AE%EF%BC%89/" title="Nginx限流（限制并发配置）"><i class="post-icon gg-file-document"></i>Nginx限流（限制并发配置）</a></li></ul></li><li class="tree-list-item"><i class="toggle-post-icon gg-folder-add"></i><a class="tree-list-link" href="/sugw.github.io/categories/%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/">负载均衡</a><ul class="tree-list-children"><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2021/01/13/LVS%20NAT,DR,TUN%E4%B8%89%E7%A7%8D%E8%B4%9F%E8%BD%BD%E5%8E%9F%E7%90%86/" title="LVS NAT,DR,TUN三种负载原理"><i class="post-icon gg-file-document"></i>LVS NAT,DR,TUN三种负载原理</a></li></ul></li></ul>
+        <div id="widget-tree-button">
+          <i class="gg-chevron-right"></i>
+        </div>
+      </div><!-- hexo injector body_end end --><script src="/sugw.github.io/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"live2d-widget-model-chitose"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false});</script></body>
+</html>

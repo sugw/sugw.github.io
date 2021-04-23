@@ -1,0 +1,783 @@
+<!--动态线条背景-->
+<script type="text/javascript"
+color="220,220,220" opacity='0.7' zIndex="-2" count="200" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js">
+</script>
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><!-- hexo injector head_begin start --><link href="https://cdn.jsdelivr.net/npm/hexo-widget-tree@0.0.5/css/index.css" rel="stylesheet"/><!-- hexo injector head_begin end -->
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/sugw.github.io/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/sugw.github.io/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/sugw.github.io/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/sugw.github.io/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/sugw.github.io/css/main.css">
+
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.14.0/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"sugw.github.io","root":"/sugw.github.io/","scheme":"Gemini","version":"8.0.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
+  </script>
+
+  <meta name="description" content="1、Nginx运行工作进程数量Nginx运行工作进程个数一般设置CPU的核心或者核心数x2。如果不了解cpu的核数，可以top命令之后按1看出来，也可以查看&#x2F;proc&#x2F;cpuinfo文件 grep ^processor &#x2F;proc&#x2F;cpuinfo | wc -l 123456789[root@lx~]# vi&#x2F;usr&#x2F;local&#x2F;nginx1.10&#x2F;conf&#x2F;nginx.confworker_pr">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Nginx优化详解">
+<meta property="og:url" content="https://sugw.github.io/sugw.github.io/2021/01/12/nginx%E4%BC%98%E5%8C%96/index.html">
+<meta property="og:site_name" content="苏国伟">
+<meta property="og:description" content="1、Nginx运行工作进程数量Nginx运行工作进程个数一般设置CPU的核心或者核心数x2。如果不了解cpu的核数，可以top命令之后按1看出来，也可以查看&#x2F;proc&#x2F;cpuinfo文件 grep ^processor &#x2F;proc&#x2F;cpuinfo | wc -l 123456789[root@lx~]# vi&#x2F;usr&#x2F;local&#x2F;nginx1.10&#x2F;conf&#x2F;nginx.confworker_pr">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-01-12T09:01:12.210Z">
+<meta property="article:modified_time" content="2021-01-12T09:37:02.854Z">
+<meta property="article:author" content="苏国伟">
+<meta property="article:tag" content="nginx">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://sugw.github.io/sugw.github.io/2021/01/12/nginx%E4%BC%98%E5%8C%96/">
+
+
+<script data-pjax class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Nginx优化详解 | 苏国伟</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/sugw.github.io/atom.xml" title="苏国伟" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/sugw.github.io/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">苏国伟</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-首页">
+
+    <a href="/sugw.github.io/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-作者">
+
+    <a href="/sugw.github.io/about/" rel="section"><i class="fa fa-user fa-fw"></i>作者</a>
+
+  </li>
+        <li class="menu-item menu-item-标签">
+
+    <a href="/sugw.github.io/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-分类">
+
+    <a href="/sugw.github.io/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-归档">
+
+    <a href="/sugw.github.io/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <section class="post-toc-wrap sidebar-panel">
+          <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E3%80%81Nginx%E8%BF%90%E8%A1%8C%E5%B7%A5%E4%BD%9C%E8%BF%9B%E7%A8%8B%E6%95%B0%E9%87%8F"><span class="nav-number">1.</span> <span class="nav-text">1、Nginx运行工作进程数量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%E3%80%81Nginx%E8%BF%90%E8%A1%8CCPU%E4%BA%B2%E5%92%8C%E5%8A%9B"><span class="nav-number">2.</span> <span class="nav-text">2、Nginx运行CPU亲和力</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3%E3%80%81Nginx%E6%9C%80%E5%A4%A7%E6%89%93%E5%BC%80%E6%96%87%E4%BB%B6%E6%95%B0"><span class="nav-number">3.</span> <span class="nav-text">3、Nginx最大打开文件数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4%E3%80%81Nginx%E4%BA%8B%E4%BB%B6%E5%A4%84%E7%90%86%E6%A8%A1%E5%9E%8B"><span class="nav-number">4.</span> <span class="nav-text">4、Nginx事件处理模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5%E3%80%81%E5%BC%80%E5%90%AF%E9%AB%98%E6%95%88%E4%BC%A0%E8%BE%93%E6%A8%A1%E5%BC%8F"><span class="nav-number">5.</span> <span class="nav-text">5、开启高效传输模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6%E3%80%81%E8%BF%9E%E6%8E%A5%E8%B6%85%E6%97%B6%E6%97%B6%E9%97%B4"><span class="nav-number">6.</span> <span class="nav-text">6、连接超时时间</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7%E3%80%81fastcgi-%E8%B0%83%E4%BC%98"><span class="nav-number">7.</span> <span class="nav-text">7、fastcgi 调优</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8%E3%80%81gzip-%E8%B0%83%E4%BC%98"><span class="nav-number">8.</span> <span class="nav-text">8、gzip 调优</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9%E3%80%81expires-%E7%BC%93%E5%AD%98%E8%B0%83%E4%BC%98"><span class="nav-number">9.</span> <span class="nav-text">9、expires 缓存调优</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#10%E3%80%81%E9%98%B2%E7%9B%97%E9%93%BE"><span class="nav-number">10.</span> <span class="nav-text">10、防盗链</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#11%E3%80%81%E5%86%85%E6%A0%B8%E5%8F%82%E6%95%B0%E4%BC%98%E5%8C%96"><span class="nav-number">11.</span> <span class="nav-text">11、内核参数优化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#12%E3%80%81%E5%85%B3%E4%BA%8E%E7%B3%BB%E7%BB%9F%E8%BF%9E%E6%8E%A5%E6%95%B0%E7%9A%84%E4%BC%98%E5%8C%96"><span class="nav-number">12.</span> <span class="nav-text">12、关于系统连接数的优化</span></a></li></ol></div>
+      </section>
+      <!--/noindex-->
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="苏国伟"
+      src="/sugw.github.io/images/291603183698.jpg">
+  <p class="site-author-name" itemprop="name">苏国伟</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/sugw.github.io/archives">
+          <span class="site-state-item-count">47</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/sugw.github.io/categories/">
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/sugw.github.io/tags/">
+        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </section>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+      
+
+      
+  
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://sugw.github.io/sugw.github.io/2021/01/12/nginx%E4%BC%98%E5%8C%96/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/sugw.github.io/images/291603183698.jpg">
+      <meta itemprop="name" content="苏国伟">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="苏国伟">
+    </span>
+
+    
+    
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Nginx优化详解
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2021-01-12 17:01:12 / 修改时间：17:37:02" itemprop="dateCreated datePublished" datetime="2021-01-12T17:01:12+08:00">2021-01-12</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/sugw.github.io/categories/%E4%BC%98%E5%8C%96/" itemprop="url" rel="index"><span itemprop="name">优化</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/sugw.github.io/2021/01/12/nginx%E4%BC%98%E5%8C%96/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/sugw.github.io/2021/01/12/nginx%E4%BC%98%E5%8C%96/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>13k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>12 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h3 id="1、Nginx运行工作进程数量"><a href="#1、Nginx运行工作进程数量" class="headerlink" title="1、Nginx运行工作进程数量"></a>1、Nginx运行工作进程数量</h3><p>Nginx运行工作进程个数一般设置CPU的核心或者核心数x2。如果不了解cpu的核数，可以top命令之后按1看出来，也可以查看/proc/cpuinfo文件 grep ^processor /proc/cpuinfo | wc -l</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">[root@lx~]</span># vi/usr/local/nginx1<span class="number">.10</span>/conf/nginx.conf</span><br><span class="line">worker_processes <span class="number">4</span>;</span><br><span class="line"><span class="string">[root@lx~]</span># /usr/local/nginx1<span class="number">.10</span>/sbin/nginx-s reload</span><br><span class="line"><span class="string">[root@lx~]</span># ps -aux | grep nginx |grep -v grep</span><br><span class="line">root <span class="number">9834</span> <span class="number">0.0</span> <span class="number">0.0</span> <span class="number">47556</span> <span class="number">1948</span> ?     Ss <span class="number">22</span>:<span class="number">36</span> <span class="number">0</span>:<span class="number">00</span> nginx: master processnginx</span><br><span class="line">www <span class="number">10135</span> <span class="number">0.0</span> <span class="number">0.0</span> <span class="number">50088</span> <span class="number">2004</span> ?       S   <span class="number">22</span>:<span class="number">58</span> <span class="number">0</span>:<span class="number">00</span> nginx: worker process</span><br><span class="line">www <span class="number">10136</span> <span class="number">0.0</span> <span class="number">0.0</span> <span class="number">50088</span> <span class="number">2004</span> ?       S   <span class="number">22</span>:<span class="number">58</span> <span class="number">0</span>:<span class="number">00</span> nginx: worker process</span><br><span class="line">www <span class="number">10137</span> <span class="number">0.0</span> <span class="number">0.0</span> <span class="number">50088</span> <span class="number">2004</span> ?       S   <span class="number">22</span>:<span class="number">58</span> <span class="number">0</span>:<span class="number">00</span> nginx: worker process</span><br><span class="line">www <span class="number">10138</span> <span class="number">0.0</span> <span class="number">0.0</span> <span class="number">50088</span> <span class="number">2004</span> ?       S   <span class="number">22</span>:<span class="number">58</span> <span class="number">0</span>:<span class="number">00</span> nginx: worker process</span><br></pre></td></tr></table></figure>
+
+<h3 id="2、Nginx运行CPU亲和力"><a href="#2、Nginx运行CPU亲和力" class="headerlink" title="2、Nginx运行CPU亲和力"></a>2、Nginx运行CPU亲和力</h3><p>比如4核配置：</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">worker_processes <span class="number">4</span>;</span><br><span class="line">worker_cpu_affinity <span class="number">0001</span> <span class="number">0010</span> <span class="number">0100</span> <span class="number">1000</span></span><br></pre></td></tr></table></figure>
+
+<p>比如8核配置：</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">worker_processes <span class="number">8</span>;</span><br><span class="line">worker_cpu_affinity <span class="number">00000001</span> <span class="number">00000010</span> <span class="number">00000100</span> <span class="number">0000100000010000</span> <span class="number">00100000</span> <span class="number">01000000</span> <span class="number">10000000</span>;</span><br></pre></td></tr></table></figure>
+
+<p>worker_processes最多开启8个，8个以上性能提升不会再提升了，而且稳定性变得更低，所以8个进程够用了。</p>
+<h3 id="3、Nginx最大打开文件数"><a href="#3、Nginx最大打开文件数" class="headerlink" title="3、Nginx最大打开文件数"></a>3、Nginx最大打开文件数</h3><figure class="highlight abnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">worker_rlimit_nofile <span class="number">65535</span><span class="comment">;</span></span><br></pre></td></tr></table></figure>
+
+<p>这个指令是指当一个nginx进程打开的最多文件描述符数目，理论值应该是最多打开文件数（ulimit -n）与nginx进程数相除，但是nginx分配请求并不是那么均匀，所以最好与ulimit -n的值保持一致。</p>
+<p>注：文件资源限制的配置可以在/etc/security/limits.conf设置，针对root/user等各个用户或者*代表所有用户来设置。</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">*   soft nofile   <span class="number">65535</span></span><br><span class="line">*   hard nofile   <span class="number">65535</span></span><br></pre></td></tr></table></figure>
+
+<p>用户重新登录生效（ulimit -n）</p>
+<h3 id="4、Nginx事件处理模型"><a href="#4、Nginx事件处理模型" class="headerlink" title="4、Nginx事件处理模型"></a>4、Nginx事件处理模型</h3><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">events</span> &#123;</span><br><span class="line">  <span class="attribute">use</span> <span class="literal">epoll</span>;</span><br><span class="line">  <span class="attribute">worker_connections</span> <span class="number">65535</span>;</span><br><span class="line">  <span class="attribute">multi_accept</span> <span class="literal">on</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>nginx采用epoll事件模型，处理效率高。</p>
+<p>work_connections是单个worker进程允许客户端最大连接数，这个数值一般根据服务器性能和内存来制定，实际最大值就是worker进程数乘以work_connections。</p>
+<p>实际我们填入一个65535，足够了，这些都算并发值，一个网站的并发达到这么大的数量，也算一个大站了！</p>
+<p>multi_accept 告诉nginx收到一个新连接通知后接受尽可能多的连接，默认是on，设置为on后，多个worker按串行方式来处理连接，也就是一个连接只有一个worker被唤醒，其他的处于休眠状态，设置为off后，多个worker按并行方式来处理连接，也就是一个连接会唤醒所有的worker，直到连接分配完毕，没有取得连接的继续休眠。当你的服务器连接数不多时，开启这个参数会让负载有一定的降低，但是当服务器的吞吐量很大时，为了效率，可以关闭这个参数。</p>
+<h3 id="5、开启高效传输模式"><a href="#5、开启高效传输模式" class="headerlink" title="5、开启高效传输模式"></a>5、开启高效传输模式</h3><figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">http &#123;</span><br><span class="line">  include mime.types;</span><br><span class="line">  default_type <span class="built_in">application</span>/octet-stream;</span><br><span class="line">  ……</span><br><span class="line"></span><br><span class="line">  sendfile <span class="keyword">on</span>;</span><br><span class="line">  tcp_nopush <span class="keyword">on</span>;</span><br><span class="line">  ……</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>Include mime.types ： 媒体类型,include 只是一个在当前文件中包含另一个文件内容的指令。</li>
+<li>default_type application/octet-stream ：默认媒体类型足够。</li>
+<li>sendfile on：开启高效文件传输模式，sendfile指令指定nginx是否调用sendfile函数来输出文件，对于普通应用设为 on，如果用来进行下载等应用磁盘IO重负载应用，可设置为off，以平衡磁盘与网络I/O处理速度，降低系统的负载。注意：如果图片显示不正常把这个改成off。</li>
+<li>tcp_nopush on：必须在sendfile开启模式才有效，防止网路阻塞，积极的减少网络报文段的数量（将响应头和正文的开始部分一起发送，而不一个接一个的发送。）</li>
+</ul>
+<h3 id="6、连接超时时间"><a href="#6、连接超时时间" class="headerlink" title="6、连接超时时间"></a>6、连接超时时间</h3><p>主要目的是保护服务器资源，CPU，内存，控制连接数，因为建立连接也是需要消耗资源的。</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">keepalive_timeout</span> <span class="number">60</span>;</span><br><span class="line"><span class="attribute">tcp_nodelay</span> <span class="literal">on</span>;</span><br><span class="line"><span class="attribute">client_header_buffer_size</span> <span class="number">4k</span>;</span><br><span class="line"><span class="attribute">open_file_cache</span> max=<span class="number">102400</span> inactive=<span class="number">20s</span>;</span><br><span class="line"><span class="attribute">open_file_cache_valid</span> <span class="number">30s</span>;</span><br><span class="line"><span class="attribute">open_file_cache_min_uses</span> <span class="number">1</span>;</span><br><span class="line"><span class="attribute">client_header_timeout</span> <span class="number">15</span>;</span><br><span class="line"><span class="attribute">client_body_timeout</span> <span class="number">15</span>;</span><br><span class="line"><span class="attribute">reset_timedout_connection</span> <span class="literal">on</span>;</span><br><span class="line"><span class="attribute">send_timeout</span> <span class="number">15</span>;</span><br><span class="line"><span class="attribute">server_tokens</span> <span class="literal">off</span>;</span><br><span class="line"><span class="attribute">client_max_body_size</span> <span class="number">10m</span>;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>keepalived_timeout ：客户端连接保持会话超时时间，超过这个时间，服务器断开这个链接。</li>
+<li>tcp_nodelay：也是防止网络阻塞，不过要包涵在keepalived参数才有效。</li>
+<li>client_header_buffer_size 4k：客户端请求头部的缓冲区大小，这个可以根据你的系统分页大小来设置，一般一个请求头的大小不会超过 1k，不过由于一般系统分页都要大于1k，所以这里设置为分页大小。分页大小可以用命令getconf PAGESIZE取得。</li>
+<li>open_file_cache max=102400 inactive=20s ：这个将为打开文件指定缓存，默认是没有启用的，max指定缓存数量，建议和打开文件数一致，inactive 是指经过多长时间文件没被请求后删除缓存。</li>
+<li>open_file_cache_valid 30s：这个是指多长时间检查一次缓存的有效信息。</li>
+<li>open_file_cache_min_uses 1 ：open_file_cache指令中的inactive 参数时间内文件的最少使用次数，如果超过这个数字，文件描述符一直是在缓存中打开的，如上例，如果有一个文件在inactive 时间内一次没被使用，它将被移除。</li>
+<li>client_header_timeout ： 设置请求头的超时时间。我们也可以把这个设置低些，如果超过这个时间没有发送任何数据，nginx将返回request time out的错误。</li>
+<li>client_body_timeout设置请求体的超时时间。我们也可以把这个设置低些，超过这个时间没有发送任何数据，和上面一样的错误提示。</li>
+<li>reset_timeout_connection ：告诉nginx关闭不响应的客户端连接。这将会释放那个客户端所占有的内存空间。</li>
+<li>send_timeout ：响应客户端超时时间，这个超时时间仅限于两个活动之间的时间，如果超过这个时间，客户端没有任何活动，nginx关闭连接。</li>
+<li>server_tokens ：并不会让nginx执行的速度更快，但它可以关闭在错误页面中的nginx版本数字，这样对于安全性是有好处的。</li>
+<li>client_max_body_size：上传文件大小限制。</li>
+</ul>
+<h3 id="7、fastcgi-调优"><a href="#7、fastcgi-调优" class="headerlink" title="7、fastcgi 调优"></a>7、fastcgi 调优</h3><figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">fastcgi_connect_timeout</span> <span class="number">600</span>;</span><br><span class="line"><span class="attribute">fastcgi_send_timeout</span> <span class="number">600</span>;</span><br><span class="line"><span class="attribute">fastcgi_read_timeout</span> <span class="number">600</span>;</span><br><span class="line"><span class="attribute">fastcgi_buffer_size</span> <span class="number">64</span>k;</span><br><span class="line"><span class="attribute">fastcgi_buffers</span> <span class="number">4</span> <span class="number">64</span>k;</span><br><span class="line"><span class="attribute">fastcgi_busy_buffers_size</span> <span class="number">128</span>k;</span><br><span class="line"><span class="attribute">fastcgi_temp_file_write_size</span> <span class="number">128</span>k;</span><br><span class="line"><span class="attribute">fastcgi_temp_path</span>/usr/local/nginx<span class="number">1</span>.<span class="number">10</span>/nginx_tmp;</span><br><span class="line"><span class="attribute">fastcgi_intercept_errors</span> <span class="literal">on</span>;</span><br><span class="line"><span class="attribute">fastcgi_cache_path</span>/usr/local/nginx<span class="number">1</span>.<span class="number">10</span>/fastcgi_cache levels=<span class="number">1</span>:<span class="number">2</span> keys_zone=cache_fastcgi:<span class="number">128</span>minactive=<span class="number">1</span>d max_size=<span class="number">10</span>g;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>fastcgi_connect_timeout 600 ：指定连接到后端FastCGI的超时时间。</li>
+<li>fastcgi_send_timeout 600 ：向FastCGI传送请求的超时时间。</li>
+<li>fastcgi_read_timeout 600 ：指定接收FastCGI应答的超时时间。</li>
+<li>fastcgi_buffer_size 64k ：指定读取FastCGI应答第一部分需要用多大的缓冲区，默认的缓冲区大小为。fastcgi_buffers指令中的每块大小，可以将这个值设置更小。</li>
+<li>fastcgi_buffers 4 64k ：指定本地需要用多少和多大的缓冲区来缓冲FastCGI的应答请求，如果一个php脚本所产生的页面大小为256KB，那么会分配4个64KB的缓冲区来缓存，如果页面大小大于256KB，那么大于256KB的部分会缓存到fastcgi_temp_path指定的路径中，但是这并不是好方法，因为内存中的数据处理速度要快于磁盘。一般这个值应该为站点中php脚本所产生的页面大小的中间值，如果站点大部分脚本所产生的页面大小为256KB，那么可以把这个值设置为“8 32K”、“4 64k”等。</li>
+<li>fastcgi_busy_buffers_size 128k ：建议设置为fastcgi_buffers的两倍，繁忙时候的buffer。</li>
+<li>fastcgi_temp_file_write_size 128k ：在写入fastcgi_temp_path时将用多大的数据块，默认值是fastcgi_buffers的两倍，该数值设置小时若负载上来时可能报502BadGateway。</li>
+<li>fastcgi_temp_path  ：缓存临时目录。</li>
+<li>fastcgi_intercept_errors on ：这个指令指定是否传递4xx和5xx错误信息到客户端，或者允许nginx使用error_page处理错误信息。注：静态文件不存在会返回404页面，但是php页面则返回空白页！</li>
+<li>fastcgi_cache_path /usr/local/nginx1.10/fastcgi_cachelevels=1:2 keys_zone=cache_fastcgi:128minactive=1d max_size=10g ：fastcgi_cache缓存目录，可以设置目录层级，比如1:2会生成16*256个子目录，cache_fastcgi是这个缓存空间的名字，cache是用多少内存（这样热门的内容nginx直接放内存，提高访问速度），inactive表示默认失效时间，如果缓存数据在失效时间内没有被访问,将被删除，max_size表示最多用多少硬盘空间。</li>
+<li>fastcgi_cache cache_fastcgi ：#表示开启FastCGI缓存并为其指定一个名称。开启缓存非常有用，可以有效降低CPU的负载，并且防止502的错误放生。cache_fastcgi为proxy_cache_path指令创建的缓存区名称。</li>
+<li>fastcgi_cache_valid 200 302 1h ：#用来指定应答代码的缓存时间，实例中的值表示将200和302应答缓存一小时，要和fastcgi_cache配合使用。</li>
+<li>fastcgi_cache_valid 301 1d ：将301应答缓存一天。</li>
+<li>fastcgi_cache_valid any 1m ：将其他应答缓存为1分钟。</li>
+<li>fastcgi_cache_min_uses 1 ：该指令用于设置经过多少次请求的相同URL将被缓存。</li>
+<li>fastcgi_cache_key http://$host$request_uri ：该指令用来设置web缓存的Key值,nginx根据Key值md5哈希存储.一般根据$host(域名)、$request_uri(请求的路径)等变量组合成proxy_cache_key 。</li>
+<li>fastcgi_pass  ：指定FastCGI服务器监听端口与地址，可以是本机或者其它。</li>
+</ul>
+<p><strong>总结：</strong></p>
+<p>nginx的缓存功能有：proxy_cache / fastcgi_cache</p>
+<ul>
+<li>proxy_cache的作用是缓存后端服务器的内容，可能是任何内容，包括静态的和动态。</li>
+<li>fastcgi_cache的作用是缓存fastcgi生成的内容，很多情况是php生成的动态的内容。</li>
+<li>proxy_cache缓存减少了nginx与后端通信的次数，节省了传输时间和后端宽带。</li>
+<li>fastcgi_cache缓存减少了nginx与php的通信的次数，更减轻了php和数据库(mysql)的压力。</li>
+</ul>
+<h3 id="8、gzip-调优"><a href="#8、gzip-调优" class="headerlink" title="8、gzip 调优"></a>8、gzip 调优</h3><p>使用gzip压缩功能，可能为我们节约带宽，加快传输速度，有更好的体验，也为我们节约成本，所以说这是一个重点。</p>
+<p>Nginx启用压缩功能需要你来ngx_http_gzip_module模块，apache使用的是mod_deflate。</p>
+<p>一般我们需要压缩的内容有：文本，js，html，css，对于图片，视频，flash什么的不压缩，同时也要注意，我们使用gzip的功能是需要消耗CPU的！</p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">gzip <span class="keyword">on</span>;</span><br><span class="line">gzip_min_length <span class="number">2</span>k;</span><br><span class="line">gzip_buffers   <span class="number">4</span> <span class="number">32</span>k;</span><br><span class="line">gzip_http_version <span class="number">1.1</span>;</span><br><span class="line">gzip_comp_level <span class="number">6</span>;</span><br><span class="line">gzip_typestext/plain <span class="built_in">text</span>/css <span class="built_in">text</span>/javascriptapplication/json <span class="built_in">application</span>/javascript <span class="built_in">application</span>/x-javascriptapplication/xml;</span><br><span class="line">gzip_vary <span class="keyword">on</span>;</span><br><span class="line">gzip_proxied any;</span><br><span class="line">gzip <span class="keyword">on</span>;   <span class="comment">#开启压缩功能</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>gzip_min_length 1k ：设置允许压缩的页面最小字节数，页面字节数从header头的Content-Length中获取，默认值是0，不管页面多大都进行压缩，建议设置成大于1K，如果小与1K可能会越压越大。</p>
+</li>
+<li><p>gzip_buffers 4 32k ：压缩缓冲区大小，表示申请4个单位为32K的内存作为压缩结果流缓存，默认值是申请与原始数据大小相同的内存空间来存储gzip压缩结果。</p>
+</li>
+<li><p>gzip_http_version 1.1 ：压缩版本，用于设置识别HTTP协议版本，默认是1.1，目前大部分浏览器已经支持GZIP解压，使用默认即可。</p>
+</li>
+<li><p>gzip_comp_level 6 ：压缩比例，用来指定GZIP压缩比，1压缩比最小，处理速度最快，9压缩比最大，传输速度快，但是处理慢，也比较消耗CPU资源。</p>
+</li>
+<li><p>gzip_types text/css text/xml application/javascript ：用来指定压缩的类型，‘text/html’类型总是会被压缩。默认值: gzip_types text/html (默认不对js/css文件进行压缩)</p>
+</li>
+<li><ul>
+<li>压缩类型，匹配MIME型进行压缩；</li>
+<li>不能用通配符 text/*；</li>
+<li>text/html默认已经压缩 (无论是否指定)；</li>
+<li>设置哪压缩种文本文件可参考 conf/mime.types。</li>
+</ul>
+</li>
+<li><p>gzip_vary on ：varyheader支持，改选项可以让前端的缓存服务器缓存经过GZIP压缩的页面，例如用Squid缓存经过nginx压缩的数据。</p>
+</li>
+</ul>
+<h3 id="9、expires-缓存调优"><a href="#9、expires-缓存调优" class="headerlink" title="9、expires 缓存调优"></a>9、expires 缓存调优</h3><p>缓存，主要针对于图片，css，js等元素更改机会比较少的情况下使用，特别是图片，占用带宽大，我们完全可以设置图片在浏览器本地缓存365d，css，js，html可以缓存个10来天，这样用户第一次打开加载慢一点，第二次，就非常快了！缓存的时候，我们需要将需要缓存的拓展名列出来， Expires缓存配置在server字段里面。</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">location</span> <span class="regexp">~* \.(ico|jpe?g|gif|png|bmp|swf|flv)$</span> &#123;</span><br><span class="line"><span class="attribute">expires</span> <span class="number">30d</span>;</span><br><span class="line"><span class="comment">#log_not_found off;</span></span><br><span class="line"><span class="attribute">access_log</span> <span class="literal">off</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="attribute">location</span> <span class="regexp">~* \.(js|css)$</span> &#123;</span><br><span class="line"><span class="attribute">expires</span> <span class="number">7d</span>;</span><br><span class="line"><span class="attribute">log_not_found</span> <span class="literal">off</span>;</span><br><span class="line"><span class="attribute">access_log</span> <span class="literal">off</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>注：log_not_found off;是否在error_log中记录不存在的错误。默认是。</p>
+<p>总结：</p>
+<p>expire功能优点：</p>
+<ul>
+<li>expires可以降低网站购买的带宽，节约成本；</li>
+<li>同时提升用户访问体验；</li>
+<li>减轻服务的压力，节约服务器成本，是web服务非常重要的功能。</li>
+</ul>
+<p>expire功能缺点：</p>
+<ul>
+<li>被缓存的页面或数据更新了，用户看到的可能还是旧的内容，反而影响用户体验。</li>
+</ul>
+<p>解决办法：第一个缩短缓存时间，例如：1天，但不彻底，除非更新频率大于1天；第二个对缓存的对象改名。</p>
+<p>网站不希望被缓存的内容：</p>
+<ul>
+<li>网站流量统计工具；</li>
+<li>更新频繁的文件（google的logo）。</li>
+</ul>
+<h3 id="10、防盗链"><a href="#10、防盗链" class="headerlink" title="10、防盗链"></a>10、防盗链</h3><p>防止别人直接从你网站引用图片等链接，消耗了你的资源和网络流量，那么我们的解决办法由几种：</p>
+<ol>
+<li>水印，品牌宣传，你的带宽，服务器足够；</li>
+<li>防火墙，直接控制，前提是你知道IP来源；</li>
+<li>防盗链策略下面的方法是直接给予404的错误提示。</li>
+</ol>
+<figure class="highlight coq"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">location ~*^.+\.(jpg|<span class="type">gif</span>|<span class="type">png</span>|<span class="type">swf</span>|<span class="type">flv</span>|<span class="type">wma</span>|<span class="type">wmv</span>|<span class="type">asf</span>|<span class="type">mp3</span>|<span class="type">mmf</span>|<span class="type">zip</span>|<span class="type">rar</span>)$ &#123;</span><br><span class="line">valid_referers none blocked www.benet.com benet.com;</span><br><span class="line"><span class="keyword">if</span>($invalid_referer) &#123;</span><br><span class="line">  #<span class="keyword">return</span> <span class="number">302</span> http://www.benet.com/img/nolink.jpg;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">404</span>;</span><br><span class="line">  break;</span><br><span class="line">&#125;</span><br><span class="line">access_log off;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>参数可以使如下形式：</p>
+<ul>
+<li><p>none  ：意思是不存在的Referer头(表示空的，也就是直接访问，比如直接在浏览器打开一个图片)。</p>
+</li>
+<li><p>blocked  ：意为根据防火墙伪装Referer头，如：“Referer:XXXXXXX”。</p>
+</li>
+<li><p>server_names  ：为一个或多个服务器的列表，0.5.33版本以后可以在名称中使用“*”通配符。</p>
+</li>
+</ul>
+<h3 id="11、内核参数优化"><a href="#11、内核参数优化" class="headerlink" title="11、内核参数优化"></a>11、内核参数优化</h3><ul>
+<li>fs.file-max = 999999：这个参数表示进程（比如一个worker进程）可以同时打开的最大句柄数，这个参数直线限制最大并发连接数，需根据实际情况配置。</li>
+<li>net.ipv4.tcp_max_tw_buckets = 6000 ：这个参数表示操作系统允许TIME_WAIT套接字数量的最大值，如果超过这个数字，TIME_WAIT套接字将立刻被清除并打印警告信息。该参数默认为180000，过多的TIME_WAIT套接字会使Web服务器变慢。注：主动关闭连接的服务端会产生TIME_WAIT状态的连接</li>
+<li>net.ipv4.ip_local_port_range = 1024 65000  ：允许系统打开的端口范围。</li>
+<li>net.ipv4.tcp_tw_recycle = 1 ：启用timewait快速回收。</li>
+<li>net.ipv4.tcp_tw_reuse = 1 ：开启重用。允许将TIME-WAIT sockets重新用于新的TCP连接。这对于服务器来说很有意义，因为服务器上总会有大量TIME-WAIT状态的连接。</li>
+<li>net.ipv4.tcp_keepalive_time = 30：这个参数表示当keepalive启用时，TCP发送keepalive消息的频度。默认是2小时，若将其设置的小一些，可以更快地清理无效的连接。</li>
+<li>net.ipv4.tcp_syncookies = 1 ：开启SYN Cookies，当出现SYN等待队列溢出时，启用cookies来处理。</li>
+<li>net.core.somaxconn = 40960  ：web 应用中 listen 函数的 backlog 默认会给我们内核参数的。</li>
+<li>net.core.somaxconn  ：限制到128，而nginx定义的NGX_LISTEN_BACKLOG 默认为511，所以有必要调整这个值。注：对于一个TCP连接，Server与Client需要通过三次握手来建立网络连接.当三次握手成功后,我们可以看到端口的状态由LISTEN转变为ESTABLISHED,接着这条链路上就可以开始传送数据了.每一个处于监听(Listen)状态的端口,都有自己的监听队列.监听队列的长度与如somaxconn参数和使用该端口的程序中listen()函数有关。somaxconn定义了系统中每一个端口最大的监听队列的长度,这是个全局的参数,默认值为128，对于一个经常处理新连接的高负载 web服务环境来说，默认的 128 太小了。大多数环境这个值建议增加到 1024 或者更多。大的侦听队列对防止拒绝服务 DoS 攻击也会有所帮助。</li>
+<li>net.core.netdev_max_backlog = 262144  ：每个网络接口接收数据包的速率比内核处理这些包的速率快时，允许送到队列的数据包的最大数目。</li>
+<li>net.ipv4.tcp_max_syn_backlog = 262144 ：这个参数标示TCP三次握手建立阶段接受SYN请求队列的最大长度，默认为1024，将其设置得大一些可以使出现Nginx繁忙来不及accept新连接的情况时，Linux不至于丢失客户端发起的连接请求。</li>
+<li>net.ipv4.tcp_rmem = 10240 87380 12582912 ：这个参数定义了TCP接受缓存（用于TCP接受滑动窗口）的最小值、默认值、最大值。</li>
+<li>net.ipv4.tcp_wmem = 10240 87380 12582912：这个参数定义了TCP发送缓存（用于TCP发送滑动窗口）的最小值、默认值、最大值。</li>
+<li>net.core.rmem_default = 6291456：这个参数表示内核套接字接受缓存区默认的大小。</li>
+<li>net.core.wmem_default = 6291456：这个参数表示内核套接字发送缓存区默认的大小。</li>
+<li>net.core.rmem_max = 12582912：这个参数表示内核套接字接受缓存区的最大大小。</li>
+<li>net.core.wmem_max = 12582912：这个参数表示内核套接字发送缓存区的最大大小。</li>
+<li>net.ipv4.tcp_syncookies = 1：该参数与性能无关，用于解决TCP的SYN攻击。</li>
+</ul>
+<p>下面贴一个完整的内核优化设置：</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">fs.file-max</span> = <span class="number">999999</span></span><br><span class="line"><span class="attr">net.ipv4.ip_forward</span> = <span class="number">0</span></span><br><span class="line"><span class="attr">net.ipv4.conf.default.rp_filter</span> = <span class="number">1</span></span><br><span class="line"><span class="attr">net.ipv4.conf.default.accept_source_route</span> = <span class="number">0</span></span><br><span class="line"><span class="attr">kernel.sysrq</span> = <span class="number">0</span></span><br><span class="line"><span class="attr">kernel.core_uses_pid</span> = <span class="number">1</span></span><br><span class="line"><span class="attr">net.ipv4.tcp_syncookies</span> = <span class="number">1</span></span><br><span class="line"><span class="attr">kernel.msgmnb</span> = <span class="number">65536</span></span><br><span class="line"><span class="attr">kernel.msgmax</span> = <span class="number">65536</span></span><br><span class="line"><span class="attr">kernel.shmmax</span> = <span class="number">68719476736</span></span><br><span class="line"><span class="attr">kernel.shmall</span> = <span class="number">4294967296</span></span><br><span class="line"><span class="attr">net.ipv4.tcp_max_tw_buckets</span> = <span class="number">6000</span></span><br><span class="line"><span class="attr">net.ipv4.tcp_sack</span> = <span class="number">1</span></span><br><span class="line"><span class="attr">net.ipv4.tcp_window_scaling</span> = <span class="number">1</span></span><br><span class="line"><span class="attr">net.ipv4.tcp_rmem</span> = <span class="number">10240</span> <span class="number">87380</span> <span class="number">12582912</span></span><br><span class="line"><span class="attr">net.ipv4.tcp_wmem</span> = <span class="number">10240</span> <span class="number">87380</span> <span class="number">12582912</span></span><br><span class="line"><span class="attr">net.core.wmem_default</span> = <span class="number">8388608</span></span><br><span class="line"><span class="attr">net.core.rmem_default</span> = <span class="number">8388608</span></span><br><span class="line"><span class="attr">net.core.rmem_max</span> = <span class="number">16777216</span></span><br><span class="line"><span class="attr">net.core.wmem_max</span> = <span class="number">16777216</span></span><br><span class="line"><span class="attr">net.core.netdev_max_backlog</span> = <span class="number">262144</span></span><br><span class="line"><span class="attr">net.core.somaxconn</span> = <span class="number">40960</span></span><br><span class="line"><span class="attr">net.ipv4.tcp_max_orphans</span> = <span class="number">3276800</span></span><br><span class="line"><span class="attr">net.ipv4.tcp_max_syn_backlog</span> = <span class="number">262144</span></span><br><span class="line"><span class="attr">net.ipv4.tcp_timestamps</span> = <span class="number">0</span></span><br><span class="line"><span class="attr">net.ipv4.tcp_synack_retries</span> = <span class="number">1</span></span><br><span class="line"><span class="attr">net.ipv4.tcp_syn_retries</span> = <span class="number">1</span></span><br><span class="line"><span class="attr">net.ipv4.tcp_tw_recycle</span> = <span class="number">1</span></span><br><span class="line"><span class="attr">net.ipv4.tcp_tw_reuse</span> = <span class="number">1</span></span><br><span class="line"><span class="attr">net.ipv4.tcp_mem</span> = <span class="number">94500000</span> <span class="number">915000000</span> <span class="number">927000000</span></span><br><span class="line"><span class="attr">net.ipv4.tcp_fin_timeout</span> = <span class="number">1</span></span><br><span class="line"><span class="attr">net.ipv4.tcp_keepalive_time</span> = <span class="number">30</span></span><br><span class="line"><span class="attr">net.ipv4.ip_local_port_range</span> = <span class="number">1024</span> <span class="number">65000</span></span><br></pre></td></tr></table></figure>
+
+<p>执行sysctl  -p使内核修改生效。</p>
+<h3 id="12、关于系统连接数的优化"><a href="#12、关于系统连接数的优化" class="headerlink" title="12、关于系统连接数的优化"></a>12、关于系统连接数的优化</h3><p>linux 默认值 open files为1024。查看当前系统值：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> <span class="built_in">ulimit</span> -n</span></span><br><span class="line">1024</span><br></pre></td></tr></table></figure>
+
+<p>说明server只允许同时打开1024个文件。</p>
+<p>使用ulimit -a 可以查看当前系统的所有限制值，使用ulimit -n 可以查看当前的最大打开文件数。</p>
+<p>新装的linux 默认只有1024 ，当作负载较大的服务器时，很容易遇到error: too many open files。因此，需要将其改大，在/etc/security/limits.conf最后增加：            </p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">*               soft    nofile           <span class="number">65535</span></span><br><span class="line">*               hard   nofile           <span class="number">65535</span></span><br><span class="line">*               soft    noproc         <span class="number">65535</span></span><br><span class="line">*               hard   noproc         <span class="number">65535</span>	</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<p>Nginx 优化参数：</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">user</span> <span class="string">www www;</span></span><br><span class="line">  </span><br><span class="line">  <span class="attr">worker_processes</span> <span class="string">8;</span></span><br><span class="line">  </span><br><span class="line">  <span class="attr">worker_cpu_affinity</span> <span class="string">00000001 00000010 00000100 00001000 00010000 00100000 01000000;</span></span><br><span class="line">  </span><br><span class="line">  <span class="attr">error_log</span> <span class="string">/www/log/nginx_error.log crit;</span></span><br><span class="line">  </span><br><span class="line">  <span class="attr">pid</span> <span class="string">/usr/local/nginx/nginx.pid;</span></span><br><span class="line">  </span><br><span class="line">  <span class="attr">worker_rlimit_nofile</span> <span class="string">204800;</span></span><br><span class="line">  </span><br><span class="line">  <span class="attr">events</span></span><br><span class="line">  <span class="attr">&#123;</span></span><br><span class="line">    <span class="attr">use</span> <span class="string">epoll;</span></span><br><span class="line">    <span class="attr">worker_connections</span> <span class="string">204800;</span></span><br><span class="line">    <span class="attr">multi_accept</span> <span class="string">on;</span></span><br><span class="line"></span><br><span class="line">  <span class="attr">&#125;</span></span><br><span class="line"></span><br><span class="line">  <span class="attr">http</span></span><br><span class="line">  <span class="attr">&#123;</span></span><br><span class="line">    <span class="attr">include</span> <span class="string">mime.types;</span></span><br><span class="line">    <span class="attr">default_type</span> <span class="string">application/octet-stream;</span></span><br><span class="line">    <span class="attr">charset</span> <span class="string">utf-8;</span></span><br><span class="line">    <span class="attr">server_names_hash_bucket_size</span> <span class="string">128;</span></span><br><span class="line">    </span><br><span class="line">    <span class="attr">large_client_header_buffers</span> <span class="string">4 4k;</span></span><br><span class="line">    <span class="attr">client_max_body_size</span> <span class="string">10m;</span></span><br><span class="line">    <span class="attr">sendfile</span> <span class="string">on;</span></span><br><span class="line">    <span class="attr">tcp_nopush</span> <span class="string">on;</span></span><br><span class="line">    <span class="attr">keepalive_timeout</span> <span class="string">60;</span></span><br><span class="line"> <span class="attr">tcp_nodelay</span> <span class="string">on;</span></span><br><span class="line"> <span class="attr">client_header_buffer_size</span> <span class="string">4k;</span></span><br><span class="line"> <span class="attr">client_header_timeout</span> <span class="string">15;</span></span><br><span class="line">    <span class="attr">client_body_timeout</span> <span class="string">15;</span></span><br><span class="line">    <span class="attr">open_file_cache</span> <span class="string">max=204800 inactive=20s;</span></span><br><span class="line">    <span class="attr">open_file_cache_min_uses</span> <span class="string">1;</span></span><br><span class="line">    <span class="attr">open_file_cache_valid</span> <span class="string">30s;</span></span><br><span class="line">    <span class="attr">reset_timedout_connection</span> <span class="string">on;       </span></span><br><span class="line">    <span class="attr">send_timeout</span> <span class="string">15;</span></span><br><span class="line"> <span class="attr">server_tokens</span> <span class="string">off;</span></span><br><span class="line"> <span class="attr">client_max_body_size</span> <span class="string">10m;</span></span><br><span class="line">    <span class="attr">fastcgi_cache_path</span> <span class="string">/usr/local/nginx/fastcgi_cache levels=1:2</span></span><br><span class="line">    <span class="attr">keys_zone</span>=<span class="string">TEST:10m</span></span><br><span class="line">    <span class="attr">inactive</span>=<span class="string">5m;</span></span><br><span class="line">    <span class="attr">fastcgi_connect_timeout</span> <span class="string">600;</span></span><br><span class="line">    <span class="attr">fastcgi_send_timeout</span> <span class="string">600;</span></span><br><span class="line">    <span class="attr">fastcgi_read_timeout</span> <span class="string">600;</span></span><br><span class="line">    <span class="attr">fastcgi_buffer_size</span> <span class="string">64k;</span></span><br><span class="line">    <span class="attr">fastcgi_buffers</span> <span class="string">4 64k;</span></span><br><span class="line">    <span class="attr">fastcgi_busy_buffers_size</span> <span class="string">128k;</span></span><br><span class="line">    <span class="attr">fastcgi_temp_file_write_size</span> <span class="string">128k;</span></span><br><span class="line">    <span class="attr">fastcgi_cache</span> <span class="string">TEST;</span></span><br><span class="line">    <span class="attr">fastcgi_cache_valid</span> <span class="string">200 302 1h;</span></span><br><span class="line">    <span class="attr">fastcgi_cache_valid</span> <span class="string">301 1d;</span></span><br><span class="line">    <span class="attr">fastcgi_cache_valid</span> <span class="string">any 1m;</span></span><br><span class="line">    <span class="attr">fastcgi_cache_min_uses</span> <span class="string">1;</span></span><br><span class="line">    <span class="attr">fastcgi_cache_use_stale</span> <span class="string">error timeout invalid_header http_500;</span></span><br><span class="line">    </span><br><span class="line">    <span class="attr">fastcgi_temp_path/usr/local/nginx1.10/nginx_tmp;</span></span><br><span class="line"> <span class="attr">fastcgi_intercept_errors</span> <span class="string">on;</span></span><br><span class="line"> <span class="meta">fastcgi_cache_path/usr/local/nginx1.10/fastcgi_cache</span> <span class="string">levels=1:2 		keys_zone=cache_fastcgi:128minactive=1d max_size=10g;</span></span><br><span class="line">    </span><br><span class="line">    <span class="attr">gzip</span> <span class="string">on;</span></span><br><span class="line">    <span class="attr">gzip_min_length</span> <span class="string">2k;</span></span><br><span class="line">    <span class="attr">gzip_buffers</span> <span class="string">4 32k;</span></span><br><span class="line">    <span class="attr">gzip_http_version</span> <span class="string">1.1;</span></span><br><span class="line">    <span class="attr">gzip_comp_level</span> <span class="string">6;</span></span><br><span class="line">    <span class="attr">gzip_types</span> <span class="string">text/plain text/css text/javascriptapplication/json application/javascript application/x-javascriptapplication/xml;</span></span><br><span class="line"></span><br><span class="line">    <span class="attr">gzip_vary</span> <span class="string">on;</span></span><br><span class="line"> <span class="attr">gzip_proxied</span> <span class="string">any;</span></span><br><span class="line">    <span class="attr">server</span></span><br><span class="line">    <span class="attr">&#123;</span></span><br><span class="line">      <span class="attr">listen</span> <span class="string">8080;</span></span><br><span class="line">      <span class="attr">server_name</span> <span class="string">backup.aiju.com;</span></span><br><span class="line">      <span class="attr">index</span> <span class="string">index.php index.htm;</span></span><br><span class="line">      <span class="attr">root</span> <span class="string">/www/html/;</span></span><br><span class="line"></span><br><span class="line">      <span class="attr">location</span> <span class="string">/status</span></span><br><span class="line">      <span class="attr">&#123;</span></span><br><span class="line">        <span class="attr">stub_status</span> <span class="string">on;</span></span><br><span class="line">      <span class="attr">&#125;</span></span><br><span class="line">      </span><br><span class="line">      <span class="attr">location</span> <span class="string">~ .*/.(php|php5)?$</span></span><br><span class="line">      <span class="attr">&#123;</span></span><br><span class="line">       <span class="attr">fastcgi_pass</span> <span class="string">127.0.0.1:9000;</span></span><br><span class="line">       <span class="attr">fastcgi_index</span> <span class="string">index.php;</span></span><br><span class="line">       <span class="attr">include</span> <span class="string">fcgi.conf;</span></span><br><span class="line">      <span class="attr">&#125;</span></span><br><span class="line">  </span><br><span class="line">      <span class="attr">location</span> <span class="string">~ .*/.(gif|jpg|jpeg|png|bmp|swf|js|css)$</span></span><br><span class="line">      <span class="attr">&#123;</span></span><br><span class="line">       <span class="attr">expires</span> <span class="string">30d;</span></span><br><span class="line">      <span class="attr">&#125;</span></span><br><span class="line">   </span><br><span class="line">      <span class="attr">log_format</span> <span class="string">access &#x27;$remote_addr — $remote_user [$time_local] &quot;$request&quot; &#x27;</span></span><br><span class="line">      <span class="meta">&#x27;$status</span> <span class="string">$body_bytes_sent &quot;$http_referer&quot; &#x27;</span></span><br><span class="line">      <span class="meta">&#x27;&quot;$http_user_agent&quot;</span> <span class="string">$http_x_forwarded_for&#x27;;</span></span><br><span class="line">      <span class="attr">access_log</span> <span class="string">/www/log/access.log access;</span></span><br><span class="line">    <span class="attr">&#125;</span></span><br><span class="line">  <span class="attr">&#125;</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+    </div>
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+  <div class="followme">
+    <span>欢迎关注我的其它发布渠道</span>
+
+    <div class="social-list">
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="/atom.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
+
+            <span class="label">RSS</span>
+          </a>
+        </div>
+    </div>
+  </div>
+
+          <div class="post-tags">
+              <a href="/sugw.github.io/tags/nginx/" rel="tag"># nginx</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/sugw.github.io/2021/01/06/mysql-delete/" rel="prev" title="mysql 删除表数据空间没有释放">
+                  <i class="fa fa-chevron-left"></i> mysql 删除表数据空间没有释放
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/sugw.github.io/2021/01/12/nginx%20%E9%9D%99%E6%80%81%E7%BD%91%E7%AB%99%E7%BC%93%E5%AD%98/" rel="next" title="nginx 静态网站缓存">
+                  nginx 静态网站缓存 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+  
+  
+  
+
+
+
+      
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      
+
+      
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">苏国伟</span>
+</div>
+
+<div>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span id="busuanzi_container_site_pv" style='display:none'>
+    本站总访问量 <span id="busuanzi_value_site_pv"></span> 次
+    <span class="post-meta-divider">|</span>
+</span>
+<span id="busuanzi_container_site_uv" style='display:none'>
+    有<span id="busuanzi_value_site_uv"></span>人看过我的博客啦
+</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">303k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">4:35</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+
+
+    </div>
+  </footer>
+
+  
+  <script size="300" alpha="0.6" zIndex="-1" src="//cdn.jsdelivr.net/npm/ribbon.js@1.0.2/dist/ribbon.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/animejs@3.2.0/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/@next-theme/pjax@0.4.0/pjax.min.js"></script>
+<script src="/sugw.github.io/js/utils.js"></script><script src="/sugw.github.io/js/motion.js"></script><script src="/sugw.github.io/js/next-boot.js"></script>
+  <script>
+var pjax = new Pjax({
+  selectors: [
+    'head title',
+    '.page-configurations',
+    '.main-inner',
+    '.post-toc-wrap',
+    '.languages',
+    '.pjax'
+  ],
+  analytics: false,
+  cacheBust: false,
+  scrollRestoration: false,
+  scrollTo: !CONFIG.bookmark.enable
+});
+
+document.addEventListener('pjax:success', () => {
+  pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+  NexT.boot.refresh();
+  // Define Motion Sequence & Bootstrap Motion.
+  if (CONFIG.motion.enable) {
+    NexT.motion.integrator
+      .init()
+      .add(NexT.motion.middleWares.subMenu)
+      .add(NexT.motion.middleWares.postList)
+      .bootstrap();
+  }
+  const hasTOC = document.querySelector('.post-toc');
+  document.querySelector('.sidebar-inner').classList.toggle('sidebar-nav-active', hasTOC);
+  document.querySelector(hasTOC ? '.sidebar-nav-toc' : '.sidebar-nav-overview').click();
+  NexT.utils.updateSidebarPosition();
+});
+</script>
+
+
+  
+
+
+
+
+  <script src="/sugw.github.io/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+
+
+
+    <div class="pjax">
+  
+
+  
+<script>
+NexT.utils.loadComments('#valine-comments', () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', () => {
+    new Valine(Object.assign({
+      el  : '#valine-comments',
+      path: "/sugw.github.io/2021/01/12/nginx%E4%BC%98%E5%8C%96/",
+    }, {"enable":true,"appId":"Rvi5XTbIGoBGqGhM3SdPXNnc-gzGzoHsz","appKey":"tsLwTwnG13sIxCOXRrDVxPqW","placeholder":"Just go go","avatar":"mm","meta":["nick","mail","link"],"pageSize":10,"lang":null,"visitor":false,"comment_count":true,"recordIP":false,"serverURLs":null,"enableQQ":false,"requiredFields":[]}
+    ));
+  }, window.Valine);
+});
+</script>
+
+    </div>
+<!-- hexo injector body_end start --><script src="https://cdn.jsdelivr.net/npm/hexo-widget-tree@0.0.5/js/index.js"></script><div id="widget-tree">
+      <ul><li class="tree-list-item"><i class="toggle-post-icon gg-folder-add"></i><a class="tree-list-link" href="/sugw.github.io/categories/Jenkins/">Jenkins</a><ul class="tree-list-children"><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2020/12/23/Jenkins%20pipeline%20%E5%A4%9A%E6%9C%8D%E5%8A%A1%E5%99%A8%EF%BC%8C%E5%A4%9A%E5%88%86%E6%94%AF%E5%8F%91%E7%89%88/" title="Jenkins pipeline 多服务器，多分支发版"><i class="post-icon gg-file-document"></i>Jenkins pipeline 多服务器，多分支发版</a></li><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%89)/" title="Jenkins+Gitlab+Ansible自动化部署(三)"><i class="post-icon gg-file-document"></i>Jenkins+Gitlab+Ansible自动化部署(三)</a></li><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2020/11/27/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%BA%94)/" title="Jenkins+Gitlab+Ansible自动化部署(五)"><i class="post-icon gg-file-document"></i>Jenkins+Gitlab+Ansible自动化部署(五)</a></li><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2020/12/08/Jenkins-pipeline%E7%9A%84%E5%88%9B%E5%BB%BA%E5%92%8C%E5%8F%82%E6%95%B0%E4%BC%A0%E9%80%92/" title="Jenkins-pipeline的创建和参数传递"><i class="post-icon gg-file-document"></i>Jenkins-pipeline的创建和参数传递</a></li><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E5%9B%9B)/" title="Jenkins+Gitlab+Ansible自动化部署(四)"><i class="post-icon gg-file-document"></i>Jenkins+Gitlab+Ansible自动化部署(四)</a></li><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%B8%80)/" title="Jenkins+Gitlab+Ansible自动化部署(一)"><i class="post-icon gg-file-document"></i>Jenkins+Gitlab+Ansible自动化部署(一)</a></li><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2020/11/26/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E4%BA%8C)/" title="Jenkins+Gitlab+Ansible自动化部署(二)"><i class="post-icon gg-file-document"></i>Jenkins+Gitlab+Ansible自动化部署(二)</a></li><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2020/11/27/Jenkins+Gitlab+Ansible%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2(%E5%85%AD)/" title="Jenkins+Gitlab+Ansible自动化部署(六)"><i class="post-icon gg-file-document"></i>Jenkins+Gitlab+Ansible自动化部署(六)</a></li></ul></li><li class="tree-list-item"><i class="toggle-post-icon gg-folder-add"></i><a class="tree-list-link" href="/sugw.github.io/categories/Linux/">Linux</a><ul class="tree-list-children"><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2020/10/28/Firewalld/" title="Firewalld"><i class="post-icon gg-file-document"></i>Firewalld</a></li><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2020/10/28/centos6.8%20%E5%AE%89%E8%A3%85supervisor/" title="centos6.8 安装supervisor"><i class="post-icon gg-file-document"></i>centos6.8 安装supervisor</a></li><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2020/10/21/linux%20%E7%A3%81%E7%9B%98%E6%BB%A1/" title="linux 磁盘"><i class="post-icon gg-file-document"></i>linux 磁盘</a></li><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2020/11/20/linux%E5%86%85%E6%A0%B8%E4%BC%98%E5%8C%96/" title="linux内核优化"><i class="post-icon gg-file-document"></i>linux内核优化</a></li></ul></li><li class="tree-list-item"><i class="toggle-post-icon gg-folder-add"></i><a class="tree-list-link" href="/sugw.github.io/categories/Mac/">Mac</a><ul class="tree-list-children"><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2020/10/26/mac%20for%20supervisor/" title="Mac start hexo for supervisor"><i class="post-icon gg-file-document"></i>Mac start hexo for supervisor</a></li></ul></li><li class="tree-list-item"><i class="toggle-post-icon gg-folder-add"></i><a class="tree-list-link" href="/sugw.github.io/categories/PHP/">PHP</a><ul class="tree-list-children"><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2020/11/19/PHP-FPM%20%E8%AE%BE%E7%BD%AE%E5%A4%9Apool%E3%80%81%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E9%87%8D%E5%86%99/" title="PHP-FPM 设置多pool、配置文件重写"><i class="post-icon gg-file-document"></i>PHP-FPM 设置多pool、配置文件重写</a></li></ul></li><li class="tree-list-item"><i class="toggle-post-icon gg-folder-add"></i><a class="tree-list-link" href="/sugw.github.io/categories/ansible/">ansible</a><ul class="tree-list-children"><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2020/11/20/ansible%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1%E5%92%8C%E7%94%A8%E6%88%B7%E7%BB%84%E6%A8%A1%E5%9D%97%E4%BD%BF%E7%94%A8/" title="ansible定时任务和用户组模块使用"><i class="post-icon gg-file-document"></i>ansible定时任务和用户组模块使用</a></li></ul></li><li class="tree-list-item"><i class="toggle-post-icon gg-folder-add"></i><a class="tree-list-link" href="/sugw.github.io/categories/wiki/">wiki</a><ul class="tree-list-children"><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2020/11/13/mediawiki%E5%AE%89%E8%A3%85/" title="mediawiki安装"><i class="post-icon gg-file-document"></i>mediawiki安装</a></li><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2020/11/13/mediawiki%20lockdown%E6%9D%83%E9%99%90%E9%85%8D%E7%BD%AE/" title="mediawiki lockdown权限配置"><i class="post-icon gg-file-document"></i>mediawiki lockdown权限配置</a></li><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2020/11/13/mediawiki%E6%82%AC%E6%B5%AE%E7%9B%AE%E5%BD%95/" title="mediawiki悬浮目录"><i class="post-icon gg-file-document"></i>mediawiki悬浮目录</a></li></ul></li><li class="tree-list-item"><i class="toggle-post-icon gg-folder-add"></i><a class="tree-list-link" href="/sugw.github.io/categories/%E4%BC%98%E5%8C%96/">优化</a><ul class="tree-list-children"><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2021/01/12/nginx%20%E9%9D%99%E6%80%81%E7%BD%91%E7%AB%99%E7%BC%93%E5%AD%98/" title="nginx 静态网站缓存"><i class="post-icon gg-file-document"></i>nginx 静态网站缓存</a></li><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2020/11/19/PHP-php-fpm%E9%85%8D%E7%BD%AE%E4%BC%98%E5%8C%96/" title="PHP-php-fpm配置优化"><i class="post-icon gg-file-document"></i>PHP-php-fpm配置优化</a></li><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2021/01/12/nginx%E4%BC%98%E5%8C%96/" title="Nginx优化详解"><i class="post-icon gg-file-document"></i>Nginx优化详解</a></li></ul></li><li class="tree-list-item"><i class="toggle-post-icon gg-folder-add"></i><a class="tree-list-link" href="/sugw.github.io/categories/%E5%AE%89%E8%A3%85/">安装</a><ul class="tree-list-children"><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2020/11/03/Centos67%20%E5%AE%89%E8%A3%85PHP7.3%E6%95%99%E7%A8%8B/" title="Centos6/7 安装PHP7.3教程"><i class="post-icon gg-file-document"></i>Centos6/7 安装PHP7.3教程</a></li></ul></li><li class="tree-list-item"><i class="toggle-post-icon gg-folder-add"></i><a class="tree-list-link" href="/sugw.github.io/categories/%E5%AE%9E%E6%88%98/">实战</a><ul class="tree-list-children"><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2021/01/13/l2tp+ppp+ipsec/" title="l2tp+ppp+ipsec"><i class="post-icon gg-file-document"></i>l2tp+ppp+ipsec</a></li></ul></li><li class="tree-list-item"><i class="toggle-post-icon gg-folder-add"></i><a class="tree-list-link" href="/sugw.github.io/categories/%E5%AE%9E%E8%B7%B5/">实践</a><ul class="tree-list-children"><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2021/02/04/Mysql%E5%BA%93CPU%E8%B7%91%E6%BB%A1%E5%A4%84%E7%90%86/" title="Mysql库CPU跑满处理"><i class="post-icon gg-file-document"></i>Mysql库CPU跑满处理</a></li></ul></li><li class="tree-list-item"><i class="toggle-post-icon gg-folder-add"></i><a class="tree-list-link" href="/sugw.github.io/categories/%E6%8E%A5%E5%8F%A3%E7%AE%A1%E7%90%86/">接口管理</a><ul class="tree-list-children"><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2020/11/18/DOClever-for-centos7%E5%AE%89%E8%A3%85/" title="DOClever for centos7安装"><i class="post-icon gg-file-document"></i>DOClever for centos7安装</a></li></ul></li><li class="tree-list-item"><i class="toggle-post-icon gg-folder-add"></i><a class="tree-list-link" href="/sugw.github.io/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a><ul class="tree-list-children"><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2020/10/27/Mysql%20%E5%BA%93%E6%9F%A5%E8%AF%A2%E5%A4%A7%E5%B0%8F/" title="Mysql数据库查询大小"><i class="post-icon gg-file-document"></i>Mysql数据库查询大小</a></li><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2020/11/17/Mysqldump%E5%A4%87%E4%BB%BD%E6%95%B0%E6%8D%AE%E5%BA%93%E6%97%B6%E6%8E%92%E9%99%A4%E6%9F%90%E4%BA%9B%E5%BA%93/" title="Mysqldump备份数据库时排除某些库"><i class="post-icon gg-file-document"></i>Mysqldump备份数据库时排除某些库</a></li><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2020/10/27/Mysql%20%E6%89%B9%E9%87%8F%E5%88%A0%E9%99%A4%E8%A1%A8/" title="Mysql 批量删除表"><i class="post-icon gg-file-document"></i>Mysql 批量删除表</a></li><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2021/01/06/mysql-delete/" title="mysql 删除表数据空间没有释放"><i class="post-icon gg-file-document"></i>mysql 删除表数据空间没有释放</a></li><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2021/01/06/mysql-%E6%9F%A5%E7%9C%8B%E9%94%81%E5%92%8C%E8%A7%A3%E9%99%A4%E9%94%81/" title="mysql查看锁和解除锁"><i class="post-icon gg-file-document"></i>mysql查看锁和解除锁</a></li><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2020/12/17/%E5%BC%80%E5%90%AFGTID%E7%9A%84%E6%83%85%E5%86%B5%E4%B8%8B%E5%AF%BC%E5%87%BA%E5%AF%BC%E5%85%A5%E5%BA%93%E7%9A%84%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9%20/" title="开启GTID的情况下导出导入库的注意事项"><i class="post-icon gg-file-document"></i>开启GTID的情况下导出导入库的注意事项</a></li></ul></li><li class="tree-list-item"><i class="toggle-post-icon gg-folder-add"></i><a class="tree-list-link" href="/sugw.github.io/categories/%E6%97%A5%E5%BF%97/">日志</a><ul class="tree-list-children"><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2021/01/12/nginx%20%E6%97%A5%E5%BF%97%E5%88%87%E5%89%B2/" title="nginx 日志切割"><i class="post-icon gg-file-document"></i>nginx 日志切割</a></li><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2021/01/12/nginx%E6%97%A5%E5%BF%97%E6%A0%BC%E5%BC%8F/" title="nginx日志格式"><i class="post-icon gg-file-document"></i>nginx日志格式</a></li></ul></li><li class="tree-list-item"><i class="toggle-post-icon gg-folder-add"></i><a class="tree-list-link" href="/sugw.github.io/categories/%E6%B5%8B%E8%AF%95/">测试</a><ul class="tree-list-children"><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2020/11/19/ab%E5%8E%8B%E6%B5%8B%E5%B7%A5%E5%85%B7/" title="ab压测工具"><i class="post-icon gg-file-document"></i>ab压测工具</a></li></ul></li><li class="tree-list-item"><i class="toggle-post-icon gg-folder-add"></i><a class="tree-list-link" href="/sugw.github.io/categories/%E6%BF%80%E6%B4%BB/">激活</a><ul class="tree-list-children"><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2020/12/01/datagrip/" title="datagrip"><i class="post-icon gg-file-document"></i>datagrip</a></li></ul></li><li class="tree-list-item"><i class="toggle-post-icon gg-folder-add"></i><a class="tree-list-link" href="/sugw.github.io/categories/%E7%9B%91%E6%8E%A7/">监控</a><ul class="tree-list-children"><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2020/10/26/Prometheus%E7%9B%91%E6%8E%A7node_exporter%E7%9A%84%E5%91%8A%E8%AD%A6%E8%A7%84%E5%88%99/" title="Prometheus监控node_exporter的告警规则"><i class="post-icon gg-file-document"></i>Prometheus监控node_exporter的告警规则</a></li><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2020/11/23/prometheus-pushgateway/" title="Prometheus-pushgateway"><i class="post-icon gg-file-document"></i>Prometheus-pushgateway</a></li></ul></li><li class="tree-list-item"><i class="toggle-post-icon gg-folder-add"></i><a class="tree-list-link" href="/sugw.github.io/categories/%E7%AC%94%E8%AE%B0/">笔记</a><ul class="tree-list-children"><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2021/01/25/Dockerfile%20ADD%20%E5%92%8C%20COPY%20%E7%9A%84%E5%8C%BA%E5%88%AB/" title="Dockerfile ADD和COPY的区别"><i class="post-icon gg-file-document"></i>Dockerfile ADD和COPY的区别</a></li><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2021/02/22/markdown%E8%AF%AD%E6%B3%95%E7%BB%98%E5%88%B6%E5%B8%B8%E7%94%A8%E5%9B%BE%E5%AE%9E%E4%BE%8B/" title="markdown语法绘制常用图实例"><i class="post-icon gg-file-document"></i>markdown语法绘制常用图实例</a></li><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2021/01/27/nginx%E5%86%85%E7%BD%AE%E5%8F%98%E9%87%8F%E8%AF%A6%E8%A7%A3/" title="Nginx内置变量详解"><i class="post-icon gg-file-document"></i>Nginx内置变量详解</a></li><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2021/01/27/nginx%E9%99%90%E6%B5%81%EF%BC%88%E9%99%90%E5%88%B6%E5%B9%B6%E5%8F%91%E9%85%8D%E7%BD%AE%EF%BC%89/" title="Nginx限流（限制并发配置）"><i class="post-icon gg-file-document"></i>Nginx限流（限制并发配置）</a></li></ul></li><li class="tree-list-item"><i class="toggle-post-icon gg-folder-add"></i><a class="tree-list-link" href="/sugw.github.io/categories/%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/">负载均衡</a><ul class="tree-list-children"><li class="tree-list-item"><a class="tree-list-post-link" href="/sugw.github.io/2021/01/13/LVS%20NAT,DR,TUN%E4%B8%89%E7%A7%8D%E8%B4%9F%E8%BD%BD%E5%8E%9F%E7%90%86/" title="LVS NAT,DR,TUN三种负载原理"><i class="post-icon gg-file-document"></i>LVS NAT,DR,TUN三种负载原理</a></li></ul></li></ul>
+        <div id="widget-tree-button">
+          <i class="gg-chevron-right"></i>
+        </div>
+      </div><!-- hexo injector body_end end --><script src="/sugw.github.io/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"live2d-widget-model-chitose"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false});</script></body>
+</html>
